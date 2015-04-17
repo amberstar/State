@@ -7,7 +7,7 @@ import Spot
  ************************************************/
 <$if userInfo.Spot.Enum != YES$>
 public struct <$managedObjectClassName$><$if hasCustomSuperentity$>: <$customSuperentity$><$endif$> {
-<$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType || Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Immutable == YES$><$if Attribute.hasScalarAttributeType$>let <$Attribute.name$>: <$if Attribute.scalarAttributeType == Int16 || Attribute.scalarAttributeType == Int32 || Attribute.scalarAttributeType == Int64$>Int<$else$><$Attribute.scalarAttributeType$><$endif$><$if Attribute.isOptional$>?<$endif$>
+    <$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType || Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Immutable == YES$><$if Attribute.hasScalarAttributeType$>let <$Attribute.name$>: <$if Attribute.scalarAttributeType == Int16 || Attribute.scalarAttributeType == Int32 || Attribute.scalarAttributeType == Int64$>Int<$else$><$Attribute.scalarAttributeType$><$endif$><$if Attribute.isOptional$>?<$endif$>
     <$else$><$if Attribute.userInfo.Spot.Type$>let <$Attribute.name$>: <$Attribute.userInfo.Spot.Type$><$if Attribute.isOptional$>?<$endif$>
     <$else$>let <$Attribute.name$>: <$Attribute.objectAttributeType$><$if Attribute.isOptional$>?<$endif$>
     <$endif$><$endif$><$endif$><$endif$><$endforeach do$><$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType || Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Immutable != YES$><$if Attribute.hasScalarAttributeType$>var <$Attribute.name$>: <$if Attribute.scalarAttributeType == Int16 || Attribute.scalarAttributeType == Int32 || Attribute.scalarAttributeType == Int64$>Int<$else$><$Attribute.scalarAttributeType$><$endif$><$if Attribute.isOptional$>?<$endif$>
@@ -76,20 +76,21 @@ public enum <$managedObjectClassName$><$if userInfo.Spot.Type$>: <$userInfo.Spot
 
 extension <$managedObjectClassName$>: Decodable {
 
-    static func create(rawValue: <$userInfo.Spot.Type$>) {
+    static func create(rawValue: <$userInfo.Spot.Type$>) -> <$managedObjectClassName$>?{
         return <$managedObjectClassName$>(rawValue: rawValue)
     }
 
     public init?(decoder: Decoder) {
-        let instance: <$managedObjectClassName$>? = <$managedObjectClassName$>.create
-            <^> decoder.decode("value")
+    if let rawValue: <$userInfo.Spot.Type$>  = decoder.decode("value"),
+    instance = <$managedObjectClassName$>(rawValue: rawValue) {
+        self = instance
+        } else { return nil }
 
-        if let i = instance { self = i } else { return nil }
-    }
+          }
 }
 
 
-extension <<$managedObjectClassName$>: Encodable {
+extension <$managedObjectClassName$>: Encodable {
 
     public func encode(encoder: Encoder) {
         encoder.encode(self.rawValue, forKey: "value")
