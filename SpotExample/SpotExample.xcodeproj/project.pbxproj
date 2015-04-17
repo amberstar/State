@@ -29,6 +29,8 @@
 		04012B941AE17B64006DAC19 /* Issues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012B921AE17B64006DAC19 /* Issues.swift */; };
 		04012B971AE18699006DAC19 /* Spot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04012B2C1AE16042006DAC19 /* Spot.framework */; };
 		04012B981AE18699006DAC19 /* Spot.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04012B2C1AE16042006DAC19 /* Spot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		04288C991AE1A5A700F5C8A8 /* IssuePriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04288C981AE1A5A700F5C8A8 /* IssuePriority.swift */; };
+		04288C9D1AE1A5AD00F5C8A8 /* _IssuePriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04288C9C1AE1A5AD00F5C8A8 /* _IssuePriority.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +111,8 @@
 		04012B8E1AE17B48006DAC19 /* IssueStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueStatus.swift; sourceTree = "<group>"; };
 		04012B911AE17B64006DAC19 /* _Issues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = _Issues.swift; sourceTree = "<group>"; };
 		04012B921AE17B64006DAC19 /* Issues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Issues.swift; sourceTree = "<group>"; };
+		04288C981AE1A5A700F5C8A8 /* IssuePriority.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuePriority.swift; sourceTree = "<group>"; };
+		04288C9C1AE1A5AD00F5C8A8 /* _IssuePriority.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = _IssuePriority.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +206,8 @@
 		04012B391AE16282006DAC19 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				04288C9C1AE1A5AD00F5C8A8 /* _IssuePriority.swift */,
+				04288C981AE1A5A700F5C8A8 /* IssuePriority.swift */,
 				04012B911AE17B64006DAC19 /* _Issues.swift */,
 				04012B921AE17B64006DAC19 /* Issues.swift */,
 				04012B8D1AE17B48006DAC19 /* _IssueStatus.swift */,
@@ -375,7 +381,9 @@
 				04012B541AE173F6006DAC19 /* IssueType.swift in Sources */,
 				04012B4C1AE16AF5006DAC19 /* Developer.swift in Sources */,
 				04012B431AE1687C006DAC19 /* _Issue.swift in Sources */,
+				04288C991AE1A5A700F5C8A8 /* IssuePriority.swift in Sources */,
 				04012B4B1AE16AF5006DAC19 /* _Developer.swift in Sources */,
+				04288C9D1AE1A5AD00F5C8A8 /* _IssuePriority.swift in Sources */,
 				04012B8F1AE17B48006DAC19 /* _IssueStatus.swift in Sources */,
 				04012B461AE1687C006DAC19 /* Issue.swift in Sources */,
 				04012B531AE173F6006DAC19 /* _IssueType.swift in Sources */,

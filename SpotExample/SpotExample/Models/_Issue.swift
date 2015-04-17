@@ -10,15 +10,17 @@ public struct Issue {
     var comment: String?
     var title: String
     var assignee: Developer
+    var priority: IssuePriority
     var product: Product
     var status: IssueStatus?
     var type: IssueType
 
-    init(comment: String?, title: String, assignee: Developer, product: Product, status: IssueStatus?, type: IssueType) {
+    init(comment: String?, title: String, assignee: Developer, priority: IssuePriority, product: Product, status: IssueStatus?, type: IssueType) {
 
         self.comment = comment
         self.title = title
         self.assignee = assignee
+        self.priority = priority
         self.product = product
         self.status = status
         self.type = type
@@ -28,9 +30,9 @@ public struct Issue {
 
 extension Issue : Decodable {
 
-    static func create(comment: String?)(title: String)(assignee: Developer)(product: Product)(status: IssueStatus?)(type: IssueType) -> Issue  {
+    static func create(comment: String?)(title: String)(assignee: Developer)(priority: IssuePriority)(product: Product)(status: IssueStatus?)(type: IssueType) -> Issue  {
 
-        return Issue(comment: comment, title: title, assignee: assignee, product: product, status: status, type: type)
+        return Issue(comment: comment, title: title, assignee: assignee, priority: priority, product: product, status: status, type: type)
     }
 
     public init?(decoder: Decoder) {
@@ -38,6 +40,7 @@ extension Issue : Decodable {
         <^> decoder.decodeOptional("comment")
         <*> decoder.decode("title")
         <*> decoder.decodeObject("assignee")
+        <*> decoder.decodeObject("priority")
         <*> decoder.decodeObject("product")
         <*> decoder.decodeOptionalObject("status")
         <*> decoder.decodeObject("type")
@@ -52,6 +55,7 @@ extension Issue : Encodable {
         encoder.encode(self.comment, forKey: "comment")
         encoder.encode(self.title, forKey: "title")
         encoder.encode(self.assignee, forKey: "assignee")
+        encoder.encode(self.priority, forKey: "priority")
         encoder.encode(self.product, forKey: "product")
         encoder.encode(self.status, forKey: "status")
         encoder.encode(self.type, forKey: "type")

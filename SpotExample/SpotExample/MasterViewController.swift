@@ -29,7 +29,7 @@ class MasterViewController: UITableViewController {
     func addIssue(index: Int) {
         let product = Product(name: "iSpot Pro")
         let developer = Developer(name: "Spiff Johnson")
-        var newIssue = Issue(comment: "write more tests", title: "New Issue", assignee: developer, product: product, status: .open, type: .task)
+        var newIssue = Issue(comment: "write more tests", title: "New Issue", assignee: developer, priority: IssuePriority.high, product: product, status: .open, type: .task)
         self.issues.openIssues.insert(newIssue, atIndex: index)
         self.saveData()
 
