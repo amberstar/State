@@ -1,0 +1,105 @@
+{
+    "t" : {
+        "id": 10,
+        "name": "John Doe",
+        "email": "john@unit-testing.com"
+    },
+    "u" : {
+        "id": 10,
+        "name": "John Doe"
+    },
+    "x" : {
+        "ix": 10,
+        "name": "John Doe"
+    },
+    "t_imp" : {
+        "id": 10,
+        "name": "John Doe",
+        "email": "john@unit-testing.com"
+    },
+    "t_arr" : [
+              {
+              "id": 10,
+              "name": "John Doe",
+              "email": "john@unit-testing.com"
+              },
+              {
+              "id": 10,
+              "name": "John Doe",
+              "email": "john@unit-testing.com"
+              },
+              {
+              "id": 10,
+              "name": "John Doe",
+              "email": "john@unit-testing.com"
+              }
+              ],
+    "t_arr_opt" :[
+                {
+                "id": 10,
+                "name": "John Doe",
+                "email": "john@unit-testing.com"
+                },
+                {
+                "id": 10,
+                "name": "John Doe",
+                "email": "john@unit-testing.com"
+                },
+                {
+                "id": 10,
+                "name": "John Doe",
+                "email": "john@unit-testing.com"
+                }
+                ],
+    "t_arr_imp" :[
+                {
+                "id": 10,
+                "name": "John Doe",
+                "email": "john@unit-testing.com"
+                },
+                {
+                "id": 10,
+                "name": "John Doe",
+                "email": "john@unit-testing.com"
+                },
+                {
+                "id": 10,
+                "name": "John Doe",
+                "email": "john@unit-testing.com"
+                }
+                ],
+    "t_dic"     : {
+        "item1" : {
+            "id": 10,
+            "name": "John Doe",
+            "email": "john@unit-testing.com"
+        },
+        "item2" : {
+            "id": 10,
+            "name": "John Doe",
+            "email": "john@unit-testing.com"
+        },
+        "item3" : {
+            "id": 10,
+            "name": "John Doe",
+            "email": "john@unit-testing.com"
+        }
+    },
+    "t_dic_opt"     : {
+        "item1" : {
+            "id": 10,
+            "name": "John Doe",
+            "email": "john@unit-testing.com"
+        },
+        "item2" : {
+            "id": 10,
+            "name": "John Doe",
+            "email": "john@unit-testing.com"
+        },
+        "item3" : {
+            "id": 10,
+            "name": "John Doe",
+            "email": "john@unit-testing.com"
+        }
+    }
+}
