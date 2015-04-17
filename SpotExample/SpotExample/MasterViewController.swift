@@ -12,19 +12,25 @@ import Spot
 class MasterViewController: UITableViewController {
 
     var objects = [AnyObject]()
+        
+//*************************************************************************************************************
+    
+///MARK:    SPOT MODEL EXAMPLE CODE
+    
+//*************************************************************************************************************
     var issues : Issues = Issues(closedIssues: [Issue](), openIssues: [Issue]())
 
     func loadData() {
-        // try to load issues to documents directory
+        // try to load issues from documents directory
         if let loadedIssues: Issues = Decoder.decode(JSON.read(documentPathFor("issues.json"))) {
             self.issues = loadedIssues
         }
     }
     
+    // save json to documents directory
     func saveData() {
         JSON.write(Encoder.encode(issues), path: documentPathFor("issues.json"))
     }
-    
     
     func addIssue(index: Int) {
         let product = Product(name: "iSpot Pro")
@@ -42,7 +48,7 @@ class MasterViewController: UITableViewController {
         self.saveData()
 
     }
-
+//*************************************************************************************************************
     override func awakeFromNib() {
         super.awakeFromNib()
     }
