@@ -16,13 +16,13 @@ class MasterViewController: UITableViewController {
 
     func loadData() {
         // try to load issues to documents directory
-        if let loadedIssues: Issues = Decoder.decode(Plist.read(documentPathFor("issues.plist"))) {
+        if let loadedIssues: Issues = Decoder.decode(JSON.read(documentPathFor("issues.json"))) {
             self.issues = loadedIssues
         }
     }
     
     func saveData() {
-        Plist.write(Encoder.encode(issues), path: documentPathFor("issues.plist"))
+        JSON.write(Encoder.encode(issues), path: documentPathFor("issues.json"))
     }
     
     
