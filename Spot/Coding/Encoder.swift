@@ -38,16 +38,4 @@ public final class Encoder {
             data[key] = element as? AnyObject
         }
     }
-    
-    public func encode<V>(element: [V]?, forKey key: String) {
-        if let e = element {
-            data[key] = element as? AnyObject
-        }
-    }
-    
-    public func endcode<V>(element: [String : V]?, forKey key: String) {
-        if let e = element {
-            data[key] = element as? AnyObject
-        }
-    }
 }

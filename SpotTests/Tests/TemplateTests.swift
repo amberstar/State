@@ -100,15 +100,19 @@ class TemplateTests: Test {
         XCTAssert(sut == TestEnum.Ready)
     }
     
-//    func testTransformable() {
-//        var test_out = TestTransformable(myTransformableImmutable: NSURL(string: "http://yahoo.com")!, myTransformableImmutableOptional: nil, myTransformable: NSURL(string: "http://facebook.com")!, myTransformableOptional:NSURL(string: "http://twitter.com")!)
-//        Data.write(Encoder.encode(test_out), path: tempPathFor("test_transformable.plist"))
-//        var sut: TestTransformable? = Decoder.decode(Data.read(tempPathFor("test_transformable.plist")))
-//        XCTAssert(sut != nil)
-//        XCTAssert(sut?.myTransformable == test_out.myTransformable)
-//        XCTAssert(sut?.myTransformableImmutable == test_out.myTransformableImmutable)
-//        XCTAssert(sut?.myTransformableImmutableOptional == test_out.myTransformableImmutableOptional)
-//        XCTAssert(sut?.myTransformableOptional == test_out.myTransformableOptional)
-//    }
+    func testTransformable() {
+        var test_out = TestTransformable( myTransformable: NSURL(string: "http://facebook.com")!, myTransformableImmutable: NSURL(string: "http://yahoo.com")!, myTransformableImmutableOptional: nil, myTransformableOptional:NSURL(string: "http://twitter.com")!)
+        Data.write(Encoder.encode(test_out), path: tempPathFor("test_transformable.plist"))
+        var sut: TestTransformable? = Decoder.decode(Data.read(tempPathFor("test_transformable.plist")))
+        XCTAssert(sut != nil)
+        XCTAssert(sut?.myTransformable == test_out.myTransformable)
+        XCTAssert(sut?.myTransformableImmutable == test_out.myTransformableImmutable)
+        XCTAssert(sut?.myTransformableImmutableOptional == test_out.myTransformableImmutableOptional)
+        XCTAssert(sut?.myTransformableOptional == test_out.myTransformableOptional)
+    }
+    
+    func testOverrideType() {
+        var test_out = TestOverrideType(myArrayOfString: ["string1", "string2"], myURL: NSURL(string: "http://simpletouchsoftware.com"))
+    }
 
 }

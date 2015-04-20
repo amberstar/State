@@ -43,12 +43,12 @@ extension BasicTypes : Decodable {
             <^> decoder.decode("t")
             <*> Optional(decoder.decode("t_opt"))
             <*> Optional(decoder.decode("t_imp"))
-            <*> decoder.decodeArray("t_arr")
-            <*> Optional(decoder.decodeArray("t_arr_opt"))
-            <*> Optional(decoder.decodeArray("t_arr_imp"))
-            <*> decoder.decodeDictionary("t_dic")
-            <*> Optional(decoder.decodeDictionary("t_dic_opt"))
-            <*> Optional(decoder.decodeDictionary("t_dic_imp"))
+            <*> decoder.decode("t_arr")
+            <*> Optional(decoder.decode("t_arr_opt"))
+            <*> Optional(decoder.decode("t_arr_imp"))
+            <*> decoder.decode("t_dic")
+            <*> Optional(decoder.decode("t_dic_opt"))
+            <*> Optional(decoder.decode("t_dic_imp"))
         
         if let i = instance { self = i } else { return nil }
     }
@@ -112,12 +112,12 @@ extension StringTypes : Decodable {
             <^> decoder.decode("t")
             <*> Optional(decoder.decode("t_opt"))
             <*> Optional(decoder.decode("t_imp"))
-            <*> decoder.decodeArray("t_arr")
-            <*> Optional(decoder.decodeArray("t_arr_opt"))
-            <*> Optional(decoder.decodeArray("t_arr_imp"))
-            <*> decoder.decodeDictionary("t_dic")
-            <*> Optional(decoder.decodeDictionary("t_dic_opt"))
-            <*> Optional(decoder.decodeDictionary("t_dic_imp")) {
+            <*> decoder.decode("t_arr")
+            <*> Optional(decoder.decode("t_arr_opt"))
+            <*> Optional(decoder.decode("t_arr_imp"))
+            <*> decoder.decode("t_dic")
+            <*> Optional(decoder.decode("t_dic_opt"))
+            <*> Optional(decoder.decode("t_dic_imp")) {
             self = instance
         } else {
             return nil
@@ -183,12 +183,12 @@ extension AnyObjectTypes : Decodable {
             <^> decoder.decode("t")
             <*> Optional(decoder.decode("t_opt"))
             <*> Optional(decoder.decode("t_imp"))
-            <*> decoder.decodeArray("t_arr")
-            <*> Optional(decoder.decodeArray("t_arr_opt"))
-            <*> Optional(decoder.decodeArray("t_arr_imp"))
-            <*> decoder.decodeDictionary("t_dic")
-            <*> Optional(decoder.decodeDictionary("t_dic_opt"))
-            <*> Optional(decoder.decodeDictionary("t_dic_imp")) {
+            <*> decoder.decode("t_arr")
+            <*> Optional(decoder.decode("t_arr_opt"))
+            <*> Optional(decoder.decode("t_arr_imp"))
+            <*> decoder.decode("t_dic")
+            <*> Optional(decoder.decode("t_dic_opt"))
+            <*> Optional(decoder.decode("t_dic_imp")) {
             self = instance
         } else {
             return nil

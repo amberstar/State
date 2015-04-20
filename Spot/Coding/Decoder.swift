@@ -84,24 +84,7 @@ public final class Decoder {
         return _decode(key)
     }
     
-    /**
-    decode a value array element V
-    :param: key a dictionary to use for decoding
-    :returns: return an array of element V or nil if decoding failed
-    */
-    public func decodeArray<V>(key: String) -> [V]? {
-        return _decodeArray(key)
-    }
     
-    /**
-    decode a value dictionary of string, element V
-    :param: key a dictionary to use for decoding
-    :returns: return a dictionary of element V or nil if decoding failed
-    */
-    public func decodeDictionary<V>(key: String) -> [String : V]? {
-        return _decodeDictionary(key)
-    }
-        
 /************************************************************************************************
 
 ///MARK: - PRIVATE METHODS
@@ -140,18 +123,6 @@ public final class Decoder {
         }
         return nil
     }
-    
-    private func _decodeArray<V>(key: String) -> [V]? {
-        if let d = data[key] as? [AnyObject] {
-            return sequence(d.map{ $0 as? V })
-        }
-        return nil
-    }
-    
-    private func _decodeDictionary<V>(key: String) -> [String : V]? {
-        if let d = data[key] as? [String : AnyObject] {
-            return sequence(d.map{ $0 as? V })
-        }
-        return nil
-    }
 }
+
+

@@ -58,7 +58,7 @@ struct Player {
             <*> decoder.decodeObjectArray("teamates")
             <*> Optional(decoder.decodeObjectArray("fillins"))
             <*> Optional(decoder.decodeObjectDictionary("teamatesByName"))
-            <*> Optional(decoder.decodeArray("awards"))
+            <*> Optional(decoder.decode("awards"))
         
         if let i = instance { self = i } else { return nil }
     }
