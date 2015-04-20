@@ -58,30 +58,12 @@ public final class Decoder {
     }
     
     /**
-    decode an optional decodable element
-    :param: key a dictionary to use for decoding
-    :returns: return an optional element type T optional
-    */
-    public func decodeOptionalObject<T:Decodable>(key: String) -> T?? {
-        return Optional(_decodeDecodable(key))
-    }
-    
-    /**
     decode a decodable array of element T
     :param: key a dictionary to use for decoding
     :returns: return an optional array of T or nil if decoding failed
     */
     public func decodeObjectArray<T:Decodable>(key: String) -> [T]? {
         return _decodeDecodableArray(key)
-    }
-    
-    /**
-    decode an optional decodable array optional of element T
-    :param: key a dictionary to use for decoding
-    :returns: return an optional array of  element T optional
-    */
-    public func decodeOptionalObjectArray<T: Decodable>(key: String) -> [T]?? {
-        return Optional(_decodeDecodableArray(key))
     }
     
     /**
@@ -94,30 +76,12 @@ public final class Decoder {
     }
     
     /**
-    decode an optional dictionary of string,decodable element T
-    :param: key a dictionary to use for decoding
-    :returns: return an optional dictionary string, element T optional
-    */
-    public func decodeOptionalObjectDictionary<T: Decodable>(key: String) -> [String : T]?? {
-        return Optional(_decodeDecodableDictionary(key))
-    }
-    
-    /**
     decode a value element V
     :param: key a dictionary to use for decoding
     :returns: return an element V or nil if decoding failed
     */
     public func decode<V>(key: String) -> V? {
         return _decode(key)
-    }
-    
-    /**
-    decode an optional value element V
-    :param: key a dictionary to use for decoding
-    :returns: return an optional element V optional
-    */
-    public func decodeOptional<V>(key: String) -> V?? {
-        return Optional(_decode(key))
     }
     
     /**
@@ -130,32 +94,14 @@ public final class Decoder {
     }
     
     /**
-    decode an optional value array element V
-    :param: key a dictionary to use for decoding
-    :returns: return an optional array of element V optional
-    */
-    public func decodeOptionalArray<V>(key: String) -> [V]??  {
-        return Optional(_decodeArray(key))
-    }
-    
-    /**
-    decode an value dictionary of string, element V
+    decode a value dictionary of string, element V
     :param: key a dictionary to use for decoding
     :returns: return a dictionary of element V or nil if decoding failed
     */
     public func decodeDictionary<V>(key: String) -> [String : V]? {
         return _decodeDictionary(key)
     }
-    
-    /**
-    decode an optional value dictionary of string, element V
-    :param: key a dictionary to use for decoding
-    :returns: return an optional dictionary of element V optional
-    */
-    public func decodeOptionalDictionary<V>(key: String) -> [String : V]??  {
-        return Optional(_decodeDictionary(key))
-    }
-    
+        
 /************************************************************************************************
 
 ///MARK: - PRIVATE METHODS

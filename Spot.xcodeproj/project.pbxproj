@@ -43,11 +43,25 @@
 		04012AE11AE132FF006DAC19 /* PerfTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AD91AE132FF006DAC19 /* PerfTests.swift */; };
 		04012AE21AE132FF006DAC19 /* RecursiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012ADA1AE132FF006DAC19 /* RecursiveTests.swift */; };
 		04012AEA1AE1415E006DAC19 /* TemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AE91AE1415E006DAC19 /* TemplateTests.swift */; };
-		04012AF01AE14561006DAC19 /* TestModels in Sources */ = {isa = PBXBuildFile; fileRef = 04012ACE1AE132CD006DAC19 /* TestModels */; };
 		04012AF11AE14602006DAC19 /* _Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AEE1AE14502006DAC19 /* _Company.swift */; };
 		04012AF21AE14605006DAC19 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AEC1AE144DE006DAC19 /* Company.swift */; };
 		04012AF41AE15456006DAC19 /* _Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AF31AE15456006DAC19 /* _Employee.swift */; };
 		04012AF61AE1545C006DAC19 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AF51AE1545C006DAC19 /* Employee.swift */; };
+		044139E51AE5075D00A6CD09 /* TestOptionalTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139E31AE5075D00A6CD09 /* TestOptionalTypes.swift */; };
+		044139E81AE510BE00A6CD09 /* _TestTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139E61AE510BE00A6CD09 /* _TestTypes.swift */; };
+		044139E91AE510BE00A6CD09 /* TestTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139E71AE510BE00A6CD09 /* TestTypes.swift */; };
+		044139EC1AE5148100A6CD09 /* _TestCollections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139EA1AE5148100A6CD09 /* _TestCollections.swift */; };
+		044139ED1AE5148100A6CD09 /* TestCollections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139EB1AE5148100A6CD09 /* TestCollections.swift */; };
+		044139F01AE5402500A6CD09 /* _TestEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139EE1AE5402500A6CD09 /* _TestEnum.swift */; };
+		044139F11AE5402500A6CD09 /* TestEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139EF1AE5402500A6CD09 /* TestEnum.swift */; };
+		044139F31AE5436400A6CD09 /* _TestTransformable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139F21AE5436400A6CD09 /* _TestTransformable.swift */; };
+		044139F51AE5437100A6CD09 /* TestTransformable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139F41AE5437100A6CD09 /* TestTransformable.swift */; };
+		044139FA1AE5513200A6CD09 /* _TestImmutableOptionalTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139F61AE5513200A6CD09 /* _TestImmutableOptionalTypes.swift */; };
+		044139FB1AE5513200A6CD09 /* _TestImmutableTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139F71AE5513200A6CD09 /* _TestImmutableTypes.swift */; };
+		044139FC1AE5513200A6CD09 /* TestImmutableOptionalTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139F81AE5513200A6CD09 /* TestImmutableOptionalTypes.swift */; };
+		044139FD1AE5513200A6CD09 /* TestImmutableTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139F91AE5513200A6CD09 /* TestImmutableTypes.swift */; };
+		04413A001AE574C900A6CD09 /* _TestOptionalTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139FE1AE574C900A6CD09 /* _TestOptionalTypes.swift */; };
+		04413A011AE574C900A6CD09 /* _TestOverrideType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139FF1AE574C900A6CD09 /* _TestOverrideType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +126,22 @@
 		04012AEE1AE14502006DAC19 /* _Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _Company.swift; path = Models/TestModels/_Company.swift; sourceTree = "<group>"; };
 		04012AF31AE15456006DAC19 /* _Employee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _Employee.swift; path = Models/TestModels/_Employee.swift; sourceTree = "<group>"; };
 		04012AF51AE1545C006DAC19 /* Employee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Employee.swift; path = Models/TestModels/Employee.swift; sourceTree = "<group>"; };
+		044139E21AE5075D00A6CD09 /* _TestOptionalTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestOptionalTypes.swift; path = Models/TestModels/_TestOptionalTypes.swift; sourceTree = "<group>"; };
+		044139E31AE5075D00A6CD09 /* TestOptionalTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestOptionalTypes.swift; path = Models/TestModels/TestOptionalTypes.swift; sourceTree = "<group>"; };
+		044139E61AE510BE00A6CD09 /* _TestTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestTypes.swift; path = Models/TestModels/_TestTypes.swift; sourceTree = "<group>"; };
+		044139E71AE510BE00A6CD09 /* TestTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestTypes.swift; path = Models/TestModels/TestTypes.swift; sourceTree = "<group>"; };
+		044139EA1AE5148100A6CD09 /* _TestCollections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestCollections.swift; path = Models/TestModels/_TestCollections.swift; sourceTree = "<group>"; };
+		044139EB1AE5148100A6CD09 /* TestCollections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestCollections.swift; path = Models/TestModels/TestCollections.swift; sourceTree = "<group>"; };
+		044139EE1AE5402500A6CD09 /* _TestEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestEnum.swift; path = Models/TestModels/_TestEnum.swift; sourceTree = "<group>"; };
+		044139EF1AE5402500A6CD09 /* TestEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestEnum.swift; path = Models/TestModels/TestEnum.swift; sourceTree = "<group>"; };
+		044139F21AE5436400A6CD09 /* _TestTransformable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestTransformable.swift; path = Models/TestModels/_TestTransformable.swift; sourceTree = "<group>"; };
+		044139F41AE5437100A6CD09 /* TestTransformable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestTransformable.swift; path = Models/TestModels/TestTransformable.swift; sourceTree = "<group>"; };
+		044139F61AE5513200A6CD09 /* _TestImmutableOptionalTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestImmutableOptionalTypes.swift; path = Models/TestModels/_TestImmutableOptionalTypes.swift; sourceTree = "<group>"; };
+		044139F71AE5513200A6CD09 /* _TestImmutableTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestImmutableTypes.swift; path = Models/TestModels/_TestImmutableTypes.swift; sourceTree = "<group>"; };
+		044139F81AE5513200A6CD09 /* TestImmutableOptionalTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestImmutableOptionalTypes.swift; path = Models/TestModels/TestImmutableOptionalTypes.swift; sourceTree = "<group>"; };
+		044139F91AE5513200A6CD09 /* TestImmutableTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestImmutableTypes.swift; path = Models/TestModels/TestImmutableTypes.swift; sourceTree = "<group>"; };
+		044139FE1AE574C900A6CD09 /* _TestOptionalTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestOptionalTypes.swift; path = Models/TestModels/_TestOptionalTypes.swift; sourceTree = "<group>"; };
+		044139FF1AE574C900A6CD09 /* _TestOverrideType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestOverrideType.swift; path = Models/TestModels/_TestOverrideType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +296,22 @@
 		04012AC41AE13290006DAC19 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				044139FE1AE574C900A6CD09 /* _TestOptionalTypes.swift */,
+				044139FF1AE574C900A6CD09 /* _TestOverrideType.swift */,
+				044139F61AE5513200A6CD09 /* _TestImmutableOptionalTypes.swift */,
+				044139F71AE5513200A6CD09 /* _TestImmutableTypes.swift */,
+				044139F81AE5513200A6CD09 /* TestImmutableOptionalTypes.swift */,
+				044139F91AE5513200A6CD09 /* TestImmutableTypes.swift */,
+				044139F41AE5437100A6CD09 /* TestTransformable.swift */,
+				044139F21AE5436400A6CD09 /* _TestTransformable.swift */,
+				044139EE1AE5402500A6CD09 /* _TestEnum.swift */,
+				044139EF1AE5402500A6CD09 /* TestEnum.swift */,
+				044139EA1AE5148100A6CD09 /* _TestCollections.swift */,
+				044139EB1AE5148100A6CD09 /* TestCollections.swift */,
+				044139E61AE510BE00A6CD09 /* _TestTypes.swift */,
+				044139E71AE510BE00A6CD09 /* TestTypes.swift */,
+				044139E21AE5075D00A6CD09 /* _TestOptionalTypes.swift */,
+				044139E31AE5075D00A6CD09 /* TestOptionalTypes.swift */,
 				04012AF51AE1545C006DAC19 /* Employee.swift */,
 				04012AF31AE15456006DAC19 /* _Employee.swift */,
 				04012AEE1AE14502006DAC19 /* _Company.swift */,
@@ -454,22 +500,36 @@
 			buildActionMask = 2147483647;
 			files = (
 				04012ADE1AE132FF006DAC19 /* DecodingTests.swift in Sources */,
+				04413A001AE574C900A6CD09 /* _TestOptionalTypes.swift in Sources */,
 				04012AE21AE132FF006DAC19 /* RecursiveTests.swift in Sources */,
+				044139E81AE510BE00A6CD09 /* _TestTypes.swift in Sources */,
 				04012ADB1AE132FF006DAC19 /* BaseTest.swift in Sources */,
 				04012ADD1AE132FF006DAC19 /* DecodableTests.swift in Sources */,
 				04012ADC1AE132FF006DAC19 /* DataAdapterTests.swift in Sources */,
 				04012AE01AE132FF006DAC19 /* EncodingTests.swift in Sources */,
 				04012ACB1AE132AE006DAC19 /* ObjectModels.swift in Sources */,
+				044139F31AE5436400A6CD09 /* _TestTransformable.swift in Sources */,
 				04012ACC1AE132AE006DAC19 /* RecursiveModel.swift in Sources */,
+				044139EC1AE5148100A6CD09 /* _TestCollections.swift in Sources */,
 				04012AF21AE14605006DAC19 /* Company.swift in Sources */,
+				044139FD1AE5513200A6CD09 /* TestImmutableTypes.swift in Sources */,
 				04012AF41AE15456006DAC19 /* _Employee.swift in Sources */,
 				04012ACA1AE132AE006DAC19 /* BasicModels.swift in Sources */,
+				044139ED1AE5148100A6CD09 /* TestCollections.swift in Sources */,
+				044139F11AE5402500A6CD09 /* TestEnum.swift in Sources */,
+				044139FB1AE5513200A6CD09 /* _TestImmutableTypes.swift in Sources */,
+				04413A011AE574C900A6CD09 /* _TestOverrideType.swift in Sources */,
+				044139F01AE5402500A6CD09 /* _TestEnum.swift in Sources */,
 				04012AF61AE1545C006DAC19 /* Employee.swift in Sources */,
+				044139E51AE5075D00A6CD09 /* TestOptionalTypes.swift in Sources */,
+				044139FC1AE5513200A6CD09 /* TestImmutableOptionalTypes.swift in Sources */,
 				04012AEA1AE1415E006DAC19 /* TemplateTests.swift in Sources */,
+				044139FA1AE5513200A6CD09 /* _TestImmutableOptionalTypes.swift in Sources */,
 				04012AE11AE132FF006DAC19 /* PerfTests.swift in Sources */,
 				04012AF11AE14602006DAC19 /* _Company.swift in Sources */,
+				044139F51AE5437100A6CD09 /* TestTransformable.swift in Sources */,
 				04012ADF1AE132FF006DAC19 /* EncodableTests.swift in Sources */,
-				04012AF01AE14561006DAC19 /* TestModels in Sources */,
+				044139E91AE510BE00A6CD09 /* TestTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -710,6 +770,7 @@
 				04012AE61AE13A90006DAC19 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

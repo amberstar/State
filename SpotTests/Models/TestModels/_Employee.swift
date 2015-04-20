@@ -1,19 +1,19 @@
-import Spot
-
 /************************************************
 
             MACHINE GENERATED FILE
 
  ************************************************/
 
+import Spot
+
 public struct Employee {
-var name: String
+    var name: String
     var title: String?
 
-    init(name: String, title: String?) {
+public init(name: String, title: String?) {
 
-        self.name = name
-        self.title = title
+    self.name = name
+    self.title = title
 
     }
 }
@@ -24,11 +24,10 @@ extension Employee : Decodable {
 
         return Employee(name: name, title: title)
     }
-
     public init?(decoder: Decoder) {
         let instance: Employee? = Employee.create
         <^> decoder.decode("name")
-        <*> decoder.decodeOptional("title")
+        <*> Optional(decoder.decode("title"))
 
         if let i = instance { self = i } else { return nil }
     }

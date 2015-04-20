@@ -5,8 +5,6 @@
 ************************************************/
 import Foundation
 
-extension <$managedObjectClassName$> {
-
-    // Extend your model entity here.
+extension TestTransformable {
 
 }

@@ -30,8 +30,6 @@ struct Player {
         self.age = age
     }
     
-    
-    
     init(id: Int, name: String,  email: String?, age: Int, height: Float?, weight: Double?, MVP: Bool, teamates: [Player], fillins: [Player]?, teamatesByName: [String : Player]?, awards:[AnyObject]?) {
         self.id = id
         self.name = name
@@ -51,16 +49,16 @@ struct Player {
         let instance: Player? = Player.create
             <^> decoder.decode("id")
             <*> decoder.decode("name")
-            <*> decoder.decodeOptional("email")
+            <*> Optional(decoder.decode("email"))
             <*> decoder.decode("age")
-            <*> decoder.decodeOptional("height")
-            <*> decoder.decodeOptional("weight")
+            <*> Optional(decoder.decode("height"))
+            <*> Optional(decoder.decode("weight"))
             <*> decoder.decode("mvp")
-            <*> decoder.decodeOptionalObject("partner")
+            <*> Optional(decoder.decodeObject("partner"))
             <*> decoder.decodeObjectArray("teamates")
-            <*> decoder.decodeOptionalObjectArray("fillins")
-            <*> decoder.decodeOptionalObjectDictionary("teamatesByName")
-            <*> decoder.decodeOptionalArray("awards")
+            <*> Optional(decoder.decodeObjectArray("fillins"))
+            <*> Optional(decoder.decodeObjectDictionary("teamatesByName"))
+            <*> Optional(decoder.decodeArray("awards"))
         
         if let i = instance { self = i } else { return nil }
     }

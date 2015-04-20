@@ -5,7 +5,7 @@
 ************************************************/
 import Foundation
 
-extension <$managedObjectClassName$> {
+extension TestOverrideType {
 
     // Extend your model entity here.
 

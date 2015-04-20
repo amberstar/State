@@ -3,9 +3,8 @@
         HUMAN GENERATED FILE
 
 ************************************************/
-import Foundation
 
-extension <$managedObjectClassName$> {
+extension TestEnum {
 
     // Extend your model entity here.
 

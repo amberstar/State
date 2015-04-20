@@ -7,5 +7,3 @@ FOUNDATION_EXPORT double SpotVersionNumber;
 FOUNDATION_EXPORT const unsigned char SpotVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <Spot/PublicHeader.h>
-
-

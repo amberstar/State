@@ -1,23 +1,24 @@
-import Spot
-
 /************************************************
 
             MACHINE GENERATED FILE
 
  ************************************************/
 
+import Spot
+
 public struct Company {
-var name: String
+    var name: String
     var phoneNumber: String?
     var yearFounded: Double
+
     var employees: [Employee]?
 
-    init(name: String, phoneNumber: String?, yearFounded: Double, employees: [Employee]?) {
+public init(name: String, phoneNumber: String?, yearFounded: Double, employees: [Employee]?) {
 
-        self.name = name
-        self.phoneNumber = phoneNumber
-        self.yearFounded = yearFounded
-        self.employees = employees
+    self.name = name
+    self.phoneNumber = phoneNumber
+    self.yearFounded = yearFounded
+    self.employees = employees
 
     }
 }
@@ -28,13 +29,12 @@ extension Company : Decodable {
 
         return Company(name: name, phoneNumber: phoneNumber, yearFounded: yearFounded, employees: employees)
     }
-
     public init?(decoder: Decoder) {
         let instance: Company? = Company.create
         <^> decoder.decode("name")
-        <*> decoder.decodeOptional("phoneNumber")
+        <*> Optional(decoder.decode("phoneNumber"))
         <*> decoder.decode("yearFounded")
-        <*> decoder.decodeOptionalObjectArray("employees")
+        <*> Optional(decoder.decodeObjectArray("employees"))
 
         if let i = instance { self = i } else { return nil }
     }

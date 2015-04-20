@@ -41,14 +41,14 @@ extension BasicTypes : Decodable {
      init?(decoder: Decoder) {
         let instance: BasicTypes? = BasicTypes.create
             <^> decoder.decode("t")
-            <*> decoder.decodeOptional("t_opt")
-            <*> decoder.decodeOptional("t_imp")
+            <*> Optional(decoder.decode("t_opt"))
+            <*> Optional(decoder.decode("t_imp"))
             <*> decoder.decodeArray("t_arr")
-            <*> decoder.decodeOptionalArray("t_arr_opt")
-            <*> decoder.decodeOptionalArray("t_arr_imp")
+            <*> Optional(decoder.decodeArray("t_arr_opt"))
+            <*> Optional(decoder.decodeArray("t_arr_imp"))
             <*> decoder.decodeDictionary("t_dic")
-            <*> decoder.decodeOptionalDictionary("t_dic_opt")
-            <*> decoder.decodeOptionalDictionary("t_dic_imp")
+            <*> Optional(decoder.decodeDictionary("t_dic_opt"))
+            <*> Optional(decoder.decodeDictionary("t_dic_imp"))
         
         if let i = instance { self = i } else { return nil }
     }
@@ -110,14 +110,14 @@ extension StringTypes : Decodable {
     init?(decoder: Decoder) {
         if let instance = StringTypes.create
             <^> decoder.decode("t")
-            <*> decoder.decodeOptional("t_opt")
-            <*> decoder.decodeOptional("t_imp")
+            <*> Optional(decoder.decode("t_opt"))
+            <*> Optional(decoder.decode("t_imp"))
             <*> decoder.decodeArray("t_arr")
-            <*> decoder.decodeOptionalArray("t_arr_opt")
-            <*> decoder.decodeOptionalArray("t_arr_imp")
+            <*> Optional(decoder.decodeArray("t_arr_opt"))
+            <*> Optional(decoder.decodeArray("t_arr_imp"))
             <*> decoder.decodeDictionary("t_dic")
-            <*> decoder.decodeOptionalDictionary("t_dic_opt")
-            <*> decoder.decodeOptionalDictionary("t_dic_imp") {
+            <*> Optional(decoder.decodeDictionary("t_dic_opt"))
+            <*> Optional(decoder.decodeDictionary("t_dic_imp")) {
             self = instance
         } else {
             return nil
@@ -181,14 +181,14 @@ extension AnyObjectTypes : Decodable {
     init?(decoder: Decoder) {
         if let instance = AnyObjectTypes.create
             <^> decoder.decode("t")
-            <*> decoder.decodeOptional("t_opt")
-            <*> decoder.decodeOptional("t_imp")
+            <*> Optional(decoder.decode("t_opt"))
+            <*> Optional(decoder.decode("t_imp"))
             <*> decoder.decodeArray("t_arr")
-            <*> decoder.decodeOptionalArray("t_arr_opt")
-            <*> decoder.decodeOptionalArray("t_arr_imp")
+            <*> Optional(decoder.decodeArray("t_arr_opt"))
+            <*> Optional(decoder.decodeArray("t_arr_imp"))
             <*> decoder.decodeDictionary("t_dic")
-            <*> decoder.decodeOptionalDictionary("t_dic_opt")
-            <*> decoder.decodeOptionalDictionary("t_dic_imp") {
+            <*> Optional(decoder.decodeDictionary("t_dic_opt"))
+            <*> Optional(decoder.decodeDictionary("t_dic_imp")) {
             self = instance
         } else {
             return nil

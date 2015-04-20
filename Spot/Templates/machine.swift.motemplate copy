@@ -1,0 +1,103 @@
+import Spot
+
+/************************************************
+
+            MACHINE GENERATED FILE
+
+ ************************************************/
+<$if userInfo.Spot.Enum != YES$>
+public struct <$managedObjectClassName$><$if hasCustomSuperentity$>: <$customSuperentity$><$endif$> {
+    <$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType || Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Immutable == YES$><$if Attribute.hasScalarAttributeType$>let <$Attribute.name$>: <$if Attribute.scalarAttributeType == Int16 || Attribute.scalarAttributeType == Int32 || Attribute.scalarAttributeType == Int64$>Int<$else$><$Attribute.scalarAttributeType$><$endif$><$if Attribute.isOptional$>?<$endif$>
+    <$else$><$if Attribute.userInfo.Spot.Type$>let <$Attribute.name$>: <$Attribute.userInfo.Spot.Type$><$if Attribute.isOptional$>?<$endif$>
+    <$else$>let <$Attribute.name$>: <$Attribute.objectAttributeType$><$if Attribute.isOptional$>?<$endif$>
+    <$endif$><$endif$><$endif$><$endif$><$endforeach do$><$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType || Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Immutable != YES$><$if Attribute.hasScalarAttributeType$>var <$Attribute.name$>: <$if Attribute.scalarAttributeType == Int16 || Attribute.scalarAttributeType == Int32 || Attribute.scalarAttributeType == Int64$>Int<$else$><$Attribute.scalarAttributeType$><$endif$><$if Attribute.isOptional$>?<$endif$>
+    <$else$><$if Attribute.userInfo.Spot.Type$>var <$Attribute.name$>: <$Attribute.userInfo.Spot.Type$><$if Attribute.isOptional$>?<$endif$>
+    <$else$>var <$Attribute.name$>: <$Attribute.objectAttributeType$><$if Attribute.isOptional$>?<$endif$>
+    <$endif$><$endif$><$endif$><$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if ! Relationship.isToMany$>var <$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$>
+    <$else$>var <$Relationship.name$>: [<$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$>
+    <$endif$><$endforeach do$>
+
+    public init(<$set numNonImmutableAttributes = 0$><$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType || Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Immutable != YES$><$set numNonImmutableAttributes = numNonImmutableAttributes + 1$><$endif$><$if Attribute.userInfo.Spot.Immutable == YES$><$if Attribute.hasScalarAttributeType$><$Attribute.name$>: <$if Attribute.scalarAttributeType == Int16 || Attribute.scalarAttributeType == Int32 || Attribute.scalarAttributeType == Int64$>Int<$else$><$Attribute.scalarAttributeType$><$endif$><$if Attribute.isOptional$>?<$endif$><$if (AttributeIndex + 1 < noninheritedAttributes.@count || numNonImmutableAttributes > 0) $>, <$endif$><$else$><$if Attribute.userInfo.Spot.Type$><$Attribute.name$>: <$Attribute.userInfo.Spot.Type$><$if Attribute.isOptional$>?<$endif$><$if (AttributeIndex + 1 < noninheritedAttributes.@count || numNonImmutableAttributes > 0) $>, <$endif$><$else$><$Attribute.name$>: <$Attribute.objectAttributeType$><$if Attribute.isOptional$>?<$endif$><$if (AttributeIndex + 1 < noninheritedAttributes.@count || numNonImmutableAttributes > 0) $>, <$endif$><$endif$><$endif$><$endif$><$endif$><$endforeach do$><$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType || Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Immutable != YES$><$if Attribute.hasScalarAttributeType$><$Attribute.name$>: <$if Attribute.scalarAttributeType == Int16 || Attribute.scalarAttributeType == Int32 || Attribute.scalarAttributeType == Int64$>Int<$else$><$Attribute.scalarAttributeType$><$endif$><$if Attribute.isOptional$>?<$endif$><$if numNonImmutableAttributes > 1$>, <$endif$><$else$><$if Attribute.userInfo.Spot.Type$><$Attribute.name$>: <$Attribute.userInfo.Spot.Type$><$if Attribute.isOptional$>?<$endif$><$if numNonImmutableAttributes > 1$>, <$endif$><$else$><$Attribute.name$>: <$Attribute.objectAttributeType$><$if Attribute.isOptional$>?<$endif$><$if numNonImmutableAttributes > 1$>, <$endif$><$endif$><$endif$><$set numNonImmutableAttributes = numNonImmutableAttributes - 1$><$endif$><$endif$><$endforeach do$><$if noninheritedAttributes.@count > 0$><$if noninheritedRelationships.@count > 0$>, <$endif$><$endif$><$foreach Relationship noninheritedRelationships do$><$if ! Relationship.isToMany$><$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$><$if (RelationshipIndex + 1 < noninheritedRelationships.@count) $>, <$endif$><$else$><$Relationship.name$>: [<$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$><$if (RelationshipIndex + 1 < noninheritedRelationships.@count) $>, <$endif$><$endif$><$endforeach do$>) {
+
+        <$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType || Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Immutable == YES$>self.<$Attribute.name$> = <$Attribute.name$>
+        <$endif$><$endif$><$endforeach do$><$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType || Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Immutable != YES$>self.<$Attribute.name$> = <$Attribute.name$>
+        <$endif$><$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$>self.<$Relationship.name$> = <$Relationship.name$>
+        <$endforeach do$>
+    }
+}
+
+
+extension <$managedObjectClassName$> : Decodable {
+
+    static func create<$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType || Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Immutable == YES$><$if Attribute.hasScalarAttributeType$>(<$Attribute.name$>: <$if Attribute.scalarAttributeType == Int16 || Attribute.scalarAttributeType == Int32 || Attribute.scalarAttributeType == Int64$>Int<$else$><$Attribute.scalarAttributeType$><$endif$><$if Attribute.isOptional$>?<$endif$>)<$else$><$if Attribute.userInfo.Spot.Type$>(<$Attribute.name$>: <$Attribute.userInfo.Spot.Type$><$if Attribute.isOptional$>?<$endif$>)<$else$>(<$Attribute.name$>: <$Attribute.objectAttributeType$><$if Attribute.isOptional$>?<$endif$>)<$endif$><$endif$><$endif$><$endif$><$endforeach do$><$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType || Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Immutable != YES$><$if Attribute.hasScalarAttributeType$>(<$Attribute.name$>: <$if Attribute.scalarAttributeType == Int16 || Attribute.scalarAttributeType == Int32 || Attribute.scalarAttributeType == Int64$>Int<$else$><$Attribute.scalarAttributeType$><$endif$><$if Attribute.isOptional$>?<$endif$>)<$else$><$if Attribute.userInfo.Spot.Type$>(<$Attribute.name$>: <$Attribute.userInfo.Spot.Type$><$if Attribute.isOptional$>?<$endif$>)<$else$>(<$Attribute.name$>: <$Attribute.objectAttributeType$><$if Attribute.isOptional$>?<$endif$>)<$endif$><$endif$><$endif$><$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if ! Relationship.isToMany$>(<$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$>)<$else$>(<$Relationship.name$>: [<$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$>)<$endif$><$endforeach do$> -> <$managedObjectClassName$>  {
+
+        return <$managedObjectClassName$>(<$set numNonImmutableAttributes = 0$><$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType || Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Immutable != YES$><$set numNonImmutableAttributes = numNonImmutableAttributes + 1$><$endif$><$if Attribute.userInfo.Spot.Immutable == YES$><$Attribute.name$>: <$Attribute.name$><$if (AttributeIndex + 1 < noninheritedAttributes.@count || numNonImmutableAttributes > 0) $>, <$endif$><$endif$><$endif$><$endforeach do$><$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType || Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Immutable != YES$><$Attribute.name$>: <$Attribute.name$><$if numNonImmutableAttributes > 1$>, <$endif$><$endif$><$endif$><$set numNonImmutableAttributes = numNonImmutableAttributes - 1$><$endforeach do$><$if noninheritedAttributes.@count > 0$><$if noninheritedRelationships.@count > 0$>, <$endif$><$endif$><$foreach Relationship noninheritedRelationships do$><$Relationship.name$>: <$Relationship.name$><$if (RelationshipIndex + 1 < noninheritedRelationships.@count) $>, <$endif$><$endforeach do$>)
+    }
+<$set indexOfProp = 0$>
+    public init?(decoder: Decoder) {
+        let instance: <$managedObjectClassName$>? = <$managedObjectClassName$>.create
+        <$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType || Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Immutable == YES$><$if indexOfProp == 0$><^><$endif$><$if indexOfProp > 0$><*><$endif$><$set indexOfProp = indexOfProp + 1$><$if Attribute.attributeType == 1800$><$if Attribute.isOptional$> Optional(<$Attribute.valueTransformerName$>.reverseTransform(decoder.decode("<$Attribute.name$>")))<$else$> <$Attribute.valueTransformerName$>.reverseTransform(decoder.decode("<$Attribute.name$>"))<$endif$>
+        <$else$><$if Attribute.isOptional$> decoder.decodeOptional("<$Attribute.name$>")
+        <$else$> decoder.decode("<$Attribute.name$>")
+        <$endif$><$endif$><$endif$><$endif$><$endforeach do$><$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType || Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Immutable != YES$><$if indexOfProp == 0$><^><$endif$><$if indexOfProp > 0$><*><$endif$><$set indexOfProp = indexOfProp + 1$><$if Attribute.attributeType == 1800$><$if Attribute.isOptional$> Optional(<$Attribute.valueTransformerName$>.reverseTransform(decoder.decode("<$Attribute.name$>")))
+        <$else$> <$Attribute.valueTransformerName$>.reverseTransform(decoder.decode("<$Attribute.name$>"))<$endif$>
+        <$else$><$if Attribute.isOptional$> decoder.decodeOptional("<$Attribute.name$>")
+        <$else$> decoder.decode("<$Attribute.name$>")
+        <$endif$><$endif$><$endif$><$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if ! Relationship.isToMany$><$if indexOfProp == 0$><^><$endif$><$if indexOfProp > 0$><*><$endif$><$set indexOfProp = indexOfProp + 1$><$if Relationship.isOptional$> decoder.decodeOptionalObject("<$Relationship.name$>")
+        <$else$> decoder.decodeObject("<$Relationship.name$>")
+        <$endif$><$else$><$if indexOfProp == 0$><^><$endif$><$if indexOfProp > 0$><*><$endif$><$set indexOfProp = indexOfProp + 1$><$if Relationship.isOptional$> decoder.decodeOptionalObjectArray("<$Relationship.name$>")
+        <$else$> decoder.decodeObjectArray("<$Relationship.name$>")
+        <$endif$><$endif$><$endforeach do$>
+        if let i = instance { self = i } else { return nil }
+    }
+}
+
+extension <$managedObjectClassName$> : Encodable {
+
+    public func encode(encoder: Encoder) {
+        <$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType || Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Immutable == YES$><$if Attribute.attributeType == 1800$>encoder.encode(<$Attribute.valueTransformerName$>.transform(self.<$Attribute.name$>), forKey: "<$Attribute.name$>")
+        <$else$>encoder.encode(self.<$Attribute.name$>, forKey: "<$Attribute.name$>")
+        <$endif$><$endif$><$endif$><$endforeach do$><$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType || Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Immutable != YES$><$if Attribute.attributeType == 1800$>encoder.encode(<$Attribute.valueTransformerName$>.transform(self.<$Attribute.name$>), forKey: "<$Attribute.name$>")
+        <$else$>encoder.encode(self.<$Attribute.name$>, forKey: "<$Attribute.name$>")
+        <$endif$><$endif$><$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$>encoder.encode(self.<$Relationship.name$>, forKey: "<$Relationship.name$>")
+        <$endforeach do$>
+    }
+}
+<$endif$>
+
+
+<$if userInfo.Spot.Enum == YES$>
+
+public enum <$managedObjectClassName$><$if userInfo.Spot.Type$>: <$userInfo.Spot.Type$><$endif$> {
+
+    <$foreach Attribute noninheritedAttributes do$>case <$Attribute.name.initialCapitalString$><$if Attribute.userInfo.Spot.Value$> = <$if userInfo.Spot.Type == String$>"<$endif$><$if Attribute.userInfo.Spot.Value$><$ Attribute.userInfo.Spot.Value$><$endif$><$if userInfo.Spot.Type == String$>"<$endif$><$endif$>
+    <$endforeach do$>
+}
+
+extension <$managedObjectClassName$>: Decodable {
+
+    static func create(rawValue: <$userInfo.Spot.Type$>) -> <$managedObjectClassName$>?{
+        return <$managedObjectClassName$>(rawValue: rawValue)
+    }
+
+    public init?(decoder: Decoder) {
+    if let rawValue: <$userInfo.Spot.Type$>  = decoder.decode("value"),
+    instance = <$managedObjectClassName$>(rawValue: rawValue) {
+        self = instance
+        } else { return nil }
+    }
+}
+
+
+extension <$managedObjectClassName$>: Encodable {
+
+    public func encode(encoder: Encoder) {
+        encoder.encode(self.rawValue, forKey: "value")
+    }
+}
+<$endif$>
+
+procedure getTypeForAttribute Attribute
+
+<$if Attribute.userInfo.Spot.Type$><$Attribute.userInfo.Spot.Type$><$elseif Attribute.hasScalarAttributeType$><$if Attribute.scalarAttributeType == Int16 || Attribute.scalarAttributeType == Int32 || Attribute.scalarAttributeType == Int64$>Int<$else$><$Attribute.scalarAttributeType$><$endif$><$else$>Attribute.AttributeType><$if Attribute.isOptional$>?<$endif$>
+endprocedure

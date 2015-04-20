@@ -4,7 +4,7 @@ JSON:
 
 json serialization
 
-note: See Data.swift for full api
+note: this is a subclass of Data, see Data.swift for full api
 
 ******************************************************************************/
 

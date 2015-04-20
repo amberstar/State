@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D131" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7700" systemVersion="14D131" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Company" representedClassName="Company" syncable="YES">
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
@@ -10,8 +10,194 @@
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="TestCollections" representedClassName="TestCollections" syncable="YES">
+        <attribute name="arrayOfStrings" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Type" value="[String]"/>
+            </userInfo>
+        </attribute>
+        <attribute name="dicOfInts" attributeType="Integer 32" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Type" value="[String : Int]"/>
+            </userInfo>
+        </attribute>
+        <attribute name="setOfStrings" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Type" value="Set&lt;String&gt;"/>
+            </userInfo>
+        </attribute>
+    </entity>
+    <entity name="TestEnum" representedClassName="TestEnum" syncable="YES">
+        <attribute name="aim" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Value" value="Aim"/>
+            </userInfo>
+        </attribute>
+        <attribute name="fire" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Value" value="Fire"/>
+            </userInfo>
+        </attribute>
+        <attribute name="ready" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Value" value="Ready"/>
+            </userInfo>
+        </attribute>
+        <userInfo>
+            <entry key="Spot.Enum" value="YES"/>
+            <entry key="Spot.Type" value="String"/>
+        </userInfo>
+    </entity>
+    <entity name="TestImmutableOptionalTypes" representedClassName="TestImmutableOptionalTypes" syncable="YES">
+        <attribute name="myBinary" optional="YES" attributeType="Binary" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myBoolean" optional="YES" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myDate" optional="YES" attributeType="Date" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myDecimal" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myDouble" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myFloat" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myInt" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myString" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+    </entity>
+    <entity name="TestImmutableTypes" representedClassName="TestImmutableTypes" syncable="YES">
+        <attribute name="myBinary" attributeType="Binary" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myBoolean" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myDate" attributeType="Date" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myDecimal" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myDouble" attributeType="Double" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myFloat" attributeType="Float" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myInt" attributeType="Integer 32" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myString" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+    </entity>
+    <entity name="TestOptionalTypes" representedClassName="TestOptionalTypes" syncable="YES">
+        <attribute name="myBinary" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="myBoolean" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="myDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="myDecimal" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="myDouble" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="myFloat" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="myInt" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="myString" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="TestOverrideType" representedClassName="TestOverrideType" syncable="YES">
+        <attribute name="myArrayOfString" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Type" value="[String]"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myURL" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Type" value="NSURL"/>
+            </userInfo>
+        </attribute>
+    </entity>
+    <entity name="TestTransformable" representedClassName="TestTransformable" syncable="YES">
+        <attribute name="myTransformable" attributeType="Transformable" valueTransformerName="URLTransform" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Type" value="NSURL"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myTransformableImmutable" attributeType="Transformable" valueTransformerName="URLTransform" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Immutable" value="YES"/>
+                <entry key="Spot.Type" value="NSURL"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myTransformableImmutableOptional" optional="YES" attributeType="Transformable" valueTransformerName="URLTransform" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Immutable" value="YES"/>
+                <entry key="Spot.Type" value="NSURL"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myTransformableOptional" optional="YES" attributeType="Transformable" valueTransformerName="URLTransform" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Type" value="NSURL"/>
+            </userInfo>
+        </attribute>
+    </entity>
+    <entity name="TestTypes" representedClassName="TestTypes" syncable="YES">
+        <attribute name="myBinary" attributeType="Binary" syncable="YES"/>
+        <attribute name="myBoolean" attributeType="Boolean" syncable="YES"/>
+        <attribute name="myDate" attributeType="Date" syncable="YES"/>
+        <attribute name="myDecimal" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="myDouble" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="myFloat" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="myInt" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="myString" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Company" positionX="-19955" positionY="-10431" width="128" height="103"/>
-        <element name="Employee" positionX="-19667" positionY="-10441" width="128" height="73"/>
+        <element name="Company" positionX="-20117" positionY="-10818" width="128" height="103"/>
+        <element name="Employee" positionX="-19973" positionY="-10648" width="128" height="73"/>
+        <element name="TestOptionalTypes" positionX="-20925" positionY="-10881" width="128" height="163"/>
+        <element name="TestTypes" positionX="-20927" positionY="-10684" width="128" height="163"/>
+        <element name="TestCollections" positionX="-20754" positionY="-10872" width="128" height="88"/>
+        <element name="TestEnum" positionX="-20756" positionY="-10764" width="128" height="88"/>
+        <element name="TestTransformable" positionX="-20576" positionY="-10863" width="263" height="103"/>
+        <element name="TestImmutableTypes" positionX="-20763" positionY="-10639" width="128" height="163"/>
+        <element name="TestImmutableOptionalTypes" positionX="-20592" positionY="-10639" width="128" height="163"/>
+        <element name="TestOverrideType" positionX="-20484" positionY="-11070" width="128" height="73"/>
     </elements>
 </model>
