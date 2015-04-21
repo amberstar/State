@@ -32,7 +32,6 @@ extension <$managedObjectClassName$> {
     :Discussion: This method is called right before encoding finishes.
     It provides a chance to encode any further data with the encoder.
     */
-
     func willFinishEncodingWithEncoder(encoder: Encoder) {
 
     }
