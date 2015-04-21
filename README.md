@@ -1,9 +1,6 @@
 #Spot [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-Spot makes it simple to set up a swift struct based model layer.
-
-
-Spot is a swift model framework for using structs as your model layer. Design models using Xcode's Core Data model design tool. Model code is  generated automatically using [Mogenerator](https://github.com/rentzsch/mogenerator) and provides serialization to and from Plists, XML Plists, or JSON.
+Spot is a model framework for using swift structs. You can design models using Xcode's Core Data model design tool. Model code is  generated automatically using [Mogenerator](https://github.com/rentzsch/mogenerator) and provides serialization to and from Plists, XML Plists, or JSON.
 
 ####Key Features: 
 
@@ -16,12 +13,6 @@ Spot is a swift model framework for using structs as your model layer. Design mo
 - model versioning and migration setup for you, but you control
 - make fast changes and additions to your model layer
 - no heavy subclassing required
-
-####System Requirements
-- Swift 1.2
-- Xcode 6.3
-- iOS 8.0
-- Mogenerator 1.28
 
 ##Usage
 ### Design your model layer in Xcode's data model tool:
@@ -92,41 +83,57 @@ extension Issue : Encodable {
     }
 }
 ```
-### Write models to JSON (or .plists):
+### Write models to JSON or .Plist files:
 
 ```swift
 // Write issues out to a json file
 JSON.write(Encoder.encodeModel(issues), path: documentPathFor("issues.json"))
+
+// Write issues out to a binary Plist file
+Data.write(Encoder.encodeModel(issues), path: documentPathFor("issues.plist"))
+
+// Write issues out to a XML Plist file
+Plist.write(Encoder.encodeModel(issues), path: documentPathFor("issues.plist"))
 ```
 
 
 
-```json
-"openIssues" : [
-    {
-      "product" : {
-        "name" : "iSpot Pro"
-      },
-      "comment" : "write more tests",
-      "assignee" : {
-        "name" : "Spiff Johnson"
-      },
-      "status" : {
-        "value" : 1
-      },
-      "type" : {
-        "value" : "task"
-      },
-      "title" : "New Issue"
-    },
-```
-
-### Read models from JSON  (or .plists).
+### Read models from JSON  or .Plist files.
 ```swift
 // Read JSON and decode issues model
 let loadedIssues: Issues? = Decoder.decodeModel(JSON.read(documentPathFor("issues.json")))
-```
 
+// Read binary Plist and decode issues model
+let loadedIssues: Issues? = Decoder.decodeModel(Data.read(documentPathFor("issues.plist")))
+
+// Read XML Plist and decode issues model
+let loadedIssues: Issues? = Decoder.decodeModel(Plist.read(documentPathFor("issues.plist")))
+```
+### The Human Generated File
+Two files are generated from your model design. 
+_FileName.swift = machine generated file
+FileName.swift = human generated file
+
+The human generated file serves the following purposes:
+
+- Is where you to extend your model code
+- Allows you to hook in to the encoding and decoding process, so you can read and write additional data if needed.
+- Allows you to delegate the versioning and migration, giving you complete control over the model versioning and migration process.
+
+```swift
+/**
+    These are provided from the data model designer
+    and can be used to determine if the model is
+    a different version.
+    */
+    static var modelVersionHash: String {
+        return "<ab73b735 b1201428 cbab765c 5357fbe9 b413a176 90618f51 b3efae27 d31a5116>"
+    }
+
+    static var modelVersionHashModifier: String? {
+        return nil
+    }
+```
 
 ##Getting Started
 
@@ -171,9 +178,11 @@ You can download Mogenerator [here](http://rentzsch.github.io/mogenerator/), or 
 
 See [The Wiki Page for instructions] (https://github.com/amberstar/Spot/wiki/How-to-set-up-a-target-to-automatically-generate-model-code-every-time-you-build-your-host.)
 
-
-
-
+####System Requirements
+- Swift 1.2
+- Xcode 6.3
+- iOS 8.0
+- Mogenerator 1.28
 
 ## License
 
