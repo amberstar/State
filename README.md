@@ -118,7 +118,7 @@ The human generated file serves the following purposes:
 
 - Is where you to extend your model code
 - Allows you to hook in to the encoding and decoding process, so you can read and write additional data if needed.
-- Allows you to delegate the versioning and migration, giving you complete control over the model versioning and migration process.
+- Allows you to delegate versioning and migration, giving you complete control over the model versioning and migration process.
 
 ```swift
 /**
