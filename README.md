@@ -111,8 +111,8 @@ let loadedIssues: Issues? = Decoder.decodeModel(Plist.read(documentPathFor("issu
 ```
 ### The Human Generated File
 Two files are generated from your model design. 
-_FileName.swift = machine generated file
-FileName.swift = human generated file
+- _FileName.swift = machine generated file
+- FileName.swift = human generated file
 
 The human generated file serves the following purposes:
 
@@ -122,8 +122,8 @@ The human generated file serves the following purposes:
 
 [See an example human generated file](https://github.com/amberstar/Spot/blob/master/SpotTests/Models/TestModels/Company.swift)
 
-### Versioning and Migration Managment 
-Spots versioning and migration scheme is opt in, and allows you to fully control the proccess by passing delegation to the Human layer of the model. You  specify and control all of the following:
+### Versioning and Migration Management 
+Spots versioning and migration scheme is opt in, and allows you to fully control the process by passing delegation to the Human layer of the model. You  specify and control all of the following:
 - if models should be versioned when encoded
 - a versionKey to use for the version encoding
 - the current version using AnyObject type as the version
