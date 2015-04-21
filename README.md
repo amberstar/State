@@ -83,18 +83,6 @@ extension Issue : Encodable {
     }
 }
 ```
-### Write models to JSON or .Plist files:
-
-```swift
-// Write issues out to a json file
-JSON.write(Encoder.encodeModel(issues), path: documentPathFor("issues.json"))
-
-// Write issues out to a binary Plist file
-Data.write(Encoder.encodeModel(issues), path: documentPathFor("issues.plist"))
-
-// Write issues out to a XML Plist file
-Plist.write(Encoder.encodeModel(issues), path: documentPathFor("issues.plist"))
-```
 
 ##Serialization
 Spot provides serialization using a data adapter. A data adapter is a standalone object responsible for reading and writing one type of data. Serialization is done in two-phases:
@@ -120,6 +108,19 @@ The data adapters can do the following in it's respective format:
 - Read/Write to a String (if supported)
 - Print to std out
 - Read from a URL
+
+#### Write models to JSON or .Plist files:
+
+```swift
+// Write issues out to a json file
+JSON.write(Encoder.encodeModel(issues), path: documentPathFor("issues.json"))
+
+// Write issues out to a binary Plist file
+Data.write(Encoder.encodeModel(issues), path: documentPathFor("issues.plist"))
+
+// Write issues out to a XML Plist file
+Plist.write(Encoder.encodeModel(issues), path: documentPathFor("issues.plist"))
+```
 
 #### Read models from JSON  or .Plist files.
 ```swift
