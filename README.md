@@ -1,6 +1,6 @@
 #Spot [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-Spot is a model framework for using swift structs. You can design models using Xcode's Core Data model design tool. Model code is  generated automatically using [Mogenerator](https://github.com/rentzsch/mogenerator) and provides serialization to and from Plists, XML Plists, or JSON.
+Spot is a model framework that uses swift structs. You can design models using Xcode's Core Data model design tool. Model code is  generated automatically using [Mogenerator](https://github.com/rentzsch/mogenerator) and provides serialization to and from Plists, XML Plists, or JSON.
 
 ####Key Features: 
 
@@ -19,8 +19,7 @@ Spot is a model framework for using swift structs. You can design models using X
  <img src="https://cloud.githubusercontent.com/assets/84623/7208746/e8ff0658-e510-11e4-9327-1fad64ab9a93.png">
 
 ### Swift struct model code is generated automatically:
-This code is generated using [Mogenerator](https://github.com/rentzsch/mogenerator) and the Spot templates. Note: A human file is also generated which is an extension of your struct. To extend your model layer you edit the human file.
-
+The code is generated using [Mogenerator](https://github.com/rentzsch/mogenerator) and the Spot templates. 
 
  ```swift
 import Spot
@@ -85,20 +84,22 @@ extension Issue : Encodable {
 ```
 
 ##Serialization
-Spot provides serialization using a data adapter. A data adapter is a standalone object responsible for reading and writing one type of data. Serialization is done in two-phases:
+Spot provides serialization using a data adapter. A data adapter is a  class responsible for reading and writing one specific data type. Serialization is done in two-phases:
 
-1. Phase 1 - Model Types  -> Key-Value Data
-2. Phase 2 - Key-Value Data -> Data adapter -> Output
+1. Phase 1 Encoding   [ Model Types  -> Key-Value Data]
+2. Phase 2  Serialization  [Key-Value Data -> Data adapter -> Output]
 
-* deserialization is reversed.
+* deserialization is the exact reversal of this process.
 
-During phase one an encoder encodes the model to raw key-value data. This is a simillar process to NSCoding but for structs. 
+During phase one an encoder encodes the model to raw key-value data. This is  similar NSCoding but for structs. 
 
-During phase two, it's up to you to choose a data adapter to use to write the key-value data out to output. You can use one of the built in data adapters, or you can subclass the Data.swift data adapter to make your own.
+Once model data is encoded to key-value data, a data adapter is used to write it to its output endpoint.
+
+You can choose any one of the built in data adapters, or you can subclass the Data.swift data adapter to make your own.
 
 Three data adapters are provided:
 
-1. Data. -> uses NSKeyValueArchiver to archive binary plist files
+1. Data. -> uses NSKeyValueArchiver to read and write binary archive plist files
 2. Plist. -> reads and writes XML plist files
 3. JSON. -> read and write JSON files
 
@@ -110,6 +111,8 @@ The data adapters can do the following in it's respective format:
 - Read from a URL
 
 #### Write models to JSON or .Plist files:
+
+The API for the various data adapters are all the same.
 
 ```swift
 // Write issues out to a json file
@@ -133,23 +136,23 @@ let loadedIssues: Issues? = Decoder.decodeModel(Data.read(documentPathFor("issue
 // Read XML Plist and decode issues model
 let loadedIssues: Issues? = Decoder.decodeModel(Plist.read(documentPathFor("issues.plist")))
 ```
-### The Human Generated File
-Two files are generated from your model design. 
-- _FileName.swift = machine generated file
-- FileName.swift = human generated file
+### About The Human File
+Two files are generated from your model design when you run Mogenerator.
+- _FileName.swift  (the 'machine' file)
+- FileName.swift    (the 'human' file)
 
-The machine file is updated everytime you modify the model design file. The human file is only generated once the first time you generate code. Therefore the human file is not overwritten and is safe for you to use for extending your models via. a swift extension.
+The machine file is updated every time you regenerate your code after modifying the model design file. The human file is only generated once the first time you generate code. Therefore the human file is not overwritten and is safe for you to use for extending your models via. a swift extension.
 
-The human generated file serves the following purposes:
+The human file serves the following purposes:
 
-- Is where you  extend your model code via a swift extension
-- Allows you to hook in to the encoding and decoding process, so you can read and write additional data during serialization if needed.
-- Allows you to delegate versioning and migration, giving you complete control over the model versioning and migration process.
+- extend your model code via a swift extension in this file
+- hook in to the encoding and decoding process, so you can read and write additional data during decoding and encoding if needed.
+- delegate versioning and migration, giving you complete control over the model versioning and migration process.
 
 [See an example human generated file](https://github.com/amberstar/Spot/blob/master/SpotTests/Models/TestModels/Company.swift)
 
 ### Versioning and Migration Management 
-Spots versioning and migration scheme is opt in, and allows you to fully control the process by passing delegation to the Human layer of the model. You  specify and control all of the following:
+The versioning and migration management scheme is opt in, and allows you to fully control the process. The machine layer of your model passes delegation to the human layer of the model.  It's in the human layer that you  specify and control all of the following:
 - if models should be versioned when encoded
 - a versionKey to use for the version encoding
 - the current version using AnyObject type as the version
@@ -157,7 +160,7 @@ Spots versioning and migration scheme is opt in, and allows you to fully control
 - specify if a given version found in the data model needs migration
 - directly migrate raw key-value data to the current version before attempting to decode a model
 
-Two static variables are provided during the process that are passed in from the  Model Design file. The following are available for you to determine  a model version is different than the current version.
+Two versioning variables are provided during the process that are sourced from  the  model design file. The following are available for you to determine if a model version about to be decoded is a different version than the current version of your model code.
 ```swift
 /**
     These are provided from the data model designer
@@ -172,7 +175,7 @@ Two static variables are provided during the process that are passed in from the
         return nil
     }
 ```
-Below are the methods that are implemented for you in your Human file to allow you to control the version and migration process:
+Below are the methods that are implemented for you in your Human file for you to allow you to control the version and migration process:
 
 ```swift
 ///MARK: Migration
