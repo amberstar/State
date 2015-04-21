@@ -155,7 +155,7 @@ The human file serves the following purposes:
 The versioning and migration management scheme is opt in, and allows you to fully control the process. The machine layer of your model passes delegation to the human layer of the model.  It's in the human layer that you  specify and control all of the following:
 - if models should be versioned when encoded
 - a versionKey to use for the version encoding
-- the current version using AnyObject type as the version
+- the current version, with AnyObject type as the version
 - if version checking and migration is done at all
 - specify if a given version found in the data model needs migration
 - directly migrate raw key-value data to the current version before attempting to decode a model
@@ -175,7 +175,7 @@ Two versioning variables are provided during the process that are sourced from  
         return nil
     }
 ```
-Below are the methods that are implemented for you in your Human file for you to allow you to control the version and migration process:
+Below are the methods that are implemented for you in your Human file to allow you to control the version and migration process:
 
 ```swift
 ///MARK: Migration
