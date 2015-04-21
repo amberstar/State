@@ -15,12 +15,12 @@
     <entity name="IssuePriority" representedClassName="IssuePriority" syncable="YES">
         <attribute name="high" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
-                <entry key="Spot.Value" value="&quot;High&quot;"/>
+                <entry key="Spot.Value" value="High"/>
             </userInfo>
         </attribute>
         <attribute name="low" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
-                <entry key="Spot.Value" value="&quot;Low&quot;"/>
+                <entry key="Spot.Value" value="Low"/>
             </userInfo>
         </attribute>
         <userInfo>
@@ -51,17 +51,17 @@
     <entity name="IssueType" representedClassName="IssueType" syncable="YES">
         <attribute name="bug" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
-                <entry key="Spot.Value" value="&quot;bug&quot;"/>
+                <entry key="Spot.Value" value="Bug"/>
             </userInfo>
         </attribute>
         <attribute name="feature" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
-                <entry key="Spot.Value" value="&quot;feature&quot;"/>
+                <entry key="Spot.Value" value="Feature"/>
             </userInfo>
         </attribute>
         <attribute name="task" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
-                <entry key="Spot.Value" value="&quot;task&quot;"/>
+                <entry key="Spot.Value" value="Task"/>
             </userInfo>
         </attribute>
         <userInfo>
@@ -75,10 +75,10 @@
     <elements>
         <element name="Developer" positionX="-3708" positionY="-8649" width="128" height="58"/>
         <element name="Issue" positionX="-3890" positionY="-8622" width="128" height="148"/>
+        <element name="IssuePriority" positionX="-4223" positionY="-8560" width="128" height="73"/>
         <element name="Issues" positionX="-4043" positionY="-8730" width="128" height="73"/>
         <element name="IssueStatus" positionX="-3584" positionY="-8550" width="128" height="73"/>
         <element name="IssueType" positionX="-3735" positionY="-8442" width="128" height="88"/>
         <element name="Product" positionX="-4005" positionY="-8442" width="128" height="58"/>
-        <element name="IssuePriority" positionX="-4223" positionY="-8560" width="128" height="73"/>
     </elements>
 </model>

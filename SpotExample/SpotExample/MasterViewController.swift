@@ -22,27 +22,27 @@ class MasterViewController: UITableViewController {
 
     func loadData() {
         // try to load issues from documents directory
-        if let loadedIssues: Issues = Decoder.decode(JSON.read(documentPathFor("issues.json"))) {
+        if let loadedIssues: Issues = Decoder.decodeModel(JSON.read(documentPathFor("issues.json"))) {
             self.issues = loadedIssues
         }
     }
     
     // save json to documents directory
     func saveData() {
-        JSON.write(Encoder.encode(issues), path: documentPathFor("issues.json"))
+        JSON.write(Encoder.encodeModel(issues), path: documentPathFor("issues.json"))
     }
     
     func addIssue(index: Int) {
         let product = Product(name: "iSpot Pro")
         let developer = Developer(name: "Spiff Johnson")
-        var newIssue = Issue(comment: "write more tests", title: "New Issue", assignee: developer, priority: IssuePriority.high, product: product, status: .open, type: .task)
+        var newIssue = Issue(comment: "write more tests", title: "New Issue", assignee: developer, priority: IssuePriority.High, product: product, status: .Open, type: .Task)
         self.issues.openIssues.insert(newIssue, atIndex: index)
         self.saveData()
 
     }
     
     func closeIssue(index: Int) {
-        self.issues.openIssues[index].status = IssueStatus.closed
+        self.issues.openIssues[index].status = IssueStatus.Closed
         self.issues.closedIssues.append(self.issues.openIssues[index])
         self.issues.openIssues.removeAtIndex(index)
         self.saveData()
