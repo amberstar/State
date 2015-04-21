@@ -10,7 +10,6 @@ public struct Company {
     var name: String
     var phoneNumber: String?
     var yearFounded: Double
-
     var employees: [Employee]?
 
 public init(name: String, phoneNumber: String?, yearFounded: Double, employees: [Employee]?) {
@@ -26,15 +25,25 @@ public init(name: String, phoneNumber: String?, yearFounded: Double, employees: 
 extension Company : Decodable {
 
     static func create(name: String)(phoneNumber: String?)(yearFounded: Double)(employees: [Employee]?) -> Company  {
-
         return Company(name: name, phoneNumber: phoneNumber, yearFounded: yearFounded, employees: employees)
     }
-    public init?(decoder: Decoder) {
+
+    public init?(var decoder: Decoder) {
+
+        if Company.shouldMigrateIfNeeded {
+            if let dataVersion: AnyObject = decoder.decode(Company.versionKey) {
+                if Company.needsMigration(dataVersion) {
+                   let migratedData = Company.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
+                    decoder = Decoder(data: migratedData)
+                }
+            }
+        }
+
         let instance: Company? = Company.create
         <^> decoder.decode("name")
         <*> decoder.decode("phoneNumber") >>> asOptional
         <*> decoder.decode("yearFounded")
-        <*> Optional(decoder.decodeModelArray("employees"))
+        <*> decoder.decodeModelArray("employees") >>> asOptional
 
         if let i = instance {
             i.didFinishDecodingWithDecoder(decoder)
@@ -51,18 +60,24 @@ extension Company : Encodable {
         encoder.encode(self.yearFounded, forKey: "yearFounded")
         encoder.encode(self.employees, forKey: "employees")
 
+        if Company.shouldEncodeVersion {
+                encoder.encode(Company.version, forKey:Company.versionKey)
+        }
         self.willFinishEncodingWithEncoder(encoder)
     }
 }
 
 extension Company {
-
-    static var versionHash: NSData? {
-        let hash: NSString = "<96a6f843 e4004fa9 5be7cca8 25260494 31324f8c 67a0643f 53096004 e1f9e4f0>"
-        return hash.dataUsingEncoding(NSUTF8StringEncoding)
+    /**
+    These are provided from the data model designer
+    and can be used to determine if the model is
+    a different version.
+    */
+    static var modelVersionHash: String {
+        return "<96a6f843 e4004fa9 5be7cca8 25260494 31324f8c 67a0643f 53096004 e1f9e4f0>"
     }
 
-    static var versionHashModifier: String? {
+    static var modelVersionHashModifier: String? {
         return nil
     }
 }

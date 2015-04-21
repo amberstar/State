@@ -21,10 +21,20 @@ public init(myArrayOfString: [String]?, myURL: NSURL?) {
 extension TestOverrideType : Decodable {
 
     static func create(myArrayOfString: [String]?)(myURL: NSURL?) -> TestOverrideType  {
-
         return TestOverrideType(myArrayOfString: myArrayOfString, myURL: myURL)
     }
-    public init?(decoder: Decoder) {
+
+    public init?(var decoder: Decoder) {
+
+        if TestOverrideType.shouldMigrateIfNeeded {
+            if let dataVersion: AnyObject = decoder.decode(TestOverrideType.versionKey) {
+                if TestOverrideType.needsMigration(dataVersion) {
+                   let migratedData = TestOverrideType.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
+                    decoder = Decoder(data: migratedData)
+                }
+            }
+        }
+
         let instance: TestOverrideType? = TestOverrideType.create
         <^> decoder.decode("myArrayOfString") >>> asOptional
         <*> decoder.decode("myURL") >>> asOptional
@@ -42,19 +52,25 @@ extension TestOverrideType : Encodable {
         encoder.encode(self.myArrayOfString, forKey: "myArrayOfString")
         encoder.encode(self.myURL, forKey: "myURL")
 
+        if TestOverrideType.shouldEncodeVersion {
+                encoder.encode(TestOverrideType.version, forKey:TestOverrideType.versionKey)
+        }
         self.willFinishEncodingWithEncoder(encoder)
     }
 }
 
 extension TestOverrideType {
-
-    static var versionHash: NSData? {
-        let hash: NSString = "<cd424c1c d3ddb650 a267a4e2 f4e681f9 69eccc7d 37cbb116 fe69fd11 feb570b5>"
-        return hash.dataUsingEncoding(NSUTF8StringEncoding)
+    /**
+    These are provided from the data model designer
+    and can be used to determine if the model is
+    a different version.
+    */
+    static var modelVersionHash: String {
+        return "<1b2022d4 1d237610 f72665c6 67dea8a1 a68750de df8625c3 d9495017 916e62c6>"
     }
 
-    static var versionHashModifier: String? {
-        return "1.0"
+    static var modelVersionHashModifier: String? {
+        return nil
     }
 }
 

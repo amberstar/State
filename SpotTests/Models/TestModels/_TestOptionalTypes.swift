@@ -33,10 +33,20 @@ public init(myBinary: NSData?, myBoolean: Bool?, myDate: NSDate?, myDecimal: NSD
 extension TestOptionalTypes : Decodable {
 
     static func create(myBinary: NSData?)(myBoolean: Bool?)(myDate: NSDate?)(myDecimal: NSDecimalNumber?)(myDouble: Double?)(myFloat: Float?)(myInt: Int?)(myString: String?) -> TestOptionalTypes  {
-
         return TestOptionalTypes(myBinary: myBinary, myBoolean: myBoolean, myDate: myDate, myDecimal: myDecimal, myDouble: myDouble, myFloat: myFloat, myInt: myInt, myString: myString)
     }
-    public init?(decoder: Decoder) {
+
+    public init?(var decoder: Decoder) {
+
+        if TestOptionalTypes.shouldMigrateIfNeeded {
+            if let dataVersion: AnyObject = decoder.decode(TestOptionalTypes.versionKey) {
+                if TestOptionalTypes.needsMigration(dataVersion) {
+                   let migratedData = TestOptionalTypes.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
+                    decoder = Decoder(data: migratedData)
+                }
+            }
+        }
+
         let instance: TestOptionalTypes? = TestOptionalTypes.create
         <^> decoder.decode("myBinary") >>> asOptional
         <*> decoder.decode("myBoolean") >>> asOptional
@@ -66,18 +76,24 @@ extension TestOptionalTypes : Encodable {
         encoder.encode(self.myInt, forKey: "myInt")
         encoder.encode(self.myString, forKey: "myString")
 
+        if TestOptionalTypes.shouldEncodeVersion {
+                encoder.encode(TestOptionalTypes.version, forKey:TestOptionalTypes.versionKey)
+        }
         self.willFinishEncodingWithEncoder(encoder)
     }
 }
 
 extension TestOptionalTypes {
-
-    static var versionHash: NSData? {
-        let hash: NSString = "<9f253c6d 6eee6daf 0cb47189 ec638d50 fa91dd34 ba49773b 92c39ed1 0d3546a3>"
-        return hash.dataUsingEncoding(NSUTF8StringEncoding)
+    /**
+    These are provided from the data model designer
+    and can be used to determine if the model is
+    a different version.
+    */
+    static var modelVersionHash: String {
+        return "<9f253c6d 6eee6daf 0cb47189 ec638d50 fa91dd34 ba49773b 92c39ed1 0d3546a3>"
     }
 
-    static var versionHashModifier: String? {
+    static var modelVersionHashModifier: String? {
         return nil
     }
 }

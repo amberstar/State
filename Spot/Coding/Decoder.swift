@@ -84,6 +84,10 @@ public final class Decoder {
         return _decode(key)
     }
     
+    public func extractData() -> [String : AnyObject] {
+        return self.data
+    }
+    
     
 /************************************************************************************************
 

@@ -10,6 +10,33 @@
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Gender" representedClassName="Gender" syncable="YES">
+        <attribute name="female" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Value" value="Female"/>
+            </userInfo>
+        </attribute>
+        <attribute name="male" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Value" value="Male"/>
+            </userInfo>
+        </attribute>
+        <userInfo>
+            <entry key="Spot.Enum" value="YES"/>
+            <entry key="Spot.Type" value="String"/>
+        </userInfo>
+    </entity>
+    <entity name="Grandchild" representedClassName="Grandchild" syncable="YES">
+        <attribute name="age" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="gender" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Gender" syncable="YES"/>
+    </entity>
+    <entity name="TestChild" representedClassName="TestChild" syncable="YES">
+        <attribute name="age" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="gender" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Gender" syncable="YES"/>
+        <relationship name="myChildren" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Grandchild" syncable="YES"/>
+    </entity>
     <entity name="TestCollections" representedClassName="TestCollections" syncable="YES">
         <attribute name="arrayOfStrings" attributeType="String" syncable="YES">
             <userInfo>
@@ -142,7 +169,7 @@
         <attribute name="myInt" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="myString" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="TestOverrideType" representedClassName="TestOverrideType" versionHashModifier="1.0" syncable="YES">
+    <entity name="TestOverrideType" representedClassName="TestOverrideType" syncable="YES">
         <attribute name="myArrayOfString" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="Spot.Type" value="[String]"/>
@@ -153,6 +180,11 @@
                 <entry key="Spot.Type" value="NSURL"/>
             </userInfo>
         </attribute>
+    </entity>
+    <entity name="TestRelationships" representedClassName="TestRelationships" syncable="YES">
+        <relationship name="myChildren" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TestChild" syncable="YES"/>
+        <relationship name="myGrandChildren" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Grandchild" syncable="YES"/>
+        <relationship name="myOneChild" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TestChild" syncable="YES"/>
     </entity>
     <entity name="TestTransformable" representedClassName="TestTransformable" syncable="YES">
         <attribute name="myTransformable" attributeType="Transformable" valueTransformerName="URLTransform" syncable="YES">
@@ -196,8 +228,12 @@
         <element name="TestImmutableOptionalTypes" positionX="-20592" positionY="-10639" width="128" height="163"/>
         <element name="TestImmutableTypes" positionX="-20763" positionY="-10639" width="128" height="163"/>
         <element name="TestOptionalTypes" positionX="-20925" positionY="-10881" width="128" height="163"/>
-        <element name="TestOverrideType" positionX="-20484" positionY="-11070" width="128" height="73"/>
+        <element name="TestOverrideType" positionX="-20628" positionY="-11133" width="128" height="73"/>
         <element name="TestTransformable" positionX="-20576" positionY="-10863" width="263" height="103"/>
         <element name="TestTypes" positionX="-20927" positionY="-10684" width="128" height="163"/>
+        <element name="TestRelationships" positionX="-20304" positionY="-11347" width="128" height="88"/>
+        <element name="TestChild" positionX="-19910" positionY="-11385" width="128" height="103"/>
+        <element name="Grandchild" positionX="-19838" positionY="-11110" width="128" height="88"/>
+        <element name="Gender" positionX="-20295" positionY="-11142" width="128" height="73"/>
     </elements>
 </model>

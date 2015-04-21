@@ -33,10 +33,20 @@ public init(myBinary: NSData, myBoolean: Bool, myDate: NSDate, myDecimal: NSDeci
 extension TestTypes : Decodable {
 
     static func create(myBinary: NSData)(myBoolean: Bool)(myDate: NSDate)(myDecimal: NSDecimalNumber)(myDouble: Double)(myFloat: Float)(myInt: Int)(myString: String) -> TestTypes  {
-
         return TestTypes(myBinary: myBinary, myBoolean: myBoolean, myDate: myDate, myDecimal: myDecimal, myDouble: myDouble, myFloat: myFloat, myInt: myInt, myString: myString)
     }
-    public init?(decoder: Decoder) {
+
+    public init?(var decoder: Decoder) {
+
+        if TestTypes.shouldMigrateIfNeeded {
+            if let dataVersion: AnyObject = decoder.decode(TestTypes.versionKey) {
+                if TestTypes.needsMigration(dataVersion) {
+                   let migratedData = TestTypes.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
+                    decoder = Decoder(data: migratedData)
+                }
+            }
+        }
+
         let instance: TestTypes? = TestTypes.create
         <^> decoder.decode("myBinary")
         <*> decoder.decode("myBoolean")
@@ -66,18 +76,24 @@ extension TestTypes : Encodable {
         encoder.encode(self.myInt, forKey: "myInt")
         encoder.encode(self.myString, forKey: "myString")
 
+        if TestTypes.shouldEncodeVersion {
+                encoder.encode(TestTypes.version, forKey:TestTypes.versionKey)
+        }
         self.willFinishEncodingWithEncoder(encoder)
     }
 }
 
 extension TestTypes {
-
-    static var versionHash: NSData? {
-        let hash: NSString = "<a9fa31de ad1cc5f1 d85c3e3e ff64b9b2 3a3c9221 f8f44ba9 75e33daa b277f852>"
-        return hash.dataUsingEncoding(NSUTF8StringEncoding)
+    /**
+    These are provided from the data model designer
+    and can be used to determine if the model is
+    a different version.
+    */
+    static var modelVersionHash: String {
+        return "<a9fa31de ad1cc5f1 d85c3e3e ff64b9b2 3a3c9221 f8f44ba9 75e33daa b277f852>"
     }
 
-    static var versionHashModifier: String? {
+    static var modelVersionHashModifier: String? {
         return nil
     }
 }

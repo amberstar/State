@@ -5,17 +5,13 @@
 ************************************************/
 import Spot
 
-extension TestCollections {
+extension Gender {
 
-    init() {
-        self.arrayOfStrings = [String]()
-        self.dicOfInts = [String : Int]()
-        self.setOfStrings = Set<String>()
-    }
+    // Extend your model entity here.
 }
 
 ///MARK: Coding
-extension TestCollections {
+extension Gender {
 
     /**
     decoding is finished on the receiver
@@ -43,7 +39,7 @@ extension TestCollections {
 }
 
 ///MARK: Migration
-extension TestCollections {
+extension Gender {
 
     /**
     true if the encoder should include a model version

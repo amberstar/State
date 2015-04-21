@@ -33,10 +33,20 @@ public init(myBinary: NSData?, myBoolean: Bool?, myDate: NSDate?, myDecimal: NSD
 extension TestImmutableOptionalTypes : Decodable {
 
     static func create(myBinary: NSData?)(myBoolean: Bool?)(myDate: NSDate?)(myDecimal: NSDecimalNumber?)(myDouble: Double?)(myFloat: Float?)(myInt: Int?)(myString: String?) -> TestImmutableOptionalTypes  {
-
         return TestImmutableOptionalTypes(myBinary: myBinary, myBoolean: myBoolean, myDate: myDate, myDecimal: myDecimal, myDouble: myDouble, myFloat: myFloat, myInt: myInt, myString: myString)
     }
-    public init?(decoder: Decoder) {
+
+    public init?(var decoder: Decoder) {
+
+        if TestImmutableOptionalTypes.shouldMigrateIfNeeded {
+            if let dataVersion: AnyObject = decoder.decode(TestImmutableOptionalTypes.versionKey) {
+                if TestImmutableOptionalTypes.needsMigration(dataVersion) {
+                   let migratedData = TestImmutableOptionalTypes.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
+                    decoder = Decoder(data: migratedData)
+                }
+            }
+        }
+
         let instance: TestImmutableOptionalTypes? = TestImmutableOptionalTypes.create
         <^> decoder.decode("myBinary") >>> asOptional
         <*> decoder.decode("myBoolean") >>> asOptional
@@ -66,18 +76,24 @@ extension TestImmutableOptionalTypes : Encodable {
         encoder.encode(self.myInt, forKey: "myInt")
         encoder.encode(self.myString, forKey: "myString")
 
+        if TestImmutableOptionalTypes.shouldEncodeVersion {
+                encoder.encode(TestImmutableOptionalTypes.version, forKey:TestImmutableOptionalTypes.versionKey)
+        }
         self.willFinishEncodingWithEncoder(encoder)
     }
 }
 
 extension TestImmutableOptionalTypes {
-
-    static var versionHash: NSData? {
-        let hash: NSString = "<8954c691 e621c6bd bad84d7f 4fb9addd 53ed8e45 053f272c fafd2d9b 63de0acc>"
-        return hash.dataUsingEncoding(NSUTF8StringEncoding)
+    /**
+    These are provided from the data model designer
+    and can be used to determine if the model is
+    a different version.
+    */
+    static var modelVersionHash: String {
+        return "<8954c691 e621c6bd bad84d7f 4fb9addd 53ed8e45 053f272c fafd2d9b 63de0acc>"
     }
 
-    static var versionHashModifier: String? {
+    static var modelVersionHashModifier: String? {
         return nil
     }
 }
