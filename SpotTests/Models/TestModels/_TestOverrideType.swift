@@ -46,3 +46,15 @@ extension TestOverrideType : Encodable {
     }
 }
 
+extension TestOverrideType {
+
+    static var versionHash: NSData? {
+        let hash: NSString = "<cd424c1c d3ddb650 a267a4e2 f4e681f9 69eccc7d 37cbb116 fe69fd11 feb570b5>"
+        return hash.dataUsingEncoding(NSUTF8StringEncoding)
+    }
+
+    static var versionHashModifier: String? {
+        return "1.0"
+    }
+}
+

@@ -142,7 +142,7 @@
         <attribute name="myInt" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="myString" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="TestOverrideType" representedClassName="TestOverrideType" syncable="YES">
+    <entity name="TestOverrideType" representedClassName="TestOverrideType" versionHashModifier="1.0" syncable="YES">
         <attribute name="myArrayOfString" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="Spot.Type" value="[String]"/>
@@ -191,13 +191,13 @@
     <elements>
         <element name="Company" positionX="-20117" positionY="-10818" width="128" height="103"/>
         <element name="Employee" positionX="-19973" positionY="-10648" width="128" height="73"/>
-        <element name="TestOptionalTypes" positionX="-20925" positionY="-10881" width="128" height="163"/>
-        <element name="TestTypes" positionX="-20927" positionY="-10684" width="128" height="163"/>
         <element name="TestCollections" positionX="-20754" positionY="-10872" width="128" height="88"/>
         <element name="TestEnum" positionX="-20756" positionY="-10764" width="128" height="88"/>
-        <element name="TestTransformable" positionX="-20576" positionY="-10863" width="263" height="103"/>
-        <element name="TestImmutableTypes" positionX="-20763" positionY="-10639" width="128" height="163"/>
         <element name="TestImmutableOptionalTypes" positionX="-20592" positionY="-10639" width="128" height="163"/>
+        <element name="TestImmutableTypes" positionX="-20763" positionY="-10639" width="128" height="163"/>
+        <element name="TestOptionalTypes" positionX="-20925" positionY="-10881" width="128" height="163"/>
         <element name="TestOverrideType" positionX="-20484" positionY="-11070" width="128" height="73"/>
+        <element name="TestTransformable" positionX="-20576" positionY="-10863" width="263" height="103"/>
+        <element name="TestTypes" positionX="-20927" positionY="-10684" width="128" height="163"/>
     </elements>
 </model>

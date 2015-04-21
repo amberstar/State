@@ -55,3 +55,15 @@ extension Company : Encodable {
     }
 }
 
+extension Company {
+
+    static var versionHash: NSData? {
+        let hash: NSString = "<96a6f843 e4004fa9 5be7cca8 25260494 31324f8c 67a0643f 53096004 e1f9e4f0>"
+        return hash.dataUsingEncoding(NSUTF8StringEncoding)
+    }
+
+    static var versionHashModifier: String? {
+        return nil
+    }
+}
+

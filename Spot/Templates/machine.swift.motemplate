@@ -8,6 +8,18 @@ import Spot
 
 <$procedure getTypeForAttribute Attribute$><$if Attribute.userInfo.Spot.Type$><$Attribute.userInfo.Spot.Type$><$elseif Attribute.hasScalarAttributeType$><$if Attribute.scalarAttributeType == Int16 || Attribute.scalarAttributeType == Int32 || Attribute.scalarAttributeType == Int64$>Int<$else$><$Attribute.scalarAttributeType$><$endif$><$else$><$Attribute.objectAttributeType$><$endif$><$if Attribute.isOptional$>?<$endif$><$endprocedure$>
 
+<$procedure writeVersionHashExtension$>extension <$managedObjectClassName$> {
+
+    static var versionHash: NSData? {
+        let hash: NSString = "<$versionHash$>"
+        return hash.dataUsingEncoding(NSUTF8StringEncoding)
+    }
+
+    static var versionHashModifier: String? {
+        return <$if versionHashModifier$>"<$versionHashModifier$>"<$else$>nil<$endif$>
+    }
+}<$endprocedure$>
+
 <$if userInfo.Spot.Enum != YES$>
 public struct <$managedObjectClassName$><$if hasCustomSuperentity$>: <$customSuperentity$><$endif$> {
     <$foreach Attribute noninheritedAttributes do$><$if Attribute.userInfo.Spot.Immutable == YES$>let<$else$>var<$endif$> <$Attribute.name$>: <$call getTypeForAttribute Attribute$>
@@ -51,6 +63,8 @@ extension <$managedObjectClassName$> : Encodable {
         self.willFinishEncodingWithEncoder(encoder)
     }
 }
+
+<$call writeVersionHashExtension $>
 <$endif$>
 
 <$if userInfo.Spot.Enum == YES$>
@@ -81,6 +95,8 @@ extension <$managedObjectClassName$>: Encodable {
         encoder.encode(self.rawValue, forKey: "value")
     }
 }
+
+<$call writeVersionHashExtension $>
 <$endif$>
 
 

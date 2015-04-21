@@ -46,3 +46,15 @@ extension Employee : Encodable {
     }
 }
 
+extension Employee {
+
+    static var versionHash: NSData? {
+        let hash: NSString = "<a7d3395e 2571c3cc f97901e5 26580a8c a813984e e25ffdd4 40813f22 16357528>"
+        return hash.dataUsingEncoding(NSUTF8StringEncoding)
+    }
+
+    static var versionHashModifier: String? {
+        return nil
+    }
+}
+

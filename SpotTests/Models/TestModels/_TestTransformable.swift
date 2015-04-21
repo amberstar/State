@@ -54,3 +54,15 @@ extension TestTransformable : Encodable {
     }
 }
 
+extension TestTransformable {
+
+    static var versionHash: NSData? {
+        let hash: NSString = "<ab73b735 b1201428 cbab765c 5357fbe9 b413a176 90618f51 b3efae27 d31a5116>"
+        return hash.dataUsingEncoding(NSUTF8StringEncoding)
+    }
+
+    static var versionHashModifier: String? {
+        return nil
+    }
+}
+

@@ -35,3 +35,15 @@ extension TestEnum: Encodable {
     }
 }
 
+extension TestEnum {
+
+    static var versionHash: NSData? {
+        let hash: NSString = "<b4993a9f c37c7861 174a6d31 52355952 e30939de e6a219c5 aaea0c6e 2096334c>"
+        return hash.dataUsingEncoding(NSUTF8StringEncoding)
+    }
+
+    static var versionHashModifier: String? {
+        return nil
+    }
+}
+

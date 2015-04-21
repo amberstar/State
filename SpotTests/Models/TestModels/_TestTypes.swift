@@ -70,3 +70,15 @@ extension TestTypes : Encodable {
     }
 }
 
+extension TestTypes {
+
+    static var versionHash: NSData? {
+        let hash: NSString = "<a9fa31de ad1cc5f1 d85c3e3e ff64b9b2 3a3c9221 f8f44ba9 75e33daa b277f852>"
+        return hash.dataUsingEncoding(NSUTF8StringEncoding)
+    }
+
+    static var versionHashModifier: String? {
+        return nil
+    }
+}
+

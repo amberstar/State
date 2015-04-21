@@ -50,3 +50,15 @@ extension TestCollections : Encodable {
     }
 }
 
+extension TestCollections {
+
+    static var versionHash: NSData? {
+        let hash: NSString = "<313ca880 7b444092 cef097e8 0b29feb7 e70ab4b5 3b7298dc 4debc39c 90801887>"
+        return hash.dataUsingEncoding(NSUTF8StringEncoding)
+    }
+
+    static var versionHashModifier: String? {
+        return nil
+    }
+}
+

@@ -70,3 +70,15 @@ extension TestOptionalTypes : Encodable {
     }
 }
 
+extension TestOptionalTypes {
+
+    static var versionHash: NSData? {
+        let hash: NSString = "<9f253c6d 6eee6daf 0cb47189 ec638d50 fa91dd34 ba49773b 92c39ed1 0d3546a3>"
+        return hash.dataUsingEncoding(NSUTF8StringEncoding)
+    }
+
+    static var versionHashModifier: String? {
+        return nil
+    }
+}
+
