@@ -9,18 +9,6 @@
 /* Begin PBXBuildFile section */
 		04012A7B1AE12FA6006DAC19 /* Spot.h in Headers */ = {isa = PBXBuildFile; fileRef = 04012A7A1AE12FA6006DAC19 /* Spot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04012A811AE12FA6006DAC19 /* Spot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04012A751AE12FA6006DAC19 /* Spot.framework */; };
-		04012A971AE13088006DAC19 /* Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012A921AE13088006DAC19 /* Decodable.swift */; };
-		04012A981AE13088006DAC19 /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012A931AE13088006DAC19 /* Decoder.swift */; };
-		04012A991AE13088006DAC19 /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012A941AE13088006DAC19 /* Encodable.swift */; };
-		04012A9A1AE13088006DAC19 /* Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012A951AE13088006DAC19 /* Encoder.swift */; };
-		04012AA01AE13096006DAC19 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012A9D1AE13096006DAC19 /* Data.swift */; };
-		04012AA11AE13096006DAC19 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012A9E1AE13096006DAC19 /* JSON.swift */; };
-		04012AA21AE13096006DAC19 /* Plist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012A9F1AE13096006DAC19 /* Plist.swift */; };
-		04012AA71AE130A0006DAC19 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AA41AE130A0006DAC19 /* Array.swift */; };
-		04012AA81AE130A0006DAC19 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AA51AE130A0006DAC19 /* Dictionary.swift */; };
-		04012AA91AE130A0006DAC19 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AA61AE130A0006DAC19 /* Optional.swift */; };
-		04012AAD1AE130A9006DAC19 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AAB1AE130A9006DAC19 /* Functions.swift */; };
-		04012AAE1AE130A9006DAC19 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AAC1AE130A9006DAC19 /* Operators.swift */; };
 		04012AB21AE130B7006DAC19 /* human.swift.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = 04012AB01AE130B7006DAC19 /* human.swift.motemplate */; };
 		04012AB31AE130B7006DAC19 /* machine.swift.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = 04012AB11AE130B7006DAC19 /* machine.swift.motemplate */; };
 		04012AB61AE130C2006DAC19 /* URLTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AB51AE130C2006DAC19 /* URLTransform.swift */; };
@@ -73,6 +61,18 @@
 		044F88A21AE69BD900FAB475 /* TestTransformable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88941AE69BD900FAB475 /* TestTransformable.swift */; };
 		044F88A31AE69BD900FAB475 /* TestTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88951AE69BD900FAB475 /* TestTypes.swift */; };
 		044F88A51AE6A34200FAB475 /* RelationshipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88A41AE6A34200FAB475 /* RelationshipTests.swift */; };
+		044F88C91AE6BC9B00FAB475 /* Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88C51AE6BC9B00FAB475 /* Decodable.swift */; };
+		044F88CA1AE6BC9B00FAB475 /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88C61AE6BC9B00FAB475 /* Decoder.swift */; };
+		044F88CB1AE6BC9B00FAB475 /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88C71AE6BC9B00FAB475 /* Encodable.swift */; };
+		044F88CC1AE6BC9B00FAB475 /* Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88C81AE6BC9B00FAB475 /* Encoder.swift */; };
+		044F88D01AE6BCB000FAB475 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88CD1AE6BCB000FAB475 /* Data.swift */; };
+		044F88D11AE6BCB000FAB475 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88CE1AE6BCB000FAB475 /* JSON.swift */; };
+		044F88D21AE6BCB000FAB475 /* Plist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88CF1AE6BCB000FAB475 /* Plist.swift */; };
+		044F88D61AE6BCD000FAB475 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88D31AE6BCD000FAB475 /* Array.swift */; };
+		044F88D71AE6BCD000FAB475 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88D41AE6BCD000FAB475 /* Dictionary.swift */; };
+		044F88D81AE6BCD000FAB475 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88D51AE6BCD000FAB475 /* Optional.swift */; };
+		044F88DB1AE6BCE300FAB475 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88D91AE6BCE300FAB475 /* Functions.swift */; };
+		044F88DC1AE6BCE300FAB475 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88DA1AE6BCE300FAB475 /* Operators.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,18 +98,6 @@
 		04012A7A1AE12FA6006DAC19 /* Spot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Spot.h; sourceTree = "<group>"; };
 		04012A801AE12FA6006DAC19 /* SpotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04012A861AE12FA6006DAC19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		04012A921AE13088006DAC19 /* Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decodable.swift; sourceTree = "<group>"; };
-		04012A931AE13088006DAC19 /* Decoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
-		04012A941AE13088006DAC19 /* Encodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
-		04012A951AE13088006DAC19 /* Encoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encoder.swift; sourceTree = "<group>"; };
-		04012A9D1AE13096006DAC19 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
-		04012A9E1AE13096006DAC19 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
-		04012A9F1AE13096006DAC19 /* Plist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plist.swift; sourceTree = "<group>"; };
-		04012AA41AE130A0006DAC19 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
-		04012AA51AE130A0006DAC19 /* Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
-		04012AA61AE130A0006DAC19 /* Optional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Optional.swift; sourceTree = "<group>"; };
-		04012AAB1AE130A9006DAC19 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
-		04012AAC1AE130A9006DAC19 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		04012AB01AE130B7006DAC19 /* human.swift.motemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = human.swift.motemplate; sourceTree = "<group>"; };
 		04012AB11AE130B7006DAC19 /* machine.swift.motemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = machine.swift.motemplate; sourceTree = "<group>"; };
 		04012AB51AE130C2006DAC19 /* URLTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLTransform.swift; sourceTree = "<group>"; };
@@ -165,6 +153,18 @@
 		044F88941AE69BD900FAB475 /* TestTransformable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestTransformable.swift; path = Models/TestModels/TestTransformable.swift; sourceTree = "<group>"; };
 		044F88951AE69BD900FAB475 /* TestTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestTypes.swift; path = Models/TestModels/TestTypes.swift; sourceTree = "<group>"; };
 		044F88A41AE6A34200FAB475 /* RelationshipTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationshipTests.swift; sourceTree = "<group>"; };
+		044F88C51AE6BC9B00FAB475 /* Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Decodable.swift; path = Spot/Decodable.swift; sourceTree = SOURCE_ROOT; };
+		044F88C61AE6BC9B00FAB475 /* Decoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Decoder.swift; path = Spot/Decoder.swift; sourceTree = SOURCE_ROOT; };
+		044F88C71AE6BC9B00FAB475 /* Encodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Encodable.swift; path = Spot/Encodable.swift; sourceTree = SOURCE_ROOT; };
+		044F88C81AE6BC9B00FAB475 /* Encoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Encoder.swift; path = Spot/Encoder.swift; sourceTree = SOURCE_ROOT; };
+		044F88CD1AE6BCB000FAB475 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Data.swift; path = Spot/DataAdapters/Data.swift; sourceTree = SOURCE_ROOT; };
+		044F88CE1AE6BCB000FAB475 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSON.swift; path = Spot/DataAdapters/JSON.swift; sourceTree = SOURCE_ROOT; };
+		044F88CF1AE6BCB000FAB475 /* Plist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Plist.swift; path = Spot/DataAdapters/Plist.swift; sourceTree = SOURCE_ROOT; };
+		044F88D31AE6BCD000FAB475 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Array.swift; path = Spot/Array.swift; sourceTree = SOURCE_ROOT; };
+		044F88D41AE6BCD000FAB475 /* Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dictionary.swift; path = Spot/Dictionary.swift; sourceTree = SOURCE_ROOT; };
+		044F88D51AE6BCD000FAB475 /* Optional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Optional.swift; path = Spot/Optional.swift; sourceTree = SOURCE_ROOT; };
+		044F88D91AE6BCE300FAB475 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Functions.swift; path = Spot/Functions.swift; sourceTree = SOURCE_ROOT; };
+		044F88DA1AE6BCE300FAB475 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Spot/Operators.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,7 +209,7 @@
 			children = (
 				04012A7A1AE12FA6006DAC19 /* Spot.h */,
 				04012A911AE13088006DAC19 /* Coding */,
-				04012A9C1AE13096006DAC19 /* Data */,
+				04012A9C1AE13096006DAC19 /* DataAdapters */,
 				04012AA31AE130A0006DAC19 /* Extensions */,
 				04012AAA1AE130A9006DAC19 /* Library */,
 				04012AB41AE130C2006DAC19 /* Transforms */,
@@ -249,30 +249,31 @@
 		04012A911AE13088006DAC19 /* Coding */ = {
 			isa = PBXGroup;
 			children = (
-				04012A921AE13088006DAC19 /* Decodable.swift */,
-				04012A931AE13088006DAC19 /* Decoder.swift */,
-				04012A941AE13088006DAC19 /* Encodable.swift */,
-				04012A951AE13088006DAC19 /* Encoder.swift */,
+				044F88C51AE6BC9B00FAB475 /* Decodable.swift */,
+				044F88C61AE6BC9B00FAB475 /* Decoder.swift */,
+				044F88C71AE6BC9B00FAB475 /* Encodable.swift */,
+				044F88C81AE6BC9B00FAB475 /* Encoder.swift */,
 			);
 			path = Coding;
 			sourceTree = "<group>";
 		};
-		04012A9C1AE13096006DAC19 /* Data */ = {
+		04012A9C1AE13096006DAC19 /* DataAdapters */ = {
 			isa = PBXGroup;
 			children = (
-				04012A9D1AE13096006DAC19 /* Data.swift */,
-				04012A9E1AE13096006DAC19 /* JSON.swift */,
-				04012A9F1AE13096006DAC19 /* Plist.swift */,
+				044F88CD1AE6BCB000FAB475 /* Data.swift */,
+				044F88CE1AE6BCB000FAB475 /* JSON.swift */,
+				044F88CF1AE6BCB000FAB475 /* Plist.swift */,
 			);
+			name = DataAdapters;
 			path = Data;
 			sourceTree = "<group>";
 		};
 		04012AA31AE130A0006DAC19 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				04012AA41AE130A0006DAC19 /* Array.swift */,
-				04012AA51AE130A0006DAC19 /* Dictionary.swift */,
-				04012AA61AE130A0006DAC19 /* Optional.swift */,
+				044F88D31AE6BCD000FAB475 /* Array.swift */,
+				044F88D41AE6BCD000FAB475 /* Dictionary.swift */,
+				044F88D51AE6BCD000FAB475 /* Optional.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -280,8 +281,8 @@
 		04012AAA1AE130A9006DAC19 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				04012AAB1AE130A9006DAC19 /* Functions.swift */,
-				04012AAC1AE130A9006DAC19 /* Operators.swift */,
+				044F88D91AE6BCE300FAB475 /* Functions.swift */,
+				044F88DA1AE6BCE300FAB475 /* Operators.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -513,20 +514,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04012AA71AE130A0006DAC19 /* Array.swift in Sources */,
-				04012AA91AE130A0006DAC19 /* Optional.swift in Sources */,
+				044F88D01AE6BCB000FAB475 /* Data.swift in Sources */,
+				044F88D21AE6BCB000FAB475 /* Plist.swift in Sources */,
+				044F88CC1AE6BC9B00FAB475 /* Encoder.swift in Sources */,
+				044F88D81AE6BCD000FAB475 /* Optional.swift in Sources */,
+				044F88D71AE6BCD000FAB475 /* Dictionary.swift in Sources */,
+				044F88DB1AE6BCE300FAB475 /* Functions.swift in Sources */,
+				044F88CB1AE6BC9B00FAB475 /* Encodable.swift in Sources */,
 				04012AB61AE130C2006DAC19 /* URLTransform.swift in Sources */,
-				04012AA81AE130A0006DAC19 /* Dictionary.swift in Sources */,
 				04012AB81AE13154006DAC19 /* ValueTransform.swift in Sources */,
-				04012A9A1AE13088006DAC19 /* Encoder.swift in Sources */,
-				04012AA11AE13096006DAC19 /* JSON.swift in Sources */,
-				04012AA21AE13096006DAC19 /* Plist.swift in Sources */,
-				04012AA01AE13096006DAC19 /* Data.swift in Sources */,
-				04012A981AE13088006DAC19 /* Decoder.swift in Sources */,
-				04012A991AE13088006DAC19 /* Encodable.swift in Sources */,
-				04012AAE1AE130A9006DAC19 /* Operators.swift in Sources */,
-				04012A971AE13088006DAC19 /* Decodable.swift in Sources */,
-				04012AAD1AE130A9006DAC19 /* Functions.swift in Sources */,
+				044F88DC1AE6BCE300FAB475 /* Operators.swift in Sources */,
+				044F88C91AE6BC9B00FAB475 /* Decodable.swift in Sources */,
+				044F88CA1AE6BC9B00FAB475 /* Decoder.swift in Sources */,
+				044F88D61AE6BCD000FAB475 /* Array.swift in Sources */,
+				044F88D11AE6BCB000FAB475 /* JSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
