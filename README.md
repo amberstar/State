@@ -87,8 +87,8 @@ extension Issue : Encodable {
 ##Serialization
 Spot provides serialization using a data adapter. A data adapter is a standalone object responsible for reading and writing one type of data. Serialization is done in two-phases:
 
-1) Phase 1 - Model Types  -> Key-Value Data
-2) Phase 2 - Key-Value Data -> Data adapter -> Output
+1. Phase 1 - Model Types  -> Key-Value Data
+2. Phase 2 - Key-Value Data -> Data adapter -> Output
 
 * deserialization is reversed.
 
