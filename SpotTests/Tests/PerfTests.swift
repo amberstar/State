@@ -29,7 +29,7 @@ class PerfTests: Test {
         var data = [String : AnyObject]()
         
         measureBlock() {
-            data = Encoder.encode(player)
+            data = Encoder.encodeModel(player)
         }
     }
     
@@ -38,7 +38,7 @@ class PerfTests: Test {
         var data = [String : AnyObject]()
         
         measureBlock {
-            var newPlayer: Player?  = Decoder.decode(data)
+            var newPlayer: Player?  = Decoder.decodeModel(data)
         }
     }
     

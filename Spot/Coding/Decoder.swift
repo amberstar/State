@@ -14,7 +14,7 @@ public final class Decoder {
     :param: data a dictionary to use for decoding
     :returns: returns a decodable of type T or nil if decoding failed
     */
-    public class func decode<T: Decodable>(data:[String : AnyObject]) -> T? {
+    public class func decodeModel<T: Decodable>(data:[String : AnyObject]) -> T? {
         var decoder = Decoder(data: data)
         return T(decoder: decoder)
         //return T.decode(decoder)
@@ -26,11 +26,11 @@ public final class Decoder {
     :param: data must be cast-able to a Dictionary<String, AnyObject>
     :returns: returns a decodable of type T or nil if decoding failed
     */
-    public class func decode<T:Decodable>(data: AnyObject?) -> T? {
+    public class func decodeModel<T:Decodable>(data: AnyObject?) -> T? {
         switch data {
         case let .Some(d):
             if let ud = d as? [String : AnyObject] {
-                return self.decode(ud)
+                return self.decodeModel(ud)
             }
             return nil
         default:
@@ -53,7 +53,7 @@ public final class Decoder {
     :param: key a dictionary to use for decoding
     :returns: return element of type T or nil if decoding failed
     */
-    public func decodeObject<T:Decodable>(key: String) -> T? {
+    public func decodeModel<T:Decodable>(key: String) -> T? {
         return _decodeDecodable(key)
     }
     
@@ -62,7 +62,7 @@ public final class Decoder {
     :param: key a dictionary to use for decoding
     :returns: return an optional array of T or nil if decoding failed
     */
-    public func decodeObjectArray<T:Decodable>(key: String) -> [T]? {
+    public func decodeModelArray<T:Decodable>(key: String) -> [T]? {
         return _decodeDecodableArray(key)
     }
     
@@ -71,7 +71,7 @@ public final class Decoder {
     :param: key a dictionary to use for decoding
     :returns: return a dictionary of string, element T or nil if decoding failed
     */
-    public func decodeObjectDictionary<T: Decodable>(key: String) -> [String : T]? {
+    public func decodeModelDictionary<T: Decodable>(key: String) -> [String : T]? {
         return _decodeDecodableDictionary(key)
     }
     

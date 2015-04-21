@@ -3,9 +3,9 @@ import Spot
 
 class EncodingTests: Test {
         func testEncodingBools() {
-        let bools_in: BasicTypes<Bool>? = Decoder.decode(plistData["Bool"])
-        let bools_data = Encoder.encode(bools_in!)
-        let bools: BasicTypes<Bool>? = Decoder.decode(bools_data)
+        let bools_in: BasicTypes<Bool>? = Decoder.decodeModel(plistData["Bool"])
+        let bools_data = Encoder.encodeModel(bools_in!)
+        let bools: BasicTypes<Bool>? = Decoder.decodeModel(bools_data)
         
         /// Bools
         XCTAssert(bools != nil)
@@ -29,9 +29,9 @@ class EncodingTests: Test {
     }
     
     func testEncodingInts() {
-        let ints_in: BasicTypes<Int>? = Decoder.decode(plistData["Int"])
-        let ints_data = Encoder.encode(ints_in!)
-        let ints: BasicTypes<Int>? = Decoder.decode(ints_data)
+        let ints_in: BasicTypes<Int>? = Decoder.decodeModel(plistData["Int"])
+        let ints_data = Encoder.encodeModel(ints_in!)
+        let ints: BasicTypes<Int>? = Decoder.decodeModel(ints_data)
         
         /// Ints
         XCTAssert(ints != nil)
@@ -55,9 +55,9 @@ class EncodingTests: Test {
     }
 
     func testEncodingDoubles() {
-        let doubles_in: BasicTypes<Double>? = Decoder.decode(plistData["Double"])
-        let doubles_data = Encoder.encode(doubles_in!)
-        let doubles: BasicTypes<Double>? = Decoder.decode(doubles_data)
+        let doubles_in: BasicTypes<Double>? = Decoder.decodeModel(plistData["Double"])
+        let doubles_data = Encoder.encodeModel(doubles_in!)
+        let doubles: BasicTypes<Double>? = Decoder.decodeModel(doubles_data)
 
         /// Doubles
         XCTAssert(doubles != nil)
@@ -81,9 +81,9 @@ class EncodingTests: Test {
     }
     
     func testEncodingFloats() {
-        let floats_in: BasicTypes<Float>? = Decoder.decode(plistData["Float"])
-        let floats_data = Encoder.encode(floats_in!)
-        let floats: BasicTypes<Float>? = Decoder.decode(floats_data)
+        let floats_in: BasicTypes<Float>? = Decoder.decodeModel(plistData["Float"])
+        let floats_data = Encoder.encodeModel(floats_in!)
+        let floats: BasicTypes<Float>? = Decoder.decodeModel(floats_data)
         
         /// Floats
         XCTAssert(floats != nil)
@@ -107,9 +107,9 @@ class EncodingTests: Test {
     }
     
     func testEncodingStringTypes() {
-        let strings_in: StringTypes? = Decoder.decode(plistData["String"])
-        let strings_data = Encoder.encode(strings_in!)
-        let strings: StringTypes? = Decoder.decode(strings_data)
+        let strings_in: StringTypes? = Decoder.decodeModel(plistData["String"])
+        let strings_data = Encoder.encodeModel(strings_in!)
+        let strings: StringTypes? = Decoder.decodeModel(strings_data)
         
         /// Strings
         XCTAssert(strings != nil)
@@ -133,9 +133,9 @@ class EncodingTests: Test {
     }
 
     func testEncodingAnyObjectTypes() {
-        let objects_in: AnyObjectTypes? = Decoder.decode(plistData["Object"])
-        let objects_data = Encoder.encode(objects_in!)
-        let objects: AnyObjectTypes? = Decoder.decode(objects_data)
+        let objects_in: AnyObjectTypes? = Decoder.decodeModel(plistData["Object"])
+        let objects_data = Encoder.encodeModel(objects_in!)
+        let objects: AnyObjectTypes? = Decoder.decodeModel(objects_data)
     
         /// AnyObjects
         XCTAssert(objects != nil)

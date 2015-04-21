@@ -33,7 +33,7 @@ extension <$managedObjectClassName$> : Decodable {
     public init?(decoder: Decoder) {
         let instance: <$managedObjectClassName$>? = <$managedObjectClassName$>.create
         <$foreach Attribute noninheritedAttributes do$><$if AttributeIndex == 0$><^><$else$><*><$endif$> <$if Attribute.isOptional$>Optional(<$endif$><$if Attribute.attributeType == 1800$><$Attribute.valueTransformerName$>.reverseTransform(<$endif$>decoder.decode("<$Attribute.name$>")<$if Attribute.attributeType == 1800$>)<$endif$><$if Attribute.isOptional$>)<$endif$>
-        <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if indexOfRelationship == 0 && noninheritedAttributes.@count == 0$><^><$else$><*><$endif$> <$if Relationship.isOptional$>Optional(<$endif$>decoder.decodeObject<$if Relationship.isToMany$>Array<$endif$>("<$Relationship.name$>")<$if Relationship.isOptional$>)<$endif$>
+        <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if indexOfRelationship == 0 && noninheritedAttributes.@count == 0$><^><$else$><*><$endif$> <$if Relationship.isOptional$>Optional(<$endif$>decoder.decodeModel<$if Relationship.isToMany$>Array<$endif$>("<$Relationship.name$>")<$if Relationship.isOptional$>)<$endif$>
         <$endforeach do$>
         if let i = instance { self = i } else { return nil }
     }

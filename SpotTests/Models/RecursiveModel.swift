@@ -54,10 +54,10 @@ struct Player {
             <*> Optional(decoder.decode("height"))
             <*> Optional(decoder.decode("weight"))
             <*> decoder.decode("mvp")
-            <*> Optional(decoder.decodeObject("partner"))
-            <*> decoder.decodeObjectArray("teamates")
-            <*> Optional(decoder.decodeObjectArray("fillins"))
-            <*> Optional(decoder.decodeObjectDictionary("teamatesByName"))
+            <*> Optional(decoder.decodeModel("partner"))
+            <*> decoder.decodeModelArray("teamates")
+            <*> Optional(decoder.decodeModelArray("fillins"))
+            <*> Optional(decoder.decodeModelDictionary("teamatesByName"))
             <*> Optional(decoder.decode("awards"))
         
         if let i = instance { self = i } else { return nil }

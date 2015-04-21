@@ -9,7 +9,7 @@ encode models to key value data
 public final class Encoder {
     internal private(set) var data = [String : AnyObject]()
     
-    public class func encode<T: Encodable>(element: T) -> [String : AnyObject] {
+    public class func encodeModel<T: Encodable>(element: T) -> [String : AnyObject] {
             let coder = Encoder()
             element.encode(coder)
             return coder.data
@@ -21,7 +21,7 @@ public final class Encoder {
     
     public func encode<T: Encodable>(element: T?, forKey key: String) {
         if let e = element {
-            data[key] = Encoder.encode(e)
+            data[key] = Encoder.encodeModel(e)
         }
     }
     
@@ -31,7 +31,7 @@ public final class Encoder {
     
     public  func encode<T: Encodable>(element: [T]?, forKey key: String) {
         if let e = element {
-            data[key] = e.map{ Encoder.encode($0) }
+            data[key] = e.map{ Encoder.encodeModel($0) }
         }
     }
     
@@ -41,7 +41,7 @@ public final class Encoder {
     
     public func encode<T: Encodable>(element: [String : T]?, forKey key: String) {
         if let e = element {
-            data[key] = e.map{ Encoder.encode($0) }
+            data[key] = e.map{ Encoder.encodeModel($0) }
         }
     }
     

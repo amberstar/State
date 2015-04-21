@@ -4,11 +4,11 @@ import Spot
 class EncodableTests: Test {
     
     func testEcodingToAndFromJSON() {
-        let inUsers: UserTypes? = Decoder.decode(jsonData)
+        let inUsers: UserTypes? = Decoder.decodeModel(jsonData)
         if let inUsers = inUsers {
-            JSON.write(Encoder.encode(inUsers), path: tempPathFor("temp.json"))
+            JSON.write(Encoder.encodeModel(inUsers), path: tempPathFor("temp.json"))
         }
-        let users: UserTypes? = Decoder.decode(JSON.read(tempPathFor("temp.json")))
+        let users: UserTypes? = Decoder.decodeModel(JSON.read(tempPathFor("temp.json")))
         XCTAssert(users != nil)
         XCTAssert(users?.tArr.count == 3)
         XCTAssert(users?.tImp.name == "John Doe")
@@ -18,11 +18,11 @@ class EncodableTests: Test {
     }
 
     func testEcodingToAndFromPlist() {
-        let inUsers : UserTypes? = Decoder.decode(plistData["Users"])
+        let inUsers : UserTypes? = Decoder.decodeModel(plistData["Users"])
         if let inUsers = inUsers {
-            Plist.write(Encoder.encode(inUsers), path: tempPathFor("temp.plist"))
+            Plist.write(Encoder.encodeModel(inUsers), path: tempPathFor("temp.plist"))
         }
-        let users: UserTypes? = Decoder.decode(Plist.read(tempPathFor("temp.plist")))
+        let users: UserTypes? = Decoder.decodeModel(Plist.read(tempPathFor("temp.plist")))
         XCTAssert(users != nil)
         XCTAssert(users?.tArr.count == 3)
         XCTAssert(users?.tImp.name == "John Doe")

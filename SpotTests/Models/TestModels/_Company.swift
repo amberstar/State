@@ -34,7 +34,7 @@ extension Company : Decodable {
         <^> decoder.decode("name")
         <*> Optional(decoder.decode("phoneNumber"))
         <*> decoder.decode("yearFounded")
-        <*> Optional(decoder.decodeObjectArray("employees"))
+        <*> Optional(decoder.decodeModelArray("employees"))
 
         if let i = instance { self = i } else { return nil }
     }

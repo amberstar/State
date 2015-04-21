@@ -13,3 +13,20 @@ func sequence<T>(xs: [String: T?]) -> [String: T]? {
         return curry(+) <^> accum <*> ({ [elem.0: $0] } <^> elem.1)
     }
 }
+
+public func asOptional<T>(value: T?) -> Optional<Optional<T>> {
+    if let v = value {
+        return Optional.Some(v)
+    } else {
+        return Optional.Some(nil)
+    }
+}
+
+public func >>><T,U>(a: T, f: T -> U? ) -> U? {
+    return f(a)
+}
+
+public func <<<<T,U>(f: T-> U?, a: T) -> U? {
+    return f(a)
+}
+
