@@ -83,13 +83,6 @@
 			remoteGlobalIDString = 04012A741AE12FA6006DAC19;
 			remoteInfo = Spot;
 		};
-		04012AE71AE13ADA006DAC19 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 04012A6C1AE12FA6006DAC19 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 04012AE31AE13A90006DAC19;
-			remoteInfo = TestModels;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -437,7 +430,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				04012AE81AE13ADA006DAC19 /* PBXTargetDependency */,
 				04012A831AE12FA6006DAC19 /* PBXTargetDependency */,
 			);
 			name = SpotTests;
@@ -587,11 +579,6 @@
 			isa = PBXTargetDependency;
 			target = 04012A741AE12FA6006DAC19 /* Spot */;
 			targetProxy = 04012A821AE12FA6006DAC19 /* PBXContainerItemProxy */;
-		};
-		04012AE81AE13ADA006DAC19 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 04012AE31AE13A90006DAC19 /* TestModels */;
-			targetProxy = 04012AE71AE13ADA006DAC19 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
