@@ -96,9 +96,32 @@ Data.write(Encoder.encodeModel(issues), path: documentPathFor("issues.plist"))
 Plist.write(Encoder.encodeModel(issues), path: documentPathFor("issues.plist"))
 ```
 
+##Serialization
+Spot provides serialization using a data adapter. A data adapter is a standalone object responsible for reading and writing one type of data. Serialization is done in two-phases:
 
+1) Phase 1 - Model Types  -> Key-Value Data
+2) Phase 2 - Key-Value Data -> Data adapter -> Output
 
-### Read models from JSON  or .Plist files.
+* deserialization is reversed.
+
+During phase one an encoder encodes the model to raw key-value data. This is a simillar process to NSCoding but for structs. 
+
+During phase two, it's up to you to choose a data adapter to use to write the key-value data out to output. You can use one of the built in data adapters, or you can subclass the Data.swift data adapter to make your own.
+
+Three data adapters are provided:
+
+1) Data. -> uses NSKeyValueArchiver to archive binary plist files
+2) Plist. -> reads and writes XML plist files
+3) JSON. -> read and write JSON files
+
+The data adapters can do the following in it's respective format: 
+- Read/Write files
+- Read/Write NSData
+- Read/Write to a String (if supported)
+- Print to std out
+- Read from a URL
+
+#### Read models from JSON  or .Plist files.
 ```swift
 // Read JSON and decode issues model
 let loadedIssues: Issues? = Decoder.decodeModel(JSON.read(documentPathFor("issues.json")))
