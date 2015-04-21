@@ -5,9 +5,8 @@ env:
   global:
     - LANG=en_US.UTF-8
     - LC_ALL=en_US.UTF-8
-    - XCODE_WORKSPACE=ObjectMapper.xcworkspace
   matrix:
-    - SCRIPT="xctool -project Spot.xcodeproj -scheme Spot -sdk iphonesimulator8.1 test"
+    - SCRIPT="xctool -project Spot.xcodeproj -scheme Spot -sdk iphonesimulator8.0 test"
 
 before_install:
   - brew update
