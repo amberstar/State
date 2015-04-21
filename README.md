@@ -98,9 +98,9 @@ During phase two, it's up to you to choose a data adapter to use to write the ke
 
 Three data adapters are provided:
 
-1) Data. -> uses NSKeyValueArchiver to archive binary plist files
-2) Plist. -> reads and writes XML plist files
-3) JSON. -> read and write JSON files
+1. Data. -> uses NSKeyValueArchiver to archive binary plist files
+2. Plist. -> reads and writes XML plist files
+3. JSON. -> read and write JSON files
 
 The data adapters can do the following in it's respective format: 
 - Read/Write files
