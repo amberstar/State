@@ -175,7 +175,7 @@ Two versioning variables are provided during the process that are sourced from  
         return nil
     }
 ```
-Below are the methods that are implemented for you in your Human file to allow you to control the version and migration process:
+Below are the methods that are implemented for you in your human file. You can modify the implementations as approptiate to control the version and migration process:
 
 ```swift
 ///MARK: Migration
