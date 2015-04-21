@@ -1,6 +1,6 @@
 #Spot [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-Spot make it simple to set up a swift struct based model layer.
+Spot makes it simple to set up a swift struct based model layer.
 
 
 Spot is a swift model framework for using structs as your model layer. Design models using Xcode's Core Data model design tool. Model code is  generated automatically using [Mogenerator](https://github.com/rentzsch/mogenerator) and provides serialization to and from Plists, XML Plists, or JSON.
