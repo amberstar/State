@@ -184,6 +184,7 @@ Spot is released under the MIT license. See
 
 - [See the example project ](https://github.com/amberstar/Spot/tree/master/SpotExample)
 - [See the Wiki](https://github.com/amberstar/Spot/wiki)
+- [Take a look a some models created with Spot](https://github.com/amberstar/Spot/tree/master/SpotExample/SpotExample/Models)
 
 
 Have a question? Please [open an issue](https://github.com/amberstar/Spot/issues/new)
