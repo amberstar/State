@@ -38,7 +38,7 @@ extension BasicTypes : Decodable {
         return BasicTypes<T>(t: t, tOpt: tOpt, tImp: tImp, tArr: tArr, tArrOpt: tArrOpt, tArrImp: tArrImp, tDic: tDic, tDicOpt: tDicOpt, tDicImp: tDicImp)
     }
     
-     init?(decoder: Decoder) {
+    init?(decoder: Decoder) {
         let instance: BasicTypes? = BasicTypes.create
             <^> decoder.decode("t")
             <*> Optional(decoder.decode("t_opt"))
@@ -118,7 +118,7 @@ extension StringTypes : Decodable {
             <*> decoder.decode("t_dic")
             <*> Optional(decoder.decode("t_dic_opt"))
             <*> Optional(decoder.decode("t_dic_imp")) {
-            self = instance
+                self = instance
         } else {
             return nil
         }

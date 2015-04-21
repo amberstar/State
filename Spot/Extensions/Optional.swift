@@ -84,5 +84,5 @@ extension Optional {
     */
     func apply<U>(f: (T -> U)?) -> U? {
         return f.flatMap { self.map($0) }
-    }
+    }    
 }
