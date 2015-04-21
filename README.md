@@ -117,9 +117,21 @@ FileName.swift = human generated file
 The human generated file serves the following purposes:
 
 - Is where you to extend your model code
-- Allows you to hook in to the encoding and decoding process, so you can read and write additional data if needed.
+- Allows you to hook in to the encoding and decoding process, so you can read and write additional data during serialization if needed.
 - Allows you to delegate versioning and migration, giving you complete control over the model versioning and migration process.
 
+[See an example human generated file](https://github.com/amberstar/Spot/blob/master/SpotTests/Models/TestModels/Company.swift)
+
+### Versioning and Migration Managment 
+Spots versioning and migration scheme is opt in, and allows you to fully control the proccess by passing delegation to the Human layer of the model. You  specify and control all of the following:
+- if models should be versioned when encoded
+- a versionKey to use for the version encoding
+- the current version using AnyObject type as the version
+- if version checking and migration is done at all
+- specify if a given version found in the data model needs migration
+- directly migrate raw key-value data to the current version before attempting to decode a model
+
+Two static variables are provided during the process that are passed in from the  Model Design file. The following are available for you to determine  a model version is different than the current version.
 ```swift
 /**
     These are provided from the data model designer
