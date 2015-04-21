@@ -47,7 +47,10 @@ extension TestTypes : Decodable {
         <*> decoder.decode("myInt")
         <*> decoder.decode("myString")
 
-        if let i = instance { self = i } else { return nil }
+        if let i = instance {
+            i.didFinishDecodingWithDecoder(decoder)
+            self = i
+        } else { return nil }
     }
 }
 
@@ -63,6 +66,7 @@ extension TestTypes : Encodable {
         encoder.encode(self.myInt, forKey: "myInt")
         encoder.encode(self.myString, forKey: "myString")
 
+        self.willFinishEncodingWithEncoder(encoder)
     }
 }
 

@@ -3,8 +3,22 @@
         HUMAN GENERATED FILE
 
 ************************************************/
-import Foundation
+import Spot
 
 extension TestTransformable {
+
+    // Extend your model entity here.
+
+}
+
+extension TestTransformable {
+
+    func didFinishDecodingWithDecoder(decoder: Decoder) {
+
+    }
+
+    func willFinishEncodingWithEncoder(encoder: Encoder) {
+
+    }
 
 }

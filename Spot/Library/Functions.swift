@@ -22,11 +22,12 @@ public func asOptional<T>(value: T?) -> Optional<Optional<T>> {
     }
 }
 
+
 public func >>><T,U>(a: T, f: T -> U? ) -> U? {
     return f(a)
 }
 
-public func <<<<T,U>(f: T-> U?, a: T) -> U? {
-    return f(a)
-}
+
+
+
 

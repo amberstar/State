@@ -27,9 +27,12 @@ extension Employee : Decodable {
     public init?(decoder: Decoder) {
         let instance: Employee? = Employee.create
         <^> decoder.decode("name")
-        <*> Optional(decoder.decode("title"))
+        <*> decoder.decode("title") >>> asOptional
 
-        if let i = instance { self = i } else { return nil }
+        if let i = instance {
+            i.didFinishDecodingWithDecoder(decoder)
+            self = i
+        } else { return nil }
     }
 }
 
@@ -39,6 +42,7 @@ extension Employee : Encodable {
         encoder.encode(self.name, forKey: "name")
         encoder.encode(self.title, forKey: "title")
 
+        self.willFinishEncodingWithEncoder(encoder)
     }
 }
 

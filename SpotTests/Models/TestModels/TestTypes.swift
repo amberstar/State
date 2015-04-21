@@ -3,7 +3,7 @@
         HUMAN GENERATED FILE
 
 ************************************************/
-import Foundation
+import Spot
 
 extension TestTypes {
 
@@ -24,6 +24,16 @@ extension TestTypes {
         }
         return nil
     }
+}
 
+extension TestTypes {
+
+    func didFinishDecodingWithDecoder(decoder: Decoder) {
+
+    }
+
+    func willFinishEncodingWithEncoder(encoder: Encoder) {
+
+    }
 
 }

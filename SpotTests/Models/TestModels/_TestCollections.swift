@@ -32,7 +32,10 @@ extension TestCollections : Decodable {
         <*> decoder.decode("dicOfInts")
         <*> decoder.decode("setOfStrings")
 
-        if let i = instance { self = i } else { return nil }
+        if let i = instance {
+            i.didFinishDecodingWithDecoder(decoder)
+            self = i
+        } else { return nil }
     }
 }
 
@@ -43,6 +46,7 @@ extension TestCollections : Encodable {
         encoder.encode(self.dicOfInts, forKey: "dicOfInts")
         encoder.encode(self.setOfStrings, forKey: "setOfStrings")
 
+        self.willFinishEncodingWithEncoder(encoder)
     }
 }
 

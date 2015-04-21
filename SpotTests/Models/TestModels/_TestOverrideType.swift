@@ -26,10 +26,13 @@ extension TestOverrideType : Decodable {
     }
     public init?(decoder: Decoder) {
         let instance: TestOverrideType? = TestOverrideType.create
-        <^> Optional(decoder.decode("myArrayOfString"))
-        <*> Optional(decoder.decode("myURL"))
+        <^> decoder.decode("myArrayOfString") >>> asOptional
+        <*> decoder.decode("myURL") >>> asOptional
 
-        if let i = instance { self = i } else { return nil }
+        if let i = instance {
+            i.didFinishDecodingWithDecoder(decoder)
+            self = i
+        } else { return nil }
     }
 }
 
@@ -39,6 +42,7 @@ extension TestOverrideType : Encodable {
         encoder.encode(self.myArrayOfString, forKey: "myArrayOfString")
         encoder.encode(self.myURL, forKey: "myURL")
 
+        self.willFinishEncodingWithEncoder(encoder)
     }
 }
 

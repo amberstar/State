@@ -3,10 +3,9 @@
         HUMAN GENERATED FILE
 
 ************************************************/
-import Foundation
+import Spot
 
 extension TestImmutableTypes {
-
     init() {
         self.myBinary = TestImmutableTypes.createBinary()!
         self.myBoolean = true
@@ -24,6 +23,16 @@ extension TestImmutableTypes {
         }
         return nil
     }
+}
 
+extension TestImmutableTypes {
+
+    func didFinishDecodingWithDecoder(decoder: Decoder) {
+
+    }
+
+    func willFinishEncodingWithEncoder(encoder: Encoder) {
+
+    }
 
 }

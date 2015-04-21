@@ -38,16 +38,19 @@ extension TestImmutableOptionalTypes : Decodable {
     }
     public init?(decoder: Decoder) {
         let instance: TestImmutableOptionalTypes? = TestImmutableOptionalTypes.create
-        <^> Optional(decoder.decode("myBinary"))
-        <*> Optional(decoder.decode("myBoolean"))
-        <*> Optional(decoder.decode("myDate"))
-        <*> Optional(decoder.decode("myDecimal"))
-        <*> Optional(decoder.decode("myDouble"))
-        <*> Optional(decoder.decode("myFloat"))
-        <*> Optional(decoder.decode("myInt"))
-        <*> Optional(decoder.decode("myString"))
+        <^> decoder.decode("myBinary") >>> asOptional
+        <*> decoder.decode("myBoolean") >>> asOptional
+        <*> decoder.decode("myDate") >>> asOptional
+        <*> decoder.decode("myDecimal") >>> asOptional
+        <*> decoder.decode("myDouble") >>> asOptional
+        <*> decoder.decode("myFloat") >>> asOptional
+        <*> decoder.decode("myInt") >>> asOptional
+        <*> decoder.decode("myString") >>> asOptional
 
-        if let i = instance { self = i } else { return nil }
+        if let i = instance {
+            i.didFinishDecodingWithDecoder(decoder)
+            self = i
+        } else { return nil }
     }
 }
 
@@ -63,6 +66,7 @@ extension TestImmutableOptionalTypes : Encodable {
         encoder.encode(self.myInt, forKey: "myInt")
         encoder.encode(self.myString, forKey: "myString")
 
+        self.willFinishEncodingWithEncoder(encoder)
     }
 }
 

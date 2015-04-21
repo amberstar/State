@@ -16,7 +16,9 @@ public final class Encoder {
     }
     
     public func encode<T: Encodable>(element: T?)(forKey key: String) {
-        return encode(element, forKey: key)
+        if let e = element {
+            data[key] = Encoder.encodeModel(e)
+        }
     }
     
     public func encode<T: Encodable>(element: T?, forKey key: String) {
@@ -26,7 +28,9 @@ public final class Encoder {
     }
     
     public func encode<T: Encodable>(element: [T]?)(forKey key: String) {
-        return encode(element, forKey:key)
+        if let e = element {
+            data[key] = e.map{ Encoder.encodeModel($0) }
+        }
     }
     
     public  func encode<T: Encodable>(element: [T]?, forKey key: String) {
@@ -36,7 +40,9 @@ public final class Encoder {
     }
     
     public func encode<T: Encodable>(element: [String : T]?)(forKey key: String) {
-        return encode(element, forKey:key)
+        if let e = element {
+            data[key] = e.map{ Encoder.encodeModel($0) }
+        }
     }
     
     public func encode<T: Encodable>(element: [String : T]?, forKey key: String) {
@@ -46,7 +52,9 @@ public final class Encoder {
     }
     
     public func encode<V>(element: V?)(forKey key: String) {
-        return encode(element, forKey: key)
+        if let e = element {
+            data[key] = element as? AnyObject
+        }
     }
     
     public func encode<V>(element: V?, forKey key: String) {

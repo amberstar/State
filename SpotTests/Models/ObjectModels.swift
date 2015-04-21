@@ -41,14 +41,14 @@ extension UserTypes : Decodable {
     init?(decoder: Decoder) {
         let instance: UserTypes? = UserTypes.create
             <^> decoder.decodeModel("t")
-            <*> Optional(decoder.decodeModel("t_opt"))
-            <*> Optional(decoder.decodeModel("t_imp"))
+            <*> decoder.decodeModel("t_opt") >>> asOptional
+            <*> decoder.decodeModel("t_imp") >>> asOptional
             <*> decoder.decodeModelArray("t_arr")
-            <*> Optional(decoder.decodeModelArray("t_arr_opt"))
-            <*> Optional(decoder.decodeModelArray("t_arr_imp"))
+            <*> decoder.decodeModelArray("t_arr_opt") >>> asOptional
+            <*> decoder.decodeModelArray("t_arr_imp") >>> asOptional
             <*> decoder.decodeModelDictionary("t_dic")
-            <*> Optional(decoder.decodeModelDictionary("t_dic_opt"))
-            <*> Optional(decoder.decodeModelDictionary("t_dic_imp"))
+            <*> decoder.decodeModelDictionary("t_dic_opt") >>> asOptional
+            <*> decoder.decodeModelDictionary("t_dic_imp") >>> asOptional
         
         if let i = instance { self = i } else { return nil }
     }
@@ -92,7 +92,7 @@ extension User: Decodable, Encodable{
            if  let instance = User.create
             <^> decoder.decode("id")
             <*> decoder.decode("name")
-            <*> Optional(decoder.decode("email")) {
+            <*> decoder.decode("email") >>> asOptional {
             self = instance
            } else {
             return nil

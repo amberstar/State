@@ -3,10 +3,21 @@
         HUMAN GENERATED FILE
 
 ************************************************/
-import Foundation
+import Spot
 
 extension <$managedObjectClassName$> {
 
     // Extend your model entity here.
+}
 
+
+extension <$managedObjectClassName$> {
+
+    func didFinishDecodingWithDecoder(decoder: Decoder) {
+
+    }
+
+    func willFinishEncodingWithEncoder(encoder: Encoder) {
+
+    }
 }

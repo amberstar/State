@@ -30,12 +30,15 @@ extension TestTransformable : Decodable {
     }
     public init?(decoder: Decoder) {
         let instance: TestTransformable? = TestTransformable.create
-        <^> URLTransform.reverseTransform(decoder.decode("myTransformable"))
-        <*> URLTransform.reverseTransform(decoder.decode("myTransformableImmutable"))
-        <*> Optional(URLTransform.reverseTransform(decoder.decode("myTransformableImmutableOptional")))
-        <*> Optional(URLTransform.reverseTransform(decoder.decode("myTransformableOptional")))
+        <^> decoder.decode("myTransformable") >>> URLTransform.reverseTransform
+        <*> decoder.decode("myTransformableImmutable") >>> URLTransform.reverseTransform
+        <*> decoder.decode("myTransformableImmutableOptional") >>> URLTransform.reverseTransform >>> asOptional
+        <*> decoder.decode("myTransformableOptional") >>> URLTransform.reverseTransform >>> asOptional
 
-        if let i = instance { self = i } else { return nil }
+        if let i = instance {
+            i.didFinishDecodingWithDecoder(decoder)
+            self = i
+        } else { return nil }
     }
 }
 
@@ -47,6 +50,7 @@ extension TestTransformable : Encodable {
         encoder.encode(URLTransform.transform(self.myTransformableImmutableOptional), forKey: "myTransformableImmutableOptional")
         encoder.encode(URLTransform.transform(self.myTransformableOptional), forKey: "myTransformableOptional")
 
+        self.willFinishEncodingWithEncoder(encoder)
     }
 }
 

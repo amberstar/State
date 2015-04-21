@@ -41,14 +41,14 @@ extension BasicTypes : Decodable {
     init?(decoder: Decoder) {
         let instance: BasicTypes? = BasicTypes.create
             <^> decoder.decode("t")
-            <*> Optional(decoder.decode("t_opt"))
-            <*> Optional(decoder.decode("t_imp"))
+            <*> decoder.decode("t_opt") >>> asOptional
+            <*> decoder.decode("t_imp") >>> asOptional
             <*> decoder.decode("t_arr")
-            <*> Optional(decoder.decode("t_arr_opt"))
-            <*> Optional(decoder.decode("t_arr_imp"))
+            <*> decoder.decode("t_arr_opt") >>> asOptional
+            <*> decoder.decode("t_arr_imp") >>> asOptional
             <*> decoder.decode("t_dic")
-            <*> Optional(decoder.decode("t_dic_opt"))
-            <*> Optional(decoder.decode("t_dic_imp"))
+            <*> decoder.decode("t_dic_opt") >>> asOptional
+            <*> decoder.decode("t_dic_imp") >>> asOptional
         
         if let i = instance { self = i } else { return nil }
     }
@@ -57,15 +57,15 @@ extension BasicTypes : Decodable {
 extension BasicTypes : Encodable {
     
     func encode(encoder: Encoder){
-        encoder.encode(self.t, forKey: "t")
-        encoder.encode(self.tOpt, forKey: "t_opt")
+        encoder.encode(self.t, forKey:"t")
+        encoder.encode(self.tOpt, forKey:"t_opt")
         encoder.encode(self.tImp, forKey:"t_imp")
-        encoder.encode(self.tArr, forKey: "t_arr")
-        encoder.encode(self.tArrOpt, forKey: "t_arr_opt")
-        encoder.encode(self.tArrImp, forKey: "t_arr_imp")
-        encoder.encode(self.tDic, forKey: "t_dic")
-        encoder.encode(self.tDicOpt, forKey: "t_dic_opt")
-        encoder.encode(self.tDictImp, forKey: "t_dic_imp")
+        encoder.encode(self.tArr, forKey:"t_arr")
+        encoder.encode(self.tArrOpt, forKey:"t_arr_opt")
+        encoder.encode(self.tArrImp, forKey:"t_arr_imp")
+        encoder.encode(self.tDic, forKey:"t_dic")
+        encoder.encode(self.tDicOpt, forKey:"t_dic_opt")
+        encoder.encode (self.tDictImp, forKey:"t_dic_imp")
     }
 }
 
@@ -110,15 +110,15 @@ extension StringTypes : Decodable {
     init?(decoder: Decoder) {
         if let instance = StringTypes.create
             <^> decoder.decode("t")
-            <*> Optional(decoder.decode("t_opt"))
-            <*> Optional(decoder.decode("t_imp"))
+            <*> decoder.decode("t_opt") >>> asOptional
+            <*> decoder.decode("t_imp") >>> asOptional
             <*> decoder.decode("t_arr")
-            <*> Optional(decoder.decode("t_arr_opt"))
-            <*> Optional(decoder.decode("t_arr_imp"))
+            <*> decoder.decode("t_arr_opt") >>> asOptional
+            <*> decoder.decode("t_arr_imp") >>> asOptional
             <*> decoder.decode("t_dic")
-            <*> Optional(decoder.decode("t_dic_opt"))
-            <*> Optional(decoder.decode("t_dic_imp")) {
-                self = instance
+            <*> decoder.decode("t_dic_opt") >>> asOptional
+            <*> decoder.decode("t_dic_imp") >>> asOptional {
+            self = instance
         } else {
             return nil
         }
@@ -128,15 +128,15 @@ extension StringTypes : Decodable {
 extension StringTypes : Encodable {
     
     func encode(encoder: Encoder){
-        encoder.encode(self.t, forKey: "t")
-        encoder.encode(self.tOpt, forKey: "t_opt")
+        encoder.encode(self.t, forKey:"t")
+        encoder.encode(self.tOpt, forKey:"t_opt")
         encoder.encode(self.tImp, forKey:"t_imp")
-        encoder.encode(self.tArr, forKey: "t_arr")
-        encoder.encode(self.tArrOpt, forKey: "t_arr_opt")
-        encoder.encode(self.tArrImp, forKey: "t_arr_imp")
-        encoder.encode(self.tDic, forKey: "t_dic")
-        encoder.encode(self.tDicOpt, forKey: "t_dic_opt")
-        encoder.encode(self.tDictImp, forKey: "t_dic_imp")
+        encoder.encode(self.tArr, forKey:"t_arr")
+        encoder.encode(self.tArrOpt, forKey:"t_arr_opt")
+        encoder.encode(self.tArrImp, forKey:"t_arr_imp")
+        encoder.encode(self.tDic, forKey:"t_dic")
+        encoder.encode(self.tDicOpt, forKey:"t_dic_opt")
+        encoder.encode(self.tDictImp, forKey:"t_dic_imp")
     }
 }
 
@@ -181,14 +181,14 @@ extension AnyObjectTypes : Decodable {
     init?(decoder: Decoder) {
         if let instance = AnyObjectTypes.create
             <^> decoder.decode("t")
-            <*> Optional(decoder.decode("t_opt"))
-            <*> Optional(decoder.decode("t_imp"))
+            <*> decoder.decode("t_opt") >>> asOptional
+            <*> decoder.decode("t_imp") >>> asOptional
             <*> decoder.decode("t_arr")
-            <*> Optional(decoder.decode("t_arr_opt"))
-            <*> Optional(decoder.decode("t_arr_imp"))
+            <*> decoder.decode("t_arr_opt") >>> asOptional
+            <*> decoder.decode("t_arr_imp") >>> asOptional
             <*> decoder.decode("t_dic")
-            <*> Optional(decoder.decode("t_dic_opt"))
-            <*> Optional(decoder.decode("t_dic_imp")) {
+            <*> decoder.decode("t_dic_opt") >>> asOptional
+            <*> decoder.decode("t_dic_imp") >>> asOptional {
             self = instance
         } else {
             return nil
@@ -199,14 +199,14 @@ extension AnyObjectTypes : Decodable {
 extension AnyObjectTypes : Encodable {
     
     func encode(encoder: Encoder){
-        encoder.encode(self.t, forKey: "t")
-        encoder.encode(self.tOpt, forKey: "t_opt")
+        encoder.encode(self.t, forKey:"t")
+        encoder.encode(self.tOpt, forKey:"t_opt")
         encoder.encode(self.tImp, forKey:"t_imp")
-        encoder.encode(self.tArr, forKey: "t_arr")
-        encoder.encode(self.tArrOpt, forKey: "t_arr_opt")
-        encoder.encode(self.tArrImp, forKey: "t_arr_imp")
-        encoder.encode(self.tDic, forKey: "t_dic")
-        encoder.encode(self.tDicOpt, forKey: "t_dic_opt")
-        encoder.encode(self.tDictImp, forKey: "t_dic_imp")
+        encoder.encode(self.tArr, forKey:"t_arr")
+        encoder.encode(self.tArrOpt, forKey:"t_arr_opt")
+        encoder.encode(self.tArrImp, forKey:"t_arr_imp")
+        encoder.encode(self.tDic, forKey:"t_dic")
+        encoder.encode(self.tDicOpt, forKey:"t_dic_opt")
+        encoder.encode(self.tDictImp, forKey:"t_dic_imp")
     }
 }

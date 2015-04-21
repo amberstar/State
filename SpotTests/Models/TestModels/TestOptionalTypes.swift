@@ -3,11 +3,9 @@
         HUMAN GENERATED FILE
 
 ************************************************/
-
-import Foundation
+import Spot
 
 extension TestOptionalTypes {
-
     init() {
         self.myBinary = TestOptionalTypes.createBinary()
         self.myBoolean = true
@@ -24,6 +22,17 @@ extension TestOptionalTypes {
             return  NSData(contentsOfFile:path)
         }
         return nil
+    }
+}
+
+extension TestOptionalTypes {
+
+    func didFinishDecodingWithDecoder(decoder: Decoder) {
+
+    }
+
+    func willFinishEncodingWithEncoder(encoder: Encoder) {
+
     }
 
 }

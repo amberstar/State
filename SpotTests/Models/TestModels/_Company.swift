@@ -32,11 +32,14 @@ extension Company : Decodable {
     public init?(decoder: Decoder) {
         let instance: Company? = Company.create
         <^> decoder.decode("name")
-        <*> Optional(decoder.decode("phoneNumber"))
+        <*> decoder.decode("phoneNumber") >>> asOptional
         <*> decoder.decode("yearFounded")
         <*> Optional(decoder.decodeModelArray("employees"))
 
-        if let i = instance { self = i } else { return nil }
+        if let i = instance {
+            i.didFinishDecodingWithDecoder(decoder)
+            self = i
+        } else { return nil }
     }
 }
 
@@ -48,6 +51,7 @@ extension Company : Encodable {
         encoder.encode(self.yearFounded, forKey: "yearFounded")
         encoder.encode(self.employees, forKey: "employees")
 
+        self.willFinishEncodingWithEncoder(encoder)
     }
 }
 
