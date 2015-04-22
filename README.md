@@ -28,7 +28,7 @@ The process of creating your model is:
   
 ## Designing your model in the Xcode model design tool
 
-###Create the model design file
+####Create the model design file
 1. In your project select file new, and select Core Data.
 2. Select Data Model and click next.
 3. Give your model a name and click the create button.
@@ -48,14 +48,14 @@ See the [Data Model Design Reference](https://github.com/amberstar/Spot/wiki/Dat
 
 ## Generating model code with Mogenerator
 
-### Install Mogenerator
+####Install Mogenerator
 
 Mogenerator is used to generate your model code with the Spot templates. You can download Mogenerator [here](http://rentzsch.github.io/mogenerator/), or to install using [homebrew](http://mxcl.github.com/homebrew)  type `$ brew install mogenerator ` into your terminal.
 
-### Get the Spot template files
+####Get the Spot template files
 If you downloaded the Spot project the templates are located in the [Templates](https://github.com/amberstar/Spot/tree/master/Templates) directory.
 
-### Run Mogenerator on your model design using the templates
+####Run Mogenerator on your model design using the templates
 Type the following in to terminal to generate the model code files.
 
 ```
@@ -76,11 +76,11 @@ The manual file serves the following purposes:
 - hook in to the encoding and decoding process, so you can read and write additional data during decoding and encoding if needed.
 - manage the versioning and migration of your models if and when needed.
 
-## Adding the code files and Spot framework to your project.
+##Adding the code files and Spot framework to your project.
 
-### Adding the Spot  framework to your project
+####Adding the Spot  framework to your project
 
-#### Using Carthage
+####Using Carthage
 
 [Carthage]: https://github.com/Carthage/Carthage
 
@@ -95,7 +95,7 @@ Then run `carthage update`.
 Follow the current instructions in [Carthage's README][carthage-installation]
 for up to date installation instructions.
 
-#### As a Submodule
+####As a Submodule
 1. Add Spot as a submodule by going to your project directory and enter the following:
 	`git submodule add https://github.com/amberstar/Spot.git`
 2. Open the Spot folder and drag and drop the Spot.xcodeproj into the file navigator of your workspace.
@@ -110,11 +110,11 @@ for up to date installation instructions.
 
 [carthage-installation]: https://github.com/Carthage/Carthage#adding-frameworks-to-an-application
 
-###Adding the code files
+####Adding the code files
 Drag the model code files in to your project to add them.
 
 
-###Set up a target to automatically generate model code every time you build
+####Set up a target to automatically generate model code every time you build
 If you would like to make changes to your model as your working and automate updating the code
 see [How to set up a target to automatically generate model code every time you build.] (https://github.com/amberstar/Spot/wiki/How-to-set-up-a-target-to-automatically-generate-model-code-every-time-you-build-your-host.)
 
