@@ -104,8 +104,6 @@
 		04012A7A1AE12FA6006DAC19 /* Spot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Spot.h; sourceTree = "<group>"; };
 		04012A801AE12FA6006DAC19 /* SpotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04012A861AE12FA6006DAC19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		04012AB01AE130B7006DAC19 /* human.swift.motemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = human.swift.motemplate; sourceTree = "<group>"; };
-		04012AB11AE130B7006DAC19 /* machine.swift.motemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = machine.swift.motemplate; sourceTree = "<group>"; };
 		04012AB51AE130C2006DAC19 /* URLTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLTransform.swift; sourceTree = "<group>"; };
 		04012AB71AE13154006DAC19 /* ValueTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueTransform.swift; sourceTree = "<group>"; };
 		04012ABA1AE13274006DAC19 /* Big_data-bin.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "Big_data-bin.plist"; sourceTree = "<group>"; };
@@ -140,6 +138,8 @@
 		044139FF1AE574C900A6CD09 /* _TestOverrideType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestOverrideType.swift; path = Models/TestModels/_TestOverrideType.swift; sourceTree = "<group>"; };
 		04413A021AE5867500A6CD09 /* _TestOverrideType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestOverrideType.swift; path = Models/TestModels/_TestOverrideType.swift; sourceTree = "<group>"; };
 		04413A061AE587FB00A6CD09 /* TransformTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformTests.swift; sourceTree = "<group>"; };
+		0443C9D01AE7F0F1008299E5 /* human.swift.motemplate */ = {isa = PBXFileReference; lastKnownFileType = text; name = human.swift.motemplate; path = Templates/human.swift.motemplate; sourceTree = SOURCE_ROOT; };
+		0443C9D11AE7F0F1008299E5 /* machine.swift.motemplate */ = {isa = PBXFileReference; lastKnownFileType = text; name = machine.swift.motemplate; path = Templates/machine.swift.motemplate; sourceTree = SOURCE_ROOT; };
 		044F88641AE64ED200FAB475 /* _Gender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _Gender.swift; path = Models/TestModels/_Gender.swift; sourceTree = "<group>"; };
 		044F88651AE64ED200FAB475 /* _Grandchild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _Grandchild.swift; path = Models/TestModels/_Grandchild.swift; sourceTree = "<group>"; };
 		044F88661AE64ED200FAB475 /* _TestChild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestChild.swift; path = Models/TestModels/_TestChild.swift; sourceTree = "<group>"; };
@@ -296,8 +296,8 @@
 		04012AAF1AE130B7006DAC19 /* Templates */ = {
 			isa = PBXGroup;
 			children = (
-				04012AB01AE130B7006DAC19 /* human.swift.motemplate */,
-				04012AB11AE130B7006DAC19 /* machine.swift.motemplate */,
+				0443C9D01AE7F0F1008299E5 /* human.swift.motemplate */,
+				0443C9D11AE7F0F1008299E5 /* machine.swift.motemplate */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -399,7 +399,7 @@
 /* Begin PBXLegacyTarget section */
 		04012AE31AE13A90006DAC19 /* TestModels */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "--model $(SRCROOT)/SpotTests/Models/TestModels.xcdatamodeld --swift --template-path $(SRCROOT)/Spot/Templates --output-dir $(SRCROOT)/SpotTests/Models/TestModels";
+			buildArgumentsString = "--model $(SRCROOT)/SpotTests/Models/TestModels.xcdatamodeld --swift --template-path $(SRCROOT)/Templates --output-dir $(SRCROOT)/SpotTests/Models/TestModels";
 			buildConfigurationList = 04012AE41AE13A90006DAC19 /* Build configuration list for PBXLegacyTarget "TestModels" */;
 			buildPhases = (
 			);
