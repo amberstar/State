@@ -72,6 +72,7 @@
 		044F88D81AE6BCD000FAB475 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88D51AE6BCD000FAB475 /* Optional.swift */; };
 		044F88DB1AE6BCE300FAB475 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88D91AE6BCE300FAB475 /* Functions.swift */; };
 		044F88DC1AE6BCE300FAB475 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88DA1AE6BCE300FAB475 /* Operators.swift */; };
+		04C1B9021AE83BCA00A85730 /* UIColorTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1B9011AE83BCA00A85730 /* UIColorTransform.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +172,7 @@
 		044F88D51AE6BCD000FAB475 /* Optional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Optional.swift; path = Spot/Optional.swift; sourceTree = SOURCE_ROOT; };
 		044F88D91AE6BCE300FAB475 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Functions.swift; path = Spot/Functions.swift; sourceTree = SOURCE_ROOT; };
 		044F88DA1AE6BCE300FAB475 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Spot/Operators.swift; sourceTree = SOURCE_ROOT; };
+		04C1B9011AE83BCA00A85730 /* UIColorTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorTransform.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,6 +309,7 @@
 			children = (
 				04012AB71AE13154006DAC19 /* ValueTransform.swift */,
 				04012AB51AE130C2006DAC19 /* URLTransform.swift */,
+				04C1B9011AE83BCA00A85730 /* UIColorTransform.swift */,
 			);
 			path = Transforms;
 			sourceTree = "<group>";
@@ -521,6 +524,7 @@
 				044F88D01AE6BCB000FAB475 /* Data.swift in Sources */,
 				044F88D21AE6BCB000FAB475 /* Plist.swift in Sources */,
 				044F88CC1AE6BC9B00FAB475 /* Encoder.swift in Sources */,
+				04C1B9021AE83BCA00A85730 /* UIColorTransform.swift in Sources */,
 				044F88D81AE6BCD000FAB475 /* Optional.swift in Sources */,
 				044F88D71AE6BCD000FAB475 /* Dictionary.swift in Sources */,
 				044F88DB1AE6BCE300FAB475 /* Functions.swift in Sources */,

@@ -13,4 +13,12 @@ class TransformTests: Test {
         XCTAssert(sut == testURL)
         XCTAssert (string == stringURL)
     }
+    
+    func testUIColorTransform() {
+        var color = UIColor.blueColor()
+        var colorTransformed  = UIColorTransform.transform(color)
+        var testColor = UIColorTransform.reverseTransform(colorTransformed)
+        
+        XCTAssert(color == testColor)
+    }
 }
