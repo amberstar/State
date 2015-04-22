@@ -42,7 +42,7 @@ extension <$managedObjectClassName$> {
 
 <$if userInfo.Spot.Enum != YES$>
 public struct <$managedObjectClassName$><$if hasCustomSuperentity$>: <$customSuperentity$><$endif$> {
-    <$foreach Attribute noninheritedAttributes do$><$if Attribute.userInfo.Spot.Immutable == YES$>let<$else$>var<$endif$> <$Attribute.name$>: <$call getTypeForAttribute Attribute$>
+    <$foreach Attribute noninheritedAttributes do$><$if Attribute.userInfo.Spot.Immutable == YES$>let<$else$>var<$endif$> <$Attribute.name$>: <$call getTypeForAttribute Attribute$><$if Attribute.defaultValue$> = <$ Attribute.defaultValue $><$endif$>
     <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if ! Relationship.isToMany$>var <$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$>
     <$else$>var <$Relationship.name$>: [<$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$>
     <$endif$><$endforeach do$>
