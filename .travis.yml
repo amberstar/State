@@ -1,12 +1,12 @@
 language: objective-c
-osx_image: xcode611
+osx_image: xcode63
 
 env:
   global:
     - LANG=en_US.UTF-8
     - LC_ALL=en_US.UTF-8
   matrix:
-    - SCRIPT="xctool -project Spot.xcodeproj -scheme Spot -sdk iphonesimulator8.1 test"
+    - SCRIPT="xctool -project Spot.xcodeproj -scheme Spot -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build test"
 
 before_install:
   - brew update
