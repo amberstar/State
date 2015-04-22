@@ -115,7 +115,8 @@ Drag the model code files in to your project to add them.
 
 
 ####Set up a target to automatically generate model code every time you build
-If you would like to make changes to the model as you are working and automate updating the code
+
+If you would like to make changes to your model as you are working and automate updating the code
 see [How to set up a target to automatically generate model code every time you build.] (https://github.com/amberstar/Spot/wiki/How-to-set-up-a-target-to-automatically-generate-model-code-every-time-you-build-your-host.)
 
 
