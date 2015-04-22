@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		04012A7B1AE12FA6006DAC19 /* Spot.h in Headers */ = {isa = PBXBuildFile; fileRef = 04012A7A1AE12FA6006DAC19 /* Spot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04012A811AE12FA6006DAC19 /* Spot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04012A751AE12FA6006DAC19 /* Spot.framework */; };
-		04012AB21AE130B7006DAC19 /* human.swift.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = 04012AB01AE130B7006DAC19 /* human.swift.motemplate */; };
-		04012AB31AE130B7006DAC19 /* machine.swift.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = 04012AB11AE130B7006DAC19 /* machine.swift.motemplate */; };
 		04012AB61AE130C2006DAC19 /* URLTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AB51AE130C2006DAC19 /* URLTransform.swift */; };
 		04012AB81AE13154006DAC19 /* ValueTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AB71AE13154006DAC19 /* ValueTransform.swift */; };
 		04012ABF1AE13274006DAC19 /* Big_data-bin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04012ABA1AE13274006DAC19 /* Big_data-bin.plist */; };
@@ -23,6 +21,7 @@
 		04012ADB1AE132FF006DAC19 /* BaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AD31AE132FF006DAC19 /* BaseTest.swift */; };
 		04012ADC1AE132FF006DAC19 /* DataAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AD41AE132FF006DAC19 /* DataAdapterTests.swift */; };
 		04012ADE1AE132FF006DAC19 /* DecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AD61AE132FF006DAC19 /* DecodingTests.swift */; };
+		0443C9CF1AE7A8B8008299E5 /* Spot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 04012A751AE12FA6006DAC19 /* Spot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		044F87F71AE5D01800FAB475 /* DecodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AD51AE132FF006DAC19 /* DecodableTests.swift */; };
 		044F87F81AE5D01800FAB475 /* EncodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AD71AE132FF006DAC19 /* EncodableTests.swift */; };
 		044F87F91AE5D01800FAB475 /* EncodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AD81AE132FF006DAC19 /* EncodingTests.swift */; };
@@ -84,6 +83,20 @@
 			remoteInfo = Spot;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0443C9CE1AE7A89B008299E5 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0443C9CF1AE7A8B8008299E5 /* Spot.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		04012A751AE12FA6006DAC19 /* Spot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Spot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -426,6 +439,7 @@
 				04012A7C1AE12FA6006DAC19 /* Sources */,
 				04012A7D1AE12FA6006DAC19 /* Frameworks */,
 				04012A7E1AE12FA6006DAC19 /* Resources */,
+				0443C9CE1AE7A89B008299E5 /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -481,8 +495,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04012AB31AE130B7006DAC19 /* machine.swift.motemplate in Resources */,
-				04012AB21AE130B7006DAC19 /* human.swift.motemplate in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
