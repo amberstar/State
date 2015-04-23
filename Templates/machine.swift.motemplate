@@ -16,6 +16,10 @@ import Spot
 
 <$procedure getDefaultExpressionForRelationship Relationship$><$if Relationship.userInfo.Spot.Default$>= <$call writeRelationshipDefaultValue Relationship Relationship.userInfo.Spot.Default$><$endif$><$endprocedure$>
 
+<$procedure getPropertyDeclarationForAttribute Attribute$><$if Attribute.userInfo.Spot.Immutable == YES$>public let<$else$>public var<$endif$> <$Attribute.name$><$if  !Attribute.isOptional && (Attribute.userInfo.Spot.Default || Attribute.defaultValue !=)$><$call getDefaultExpressionForAttribute Attribute$><$else$>: <$call getTypeForAttribute Attribute$><$endif$><$endProcedure$>
+
+<$procedure getPropertyDeclarationForRelationship Relationship$>public var <$Relationship.name$><$if !Relationship.isOptional && Relationship.userInfo.Spot.Default$> <$call getDefaultExpressionForRelationship Relationship$><$else$>: <$if Relationship.isToMany$>[<$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$><$endif$><$endProcedure$>
+
 <$procedure writeVersionHashExtension$>
 extension <$managedObjectClassName$> {
     /**
@@ -50,10 +54,9 @@ extension <$managedObjectClassName$> {
 
 <$if userInfo.Spot.Enum != YES$>
 public struct <$managedObjectClassName$><$if hasCustomSuperentity$>: <$customSuperentity$><$endif$> {
-    <$foreach Attribute noninheritedAttributes do$><$if Attribute.userInfo.Spot.Immutable == YES$>public let<$else$>public var<$endif$> <$Attribute.name$>: <$call getTypeForAttribute Attribute$>
-    <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if ! Relationship.isToMany$>public var <$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$>
-    <$else$>public var <$Relationship.name$>: [<$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$> 
-    <$endif$><$endforeach do$>
+    <$foreach Attribute noninheritedAttributes do$><$call getPropertyDeclarationForAttribute Attribute$>
+    <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$call getPropertyDeclarationForRelationship Relationship$>
+    <$endforeach do$>
 
     public init(<$foreach Attribute noninheritedAttributes do$><$Attribute.name$>: <$call getTypeForAttribute Attribute$><$if AttributeIndex + 1 < noninheritedAttributes.@count$>, <$endif$><$endforeach do$><$if noninheritedAttributes.@count > 0 && noninheritedRelationships.@count > 0$>, <$endif$><$foreach Relationship noninheritedRelationships do$><$if ! Relationship.isToMany$><$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$><$if (RelationshipIndex + 1 < noninheritedRelationships.@count) $>, <$endif$><$else$><$Relationship.name$>: [<$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$><$if (RelationshipIndex + 1 < noninheritedRelationships.@count) $>, <$endif$><$endif$><$endforeach do$>) {
 

@@ -7,7 +7,12 @@ import Spot
 
 extension TestDefaults {
 
-    // Extend your model entity here.
+    init() {
+        self.noDefaultString = nil
+        self.noDefaultInt = nil
+        self.noDefaultChild = nil
+        self.noDefaultChildren = nil
+    }
 }
 
 ///MARK: Coding

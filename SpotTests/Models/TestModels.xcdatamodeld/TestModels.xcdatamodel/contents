@@ -55,10 +55,43 @@
         </attribute>
     </entity>
     <entity name="TestDefaults" representedClassName="TestDefaults" syncable="YES">
-        <attribute name="defaultString" attributeType="String" defaultValueString="My Default" syncable="YES"/>
+        <attribute name="defaultArray" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Default" value="[&quot;zero&quot;, &quot;one&quot;, &quot;two&quot;]"/>
+                <entry key="Spot.Type" value="[String]"/>
+            </userInfo>
+        </attribute>
+        <attribute name="defaultEmptyArray" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Default" value="[String]()"/>
+                <entry key="Spot.Type" value="[String]"/>
+            </userInfo>
+        </attribute>
+        <attribute name="defaultInt" attributeType="Integer 32" defaultValueString="10" syncable="YES"/>
+        <attribute name="defaultManualString" attributeType="Float" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Default" value="defaultManualString"/>
+                <entry key="Spot.Type" value="String"/>
+            </userInfo>
+        </attribute>
+        <attribute name="defaultString" attributeType="String" defaultValueString="defaultString" syncable="YES"/>
+        <attribute name="noDefaultInt" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="noDefaultString" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="defaultChild" maxCount="1" deletionRule="Nullify" destinationEntity="TestDefaultsChild" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Default" value="TestDefaultsChild()"/>
+            </userInfo>
+        </relationship>
+        <relationship name="defaultChildren" toMany="YES" deletionRule="Nullify" destinationEntity="TestDefaultsChild" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Default" value="[TestDefaultsChild]()"/>
+            </userInfo>
+        </relationship>
+        <relationship name="noDefaultChild" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TestDefaultsChild" syncable="YES"/>
+        <relationship name="noDefaultChildren" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TestDefaultsChild" syncable="YES"/>
     </entity>
     <entity name="TestDefaultsChild" representedClassName="TestDefaultsChild" syncable="YES">
-        <attribute name="name" attributeType="String" defaultValueString="new child" syncable="YES"/>
+        <attribute name="name" attributeType="String" defaultValueString="New Child" syncable="YES"/>
     </entity>
     <entity name="TestEnum" representedClassName="TestEnum" syncable="YES">
         <attribute name="aim" optional="YES" attributeType="String" syncable="YES">
@@ -233,8 +266,7 @@
         <element name="Grandchild" positionX="-19838" positionY="-11110" width="128" height="88"/>
         <element name="TestChild" positionX="-19910" positionY="-11385" width="128" height="103"/>
         <element name="TestCollections" positionX="-20754" positionY="-10872" width="128" height="88"/>
-        <element name="TestDefaults" positionX="-20817" positionY="-11538" width="128" height="58"/>
-        <element name="TestDefaultsChild" positionX="-20513" positionY="-11511" width="128" height="58"/>
+        <element name="TestDefaults" positionX="-20898" positionY="-11358" width="128" height="208"/>
         <element name="TestEnum" positionX="-20756" positionY="-10764" width="128" height="88"/>
         <element name="TestImmutableOptionalTypes" positionX="-20592" positionY="-10639" width="128" height="163"/>
         <element name="TestImmutableTypes" positionX="-20763" positionY="-10639" width="128" height="163"/>
@@ -243,5 +275,6 @@
         <element name="TestRelationships" positionX="-20304" positionY="-11347" width="128" height="88"/>
         <element name="TestTransformable" positionX="-20576" positionY="-10863" width="263" height="103"/>
         <element name="TestTypes" positionX="-20927" positionY="-10684" width="128" height="163"/>
+        <element name="TestDefaultsChild" positionX="-20601" positionY="-11340" width="128" height="58"/>
     </elements>
 </model>

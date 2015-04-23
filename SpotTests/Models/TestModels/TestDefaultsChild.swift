@@ -5,9 +5,9 @@
 ************************************************/
 import Spot
 
-extension TestDefaultsChild {
+public extension TestDefaultsChild {
 
-    // Extend your model entity here.
+    public init () { }
 }
 
 ///MARK: Coding

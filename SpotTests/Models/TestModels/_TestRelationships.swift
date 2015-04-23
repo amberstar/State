@@ -7,8 +7,8 @@
 import Spot
 
 public struct TestRelationships {
-    public var myChildren: [TestChild]? 
-    public var myGrandChildren: [Grandchild]? 
+    public var myChildren: [TestChild]?
+    public var myGrandChildren: [Grandchild]?
     public var myOneChild: TestChild?
 
     public init(myChildren: [TestChild]?, myGrandChildren: [Grandchild]?, myOneChild: TestChild?) {

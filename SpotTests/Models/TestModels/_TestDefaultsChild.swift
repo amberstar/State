@@ -7,7 +7,7 @@
 import Spot
 
 public struct TestDefaultsChild {
-    public var name: String
+    public var name = "New Child"
 
     public init(name: String) {
 
