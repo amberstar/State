@@ -10,15 +10,15 @@ import Spot
 
 <$procedure writeAttributeDefaultValue Attribute DefaultValue$><$if Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Type == String$>"<$endif$><$DefaultValue$><$if Attribute.userInfo.Spot.Type == String$>"<$endif$><$else$><$if Attribute.objectAttributeType == String$>"<$endif$><$DefaultValue$><$if Attribute.objectAttributeType == String$>"<$endif$><$endif$><$endprocedure$>
 
-<$procedure getDefaultExpressionForAttribute Attribute$> <$setlocal default = none$><$if Attribute.userInfo.Spot.Default$>= <$call writeAttributeDefaultValue Attribute Attribute.userInfo.Spot.Default$><$elseif Attribute.defaultValue !=$>= <$call writeAttributeDefaultValue Attribute Attribute.defaultValue$><$endif$><$endprocedure$>
+<$procedure getDefaultExpressionForAttribute Attribute$> <$setlocal default = none$><$if Attribute.userInfo.Spot.Value$>= <$call writeAttributeDefaultValue Attribute Attribute.userInfo.Spot.Value$><$elseif Attribute.defaultValue !=$>= <$call writeAttributeDefaultValue Attribute Attribute.defaultValue$><$endif$><$endprocedure$>
 
 <$procedure writeRelationshipDefaultValue Relationship DefaultValue$><$if Relationship.userInfo.Spot.Type$><$if Relationship.userInfo.Spot.Type == String$>"<$endif$><$endif$><$DefaultValue$><$if Relationship.userInfo.Spot.Type$><$if Relationship.userInfo.Spot.Type == String$>"<$endif$><$endif$><$endif$><$endprocedure$>
 
-<$procedure getDefaultExpressionForRelationship Relationship$><$if Relationship.userInfo.Spot.Default$>= <$call writeRelationshipDefaultValue Relationship Relationship.userInfo.Spot.Default$><$endif$><$endprocedure$>
+<$procedure getDefaultExpressionForRelationship Relationship$><$if Relationship.userInfo.Spot.Value$>= <$call writeRelationshipDefaultValue Relationship Relationship.userInfo.Spot.Value$><$endif$><$endprocedure$>
 
-<$procedure getPropertyDeclarationForAttribute Attribute$><$if Attribute.userInfo.Spot.Immutable == YES$>public let<$else$>public var<$endif$> <$Attribute.name$><$if  !Attribute.isOptional && (Attribute.userInfo.Spot.Default || Attribute.defaultValue !=)$><$call getDefaultExpressionForAttribute Attribute$><$else$>: <$call getTypeForAttribute Attribute$><$endif$><$endProcedure$>
+<$procedure getPropertyDeclarationForAttribute Attribute$><$if Attribute.userInfo.Spot.Immutable == YES$>public let<$else$>public var<$endif$> <$Attribute.name$><$if  !Attribute.isOptional && (Attribute.userInfo.Spot.Value || Attribute.defaultValue !=)$><$call getDefaultExpressionForAttribute Attribute$><$else$>: <$call getTypeForAttribute Attribute$><$endif$><$endProcedure$>
 
-<$procedure getPropertyDeclarationForRelationship Relationship$>public var <$Relationship.name$><$if !Relationship.isOptional && Relationship.userInfo.Spot.Default$> <$call getDefaultExpressionForRelationship Relationship$><$else$>: <$if Relationship.isToMany$>[<$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$><$endif$><$endProcedure$>
+<$procedure getPropertyDeclarationForRelationship Relationship$>public var <$Relationship.name$><$if !Relationship.isOptional && Relationship.userInfo.Spot.Value$> <$call getDefaultExpressionForRelationship Relationship$><$else$>: <$if Relationship.isToMany$>[<$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$><$endif$><$endProcedure$>
 
 <$procedure writeVersionHashExtension$>
 extension <$managedObjectClassName$> {

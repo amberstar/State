@@ -57,21 +57,21 @@
     <entity name="TestDefaults" representedClassName="TestDefaults" syncable="YES">
         <attribute name="defaultArray" attributeType="String" syncable="YES">
             <userInfo>
-                <entry key="Spot.Default" value="[&quot;zero&quot;, &quot;one&quot;, &quot;two&quot;]"/>
                 <entry key="Spot.Type" value="[String]"/>
+                <entry key="Spot.Value" value="[&quot;zero&quot;, &quot;one&quot;, &quot;two&quot;]"/>
             </userInfo>
         </attribute>
         <attribute name="defaultEmptyArray" attributeType="String" syncable="YES">
             <userInfo>
-                <entry key="Spot.Default" value="[String]()"/>
                 <entry key="Spot.Type" value="[String]"/>
+                <entry key="Spot.Value" value="[String]()"/>
             </userInfo>
         </attribute>
         <attribute name="defaultInt" attributeType="Integer 32" defaultValueString="10" syncable="YES"/>
         <attribute name="defaultManualString" attributeType="Float" defaultValueString="0.0" syncable="YES">
             <userInfo>
-                <entry key="Spot.Default" value="defaultManualString"/>
                 <entry key="Spot.Type" value="String"/>
+                <entry key="Spot.Value" value="defaultManualString"/>
             </userInfo>
         </attribute>
         <attribute name="defaultString" attributeType="String" defaultValueString="defaultString" syncable="YES"/>
@@ -79,12 +79,12 @@
         <attribute name="noDefaultString" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="defaultChild" maxCount="1" deletionRule="Nullify" destinationEntity="TestDefaultsChild" syncable="YES">
             <userInfo>
-                <entry key="Spot.Default" value="TestDefaultsChild()"/>
+                <entry key="Spot.Value" value="TestDefaultsChild()"/>
             </userInfo>
         </relationship>
         <relationship name="defaultChildren" toMany="YES" deletionRule="Nullify" destinationEntity="TestDefaultsChild" syncable="YES">
             <userInfo>
-                <entry key="Spot.Default" value="[TestDefaultsChild]()"/>
+                <entry key="Spot.Value" value="[TestDefaultsChild]()"/>
             </userInfo>
         </relationship>
         <relationship name="noDefaultChild" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TestDefaultsChild" syncable="YES"/>
