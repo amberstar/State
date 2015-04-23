@@ -8,6 +8,14 @@ import Spot
 
 <$procedure getTypeForAttribute Attribute$><$if Attribute.userInfo.Spot.Type$><$Attribute.userInfo.Spot.Type$><$elseif Attribute.hasScalarAttributeType$><$if Attribute.scalarAttributeType == Int16 || Attribute.scalarAttributeType == Int32 || Attribute.scalarAttributeType == Int64$>Int<$else$><$Attribute.scalarAttributeType$><$endif$><$else$><$Attribute.objectAttributeType$><$endif$><$if Attribute.isOptional$>?<$endif$><$endprocedure$>
 
+<$procedure writeAttributeDefaultValue Attribute DefaultValue$><$if Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Type == String$>"<$endif$><$DefaultValue$><$if Attribute.userInfo.Spot.Type == String$>"<$endif$><$else$><$if Attribute.objectAttributeType == String$>"<$endif$><$DefaultValue$><$if Attribute.objectAttributeType == String$>"<$endif$><$endif$><$endprocedure$>
+
+<$procedure getDefaultExpressionForAttribute Attribute$> <$setlocal default = none$><$if Attribute.userInfo.Spot.Default$>= <$call writeAttributeDefaultValue Attribute Attribute.userInfo.Spot.Default$><$elseif Attribute.defaultValue !=$>= <$call writeAttributeDefaultValue Attribute Attribute.defaultValue$><$endif$><$endprocedure$>
+
+<$procedure writeRelationshipDefaultValue Relationship DefaultValue$><$if Relationship.userInfo.Spot.Type$><$if Relationship.userInfo.Spot.Type == String$>"<$endif$><$endif$><$DefaultValue$><$if Relationship.userInfo.Spot.Type$><$if Relationship.userInfo.Spot.Type == String$>"<$endif$><$endif$><$endif$><$endprocedure$>
+
+<$procedure getDefaultExpressionForRelationship Relationship$><$if Relationship.userInfo.Spot.Default$>= <$call writeRelationshipDefaultValue Relationship Relationship.userInfo.Spot.Default$><$endif$><$endprocedure$>
+
 <$procedure writeVersionHashExtension$>
 extension <$managedObjectClassName$> {
     /**
@@ -42,12 +50,12 @@ extension <$managedObjectClassName$> {
 
 <$if userInfo.Spot.Enum != YES$>
 public struct <$managedObjectClassName$><$if hasCustomSuperentity$>: <$customSuperentity$><$endif$> {
-    <$foreach Attribute noninheritedAttributes do$><$if Attribute.userInfo.Spot.Immutable == YES$>let<$else$>var<$endif$> <$Attribute.name$>: <$call getTypeForAttribute Attribute$><$if Attribute.defaultValue$> = <$ Attribute.defaultValue $><$endif$>
-    <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if ! Relationship.isToMany$>var <$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$>
-    <$else$>var <$Relationship.name$>: [<$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$>
+    <$foreach Attribute noninheritedAttributes do$><$if Attribute.userInfo.Spot.Immutable == YES$>public let<$else$>public var<$endif$> <$Attribute.name$>: <$call getTypeForAttribute Attribute$>
+    <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if ! Relationship.isToMany$>public var <$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$>
+    <$else$>public var <$Relationship.name$>: [<$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$> 
     <$endif$><$endforeach do$>
 
-public init(<$foreach Attribute noninheritedAttributes do$><$Attribute.name$>: <$call getTypeForAttribute$><$if AttributeIndex + 1 < noninheritedAttributes.@count$>, <$endif$><$endforeach do$><$if noninheritedAttributes.@count > 0 && noninheritedRelationships.@count > 0$>, <$endif$><$foreach Relationship noninheritedRelationships do$><$if ! Relationship.isToMany$><$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$><$if (RelationshipIndex + 1 < noninheritedRelationships.@count) $>, <$endif$><$else$><$Relationship.name$>: [<$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$><$if (RelationshipIndex + 1 < noninheritedRelationships.@count) $>, <$endif$><$endif$><$endforeach do$>) {
+    public init(<$foreach Attribute noninheritedAttributes do$><$Attribute.name$>: <$call getTypeForAttribute Attribute$><$if AttributeIndex + 1 < noninheritedAttributes.@count$>, <$endif$><$endforeach do$><$if noninheritedAttributes.@count > 0 && noninheritedRelationships.@count > 0$>, <$endif$><$foreach Relationship noninheritedRelationships do$><$if ! Relationship.isToMany$><$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$><$if (RelationshipIndex + 1 < noninheritedRelationships.@count) $>, <$endif$><$else$><$Relationship.name$>: [<$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$><$if (RelationshipIndex + 1 < noninheritedRelationships.@count) $>, <$endif$><$endif$><$endforeach do$>) {
 
     <$foreach Attribute noninheritedAttributes do$>self.<$Attribute.name$> = <$Attribute.name$>
     <$endforeach do$><$foreach Relationship noninheritedRelationships do$>self.<$Relationship.name$> = <$Relationship.name$>
@@ -57,7 +65,7 @@ public init(<$foreach Attribute noninheritedAttributes do$><$Attribute.name$>: <
 
 extension <$managedObjectClassName$> : Decodable {
 
-    static func create<$foreach Attribute noninheritedAttributes do$>(<$Attribute.name$>: <$call getTypeForAttribute$>)<$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if ! Relationship.isToMany$>(<$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$>)<$else$>(<$Relationship.name$>: [<$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$>)<$endif$><$endforeach do$> -> <$managedObjectClassName$>  {
+    static func create<$foreach Attribute noninheritedAttributes do$>(<$Attribute.name$>: <$call getTypeForAttribute Attribute$>)<$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if ! Relationship.isToMany$>(<$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$>)<$else$>(<$Relationship.name$>: [<$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$>)<$endif$><$endforeach do$> -> <$managedObjectClassName$>  {
         return <$managedObjectClassName$>(<$foreach Attribute noninheritedAttributes do$><$Attribute.name$>: <$Attribute.name$><$if AttributeIndex + 1 < noninheritedAttributes.@count$>, <$endif$><$endforeach do$><$if noninheritedAttributes.@count > 0 && noninheritedRelationships.@count > 0$>, <$endif$><$foreach Relationship noninheritedRelationships do$><$Relationship.name$>: <$Relationship.name$><$if (RelationshipIndex + 1 < noninheritedRelationships.@count) $>, <$endif$><$endforeach do$>)
     }
 
@@ -79,7 +87,7 @@ extension <$managedObjectClassName$> : Decodable {
 extension <$managedObjectClassName$> : Encodable {
 
     public func encode(encoder: Encoder) {
-        <$foreach Attribute noninheritedAttributes do$>encoder.encode(self.<$Attribute.name$><$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.transform<$endif$><$endif$>, forKey: "<$Attribute.name$>")
+        <$foreach Attribute noninheritedAttributes do$>encoder.encode(self.<$Attribute.name$><$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.transform<$endif$>, forKey: "<$Attribute.name$>")
         <$endforeach do$><$foreach Relationship noninheritedRelationships do$>encoder.encode(self.<$Relationship.name$>, forKey: "<$Relationship.name$>")
         <$endforeach do$>
         <$call writeEncodingVersioningBlock$>

@@ -7,12 +7,12 @@
 import Spot
 
 public struct TestChild {
-    var age: Int?
-    var name: String?
-    var gender: Gender?
-    var myChildren: [Grandchild]?
+    public var age: Int?
+    public var name: String?
+    public var gender: Gender?
+    public var myChildren: [Grandchild]?
 
-public init(age: Int?, name: String?, gender: Gender?, myChildren: [Grandchild]?) {
+    public init(age: Int?, name: String?, gender: Gender?, myChildren: [Grandchild]?) {
 
     self.age = age
     self.name = name

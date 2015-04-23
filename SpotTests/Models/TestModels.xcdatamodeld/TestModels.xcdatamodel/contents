@@ -54,6 +54,12 @@
             </userInfo>
         </attribute>
     </entity>
+    <entity name="TestDefaults" representedClassName="TestDefaults" syncable="YES">
+        <attribute name="defaultString" attributeType="String" defaultValueString="My Default" syncable="YES"/>
+    </entity>
+    <entity name="TestDefaultsChild" representedClassName="TestDefaultsChild" syncable="YES">
+        <attribute name="name" attributeType="String" defaultValueString="new child" syncable="YES"/>
+    </entity>
     <entity name="TestEnum" representedClassName="TestEnum" syncable="YES">
         <attribute name="aim" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
@@ -223,17 +229,19 @@
     <elements>
         <element name="Company" positionX="-20117" positionY="-10818" width="128" height="103"/>
         <element name="Employee" positionX="-19973" positionY="-10648" width="128" height="73"/>
+        <element name="Gender" positionX="-20295" positionY="-11142" width="128" height="73"/>
+        <element name="Grandchild" positionX="-19838" positionY="-11110" width="128" height="88"/>
+        <element name="TestChild" positionX="-19910" positionY="-11385" width="128" height="103"/>
         <element name="TestCollections" positionX="-20754" positionY="-10872" width="128" height="88"/>
+        <element name="TestDefaults" positionX="-20817" positionY="-11538" width="128" height="58"/>
+        <element name="TestDefaultsChild" positionX="-20513" positionY="-11511" width="128" height="58"/>
         <element name="TestEnum" positionX="-20756" positionY="-10764" width="128" height="88"/>
         <element name="TestImmutableOptionalTypes" positionX="-20592" positionY="-10639" width="128" height="163"/>
         <element name="TestImmutableTypes" positionX="-20763" positionY="-10639" width="128" height="163"/>
         <element name="TestOptionalTypes" positionX="-20925" positionY="-10881" width="128" height="163"/>
         <element name="TestOverrideType" positionX="-20628" positionY="-11133" width="128" height="73"/>
+        <element name="TestRelationships" positionX="-20304" positionY="-11347" width="128" height="88"/>
         <element name="TestTransformable" positionX="-20576" positionY="-10863" width="263" height="103"/>
         <element name="TestTypes" positionX="-20927" positionY="-10684" width="128" height="163"/>
-        <element name="TestRelationships" positionX="-20304" positionY="-11347" width="128" height="88"/>
-        <element name="TestChild" positionX="-19910" positionY="-11385" width="128" height="103"/>
-        <element name="Grandchild" positionX="-19838" positionY="-11110" width="128" height="88"/>
-        <element name="Gender" positionX="-20295" positionY="-11142" width="128" height="73"/>
     </elements>
 </model>

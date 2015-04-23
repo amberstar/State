@@ -7,11 +7,11 @@
 import Spot
 
 public struct Grandchild {
-    var age: Int?
-    var name: String?
-    var gender: Gender?
+    public var age: Int?
+    public var name: String?
+    public var gender: Gender?
 
-public init(age: Int?, name: String?, gender: Gender?) {
+    public init(age: Int?, name: String?, gender: Gender?) {
 
     self.age = age
     self.name = name

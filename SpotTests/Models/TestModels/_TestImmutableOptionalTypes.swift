@@ -7,16 +7,16 @@
 import Spot
 
 public struct TestImmutableOptionalTypes {
-    let myBinary: NSData?
-    let myBoolean: Bool?
-    let myDate: NSDate?
-    let myDecimal: NSDecimalNumber?
-    let myDouble: Double?
-    let myFloat: Float?
-    let myInt: Int?
-    let myString: String?
+    public let myBinary: NSData?
+    public let myBoolean: Bool?
+    public let myDate: NSDate?
+    public let myDecimal: NSDecimalNumber?
+    public let myDouble: Double?
+    public let myFloat: Float?
+    public let myInt: Int?
+    public let myString: String?
 
-public init(myBinary: NSData?, myBoolean: Bool?, myDate: NSDate?, myDecimal: NSDecimalNumber?, myDouble: Double?, myFloat: Float?, myInt: Int?, myString: String?) {
+    public init(myBinary: NSData?, myBoolean: Bool?, myDate: NSDate?, myDecimal: NSDecimalNumber?, myDouble: Double?, myFloat: Float?, myInt: Int?, myString: String?) {
 
     self.myBinary = myBinary
     self.myBoolean = myBoolean

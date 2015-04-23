@@ -163,7 +163,7 @@ Versioning and migration management is opt in. It allows you to fully control th
 - does a model need migration
 - directly migrate raw key-value data to the current version before attempting to read a model
 
-When designing the models in the model designer, you can specify a version hash modifier signifying a new model version. This version modifier get's carried over to the model code so you can determine if a model version about to be decoded is a different version than the current version of the model code
+When designing the models in the model designer, you can specify a version hash modifier signifying a new model version. This version modifier get's carried over to the model code so you can determine if a model version about to be decoded is a different version than the current version of the model code.
 
 ##System Requirements
 - Swift 1.2

@@ -29,22 +29,8 @@
 		044F87FB1AE5D01800FAB475 /* RecursiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012ADA1AE132FF006DAC19 /* RecursiveTests.swift */; };
 		044F87FC1AE5D01800FAB475 /* TemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AE91AE1415E006DAC19 /* TemplateTests.swift */; };
 		044F87FD1AE5D01800FAB475 /* TransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04413A061AE587FB00A6CD09 /* TransformTests.swift */; };
-		044F87FE1AE5D02100FAB475 /* _TestOverrideType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04413A021AE5867500A6CD09 /* _TestOverrideType.swift */; };
-		044F88001AE5D02100FAB475 /* _TestOptionalTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139FE1AE574C900A6CD09 /* _TestOptionalTypes.swift */; };
-		044F88011AE5D02100FAB475 /* _TestImmutableOptionalTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139F61AE5513200A6CD09 /* _TestImmutableOptionalTypes.swift */; };
-		044F88021AE5D02100FAB475 /* _TestImmutableTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139F71AE5513200A6CD09 /* _TestImmutableTypes.swift */; };
-		044F88061AE5D02100FAB475 /* _TestTransformable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139F21AE5436400A6CD09 /* _TestTransformable.swift */; };
-		044F88071AE5D02100FAB475 /* _TestEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139EE1AE5402500A6CD09 /* _TestEnum.swift */; };
-		044F88091AE5D02100FAB475 /* _TestCollections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139EA1AE5148100A6CD09 /* _TestCollections.swift */; };
-		044F880B1AE5D02100FAB475 /* _TestTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044139E61AE510BE00A6CD09 /* _TestTypes.swift */; };
-		044F880F1AE5D02100FAB475 /* _Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AF31AE15456006DAC19 /* _Employee.swift */; };
-		044F88101AE5D02100FAB475 /* _Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AEE1AE14502006DAC19 /* _Company.swift */; };
 		044F88121AE5D02900FAB475 /* ObjectModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AC61AE132AE006DAC19 /* ObjectModels.swift */; };
 		044F88131AE5D02900FAB475 /* RecursiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AC71AE132AE006DAC19 /* RecursiveModel.swift */; };
-		044F886C1AE64ED200FAB475 /* _Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88641AE64ED200FAB475 /* _Gender.swift */; };
-		044F886D1AE64ED200FAB475 /* _Grandchild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88651AE64ED200FAB475 /* _Grandchild.swift */; };
-		044F886E1AE64ED200FAB475 /* _TestChild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88661AE64ED200FAB475 /* _TestChild.swift */; };
-		044F886F1AE64ED200FAB475 /* _TestRelationships.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88671AE64ED200FAB475 /* _TestRelationships.swift */; };
 		044F88961AE69BD900FAB475 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88881AE69BD900FAB475 /* Company.swift */; };
 		044F88971AE69BD900FAB475 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88891AE69BD900FAB475 /* Employee.swift */; };
 		044F88981AE69BD900FAB475 /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F888A1AE69BD900FAB475 /* Gender.swift */; };
@@ -73,6 +59,20 @@
 		044F88DB1AE6BCE300FAB475 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88D91AE6BCE300FAB475 /* Functions.swift */; };
 		044F88DC1AE6BCE300FAB475 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88DA1AE6BCE300FAB475 /* Operators.swift */; };
 		04C1B9021AE83BCA00A85730 /* UIColorTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1B9011AE83BCA00A85730 /* UIColorTransform.swift */; };
+		04C1B92F1AE9219900A85730 /* _Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1B9211AE9219900A85730 /* _Company.swift */; };
+		04C1B9301AE9219900A85730 /* _Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1B9221AE9219900A85730 /* _Employee.swift */; };
+		04C1B9311AE9219900A85730 /* _Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1B9231AE9219900A85730 /* _Gender.swift */; };
+		04C1B9321AE9219900A85730 /* _Grandchild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1B9241AE9219900A85730 /* _Grandchild.swift */; };
+		04C1B9331AE9219900A85730 /* _TestChild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1B9251AE9219900A85730 /* _TestChild.swift */; };
+		04C1B9341AE9219900A85730 /* _TestCollections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1B9261AE9219900A85730 /* _TestCollections.swift */; };
+		04C1B9351AE9219900A85730 /* _TestEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1B9271AE9219900A85730 /* _TestEnum.swift */; };
+		04C1B9361AE9219900A85730 /* _TestImmutableOptionalTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1B9281AE9219900A85730 /* _TestImmutableOptionalTypes.swift */; };
+		04C1B9371AE9219900A85730 /* _TestImmutableTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1B9291AE9219900A85730 /* _TestImmutableTypes.swift */; };
+		04C1B9381AE9219900A85730 /* _TestOptionalTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1B92A1AE9219900A85730 /* _TestOptionalTypes.swift */; };
+		04C1B9391AE9219900A85730 /* _TestOverrideType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1B92B1AE9219900A85730 /* _TestOverrideType.swift */; };
+		04C1B93A1AE9219900A85730 /* _TestRelationships.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1B92C1AE9219900A85730 /* _TestRelationships.swift */; };
+		04C1B93B1AE9219900A85730 /* _TestTransformable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1B92D1AE9219900A85730 /* _TestTransformable.swift */; };
+		04C1B93C1AE9219900A85730 /* _TestTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1B92E1AE9219900A85730 /* _TestTypes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +82,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 04012A741AE12FA6006DAC19;
 			remoteInfo = Spot;
+		};
+		04925EA01AE9697300BF1D88 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04012A6C1AE12FA6006DAC19 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 04012AE31AE13A90006DAC19;
+			remoteInfo = TestModels;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -126,25 +133,9 @@
 		04012AD91AE132FF006DAC19 /* PerfTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerfTests.swift; sourceTree = "<group>"; };
 		04012ADA1AE132FF006DAC19 /* RecursiveTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecursiveTests.swift; sourceTree = "<group>"; };
 		04012AE91AE1415E006DAC19 /* TemplateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateTests.swift; sourceTree = "<group>"; };
-		04012AEE1AE14502006DAC19 /* _Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _Company.swift; path = Models/TestModels/_Company.swift; sourceTree = "<group>"; };
-		04012AF31AE15456006DAC19 /* _Employee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _Employee.swift; path = Models/TestModels/_Employee.swift; sourceTree = "<group>"; };
-		044139E21AE5075D00A6CD09 /* _TestOptionalTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestOptionalTypes.swift; path = Models/TestModels/_TestOptionalTypes.swift; sourceTree = "<group>"; };
-		044139E61AE510BE00A6CD09 /* _TestTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestTypes.swift; path = Models/TestModels/_TestTypes.swift; sourceTree = "<group>"; };
-		044139EA1AE5148100A6CD09 /* _TestCollections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestCollections.swift; path = Models/TestModels/_TestCollections.swift; sourceTree = "<group>"; };
-		044139EE1AE5402500A6CD09 /* _TestEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestEnum.swift; path = Models/TestModels/_TestEnum.swift; sourceTree = "<group>"; };
-		044139F21AE5436400A6CD09 /* _TestTransformable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestTransformable.swift; path = Models/TestModels/_TestTransformable.swift; sourceTree = "<group>"; };
-		044139F61AE5513200A6CD09 /* _TestImmutableOptionalTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestImmutableOptionalTypes.swift; path = Models/TestModels/_TestImmutableOptionalTypes.swift; sourceTree = "<group>"; };
-		044139F71AE5513200A6CD09 /* _TestImmutableTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestImmutableTypes.swift; path = Models/TestModels/_TestImmutableTypes.swift; sourceTree = "<group>"; };
-		044139FE1AE574C900A6CD09 /* _TestOptionalTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestOptionalTypes.swift; path = Models/TestModels/_TestOptionalTypes.swift; sourceTree = "<group>"; };
-		044139FF1AE574C900A6CD09 /* _TestOverrideType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestOverrideType.swift; path = Models/TestModels/_TestOverrideType.swift; sourceTree = "<group>"; };
-		04413A021AE5867500A6CD09 /* _TestOverrideType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestOverrideType.swift; path = Models/TestModels/_TestOverrideType.swift; sourceTree = "<group>"; };
 		04413A061AE587FB00A6CD09 /* TransformTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformTests.swift; sourceTree = "<group>"; };
 		0443C9D01AE7F0F1008299E5 /* human.swift.motemplate */ = {isa = PBXFileReference; lastKnownFileType = text; name = human.swift.motemplate; path = Templates/human.swift.motemplate; sourceTree = SOURCE_ROOT; };
 		0443C9D11AE7F0F1008299E5 /* machine.swift.motemplate */ = {isa = PBXFileReference; lastKnownFileType = text; name = machine.swift.motemplate; path = Templates/machine.swift.motemplate; sourceTree = SOURCE_ROOT; };
-		044F88641AE64ED200FAB475 /* _Gender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _Gender.swift; path = Models/TestModels/_Gender.swift; sourceTree = "<group>"; };
-		044F88651AE64ED200FAB475 /* _Grandchild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _Grandchild.swift; path = Models/TestModels/_Grandchild.swift; sourceTree = "<group>"; };
-		044F88661AE64ED200FAB475 /* _TestChild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestChild.swift; path = Models/TestModels/_TestChild.swift; sourceTree = "<group>"; };
-		044F88671AE64ED200FAB475 /* _TestRelationships.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestRelationships.swift; path = Models/TestModels/_TestRelationships.swift; sourceTree = "<group>"; };
 		044F88881AE69BD900FAB475 /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Company.swift; path = Models/TestModels/Company.swift; sourceTree = "<group>"; };
 		044F88891AE69BD900FAB475 /* Employee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Employee.swift; path = Models/TestModels/Employee.swift; sourceTree = "<group>"; };
 		044F888A1AE69BD900FAB475 /* Gender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Gender.swift; path = Models/TestModels/Gender.swift; sourceTree = "<group>"; };
@@ -173,6 +164,22 @@
 		044F88D91AE6BCE300FAB475 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Functions.swift; path = Spot/Functions.swift; sourceTree = SOURCE_ROOT; };
 		044F88DA1AE6BCE300FAB475 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Spot/Operators.swift; sourceTree = SOURCE_ROOT; };
 		04C1B9011AE83BCA00A85730 /* UIColorTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorTransform.swift; sourceTree = "<group>"; };
+		04C1B9211AE9219900A85730 /* _Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _Company.swift; path = Models/TestModels/_Company.swift; sourceTree = "<group>"; };
+		04C1B9221AE9219900A85730 /* _Employee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _Employee.swift; path = Models/TestModels/_Employee.swift; sourceTree = "<group>"; };
+		04C1B9231AE9219900A85730 /* _Gender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _Gender.swift; path = Models/TestModels/_Gender.swift; sourceTree = "<group>"; };
+		04C1B9241AE9219900A85730 /* _Grandchild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _Grandchild.swift; path = Models/TestModels/_Grandchild.swift; sourceTree = "<group>"; };
+		04C1B9251AE9219900A85730 /* _TestChild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestChild.swift; path = Models/TestModels/_TestChild.swift; sourceTree = "<group>"; };
+		04C1B9261AE9219900A85730 /* _TestCollections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestCollections.swift; path = Models/TestModels/_TestCollections.swift; sourceTree = "<group>"; };
+		04C1B9271AE9219900A85730 /* _TestEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestEnum.swift; path = Models/TestModels/_TestEnum.swift; sourceTree = "<group>"; };
+		04C1B9281AE9219900A85730 /* _TestImmutableOptionalTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestImmutableOptionalTypes.swift; path = Models/TestModels/_TestImmutableOptionalTypes.swift; sourceTree = "<group>"; };
+		04C1B9291AE9219900A85730 /* _TestImmutableTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestImmutableTypes.swift; path = Models/TestModels/_TestImmutableTypes.swift; sourceTree = "<group>"; };
+		04C1B92A1AE9219900A85730 /* _TestOptionalTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestOptionalTypes.swift; path = Models/TestModels/_TestOptionalTypes.swift; sourceTree = "<group>"; };
+		04C1B92B1AE9219900A85730 /* _TestOverrideType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestOverrideType.swift; path = Models/TestModels/_TestOverrideType.swift; sourceTree = "<group>"; };
+		04C1B92C1AE9219900A85730 /* _TestRelationships.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestRelationships.swift; path = Models/TestModels/_TestRelationships.swift; sourceTree = "<group>"; };
+		04C1B92D1AE9219900A85730 /* _TestTransformable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestTransformable.swift; path = Models/TestModels/_TestTransformable.swift; sourceTree = "<group>"; };
+		04C1B92E1AE9219900A85730 /* _TestTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestTypes.swift; path = Models/TestModels/_TestTypes.swift; sourceTree = "<group>"; };
+		04C1B93D1AE93D9800A85730 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		04C1B93E1AE93DA100A85730 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +204,8 @@
 		04012A6B1AE12FA6006DAC19 = {
 			isa = PBXGroup;
 			children = (
+				04C1B93E1AE93DA100A85730 /* LICENSE */,
+				04C1B93D1AE93D9800A85730 /* README.md */,
 				04012A771AE12FA6006DAC19 /* Spot */,
 				04012A841AE12FA6006DAC19 /* SpotTests */,
 				04012A761AE12FA6006DAC19 /* Products */,
@@ -329,6 +338,20 @@
 		04012AC41AE13290006DAC19 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				04C1B9211AE9219900A85730 /* _Company.swift */,
+				04C1B9221AE9219900A85730 /* _Employee.swift */,
+				04C1B9231AE9219900A85730 /* _Gender.swift */,
+				04C1B9241AE9219900A85730 /* _Grandchild.swift */,
+				04C1B9251AE9219900A85730 /* _TestChild.swift */,
+				04C1B9261AE9219900A85730 /* _TestCollections.swift */,
+				04C1B9271AE9219900A85730 /* _TestEnum.swift */,
+				04C1B9281AE9219900A85730 /* _TestImmutableOptionalTypes.swift */,
+				04C1B9291AE9219900A85730 /* _TestImmutableTypes.swift */,
+				04C1B92A1AE9219900A85730 /* _TestOptionalTypes.swift */,
+				04C1B92B1AE9219900A85730 /* _TestOverrideType.swift */,
+				04C1B92C1AE9219900A85730 /* _TestRelationships.swift */,
+				04C1B92D1AE9219900A85730 /* _TestTransformable.swift */,
+				04C1B92E1AE9219900A85730 /* _TestTypes.swift */,
 				044F88881AE69BD900FAB475 /* Company.swift */,
 				044F88891AE69BD900FAB475 /* Employee.swift */,
 				044F888A1AE69BD900FAB475 /* Gender.swift */,
@@ -343,22 +366,6 @@
 				044F88931AE69BD900FAB475 /* TestRelationships.swift */,
 				044F88941AE69BD900FAB475 /* TestTransformable.swift */,
 				044F88951AE69BD900FAB475 /* TestTypes.swift */,
-				044F88641AE64ED200FAB475 /* _Gender.swift */,
-				044F88651AE64ED200FAB475 /* _Grandchild.swift */,
-				044F88661AE64ED200FAB475 /* _TestChild.swift */,
-				044F88671AE64ED200FAB475 /* _TestRelationships.swift */,
-				04413A021AE5867500A6CD09 /* _TestOverrideType.swift */,
-				044139FE1AE574C900A6CD09 /* _TestOptionalTypes.swift */,
-				044139FF1AE574C900A6CD09 /* _TestOverrideType.swift */,
-				044139F61AE5513200A6CD09 /* _TestImmutableOptionalTypes.swift */,
-				044139F71AE5513200A6CD09 /* _TestImmutableTypes.swift */,
-				044139F21AE5436400A6CD09 /* _TestTransformable.swift */,
-				044139EE1AE5402500A6CD09 /* _TestEnum.swift */,
-				044139EA1AE5148100A6CD09 /* _TestCollections.swift */,
-				044139E61AE510BE00A6CD09 /* _TestTypes.swift */,
-				044139E21AE5075D00A6CD09 /* _TestOptionalTypes.swift */,
-				04012AF31AE15456006DAC19 /* _Employee.swift */,
-				04012AEE1AE14502006DAC19 /* _Company.swift */,
 				04012AC81AE132AE006DAC19 /* TestModels.xcdatamodeld */,
 				04012ACE1AE132CD006DAC19 /* TestModels */,
 				04012AC51AE132AE006DAC19 /* BasicModels.swift */,
@@ -447,6 +454,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				04925EA11AE9697300BF1D88 /* PBXTargetDependency */,
 				04012A831AE12FA6006DAC19 /* PBXTargetDependency */,
 			);
 			name = SpotTests;
@@ -544,47 +552,47 @@
 			buildActionMask = 2147483647;
 			files = (
 				044F88971AE69BD900FAB475 /* Employee.swift in Sources */,
+				04C1B93C1AE9219900A85730 /* _TestTypes.swift in Sources */,
 				044F87FD1AE5D01800FAB475 /* TransformTests.swift in Sources */,
+				04C1B9361AE9219900A85730 /* _TestImmutableOptionalTypes.swift in Sources */,
 				044F889B1AE69BD900FAB475 /* TestCollections.swift in Sources */,
-				044F886D1AE64ED200FAB475 /* _Grandchild.swift in Sources */,
+				04C1B9301AE9219900A85730 /* _Employee.swift in Sources */,
 				04012ADE1AE132FF006DAC19 /* DecodingTests.swift in Sources */,
-				044F886C1AE64ED200FAB475 /* _Gender.swift in Sources */,
-				044F886F1AE64ED200FAB475 /* _TestRelationships.swift in Sources */,
 				044F88A31AE69BD900FAB475 /* TestTypes.swift in Sources */,
 				044F88A11AE69BD900FAB475 /* TestRelationships.swift in Sources */,
 				044F88981AE69BD900FAB475 /* Gender.swift in Sources */,
 				044F87F91AE5D01800FAB475 /* EncodingTests.swift in Sources */,
-				044F88091AE5D02100FAB475 /* _TestCollections.swift in Sources */,
 				044F87FA1AE5D01800FAB475 /* PerfTests.swift in Sources */,
 				044F88121AE5D02900FAB475 /* ObjectModels.swift in Sources */,
 				044F87FB1AE5D01800FAB475 /* RecursiveTests.swift in Sources */,
 				04012ADB1AE132FF006DAC19 /* BaseTest.swift in Sources */,
 				044F88961AE69BD900FAB475 /* Company.swift in Sources */,
+				04C1B93A1AE9219900A85730 /* _TestRelationships.swift in Sources */,
+				04C1B9311AE9219900A85730 /* _Gender.swift in Sources */,
 				044F889A1AE69BD900FAB475 /* TestChild.swift in Sources */,
+				04C1B93B1AE9219900A85730 /* _TestTransformable.swift in Sources */,
 				04012ADC1AE132FF006DAC19 /* DataAdapterTests.swift in Sources */,
 				044F88A21AE69BD900FAB475 /* TestTransformable.swift in Sources */,
+				04C1B9371AE9219900A85730 /* _TestImmutableTypes.swift in Sources */,
 				044F87F71AE5D01800FAB475 /* DecodableTests.swift in Sources */,
-				044F886E1AE64ED200FAB475 /* _TestChild.swift in Sources */,
-				044F88021AE5D02100FAB475 /* _TestImmutableTypes.swift in Sources */,
+				04C1B92F1AE9219900A85730 /* _Company.swift in Sources */,
+				04C1B9351AE9219900A85730 /* _TestEnum.swift in Sources */,
+				04C1B9381AE9219900A85730 /* _TestOptionalTypes.swift in Sources */,
 				044F88A51AE6A34200FAB475 /* RelationshipTests.swift in Sources */,
-				044F88101AE5D02100FAB475 /* _Company.swift in Sources */,
-				044F880B1AE5D02100FAB475 /* _TestTypes.swift in Sources */,
 				044F88131AE5D02900FAB475 /* RecursiveModel.swift in Sources */,
-				044F880F1AE5D02100FAB475 /* _Employee.swift in Sources */,
 				044F889F1AE69BD900FAB475 /* TestOptionalTypes.swift in Sources */,
 				044F88A01AE69BD900FAB475 /* TestOverrideType.swift in Sources */,
 				044F889E1AE69BD900FAB475 /* TestImmutableTypes.swift in Sources */,
+				04C1B9391AE9219900A85730 /* _TestOverrideType.swift in Sources */,
 				044F88991AE69BD900FAB475 /* Grandchild.swift in Sources */,
-				044F88071AE5D02100FAB475 /* _TestEnum.swift in Sources */,
 				044F889D1AE69BD900FAB475 /* TestImmutableOptionalTypes.swift in Sources */,
+				04C1B9321AE9219900A85730 /* _Grandchild.swift in Sources */,
 				044F87FC1AE5D01800FAB475 /* TemplateTests.swift in Sources */,
+				04C1B9331AE9219900A85730 /* _TestChild.swift in Sources */,
 				04012ACA1AE132AE006DAC19 /* BasicModels.swift in Sources */,
 				044F889C1AE69BD900FAB475 /* TestEnum.swift in Sources */,
-				044F88011AE5D02100FAB475 /* _TestImmutableOptionalTypes.swift in Sources */,
 				044F87F81AE5D01800FAB475 /* EncodableTests.swift in Sources */,
-				044F87FE1AE5D02100FAB475 /* _TestOverrideType.swift in Sources */,
-				044F88061AE5D02100FAB475 /* _TestTransformable.swift in Sources */,
-				044F88001AE5D02100FAB475 /* _TestOptionalTypes.swift in Sources */,
+				04C1B9341AE9219900A85730 /* _TestCollections.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,6 +603,11 @@
 			isa = PBXTargetDependency;
 			target = 04012A741AE12FA6006DAC19 /* Spot */;
 			targetProxy = 04012A821AE12FA6006DAC19 /* PBXContainerItemProxy */;
+		};
+		04925EA11AE9697300BF1D88 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 04012AE31AE13A90006DAC19 /* TestModels */;
+			targetProxy = 04925EA01AE9697300BF1D88 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

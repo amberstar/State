@@ -7,12 +7,12 @@
 import Spot
 
 public struct TestTransformable {
-    var myTransformable: NSURL
-    let myTransformableImmutable: NSURL
-    let myTransformableImmutableOptional: NSURL?
-    var myTransformableOptional: NSURL?
+    public var myTransformable: NSURL
+    public let myTransformableImmutable: NSURL
+    public let myTransformableImmutableOptional: NSURL?
+    public var myTransformableOptional: NSURL?
 
-public init(myTransformable: NSURL, myTransformableImmutable: NSURL, myTransformableImmutableOptional: NSURL?, myTransformableOptional: NSURL?) {
+    public init(myTransformable: NSURL, myTransformableImmutable: NSURL, myTransformableImmutableOptional: NSURL?, myTransformableOptional: NSURL?) {
 
     self.myTransformable = myTransformable
     self.myTransformableImmutable = myTransformableImmutable

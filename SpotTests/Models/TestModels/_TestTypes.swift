@@ -7,16 +7,16 @@
 import Spot
 
 public struct TestTypes {
-    var myBinary: NSData
-    var myBoolean: Bool
-    var myDate: NSDate
-    var myDecimal: NSDecimalNumber
-    var myDouble: Double
-    var myFloat: Float
-    var myInt: Int
-    var myString: String
+    public var myBinary: NSData
+    public var myBoolean: Bool
+    public var myDate: NSDate
+    public var myDecimal: NSDecimalNumber
+    public var myDouble: Double
+    public var myFloat: Float
+    public var myInt: Int
+    public var myString: String
 
-public init(myBinary: NSData, myBoolean: Bool, myDate: NSDate, myDecimal: NSDecimalNumber, myDouble: Double, myFloat: Float, myInt: Int, myString: String) {
+    public init(myBinary: NSData, myBoolean: Bool, myDate: NSDate, myDecimal: NSDecimalNumber, myDouble: Double, myFloat: Float, myInt: Int, myString: String) {
 
     self.myBinary = myBinary
     self.myBoolean = myBoolean

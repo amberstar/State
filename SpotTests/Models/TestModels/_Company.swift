@@ -7,12 +7,12 @@
 import Spot
 
 public struct Company {
-    var name: String
-    var phoneNumber: String?
-    var yearFounded: Double
-    var employees: [Employee]?
+    public var name: String
+    public var phoneNumber: String?
+    public var yearFounded: Double
+    public var employees: [Employee]?
 
-public init(name: String, phoneNumber: String?, yearFounded: Double, employees: [Employee]?) {
+    public init(name: String, phoneNumber: String?, yearFounded: Double, employees: [Employee]?) {
 
     self.name = name
     self.phoneNumber = phoneNumber

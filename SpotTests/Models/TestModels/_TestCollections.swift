@@ -7,11 +7,11 @@
 import Spot
 
 public struct TestCollections {
-    var arrayOfStrings: [String]
-    var dicOfInts: [String : Int]
-    var setOfStrings: Set<String>
+    public var arrayOfStrings: [String]
+    public var dicOfInts: [String : Int]
+    public var setOfStrings: Set<String>
 
-public init(arrayOfStrings: [String], dicOfInts: [String : Int], setOfStrings: Set<String>) {
+    public init(arrayOfStrings: [String], dicOfInts: [String : Int], setOfStrings: Set<String>) {
 
     self.arrayOfStrings = arrayOfStrings
     self.dicOfInts = dicOfInts

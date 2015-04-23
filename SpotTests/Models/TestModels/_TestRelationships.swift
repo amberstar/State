@@ -7,11 +7,11 @@
 import Spot
 
 public struct TestRelationships {
-    var myChildren: [TestChild]?
-    var myGrandChildren: [Grandchild]?
-    var myOneChild: TestChild?
+    public var myChildren: [TestChild]? 
+    public var myGrandChildren: [Grandchild]? 
+    public var myOneChild: TestChild?
 
-public init(myChildren: [TestChild]?, myGrandChildren: [Grandchild]?, myOneChild: TestChild?) {
+    public init(myChildren: [TestChild]?, myGrandChildren: [Grandchild]?, myOneChild: TestChild?) {
 
     self.myChildren = myChildren
     self.myGrandChildren = myGrandChildren

@@ -7,10 +7,10 @@
 import Spot
 
 public struct TestOverrideType {
-    var myArrayOfString: [String]?
-    var myURL: NSURL?
+    public var myArrayOfString: [String]?
+    public var myURL: NSURL?
 
-public init(myArrayOfString: [String]?, myURL: NSURL?) {
+    public init(myArrayOfString: [String]?, myURL: NSURL?) {
 
     self.myArrayOfString = myArrayOfString
     self.myURL = myURL
