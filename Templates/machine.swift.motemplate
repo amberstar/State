@@ -104,7 +104,7 @@ extension <$managedObjectClassName$> : Encodable {
 
 <$procedure writeRawValueCaseForAttribute Attribute$><$if Attribute.userInfo.Spot.Value$> = <$if userInfo.Spot.Type == String$>"<$endif$><$ Attribute.userInfo.Spot.Value$><$if userInfo.Spot.Type == String$>"<$endif$><$endif$><$endprocedure$>
 
-<$procedure writeAssociatedValueCaseForAttribute Attribute$><$if Attribute.userInfo.Spot.Type != Spot.None$>(<$call getTypeForAttribute Attribute$>)<$endif$><$endprocedure$>
+<$procedure writeAssociatedValueCaseForAttribute Attribute$><$if Attribute.userInfo.Spot.Type$>(<$Attribute.userInfo.Spot.Type$><$if Attribute.isOptional$>?<$endif$>)<$endif$><$endprocedure$>
 
 <$procedure writeEnumCaseForAttribute Attribute$>case <$Attribute.name.initialCapitalString$> <$if userInfo.Spot.Type$><$call writeRawValueCaseForAttribute Attribute$><$else$><$call writeAssociatedValueCaseForAttribute Attribute$><$endif$><$endprocedure$>
 
@@ -117,7 +117,7 @@ extension <$managedObjectClassName$> : Encodable {
 <$procedure writeEnumCaseForRelationship Relationship$>case <$Relationship.name.initialCapitalString$> <$if userInfo.Spot.Type$><$call writeRawValueCaseForRelationship Relationship$><$else$><$call writeAssociatedValueCaseForRelationship Relationship$><$endif$><$endprocedure$>
 
 
-<$procedure writeAttributeDecodeAssociatedSwitchCaseForEnum Attribute$>if let value: <$call getTypeForAttribute Attribute$> = decoder.decode("value")<$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.reverseTransform<$endif$><$if Attribute.isOptional$> >>> asOptional<$endif$> {
+<$procedure writeAttributeDecodeAssociatedSwitchCaseForEnum Attribute$>if let value: <$Attribute.userInfo.Spot.Type$><$if Attribute.isOptional$>?<$endif$> = decoder.decode("value")<$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.reverseTransform<$endif$><$if Attribute.isOptional$> >>> asOptional<$endif$> {
                         self = <$managedObjectClassName$>.<$Attribute.name.initialCapitalString$>(value)
                     } else { return nil }<$endprocedure$>
 
@@ -130,7 +130,7 @@ extension <$managedObjectClassName$> : Encodable {
                     } else { return nil }<$endprocedure$>
 
 <$procedure writeAttributeDecodeSwitchCaseForEnumCase Attribute$>case "<$Attribute.name$>":
-                    <$if userInfo.Spot.Type$><$call writeAttributeDecodeRawSwitchCaseForEnum Attribute$><$elseif Attribute.userInfo.Spot.Type != Spot.None$><$call writeAttributeDecodeAssociatedSwitchCaseForEnum Attribute$><$else$><$call writeAttributeDecodeBasicSwitchCaseForEnum Attribute$><$endif$><$endprocedure$>
+                    <$if userInfo.Spot.Type$><$call writeAttributeDecodeRawSwitchCaseForEnum Attribute$><$elseif Attribute.userInfo.Spot.Type$><$call writeAttributeDecodeAssociatedSwitchCaseForEnum Attribute$><$else$><$call writeAttributeDecodeBasicSwitchCaseForEnum Attribute$><$endif$><$endprocedure$>
 
 <$procedure writeRelationshipDecodeAssociatedSwitchCaseForEnum Relationship$>if let value: <$if Relationship.isToMany$>[<$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> = decoder.decodeModel<$if Relationship.isToMany$>Array<$endif$>("value") <$if Relationship.isOptional$>>>> asOptional<$endif$>{
                         self = <$managedObjectClassName$>.<$Relationship.name.initialCapitalString$>(value)
@@ -158,7 +158,7 @@ extension <$managedObjectClassName$> : Encodable {
                 encoder.encode("<$Attribute.name$>", forKey: "type")
                 encoder.encode(value<$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.transform<$endif$>, forKey: "value")<$endprocedure$>
 
-<$procedure writeAttributeEncodeSwitchCaseForEnumCase Attribute$><$if userInfo.Spot.Type$><$call writeAttributeEncodeRawSwitchCaseForEnum Attribute$><$elseif Attribute.userInfo.Spot.Type != Spot.None$><$call writeAttributeEncodeAssociatedSwitchCaseForEnum Attribute$><$else$><$call writeAttributeEncodeBasicSwitchCaseForEnum Attribute$><$endif$><$endprocedure$>
+<$procedure writeAttributeEncodeSwitchCaseForEnumCase Attribute$><$if userInfo.Spot.Type$><$call writeAttributeEncodeRawSwitchCaseForEnum Attribute$><$elseif Attribute.userInfo.Spot.Type$><$call writeAttributeEncodeAssociatedSwitchCaseForEnum Attribute$><$else$><$call writeAttributeEncodeBasicSwitchCaseForEnum Attribute$><$endif$><$endprocedure$>
 
 <$procedure writeRelationshipEncodeBasicSwitchCaseForEnum Relationship$>case let .<$Relationship.name.initialCapitalString$>:
                 encoder.encode("<$Relationship.name$>", forKey: "type")<$endprocedure$>
