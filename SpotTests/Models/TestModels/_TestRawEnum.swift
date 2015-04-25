@@ -6,20 +6,21 @@
 
 import Spot
 
-public enum Gender: String {
-    case Female  = "Female"
-    case Male  = "Male"
+public enum TestRawEnum: String {
+    case Aim  = "Aim"
+    case Fire  = "Fire"
+    case Ready  = "Ready"
 
 }
 
-extension Gender: Decodable {
+extension TestRawEnum: Decodable {
 
     public init?(var decoder: Decoder) {
 
-        if Gender.shouldMigrateIfNeeded {
-            if let dataVersion: AnyObject = decoder.decode(Gender.versionKey) {
-                if Gender.needsMigration(dataVersion) {
-                   let migratedData = Gender.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
+        if TestRawEnum.shouldMigrateIfNeeded {
+            if let dataVersion: AnyObject = decoder.decode(TestRawEnum.versionKey) {
+                if TestRawEnum.needsMigration(dataVersion) {
+                   let migratedData = TestRawEnum.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
                     decoder = Decoder(data: migratedData)
                 }
             }
@@ -28,15 +29,21 @@ extension Gender: Decodable {
         if let type: String = decoder.decode("type") {
 
             switch type {
-                case "female":
+                case "aim":
                     if let value: String = decoder.decode("value"),
-                        instance = Gender(rawValue: value) {
+                        instance = TestRawEnum(rawValue: value) {
                         instance.didFinishDecodingWithDecoder(decoder)
                         self = instance
                     } else { return nil }
-                case "male":
+                case "fire":
                     if let value: String = decoder.decode("value"),
-                        instance = Gender(rawValue: value) {
+                        instance = TestRawEnum(rawValue: value) {
+                        instance.didFinishDecodingWithDecoder(decoder)
+                        self = instance
+                    } else { return nil }
+                case "ready":
+                    if let value: String = decoder.decode("value"),
+                        instance = TestRawEnum(rawValue: value) {
                         instance.didFinishDecodingWithDecoder(decoder)
                         self = instance
                     } else { return nil }
@@ -48,16 +55,19 @@ extension Gender: Decodable {
     }
 }
 
-extension Gender: Encodable {
+extension TestRawEnum: Encodable {
 
     public func encode(encoder: Encoder) {
 
         switch self {
-            case let .Female:
-                encoder.encode("female", forKey: "type")
+            case let .Aim:
+                encoder.encode("aim", forKey: "type")
                 encoder.encode(self.rawValue, forKey: "value")
-            case let .Male:
-                encoder.encode("male", forKey: "type")
+            case let .Fire:
+                encoder.encode("fire", forKey: "type")
+                encoder.encode(self.rawValue, forKey: "value")
+            case let .Ready:
+                encoder.encode("ready", forKey: "type")
                 encoder.encode(self.rawValue, forKey: "value")
 
         }
@@ -65,14 +75,14 @@ extension Gender: Encodable {
     }
 }
 
-extension Gender {
+extension TestRawEnum {
     /**
     These are provided from the data model designer
     and can be used to determine if the model is
     a different version.
     */
     static var modelVersionHash: String {
-        return "<ffba7348 838d3758 c6b41d57 ad7ea1b5 7c0a7ae4 0a9ead14 a727496b e503f5c2>"
+        return "<4a42ad80 0164503c a7c17d8c 2a24bcf5 f44a5730 0fab6252 969f7b23 e3ff6822>"
     }
 
     static var modelVersionHashModifier: String? {

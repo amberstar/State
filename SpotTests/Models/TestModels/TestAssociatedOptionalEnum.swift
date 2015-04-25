@@ -5,13 +5,13 @@
 ************************************************/
 import Spot
 
-extension TestEnum {
+extension TestAssociatedOptionalEnum {
 
     // Extend your model entity here.
 }
 
 ///MARK: Coding
-extension TestEnum {
+extension TestAssociatedOptionalEnum {
 
     /**
     decoding is finished on the receiver
@@ -32,14 +32,13 @@ extension TestEnum {
     :Discussion: This method is called right before encoding finishes.
     It provides a chance to encode any further data with the encoder.
     */
-
     func willFinishEncodingWithEncoder(encoder: Encoder) {
 
     }
 }
 
 ///MARK: Migration
-extension TestEnum {
+extension TestAssociatedOptionalEnum {
 
     /**
     true if the encoder should include a model version

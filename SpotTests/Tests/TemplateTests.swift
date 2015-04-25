@@ -91,13 +91,12 @@ class TemplateTests: Test {
         XCTAssert(sut?.setOfStrings.count == 3)
     }
     
-    func testEnum() {
-        var test_out = TestEnum.Ready
-        Data.write(Encoder.encodeModel(test_out), path: tempPathFor("test_enum.plist"))
-        var sut: TestEnum? = Decoder.decodeModel(Data.read(tempPathFor("test_enum.plist")))
-        
+    func testRawEnum() {
+        var test_out = TestRawEnum.Ready
+        Plist.write(Encoder.encodeModel(test_out), path: tempPathFor("test_enum.plist"))
+        var sut: TestRawEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_enum.plist")))
         XCTAssert(sut != nil)
-        XCTAssert(sut == TestEnum.Ready)
+        XCTAssert(sut == TestRawEnum.Ready)
     }
     
     func testTransformable() {
@@ -112,7 +111,8 @@ class TemplateTests: Test {
     }
     
     func testOverrideType() {
-        var test_out = TestOverrideType(myArrayOfString: ["string1", "string2"], myURL: NSURL(string: "http://simpletouchsoftware.com"))
+        var test_out: TestOverrideType? = TestOverrideType(myArrayOfString: ["string1", "string2"], myURL: NSURL(string: "http://simpletouchsoftware.com"))
+        XCTAssert(test_out != nil)
     }
 
 }

@@ -31,6 +31,46 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="gender" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Gender" syncable="YES"/>
     </entity>
+    <entity name="TestAssociatedEnum" representedClassName="TestAssociatedEnum" syncable="YES">
+        <attribute name="binaryType" attributeType="Binary" syncable="YES"/>
+        <attribute name="booleanType" attributeType="Boolean" syncable="YES"/>
+        <attribute name="dateType" attributeType="Date" syncable="YES"/>
+        <attribute name="decimalType" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="doubleType" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="floatType" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="intType" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="stringType" attributeType="String" syncable="YES"/>
+        <attribute name="transformableColorType" attributeType="Transformable" valueTransformerName="UIColorTransform" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Type" value="UIColor"/>
+            </userInfo>
+        </attribute>
+        <relationship name="decodableToManyType" toMany="YES" deletionRule="Nullify" destinationEntity="Employee" syncable="YES"/>
+        <relationship name="decodableToOneType" maxCount="1" deletionRule="Nullify" destinationEntity="Employee" syncable="YES"/>
+        <userInfo>
+            <entry key="Spot.Enum" value="YES"/>
+        </userInfo>
+    </entity>
+    <entity name="TestAssociatedOptionalEnum" representedClassName="TestAssociatedOptionalEnum" syncable="YES">
+        <attribute name="binaryType" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="booleanType" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="dateType" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="decimalType" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="doubleType" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="floatType" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="intType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="stringType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="transformableColorType" optional="YES" attributeType="Transformable" valueTransformerName="UIColorTransform" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Type" value="UIColor"/>
+            </userInfo>
+        </attribute>
+        <relationship name="decodableToManyType" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="Employee" syncable="YES"/>
+        <relationship name="decodableToOneType" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Employee" syncable="YES"/>
+        <userInfo>
+            <entry key="Spot.Enum" value="YES"/>
+        </userInfo>
+    </entity>
     <entity name="TestChild" representedClassName="TestChild" syncable="YES">
         <attribute name="age" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -92,27 +132,6 @@
     </entity>
     <entity name="TestDefaultsChild" representedClassName="TestDefaultsChild" syncable="YES">
         <attribute name="name" attributeType="String" defaultValueString="New Child" syncable="YES"/>
-    </entity>
-    <entity name="TestEnum" representedClassName="TestEnum" syncable="YES">
-        <attribute name="aim" optional="YES" attributeType="String" syncable="YES">
-            <userInfo>
-                <entry key="Spot.Value" value="Aim"/>
-            </userInfo>
-        </attribute>
-        <attribute name="fire" optional="YES" attributeType="String" syncable="YES">
-            <userInfo>
-                <entry key="Spot.Value" value="Fire"/>
-            </userInfo>
-        </attribute>
-        <attribute name="ready" attributeType="String" syncable="YES">
-            <userInfo>
-                <entry key="Spot.Value" value="Ready"/>
-            </userInfo>
-        </attribute>
-        <userInfo>
-            <entry key="Spot.Enum" value="YES"/>
-            <entry key="Spot.Type" value="String"/>
-        </userInfo>
     </entity>
     <entity name="TestImmutableOptionalTypes" representedClassName="TestImmutableOptionalTypes" syncable="YES">
         <attribute name="myBinary" optional="YES" attributeType="Binary" syncable="YES">
@@ -220,6 +239,42 @@
             </userInfo>
         </attribute>
     </entity>
+    <entity name="TestRawEnum" representedClassName="TestRawEnum" syncable="YES">
+        <attribute name="aim" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Value" value="Aim"/>
+            </userInfo>
+        </attribute>
+        <attribute name="fire" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Value" value="Fire"/>
+            </userInfo>
+        </attribute>
+        <attribute name="ready" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Value" value="Ready"/>
+            </userInfo>
+        </attribute>
+        <userInfo>
+            <entry key="Spot.Enum" value="YES"/>
+            <entry key="Spot.Type" value="String"/>
+        </userInfo>
+    </entity>
+    <entity name="TestRegEnum" representedClassName="TestRegEnum" syncable="YES">
+        <attribute name="cold" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Type" value="Spot.None"/>
+            </userInfo>
+        </attribute>
+        <attribute name="hot" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Type" value="Spot.None"/>
+            </userInfo>
+        </attribute>
+        <userInfo>
+            <entry key="Spot.Enum" value="YES"/>
+        </userInfo>
+    </entity>
     <entity name="TestRelationships" representedClassName="TestRelationships" syncable="YES">
         <relationship name="myChildren" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TestChild" syncable="YES"/>
         <relationship name="myGrandChildren" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Grandchild" syncable="YES"/>
@@ -260,21 +315,24 @@
         <attribute name="myString" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Company" positionX="-20117" positionY="-10818" width="128" height="103"/>
-        <element name="Employee" positionX="-19973" positionY="-10648" width="128" height="73"/>
+        <element name="Company" positionX="-20106" positionY="-10917" width="128" height="103"/>
+        <element name="Employee" positionX="-19874" positionY="-10837" width="128" height="73"/>
         <element name="Gender" positionX="-20295" positionY="-11142" width="128" height="73"/>
         <element name="Grandchild" positionX="-19838" positionY="-11110" width="128" height="88"/>
         <element name="TestChild" positionX="-19910" positionY="-11385" width="128" height="103"/>
         <element name="TestCollections" positionX="-20754" positionY="-10872" width="128" height="88"/>
         <element name="TestDefaults" positionX="-20898" positionY="-11358" width="128" height="208"/>
-        <element name="TestEnum" positionX="-20756" positionY="-10764" width="128" height="88"/>
+        <element name="TestDefaultsChild" positionX="-20601" positionY="-11340" width="128" height="58"/>
+        <element name="TestRawEnum" positionX="-20423" positionY="-10645" width="128" height="88"/>
         <element name="TestImmutableOptionalTypes" positionX="-20592" positionY="-10639" width="128" height="163"/>
         <element name="TestImmutableTypes" positionX="-20763" positionY="-10639" width="128" height="163"/>
         <element name="TestOptionalTypes" positionX="-20925" positionY="-10881" width="128" height="163"/>
-        <element name="TestOverrideType" positionX="-20628" positionY="-11133" width="128" height="73"/>
+        <element name="TestOverrideType" positionX="-20718" positionY="-11107" width="128" height="73"/>
         <element name="TestRelationships" positionX="-20304" positionY="-11347" width="128" height="88"/>
         <element name="TestTransformable" positionX="-20576" positionY="-10863" width="263" height="103"/>
         <element name="TestTypes" positionX="-20927" positionY="-10684" width="128" height="163"/>
-        <element name="TestDefaultsChild" positionX="-20601" positionY="-11340" width="128" height="58"/>
+        <element name="TestRegEnum" positionX="-20250" positionY="-10636" width="128" height="73"/>
+        <element name="TestAssociatedEnum" positionX="-20034" positionY="-10755" width="128" height="208"/>
+        <element name="TestAssociatedOptionalEnum" positionX="-20124" positionY="-10476" width="128" height="208"/>
     </elements>
 </model>
