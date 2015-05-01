@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "047B22C91AF3DAAF003B7F39"
-               BuildableName = "Spot-OSX.framework"
+               BuildableName = "Spot.framework"
                BlueprintName = "Spot-OSX"
                ReferencedContainer = "container:Spot.xcodeproj">
             </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "047B22C91AF3DAAF003B7F39"
-            BuildableName = "Spot-OSX.framework"
+            BuildableName = "Spot.framework"
             BlueprintName = "Spot-OSX"
             ReferencedContainer = "container:Spot.xcodeproj">
          </BuildableReference>
@@ -81,7 +81,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "047B22C91AF3DAAF003B7F39"
-            BuildableName = "Spot-OSX.framework"
+            BuildableName = "Spot.framework"
             BlueprintName = "Spot-OSX"
             ReferencedContainer = "container:Spot.xcodeproj">
          </BuildableReference>
@@ -99,7 +99,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "047B22C91AF3DAAF003B7F39"
-            BuildableName = "Spot-OSX.framework"
+            BuildableName = "Spot.framework"
             BlueprintName = "Spot-OSX"
             ReferencedContainer = "container:Spot.xcodeproj">
          </BuildableReference>

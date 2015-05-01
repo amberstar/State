@@ -58,7 +58,6 @@
 		044F88DB1AE6BCE300FAB475 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88D91AE6BCE300FAB475 /* Functions.swift */; };
 		044F88DC1AE6BCE300FAB475 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88DA1AE6BCE300FAB475 /* Operators.swift */; };
 		047B22D51AF3DAB0003B7F39 /* Spot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 047B22CA1AF3DAAF003B7F39 /* Spot.framework */; };
-		047B22DC1AF3DAB0003B7F39 /* Spot_OSXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047B22DB1AF3DAB0003B7F39 /* Spot_OSXTests.swift */; };
 		047B22E31AF3DE8A003B7F39 /* Spot.h in Headers */ = {isa = PBXBuildFile; fileRef = 04012A7A1AE12FA6006DAC19 /* Spot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		047B22E41AF3DE9D003B7F39 /* Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88C51AE6BC9B00FAB475 /* Decodable.swift */; };
 		047B22E51AF3DE9D003B7F39 /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88C61AE6BC9B00FAB475 /* Decoder.swift */; };
@@ -261,8 +260,6 @@
 		044F88DA1AE6BCE300FAB475 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Spot/Operators.swift; sourceTree = SOURCE_ROOT; };
 		047B22CA1AF3DAAF003B7F39 /* Spot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Spot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		047B22D41AF3DAAF003B7F39 /* SpotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		047B22DA1AF3DAB0003B7F39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		047B22DB1AF3DAB0003B7F39 /* Spot_OSXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spot_OSXTests.swift; sourceTree = "<group>"; };
 		04925EBF1AE9967500BF1D88 /* TestDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDefaults.swift; path = Models/TestModels/TestDefaults.swift; sourceTree = "<group>"; };
 		04925EC11AE9967B00BF1D88 /* _TestDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestDefaults.swift; path = Models/TestModels/_TestDefaults.swift; sourceTree = "<group>"; };
 		04BD1ACD1AE9A6E4008F576C /* _TestDefaultsChild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestDefaultsChild.swift; path = Models/TestModels/_TestDefaultsChild.swift; sourceTree = "<group>"; };
@@ -336,7 +333,6 @@
 				04C1B93D1AE93D9800A85730 /* README.md */,
 				04012A771AE12FA6006DAC19 /* Spot */,
 				04012A841AE12FA6006DAC19 /* SpotTests */,
-				047B22D81AF3DAB0003B7F39 /* Spot-OSXTests */,
 				04012A761AE12FA6006DAC19 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -534,23 +530,6 @@
 				04BD1AD31AE9B425008F576C /* DefaultTests.swift */,
 			);
 			path = Tests;
-			sourceTree = "<group>";
-		};
-		047B22D81AF3DAB0003B7F39 /* Spot-OSXTests */ = {
-			isa = PBXGroup;
-			children = (
-				047B22DB1AF3DAB0003B7F39 /* Spot_OSXTests.swift */,
-				047B22D91AF3DAB0003B7F39 /* Supporting Files */,
-			);
-			path = "Spot-OSXTests";
-			sourceTree = "<group>";
-		};
-		047B22D91AF3DAB0003B7F39 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				047B22DA1AF3DAB0003B7F39 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -895,7 +874,6 @@
 				047B23151AF3EEA0003B7F39 /* TestImmutableTypes.swift in Sources */,
 				047B23191AF3EEA0003B7F39 /* TestTransformable.swift in Sources */,
 				047B22FE1AF3EEA0003B7F39 /* TestDefaultsChild.swift in Sources */,
-				047B22DC1AF3DAB0003B7F39 /* Spot_OSXTests.swift in Sources */,
 				047B22F91AF3EEA0003B7F39 /* _TestRawEnum.swift in Sources */,
 				047B23201AF3EEB9003B7F39 /* EncodableTests.swift in Sources */,
 				047B230F1AF3EEA0003B7F39 /* Employee.swift in Sources */,
@@ -1185,7 +1163,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Spot-OSXTests/Info.plist";
+				INFOPLIST_FILE = SpotTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(PROJECT_NAME)Tests";
@@ -1201,7 +1179,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Spot-OSXTests/Info.plist";
+				INFOPLIST_FILE = SpotTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(PROJECT_NAME)Tests";
@@ -1255,6 +1233,7 @@
 				047B22DF1AF3DAB0003B7F39 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		047B22E01AF3DAB0003B7F39 /* Build configuration list for PBXNativeTarget "SpotTests-OSX" */ = {
 			isa = XCConfigurationList;
@@ -1263,6 +1242,7 @@
 				047B22E21AF3DAB0003B7F39 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
