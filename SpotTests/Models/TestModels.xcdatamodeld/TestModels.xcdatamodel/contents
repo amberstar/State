@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7700" systemVersion="14D131" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7700" systemVersion="14D136" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Company" representedClassName="Company" syncable="YES">
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
@@ -74,6 +74,7 @@
         </attribute>
         <attribute name="transformableColorType" attributeType="Transformable" valueTransformerName="UIColorTransform" syncable="YES">
             <userInfo>
+                <entry key="Spot.Import" value="UIKit"/>
                 <entry key="Spot.Type" value="UIColor"/>
             </userInfo>
         </attribute>
@@ -126,6 +127,7 @@
         </attribute>
         <attribute name="transformableColorType" optional="YES" attributeType="Transformable" valueTransformerName="UIColorTransform" syncable="YES">
             <userInfo>
+                <entry key="Spot.Import" value="UIKit"/>
                 <entry key="Spot.Type" value="UIColor"/>
             </userInfo>
         </attribute>
@@ -359,6 +361,9 @@
                 <entry key="Spot.Type" value="NSURL"/>
             </userInfo>
         </attribute>
+        <userInfo>
+            <entry key="Spot.Import" value="UIKit"/>
+        </userInfo>
     </entity>
     <entity name="TestTypes" representedClassName="TestTypes" syncable="YES">
         <attribute name="myBinary" attributeType="Binary" syncable="YES"/>

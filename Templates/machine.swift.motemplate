@@ -3,8 +3,10 @@
             MACHINE GENERATED FILE
 
  ************************************************/
-
+import Foundation
 import Spot
+<$foreach Attribute noninheritedAttributes do$><$if Attribute.userInfo.Spot.Import$>import <$Attribute.userInfo.Spot.Import$>
+<$endif$><$endforeach$>
 
 <$procedure getTypeForAttribute Attribute$><$if Attribute.userInfo.Spot.Type$><$Attribute.userInfo.Spot.Type$><$elseif Attribute.hasScalarAttributeType$><$if Attribute.scalarAttributeType == Int16 || Attribute.scalarAttributeType == Int32 || Attribute.scalarAttributeType == Int64$>Int<$else$><$Attribute.scalarAttributeType$><$endif$><$else$><$Attribute.objectAttributeType$><$endif$><$if Attribute.isOptional$>?<$endif$><$endprocedure$>
 
