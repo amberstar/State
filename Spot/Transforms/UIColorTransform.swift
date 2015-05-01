@@ -1,3 +1,5 @@
+import UIKit
+
 public final class UIColorTransform: ValueTransform {
     public typealias ValueType = UIColor
     public typealias TransformedType = [String : CGFloat]

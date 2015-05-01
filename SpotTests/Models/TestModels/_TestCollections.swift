@@ -3,7 +3,7 @@
             MACHINE GENERATED FILE
 
  ************************************************/
-
+import Foundation
 import Spot
 
 public struct TestCollections {

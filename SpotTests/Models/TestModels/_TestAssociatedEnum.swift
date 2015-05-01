@@ -3,8 +3,9 @@
             MACHINE GENERATED FILE
 
  ************************************************/
-
+import Foundation
 import Spot
+import UIKit
 
 public enum TestAssociatedEnum {
     case BinaryType (NSData)

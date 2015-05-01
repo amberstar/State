@@ -1,3 +1,5 @@
+import Foundation
+
 public final class URLTransform: ValueTransform {
     public typealias ValueType = NSURL
     public typealias TransformedType = String

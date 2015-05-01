@@ -4,6 +4,7 @@
 
 ************************************************/
 import Spot
+import Foundation
 
 extension TestOptionalTypes {
 

@@ -1,5 +1,6 @@
 import XCTest
 import Spot
+import UIKit
 
 class EnumTests: Test {
 
@@ -19,7 +20,6 @@ class EnumTests: Test {
         XCTAssert(sut == TestRegEnum.Cold)
     }
 
-    
     func testAssociatedEnum() {
         
          func createBinary() -> NSData? {

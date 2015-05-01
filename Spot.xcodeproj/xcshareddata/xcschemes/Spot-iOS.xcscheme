@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "04012A741AE12FA6006DAC19"
                BuildableName = "Spot.framework"
-               BlueprintName = "Spot"
+               BlueprintName = "Spot-iOS"
                ReferencedContainer = "container:Spot.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -30,7 +30,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "04012A7F1AE12FA6006DAC19"
                BuildableName = "SpotTests.xctest"
-               BlueprintName = "SpotTests"
+               BlueprintName = "SpotTests-iOS"
                ReferencedContainer = "container:Spot.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -48,7 +48,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "04012A7F1AE12FA6006DAC19"
                BuildableName = "SpotTests.xctest"
-               BlueprintName = "SpotTests"
+               BlueprintName = "SpotTests-iOS"
                ReferencedContainer = "container:Spot.xcodeproj">
             </BuildableReference>
             <SkippedTests>
@@ -63,7 +63,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04012A741AE12FA6006DAC19"
             BuildableName = "Spot.framework"
-            BlueprintName = "Spot"
+            BlueprintName = "Spot-iOS"
             ReferencedContainer = "container:Spot.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,7 +82,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04012A741AE12FA6006DAC19"
             BuildableName = "Spot.framework"
-            BlueprintName = "Spot"
+            BlueprintName = "Spot-iOS"
             ReferencedContainer = "container:Spot.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -100,7 +100,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04012A741AE12FA6006DAC19"
             BuildableName = "Spot.framework"
-            BlueprintName = "Spot"
+            BlueprintName = "Spot-iOS"
             ReferencedContainer = "container:Spot.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

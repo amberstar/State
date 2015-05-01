@@ -1,5 +1,8 @@
 import XCTest
 import Spot
+#if os(iOS)
+import UIKit
+#endif
 
 
 class TransformTests: Test {
@@ -13,7 +16,7 @@ class TransformTests: Test {
         XCTAssert(sut == testURL)
         XCTAssert (string == stringURL)
     }
-    
+    #if os (iOS)
     func testUIColorTransform() {
         var color = UIColor.blueColor()
         var colorTransformed  = UIColorTransform.transform(color)
@@ -21,4 +24,5 @@ class TransformTests: Test {
         
         XCTAssert(color == testColor)
     }
+    #endif
 }
