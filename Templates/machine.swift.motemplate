@@ -20,7 +20,7 @@ import Spot
 
 <$procedure getPropertyDeclarationForAttribute Attribute$><$if Attribute.userInfo.Spot.Immutable == YES$>public let<$else$>public var<$endif$> <$Attribute.name$><$if  !Attribute.isOptional && (Attribute.userInfo.Spot.Value || Attribute.defaultValue !=)$><$call getDefaultExpressionForAttribute Attribute$><$else$>: <$call getTypeForAttribute Attribute$><$endif$><$endProcedure$>
 
-<$procedure getPropertyDeclarationForRelationship Relationship$>public var <$Relationship.name$><$if !Relationship.isOptional && Relationship.userInfo.Spot.Value$> <$call getDefaultExpressionForRelationship Relationship$><$else$>: <$if Relationship.isToMany$>[<$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$><$endif$><$endProcedure$>
+<$procedure getPropertyDeclarationForRelationship Relationship$><$if Relationship.userInfo.Spot.Immutable == YES$>public let<$else$>public var<$endif$> <$Relationship.name$><$if !Relationship.isOptional && Relationship.userInfo.Spot.Value$> <$call getDefaultExpressionForRelationship Relationship$><$else$>: <$if Relationship.isToMany$>[<$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$><$endif$><$endProcedure$>
 
 <$procedure writeVersionHashExtension$>
 extension <$managedObjectClassName$> {
