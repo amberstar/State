@@ -374,6 +374,16 @@
             </userInfo>
         </relationship>
     </entity>
+    <entity name="TestTransient2" representedClassName="TestTransient2" syncable="YES">
+        <attribute name="transient1" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
+        <attribute name="transient2" optional="YES" transient="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="myNonTransient" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Gender" syncable="YES"/>
+    </entity>
+    <entity name="TestTransient3" representedClassName="TestTransient3" syncable="YES">
+        <attribute name="myNonTransient1" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="myNonTransient2" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="myTransientRelationship" optional="YES" transient="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Gender" syncable="YES"/>
+    </entity>
     <entity name="TestTypes" representedClassName="TestTypes" syncable="YES">
         <attribute name="myBinary" attributeType="Binary" syncable="YES"/>
         <attribute name="myBoolean" attributeType="Boolean" syncable="YES"/>
@@ -405,5 +415,7 @@
         <element name="TestTransformable" positionX="-20576" positionY="-10863" width="263" height="103"/>
         <element name="TestTypes" positionX="-20927" positionY="-10684" width="128" height="163"/>
         <element name="TestTransient" positionX="-20538" positionY="-11142" width="128" height="88"/>
+        <element name="TestTransient2" positionX="-20502" positionY="-11034" width="128" height="88"/>
+        <element name="TestTransient3" positionX="-20936" positionY="-11088" width="128" height="88"/>
     </elements>
 </model>

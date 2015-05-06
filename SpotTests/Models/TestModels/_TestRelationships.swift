@@ -38,7 +38,7 @@ extension TestRelationships : Decodable {
         }
 
         let instance: TestRelationships? = TestRelationships.create
-        <*> decoder.decodeModelArray("myChildren") >>> asOptional
+        <^> decoder.decodeModelArray("myChildren") >>> asOptional
         <*> decoder.decodeModelArray("myGrandChildren") >>> asOptional
         <*> decoder.decodeModel("myOneChild") >>> asOptional
 
