@@ -1,6 +1,6 @@
 /************************************************
 
-            MACHINE GENERATED FILE
+        WARNING: MACHINE GENERATED FILE
 
  ************************************************/
 import Foundation
@@ -28,9 +28,9 @@ extension TestRegEnum: Decodable {
         if let type: String = decoder.decode("type") {
 
             switch type {
-                case "cold":
+                case "Cold":
                     self = TestRegEnum.Cold
-                case "hot":
+                case "Hot":
                     self = TestRegEnum.Hot
 
                 default:
@@ -46,9 +46,9 @@ extension TestRegEnum: Encodable {
 
         switch self {
             case let .Cold:
-                encoder.encode("cold", forKey: "type")
+                encoder.encode("Cold", forKey: "type")
             case let .Hot:
-                encoder.encode("hot", forKey: "type")
+                encoder.encode("Hot", forKey: "type")
 
         }
          self.willFinishEncodingWithEncoder(encoder)

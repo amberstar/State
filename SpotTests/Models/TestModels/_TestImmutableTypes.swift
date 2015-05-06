@@ -1,6 +1,6 @@
 /************************************************
 
-            MACHINE GENERATED FILE
+        WARNING: MACHINE GENERATED FILE
 
  ************************************************/
 import Foundation

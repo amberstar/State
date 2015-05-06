@@ -1,6 +1,6 @@
 /************************************************
 
-            MACHINE GENERATED FILE
+        WARNING: MACHINE GENERATED FILE
 
  ************************************************/
 import Foundation
@@ -29,19 +29,19 @@ extension TestRawEnum: Decodable {
         if let type: String = decoder.decode("type") {
 
             switch type {
-                case "aim":
+                case "Aim":
                     if let value: String = decoder.decode("value"),
                         instance = TestRawEnum(rawValue: value) {
                         instance.didFinishDecodingWithDecoder(decoder)
                         self = instance
                     } else { return nil }
-                case "fire":
+                case "Fire":
                     if let value: String = decoder.decode("value"),
                         instance = TestRawEnum(rawValue: value) {
                         instance.didFinishDecodingWithDecoder(decoder)
                         self = instance
                     } else { return nil }
-                case "ready":
+                case "Ready":
                     if let value: String = decoder.decode("value"),
                         instance = TestRawEnum(rawValue: value) {
                         instance.didFinishDecodingWithDecoder(decoder)
@@ -61,13 +61,13 @@ extension TestRawEnum: Encodable {
 
         switch self {
             case let .Aim:
-                encoder.encode("aim", forKey: "type")
+                encoder.encode("Aim", forKey: "type")
                 encoder.encode(self.rawValue, forKey: "value")
             case let .Fire:
-                encoder.encode("fire", forKey: "type")
+                encoder.encode("Fire", forKey: "type")
                 encoder.encode(self.rawValue, forKey: "value")
             case let .Ready:
-                encoder.encode("ready", forKey: "type")
+                encoder.encode("Ready", forKey: "type")
                 encoder.encode(self.rawValue, forKey: "value")
 
         }

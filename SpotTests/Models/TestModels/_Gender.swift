@@ -1,6 +1,6 @@
 /************************************************
 
-            MACHINE GENERATED FILE
+        WARNING: MACHINE GENERATED FILE
 
  ************************************************/
 import Foundation
@@ -28,13 +28,13 @@ extension Gender: Decodable {
         if let type: String = decoder.decode("type") {
 
             switch type {
-                case "female":
+                case "Female":
                     if let value: String = decoder.decode("value"),
                         instance = Gender(rawValue: value) {
                         instance.didFinishDecodingWithDecoder(decoder)
                         self = instance
                     } else { return nil }
-                case "male":
+                case "Male":
                     if let value: String = decoder.decode("value"),
                         instance = Gender(rawValue: value) {
                         instance.didFinishDecodingWithDecoder(decoder)
@@ -54,10 +54,10 @@ extension Gender: Encodable {
 
         switch self {
             case let .Female:
-                encoder.encode("female", forKey: "type")
+                encoder.encode("Female", forKey: "type")
                 encoder.encode(self.rawValue, forKey: "value")
             case let .Male:
-                encoder.encode("male", forKey: "type")
+                encoder.encode("Male", forKey: "type")
                 encoder.encode(self.rawValue, forKey: "value")
 
         }
