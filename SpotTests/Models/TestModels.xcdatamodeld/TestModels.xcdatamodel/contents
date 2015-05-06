@@ -365,6 +365,15 @@
             <entry key="Spot.Import" value="UIKit"/>
         </userInfo>
     </entity>
+    <entity name="TestTransient" representedClassName="TestTransient" syncable="YES">
+        <attribute name="myNonTransient" attributeType="String" syncable="YES"/>
+        <attribute name="myTransientOptional" optional="YES" transient="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="myTransientRelationship" transient="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Gender" syncable="YES">
+            <userInfo>
+                <entry key="Spot.Value" value="Gender.Female"/>
+            </userInfo>
+        </relationship>
+    </entity>
     <entity name="TestTypes" representedClassName="TestTypes" syncable="YES">
         <attribute name="myBinary" attributeType="Binary" syncable="YES"/>
         <attribute name="myBoolean" attributeType="Boolean" syncable="YES"/>
@@ -395,5 +404,6 @@
         <element name="TestRelationships" positionX="-20304" positionY="-11347" width="128" height="88"/>
         <element name="TestTransformable" positionX="-20576" positionY="-10863" width="263" height="103"/>
         <element name="TestTypes" positionX="-20927" positionY="-10684" width="128" height="163"/>
+        <element name="TestTransient" positionX="-20538" positionY="-11142" width="128" height="88"/>
     </elements>
 </model>

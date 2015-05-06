@@ -8,6 +8,10 @@ import Spot
 <$foreach Attribute noninheritedAttributes do$><$if Attribute.userInfo.Spot.Import$>import <$Attribute.userInfo.Spot.Import$>
 <$endif$><$endforeach$>
 
+<$set transientAttributeCount = 0$><$foreach Attribute noninheritedAttributes do$><$if Attribute.isTransient$><$set transientAttributeCount = transientAttributeCount + 1$><$endif$><$endforeach do$>
+
+<$set transientRelationshipCount = 0$><$foreach Relationship noninheritedRelationships do$><$if Relationship.isTransient$><$set transientRelationshipCount = transientRelationshipCount + 1$><$endif$><$endforeach do$>
+
 <$procedure getTypeForAttribute Attribute$><$if Attribute.userInfo.Spot.Type$><$Attribute.userInfo.Spot.Type$><$elseif Attribute.hasScalarAttributeType$><$if Attribute.scalarAttributeType == Int16 || Attribute.scalarAttributeType == Int32 || Attribute.scalarAttributeType == Int64$>Int<$else$><$Attribute.scalarAttributeType$><$endif$><$else$><$Attribute.objectAttributeType$><$endif$><$if Attribute.isOptional$>?<$endif$><$endprocedure$>
 
 <$procedure writeAttributeDefaultValue Attribute DefaultValue$><$if Attribute.userInfo.Spot.Type$><$if Attribute.userInfo.Spot.Type == String$>"<$endif$><$DefaultValue$><$if Attribute.userInfo.Spot.Type == String$>"<$endif$><$else$><$if Attribute.objectAttributeType == String$>"<$endif$><$DefaultValue$><$if Attribute.objectAttributeType == String$>"<$endif$><$endif$><$endprocedure$>
@@ -53,25 +57,24 @@ extension <$managedObjectClassName$> {
             }
         }<$endprocedure$>
 
-
 <$if userInfo.Spot.Enum != YES$>
 public struct <$managedObjectClassName$><$if hasCustomSuperentity$>: <$customSuperentity$><$endif$> {
     <$foreach Attribute noninheritedAttributes do$><$call getPropertyDeclarationForAttribute Attribute$>
     <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$call getPropertyDeclarationForRelationship Relationship$>
     <$endforeach do$>
 
-    public init(<$foreach Attribute noninheritedAttributes do$><$Attribute.name$>: <$call getTypeForAttribute Attribute$><$if AttributeIndex + 1 < noninheritedAttributes.@count$>, <$endif$><$endforeach do$><$if noninheritedAttributes.@count > 0 && noninheritedRelationships.@count > 0$>, <$endif$><$foreach Relationship noninheritedRelationships do$><$if ! Relationship.isToMany$><$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$><$if (RelationshipIndex + 1 < noninheritedRelationships.@count) $>, <$endif$><$else$><$Relationship.name$>: [<$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$><$if (RelationshipIndex + 1 < noninheritedRelationships.@count) $>, <$endif$><$endif$><$endforeach do$>) {
+    public init(<$foreach Attribute noninheritedAttributes do$><$if !Attribute.isTransient$><$Attribute.name$>: <$call getTypeForAttribute Attribute$><$if (AttributeIndex + 1) < (noninheritedAttributes.@count - transientAttributeCount)$>, <$endif$><$endif$><$endforeach do$><$if noninheritedAttributes.@count - transientAttribute > 0 && noninheritedRelationships.@count - transientRelationshipCount > 0$>, <$endif$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isTransient$><$if ! Relationship.isToMany$><$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$><$if (RelationshipIndex + 1 < noninheritedRelationships.@count - transientRelationshipCount) $>, <$endif$><$else$><$Relationship.name$>: [<$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$><$if (RelationshipIndex + 1 < noninheritedRelationships.@count - transientRelationshipCount) $>, <$endif$><$endif$><$endif$><$endforeach do$>) {
 
-    <$foreach Attribute noninheritedAttributes do$>self.<$Attribute.name$> = <$Attribute.name$>
-    <$endforeach do$><$foreach Relationship noninheritedRelationships do$>self.<$Relationship.name$> = <$Relationship.name$>
+    <$foreach Attribute noninheritedAttributes do$><$if !Attribute.isTransient$>self.<$Attribute.name$> = <$Attribute.name$><$endif$>
+    <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isTransient$>self.<$Relationship.name$> = <$Relationship.name$><$endif$>
     <$endforeach do$>
     }
 }
 
 extension <$managedObjectClassName$> : Decodable {
 
-    static func create<$foreach Attribute noninheritedAttributes do$>(<$Attribute.name$>: <$call getTypeForAttribute Attribute$>)<$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if ! Relationship.isToMany$>(<$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$>)<$else$>(<$Relationship.name$>: [<$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$>)<$endif$><$endforeach do$> -> <$managedObjectClassName$>  {
-        return <$managedObjectClassName$>(<$foreach Attribute noninheritedAttributes do$><$Attribute.name$>: <$Attribute.name$><$if AttributeIndex + 1 < noninheritedAttributes.@count$>, <$endif$><$endforeach do$><$if noninheritedAttributes.@count > 0 && noninheritedRelationships.@count > 0$>, <$endif$><$foreach Relationship noninheritedRelationships do$><$Relationship.name$>: <$Relationship.name$><$if (RelationshipIndex + 1 < noninheritedRelationships.@count) $>, <$endif$><$endforeach do$>)
+    static func create<$foreach Attribute noninheritedAttributes do$><$if !Attribute.isTransient$>(<$Attribute.name$>: <$call getTypeForAttribute Attribute$>)<$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isTransient$><$if ! Relationship.isToMany$>(<$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$>)<$else$>(<$Relationship.name$>: [<$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$>)<$endif$><$endif$><$endforeach do$> -> <$managedObjectClassName$>  {
+        return <$managedObjectClassName$>(<$foreach Attribute noninheritedAttributes do$><$if !Attribute.isTransient$><$Attribute.name$>: <$Attribute.name$><$if AttributeIndex + 1 < noninheritedAttributes.@count - transientAttributeCount$>, <$endif$><$endif$><$endforeach do$><$if (noninheritedAttributes.@count - transientAttributeCount) > 0 && (noninheritedRelationships.@count - transientRelationshipCount) > 0$>, <$endif$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isTransient$><$Relationship.name$>: <$Relationship.name$><$if (RelationshipIndex + 1 < noninheritedRelationships.@count - transientRelationshipCount) $>, <$endif$><$endif$><$endforeach do$>)
     }
 
     public init?(var decoder: Decoder) {
@@ -79,8 +82,8 @@ extension <$managedObjectClassName$> : Decodable {
         <$call writeDecodingMigrationBlock$>
 
         let instance: <$managedObjectClassName$>? = <$managedObjectClassName$>.create
-        <$foreach Attribute noninheritedAttributes do$><$if AttributeIndex == 0$><^><$else$><*><$endif$> decoder.decode("<$Attribute.name$>")<$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.reverseTransform<$endif$><$if Attribute.isOptional$> >>> asOptional<$endif$>
-        <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if indexOfRelationship == 0 && noninheritedAttributes.@count == 0$><^><$else$><*><$endif$> decoder.decodeModel<$if Relationship.isToMany$>Array<$endif$>("<$Relationship.name$>")<$if Relationship.isOptional$> >>> asOptional<$endif$>
+        <$foreach Attribute noninheritedAttributes do$><$if !Attribute.isTransient$><$if AttributeIndex == 0$><^><$else$><*><$endif$> decoder.decode("<$Attribute.name$>")<$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.reverseTransform<$endif$><$if Attribute.isOptional$> >>> asOptional<$endif$><$endif$>
+        <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isTransient$><$if indexOfRelationship == 0 && noninheritedAttributes.@count - transientAttributeCount == 0$><^><$else$><*><$endif$> decoder.decodeModel<$if Relationship.isToMany$>Array<$endif$>("<$Relationship.name$>")<$if Relationship.isOptional$> >>> asOptional<$endif$><$endif$>
         <$endforeach do$>
         if let i = instance {
             i.didFinishDecodingWithDecoder(decoder)
@@ -92,9 +95,9 @@ extension <$managedObjectClassName$> : Decodable {
 extension <$managedObjectClassName$> : Encodable {
 
     public func encode(encoder: Encoder) {
-        <$foreach Attribute noninheritedAttributes do$>encoder.encode(self.<$Attribute.name$><$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.transform<$endif$>, forKey: "<$Attribute.name$>")
-        <$endforeach do$><$foreach Relationship noninheritedRelationships do$>encoder.encode(self.<$Relationship.name$>, forKey: "<$Relationship.name$>")
-        <$endforeach do$>
+        <$foreach Attribute noninheritedAttributes do$><$if !Attribute.isTransient$>encoder.encode(self.<$Attribute.name$><$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.transform<$endif$>, forKey: "<$Attribute.name$>")
+        <$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isTransient$>encoder.encode(self.<$Relationship.name$>, forKey: "<$Relationship.name$>")
+        <$endif$><$endforeach do$>
         <$call writeEncodingVersioningBlock$>
         self.willFinishEncodingWithEncoder(encoder)
     }
