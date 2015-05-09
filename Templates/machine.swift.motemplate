@@ -44,7 +44,7 @@ extension <$managedObjectClassName$> {
 
 <$procedure writeEncodingVersioningBlock$>
         if <$managedObjectClassName$>.shouldEncodeVersion {
-                encoder.encode(<$managedObjectClassName$>.version, forKey:<$managedObjectClassName$>.versionKey)
+                encoder.encode(<$managedObjectClassName$>.version(), forKey:<$managedObjectClassName$>.versionKey)
         }<$endprocedure$>
 
 <$procedure writeDecodingMigrationBlock$>
