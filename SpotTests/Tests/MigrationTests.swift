@@ -30,6 +30,15 @@ class MigrationTests: Test {
         XCTAssert(testVersion2.age == 10)
     
     }
+    
+    func testWillFinishEncodingWithEncoderIsCalled() {
+        var testVersion1 = TestMigrationV1(name: "John")
+        JSON.write(Encoder.encodeModel(testVersion1), path: tempPathFor("migration.json"))
+        var data = JSON.read(tempPathFor("migration.json"))
+        if let data = data, extraKey = data["migration_test"] as? String {
+            XCTAssert(extraKey == "Hello World")
+        } else  { XCTFail() }
+    }
 
 }
 
