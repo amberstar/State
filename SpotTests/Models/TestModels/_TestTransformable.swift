@@ -61,7 +61,7 @@ extension TestTransformable : Encodable {
         encoder.encode(self.myTransformableOptional >>> URLTransform.transform, forKey: "myTransformableOptional")
 
         if TestTransformable.shouldEncodeVersion {
-                encoder.encode(TestTransformable.version, forKey:TestTransformable.versionKey)
+encoder.encode(TestTransformable.version(TestTransformable.modelVersionHash, modelVersionHashModifier: TestTransformable.modelVersionHashModifier), forKey:TestTransformable.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

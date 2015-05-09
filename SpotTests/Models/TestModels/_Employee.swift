@@ -53,7 +53,7 @@ extension Employee : Encodable {
         encoder.encode(self.title, forKey: "title")
 
         if Employee.shouldEncodeVersion {
-                encoder.encode(Employee.version, forKey:Employee.versionKey)
+encoder.encode(Employee.version(Employee.modelVersionHash, modelVersionHashModifier: Employee.modelVersionHashModifier), forKey:Employee.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

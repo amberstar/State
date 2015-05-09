@@ -49,7 +49,7 @@ extension TestDefaultsChild : Encodable {
         encoder.encode(self.name, forKey: "name")
 
         if TestDefaultsChild.shouldEncodeVersion {
-                encoder.encode(TestDefaultsChild.version, forKey:TestDefaultsChild.versionKey)
+encoder.encode(TestDefaultsChild.version(TestDefaultsChild.modelVersionHash, modelVersionHashModifier: TestDefaultsChild.modelVersionHashModifier), forKey:TestDefaultsChild.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

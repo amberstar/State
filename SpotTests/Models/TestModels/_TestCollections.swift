@@ -57,7 +57,7 @@ extension TestCollections : Encodable {
         encoder.encode(self.setOfStrings, forKey: "setOfStrings")
 
         if TestCollections.shouldEncodeVersion {
-                encoder.encode(TestCollections.version, forKey:TestCollections.versionKey)
+encoder.encode(TestCollections.version(TestCollections.modelVersionHash, modelVersionHashModifier: TestCollections.modelVersionHashModifier), forKey:TestCollections.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

@@ -61,7 +61,7 @@ extension TestChild : Encodable {
         encoder.encode(self.myChildren, forKey: "myChildren")
 
         if TestChild.shouldEncodeVersion {
-                encoder.encode(TestChild.version, forKey:TestChild.versionKey)
+encoder.encode(TestChild.version(TestChild.modelVersionHash, modelVersionHashModifier: TestChild.modelVersionHashModifier), forKey:TestChild.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

@@ -89,7 +89,7 @@ extension TestDefaults : Encodable {
         encoder.encode(self.noDefaultChildren, forKey: "noDefaultChildren")
 
         if TestDefaults.shouldEncodeVersion {
-                encoder.encode(TestDefaults.version, forKey:TestDefaults.versionKey)
+encoder.encode(TestDefaults.version(TestDefaults.modelVersionHash, modelVersionHashModifier: TestDefaults.modelVersionHashModifier), forKey:TestDefaults.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

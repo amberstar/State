@@ -57,7 +57,7 @@ extension TestRelationships : Encodable {
         encoder.encode(self.myOneChild, forKey: "myOneChild")
 
         if TestRelationships.shouldEncodeVersion {
-                encoder.encode(TestRelationships.version, forKey:TestRelationships.versionKey)
+encoder.encode(TestRelationships.version(TestRelationships.modelVersionHash, modelVersionHashModifier: TestRelationships.modelVersionHashModifier), forKey:TestRelationships.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

@@ -283,6 +283,10 @@
             </userInfo>
         </attribute>
     </entity>
+    <entity name="TestMigration" representedClassName="TestMigrationV2" versionHashModifier="2.0" syncable="YES">
+        <attribute name="age" optional="YES" attributeType="Integer 32" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="TestOptionalTypes" representedClassName="TestOptionalTypes" syncable="YES">
         <attribute name="myBinary" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="myBoolean" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -413,9 +417,10 @@
         <element name="TestRegEnum" positionX="-20250" positionY="-10638" width="128" height="73"/>
         <element name="TestRelationships" positionX="-20304" positionY="-11347" width="128" height="88"/>
         <element name="TestTransformable" positionX="-20576" positionY="-10863" width="263" height="103"/>
-        <element name="TestTypes" positionX="-20927" positionY="-10684" width="128" height="163"/>
         <element name="TestTransient" positionX="-20538" positionY="-11142" width="128" height="88"/>
         <element name="TestTransient2" positionX="-20502" positionY="-11034" width="128" height="88"/>
         <element name="TestTransient3" positionX="-20936" positionY="-11088" width="128" height="88"/>
+        <element name="TestTypes" positionX="-20927" positionY="-10684" width="128" height="163"/>
+        <element name="TestMigration" positionX="-19773" positionY="-10953" width="128" height="73"/>
     </elements>
 </model>

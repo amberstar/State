@@ -57,7 +57,7 @@ extension Grandchild : Encodable {
         encoder.encode(self.gender, forKey: "gender")
 
         if Grandchild.shouldEncodeVersion {
-                encoder.encode(Grandchild.version, forKey:Grandchild.versionKey)
+encoder.encode(Grandchild.version(Grandchild.modelVersionHash, modelVersionHashModifier: Grandchild.modelVersionHashModifier), forKey:Grandchild.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

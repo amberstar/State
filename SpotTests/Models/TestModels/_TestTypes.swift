@@ -77,7 +77,7 @@ extension TestTypes : Encodable {
         encoder.encode(self.myString, forKey: "myString")
 
         if TestTypes.shouldEncodeVersion {
-                encoder.encode(TestTypes.version, forKey:TestTypes.versionKey)
+encoder.encode(TestTypes.version(TestTypes.modelVersionHash, modelVersionHashModifier: TestTypes.modelVersionHashModifier), forKey:TestTypes.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

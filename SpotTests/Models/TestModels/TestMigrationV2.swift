@@ -1,17 +1,17 @@
 /************************************************
 
-        HUMAN GENERATED FILE
+        WARNING: HUMAN GENERATED FILE
 
 ************************************************/
 import Spot
 
-extension Employee {
+extension TestMigrationV2 {
 
     // Extend your model entity here.
 }
 
 ///MARK: Coding
-extension Employee {
+extension TestMigrationV2 {
 
     /**
     decoding is finished on the receiver
@@ -32,14 +32,13 @@ extension Employee {
     :Discussion: This method is called right before encoding finishes.
     It provides a chance to encode any further data with the encoder.
     */
-
     func willFinishEncodingWithEncoder(encoder: Encoder) {
 
     }
 }
 
 ///MARK: Migration
-extension Employee {
+extension TestMigrationV2 {
 
     /**
     true if the encoder should include a model version
@@ -54,7 +53,7 @@ extension Employee {
     during decoding of the model
     */
     static var shouldMigrateIfNeeded: Bool {
-        return false
+        return true
     }
 
     /**
@@ -116,6 +115,8 @@ extension Employee {
     Note: the data version will automatically be updated the next time the model is encoded.
     */
     static func migrateDataForDecoding(data: [String : AnyObject], dataVersion: AnyObject) -> [String : AnyObject] {
-        return data
+        var newData = data
+        newData.updateValue(10, forKey: "age")
+        return newData
     }
 }

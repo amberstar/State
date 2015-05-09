@@ -61,7 +61,7 @@ extension Company : Encodable {
         encoder.encode(self.employees, forKey: "employees")
 
         if Company.shouldEncodeVersion {
-                encoder.encode(Company.version, forKey:Company.versionKey)
+encoder.encode(Company.version(Company.modelVersionHash, modelVersionHashModifier: Company.modelVersionHashModifier), forKey:Company.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

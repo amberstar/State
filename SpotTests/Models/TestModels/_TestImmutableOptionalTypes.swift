@@ -77,7 +77,7 @@ extension TestImmutableOptionalTypes : Encodable {
         encoder.encode(self.myString, forKey: "myString")
 
         if TestImmutableOptionalTypes.shouldEncodeVersion {
-                encoder.encode(TestImmutableOptionalTypes.version, forKey:TestImmutableOptionalTypes.versionKey)
+encoder.encode(TestImmutableOptionalTypes.version(TestImmutableOptionalTypes.modelVersionHash, modelVersionHashModifier: TestImmutableOptionalTypes.modelVersionHashModifier), forKey:TestImmutableOptionalTypes.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

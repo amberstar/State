@@ -53,7 +53,7 @@ extension TestOverrideType : Encodable {
         encoder.encode(self.myURL, forKey: "myURL")
 
         if TestOverrideType.shouldEncodeVersion {
-                encoder.encode(TestOverrideType.version, forKey:TestOverrideType.versionKey)
+encoder.encode(TestOverrideType.version(TestOverrideType.modelVersionHash, modelVersionHashModifier: TestOverrideType.modelVersionHashModifier), forKey:TestOverrideType.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

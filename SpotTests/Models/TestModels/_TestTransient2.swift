@@ -52,7 +52,7 @@ extension TestTransient2 : Encodable {
         encoder.encode(self.myNonTransient, forKey: "myNonTransient")
 
         if TestTransient2.shouldEncodeVersion {
-                encoder.encode(TestTransient2.version, forKey:TestTransient2.versionKey)
+encoder.encode(TestTransient2.version(TestTransient2.modelVersionHash, modelVersionHashModifier: TestTransient2.modelVersionHashModifier), forKey:TestTransient2.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }
