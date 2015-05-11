@@ -1,7 +1,7 @@
 #![spot](https://cloud.githubusercontent.com/assets/84623/7276787/41cf145e-e8da-11e4-8ef0-0f77209eca44.png) Spot
 
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-
+[![Contact](https://img.shields.io/badge/contact-%40ambrstr-blue.svg)](http://www.twitter.com/ambrstr)
 #### A model framework for swift struct based models.
 Spot is a swift model framework that uses structs. You design models using [Xcode's Core Data model design tool](https://developer.apple.com/library/ios/recipes/xcode_help-core_data_modeling_tool/Articles/about_cd_modeling_tool.html#//apple_ref/doc/uid/TP40010379-CH3-SW1). Model code is  generated automatically using [Mogenerator](https://github.com/rentzsch/mogenerator) and provides serialization to and from Plists, XML Plists, or JSON.
 
