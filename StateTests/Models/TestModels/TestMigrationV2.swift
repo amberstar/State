@@ -5,13 +5,13 @@
 ************************************************/
 import State
 
-extension <$managedObjectClassName$> {
+extension TestMigrationV2 {
 
     // Extend your model entity here.
 }
 
 ///MARK: Coding
-extension <$managedObjectClassName$> {
+extension TestMigrationV2 {
 
     /**
     decoding is finished on the receiver
@@ -38,14 +38,14 @@ extension <$managedObjectClassName$> {
 }
 
 ///MARK: Migration
-extension <$managedObjectClassName$> {
+extension TestMigrationV2 {
 
     /**
     true if the encoder should include a model version
     when encoding the model.
     */
     static var shouldEncodeVersion: Bool {
-        return false
+        return true
     }
 
     /**
@@ -53,7 +53,7 @@ extension <$managedObjectClassName$> {
     during decoding of the model
     */
     static var shouldMigrateIfNeeded: Bool {
-        return false
+        return true
     }
 
     /**
@@ -115,6 +115,8 @@ extension <$managedObjectClassName$> {
     Note: the data version will automatically be updated the next time the model is encoded.
     */
     static func migrateDataForDecoding(data: [String : AnyObject], dataVersion: AnyObject) -> [String : AnyObject] {
-        return data
+        var newData = data
+        newData.updateValue(10, forKey: "age")
+        return newData
     }
 }

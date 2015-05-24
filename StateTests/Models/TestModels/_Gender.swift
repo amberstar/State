@@ -1,0 +1,82 @@
+/************************************************
+
+        WARNING: MACHINE GENERATED FILE
+
+ ************************************************/
+import Foundation
+import State
+
+public enum Gender: String {
+    case Female  = "Female"
+    case Male  = "Male"
+
+}
+
+extension Gender: Decodable {
+
+    public init?(var decoder: Decoder) {
+
+        if Gender.shouldMigrateIfNeeded {
+            if let dataVersion: AnyObject = decoder.decode(Gender.versionKey) {
+                if Gender.needsMigration(dataVersion) {
+                   let migratedData = Gender.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
+                    decoder = Decoder(data: migratedData)
+                }
+            }
+        }
+
+        if let type: String = decoder.decode("type") {
+
+            switch type {
+                case "Female":
+                    if let value: String = decoder.decode("value"),
+                        instance = Gender(rawValue: value) {
+                        instance.didFinishDecodingWithDecoder(decoder)
+                        self = instance
+                    } else { return nil }
+                case "Male":
+                    if let value: String = decoder.decode("value"),
+                        instance = Gender(rawValue: value) {
+                        instance.didFinishDecodingWithDecoder(decoder)
+                        self = instance
+                    } else { return nil }
+
+                default:
+                    return nil
+            }
+        } else { return nil }
+    }
+}
+
+extension Gender: Encodable {
+
+    public func encode(encoder: Encoder) {
+
+        switch self {
+            case let .Female:
+                encoder.encode("Female", forKey: "type")
+                encoder.encode(self.rawValue, forKey: "value")
+            case let .Male:
+                encoder.encode("Male", forKey: "type")
+                encoder.encode(self.rawValue, forKey: "value")
+
+        }
+         self.willFinishEncodingWithEncoder(encoder)
+    }
+}
+
+extension Gender {
+    /**
+    These are provided from the data model designer
+    and can be used to determine if the model is
+    a different version.
+    */
+    static var modelVersionHash: String {
+        return "<ffba7348 838d3758 c6b41d57 ad7ea1b5 7c0a7ae4 0a9ead14 a727496b e503f5c2>"
+    }
+
+    static var modelVersionHashModifier: String? {
+        return nil
+    }
+}
+

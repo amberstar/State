@@ -1,17 +1,17 @@
 /************************************************
 
-        WARNING: HUMAN GENERATED FILE
+        HUMAN GENERATED FILE
 
 ************************************************/
 import State
 
-extension <$managedObjectClassName$> {
+extension Employee {
 
     // Extend your model entity here.
 }
 
 ///MARK: Coding
-extension <$managedObjectClassName$> {
+extension Employee {
 
     /**
     decoding is finished on the receiver
@@ -32,20 +32,21 @@ extension <$managedObjectClassName$> {
     :Discussion: This method is called right before encoding finishes.
     It provides a chance to encode any further data with the encoder.
     */
+
     func willFinishEncodingWithEncoder(encoder: Encoder) {
 
     }
 }
 
 ///MARK: Migration
-extension <$managedObjectClassName$> {
+extension Employee {
 
     /**
     true if the encoder should include a model version
     when encoding the model.
     */
     static var shouldEncodeVersion: Bool {
-        return false
+        return true
     }
 
     /**

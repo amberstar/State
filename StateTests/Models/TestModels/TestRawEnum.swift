@@ -1,17 +1,17 @@
 /************************************************
 
-        WARNING: HUMAN GENERATED FILE
+        HUMAN GENERATED FILE
 
 ************************************************/
 import State
 
-extension <$managedObjectClassName$> {
+extension TestRawEnum {
 
     // Extend your model entity here.
 }
 
 ///MARK: Coding
-extension <$managedObjectClassName$> {
+extension TestRawEnum {
 
     /**
     decoding is finished on the receiver
@@ -38,7 +38,7 @@ extension <$managedObjectClassName$> {
 }
 
 ///MARK: Migration
-extension <$managedObjectClassName$> {
+extension TestRawEnum {
 
     /**
     true if the encoder should include a model version

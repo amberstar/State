@@ -5,13 +5,13 @@
 ************************************************/
 import State
 
-extension <$managedObjectClassName$> {
+extension TestTransient3 {
 
     // Extend your model entity here.
 }
 
 ///MARK: Coding
-extension <$managedObjectClassName$> {
+extension TestTransient3 {
 
     /**
     decoding is finished on the receiver
@@ -38,7 +38,7 @@ extension <$managedObjectClassName$> {
 }
 
 ///MARK: Migration
-extension <$managedObjectClassName$> {
+extension TestTransient3 {
 
     /**
     true if the encoder should include a model version

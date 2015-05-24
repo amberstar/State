@@ -1,17 +1,34 @@
 /************************************************
 
-        WARNING: HUMAN GENERATED FILE
+        HUMAN GENERATED FILE
 
 ************************************************/
 import State
+import Foundation
 
-extension <$managedObjectClassName$> {
+extension TestImmutableOptionalTypes {
 
-    // Extend your model entity here.
+    init() {
+        self.myBinary = TestImmutableOptionalTypes.createBinary()!
+        self.myBoolean = true
+        self.myDate = NSDate()
+        self.myDecimal = NSDecimalNumber(double: 3.14)
+        self.myFloat = 4.567
+        self.myDouble = -0.02
+        self.myInt = 5
+        self.myString = "Hello World"
+    }
+    
+    private static func createBinary() -> NSData? {
+        if let path = NSBundle(forClass: Test.self).pathForResource("Data", ofType: "plist") {
+            return  NSData(contentsOfFile:path)
+        }
+        return nil
+    }
 }
 
 ///MARK: Coding
-extension <$managedObjectClassName$> {
+extension TestImmutableOptionalTypes {
 
     /**
     decoding is finished on the receiver
@@ -32,13 +49,14 @@ extension <$managedObjectClassName$> {
     :Discussion: This method is called right before encoding finishes.
     It provides a chance to encode any further data with the encoder.
     */
+
     func willFinishEncodingWithEncoder(encoder: Encoder) {
 
     }
 }
 
 ///MARK: Migration
-extension <$managedObjectClassName$> {
+extension TestImmutableOptionalTypes {
 
     /**
     true if the encoder should include a model version

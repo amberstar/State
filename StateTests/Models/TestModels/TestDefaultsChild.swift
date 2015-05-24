@@ -1,17 +1,17 @@
 /************************************************
 
-        WARNING: HUMAN GENERATED FILE
+        HUMAN GENERATED FILE
 
 ************************************************/
 import State
 
-extension <$managedObjectClassName$> {
+public extension TestDefaultsChild {
 
-    // Extend your model entity here.
+    public init () { }
 }
 
 ///MARK: Coding
-extension <$managedObjectClassName$> {
+extension TestDefaultsChild {
 
     /**
     decoding is finished on the receiver
@@ -38,7 +38,7 @@ extension <$managedObjectClassName$> {
 }
 
 ///MARK: Migration
-extension <$managedObjectClassName$> {
+extension TestDefaultsChild {
 
     /**
     true if the encoder should include a model version

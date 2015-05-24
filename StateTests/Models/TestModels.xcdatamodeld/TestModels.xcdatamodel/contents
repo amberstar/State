@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E17e" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Company" representedClassName="Company" syncable="YES">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="yearFounded" attributeType="Double" defaultValueString="0" syncable="YES"/>
+        <relationship name="employees" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Employee" syncable="YES"/>
+    </entity>
+    <entity name="Employee" representedClassName="Employee" syncable="YES">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Gender" representedClassName="Gender" syncable="YES">
+        <attribute name="female" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="State.Value" value="Female"/>
+            </userInfo>
+        </attribute>
+        <attribute name="male" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="State.Value" value="Male"/>
+            </userInfo>
+        </attribute>
+        <userInfo>
+            <entry key="State.Enum" value="YES"/>
+            <entry key="State.Type" value="String"/>
+        </userInfo>
+    </entity>
+    <entity name="Grandchild" representedClassName="Grandchild" syncable="YES">
+        <attribute name="age" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="gender" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Gender" syncable="YES"/>
+    </entity>
+    <entity name="TestAssociatedEnum" representedClassName="TestAssociatedEnum" syncable="YES">
+        <attribute name="binaryType" attributeType="Binary" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="NSData"/>
+            </userInfo>
+        </attribute>
+        <attribute name="booleanType" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="Bool"/>
+            </userInfo>
+        </attribute>
+        <attribute name="dateType" attributeType="Date" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="NSDate"/>
+            </userInfo>
+        </attribute>
+        <attribute name="decimalType" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="NSDecimalNumber"/>
+            </userInfo>
+        </attribute>
+        <attribute name="doubleType" attributeType="Double" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="Double"/>
+            </userInfo>
+        </attribute>
+        <attribute name="floatType" attributeType="Float" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="Float"/>
+            </userInfo>
+        </attribute>
+        <attribute name="intType" attributeType="Integer 32" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="Int"/>
+            </userInfo>
+        </attribute>
+        <attribute name="stringType" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="String"/>
+            </userInfo>
+        </attribute>
+        <attribute name="transformableColorType" attributeType="Transformable" valueTransformerName="UIColorTransform" syncable="YES">
+            <userInfo>
+                <entry key="State.Import" value="UIKit"/>
+                <entry key="State.Type" value="UIColor"/>
+            </userInfo>
+        </attribute>
+        <relationship name="decodableToManyType" toMany="YES" deletionRule="Nullify" destinationEntity="Employee" syncable="YES"/>
+        <relationship name="decodableToOneType" maxCount="1" deletionRule="Nullify" destinationEntity="Employee" syncable="YES"/>
+        <userInfo>
+            <entry key="State.Enum" value="YES"/>
+        </userInfo>
+    </entity>
+    <entity name="TestAssociatedOptionalEnum" representedClassName="TestAssociatedOptionalEnum" syncable="YES">
+        <attribute name="binaryType" optional="YES" attributeType="Binary" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="NSData"/>
+            </userInfo>
+        </attribute>
+        <attribute name="booleanType" optional="YES" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="Bool"/>
+            </userInfo>
+        </attribute>
+        <attribute name="dateType" optional="YES" attributeType="Date" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="NSDate"/>
+            </userInfo>
+        </attribute>
+        <attribute name="decimalType" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="NSDecimalNumber"/>
+            </userInfo>
+        </attribute>
+        <attribute name="doubleType" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="Double"/>
+            </userInfo>
+        </attribute>
+        <attribute name="floatType" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="Float"/>
+            </userInfo>
+        </attribute>
+        <attribute name="intType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="Int"/>
+            </userInfo>
+        </attribute>
+        <attribute name="stringType" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="String"/>
+            </userInfo>
+        </attribute>
+        <attribute name="transformableColorType" optional="YES" attributeType="Transformable" valueTransformerName="UIColorTransform" syncable="YES">
+            <userInfo>
+                <entry key="State.Import" value="UIKit"/>
+                <entry key="State.Type" value="UIColor"/>
+            </userInfo>
+        </attribute>
+        <relationship name="decodableToManyType" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Employee" syncable="YES"/>
+        <relationship name="decodableToOneType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Employee" syncable="YES"/>
+        <userInfo>
+            <entry key="State.Enum" value="YES"/>
+        </userInfo>
+    </entity>
+    <entity name="TestChild" representedClassName="TestChild" syncable="YES">
+        <attribute name="age" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="gender" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Gender" syncable="YES"/>
+        <relationship name="myChildren" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Grandchild" syncable="YES"/>
+    </entity>
+    <entity name="TestCollections" representedClassName="TestCollections" syncable="YES">
+        <attribute name="arrayOfStrings" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="[String]"/>
+            </userInfo>
+        </attribute>
+        <attribute name="dicOfInts" attributeType="Integer 32" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="[String : Int]"/>
+            </userInfo>
+        </attribute>
+        <attribute name="setOfStrings" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="Set&lt;String&gt;"/>
+            </userInfo>
+        </attribute>
+    </entity>
+    <entity name="TestDefaults" representedClassName="TestDefaults" syncable="YES">
+        <attribute name="defaultArray" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="[String]"/>
+                <entry key="State.Value" value="[&quot;zero&quot;, &quot;one&quot;, &quot;two&quot;]"/>
+            </userInfo>
+        </attribute>
+        <attribute name="defaultEmptyArray" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="[String]"/>
+                <entry key="State.Value" value="[String]()"/>
+            </userInfo>
+        </attribute>
+        <attribute name="defaultInt" attributeType="Integer 32" defaultValueString="10" syncable="YES"/>
+        <attribute name="defaultManualString" attributeType="Float" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="String"/>
+                <entry key="State.Value" value="defaultManualString"/>
+            </userInfo>
+        </attribute>
+        <attribute name="defaultString" attributeType="String" defaultValueString="defaultString" syncable="YES"/>
+        <attribute name="noDefaultInt" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="noDefaultString" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="defaultChild" maxCount="1" deletionRule="Nullify" destinationEntity="TestDefaultsChild" syncable="YES">
+            <userInfo>
+                <entry key="State.Value" value="TestDefaultsChild()"/>
+            </userInfo>
+        </relationship>
+        <relationship name="defaultChildren" toMany="YES" deletionRule="Nullify" destinationEntity="TestDefaultsChild" syncable="YES">
+            <userInfo>
+                <entry key="State.Value" value="[TestDefaultsChild]()"/>
+            </userInfo>
+        </relationship>
+        <relationship name="noDefaultChild" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TestDefaultsChild" syncable="YES"/>
+        <relationship name="noDefaultChildren" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TestDefaultsChild" syncable="YES"/>
+    </entity>
+    <entity name="TestDefaultsChild" representedClassName="TestDefaultsChild" syncable="YES">
+        <attribute name="name" attributeType="String" defaultValueString="New Child" syncable="YES"/>
+    </entity>
+    <entity name="TestImmutableOptionalTypes" representedClassName="TestImmutableOptionalTypes" syncable="YES">
+        <attribute name="myBinary" optional="YES" attributeType="Binary" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myBoolean" optional="YES" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myDate" optional="YES" attributeType="Date" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myDecimal" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myDouble" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myFloat" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myInt" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myString" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+    </entity>
+    <entity name="TestImmutableTypes" representedClassName="TestImmutableTypes" syncable="YES">
+        <attribute name="myBinary" attributeType="Binary" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myBoolean" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myDate" attributeType="Date" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myDecimal" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myDouble" attributeType="Double" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myFloat" attributeType="Float" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myInt" attributeType="Integer 32" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myString" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+    </entity>
+    <entity name="TestMigration" representedClassName="TestMigrationV2" versionHashModifier="2.0" syncable="YES">
+        <attribute name="age" optional="YES" attributeType="Integer 32" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="TestOptionalTypes" representedClassName="TestOptionalTypes" syncable="YES">
+        <attribute name="myBinary" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="myBoolean" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="myDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="myDecimal" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="myDouble" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="myFloat" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="myInt" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="myString" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="TestOverrideType" representedClassName="TestOverrideType" syncable="YES">
+        <attribute name="myArrayOfString" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="[String]"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myURL" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="NSURL"/>
+            </userInfo>
+        </attribute>
+    </entity>
+    <entity name="TestRawEnum" representedClassName="TestRawEnum" syncable="YES">
+        <attribute name="aim" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="State.Value" value="Aim"/>
+            </userInfo>
+        </attribute>
+        <attribute name="fire" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="State.Value" value="Fire"/>
+            </userInfo>
+        </attribute>
+        <attribute name="ready" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="State.Value" value="Ready"/>
+            </userInfo>
+        </attribute>
+        <userInfo>
+            <entry key="State.Enum" value="YES"/>
+            <entry key="State.Type" value="String"/>
+        </userInfo>
+    </entity>
+    <entity name="TestRegEnum" representedClassName="TestRegEnum" syncable="YES">
+        <attribute name="cold" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="hot" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <userInfo>
+            <entry key="State.Enum" value="YES"/>
+        </userInfo>
+    </entity>
+    <entity name="TestRelationships" representedClassName="TestRelationships" syncable="YES">
+        <relationship name="myChildren" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TestChild" syncable="YES"/>
+        <relationship name="myGrandChildren" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Grandchild" syncable="YES"/>
+        <relationship name="myOneChild" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TestChild" syncable="YES"/>
+    </entity>
+    <entity name="TestTransformable" representedClassName="TestTransformable" syncable="YES">
+        <attribute name="myTransformable" attributeType="Transformable" valueTransformerName="URLTransform" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="NSURL"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myTransformableImmutable" attributeType="Transformable" valueTransformerName="URLTransform" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+                <entry key="State.Type" value="NSURL"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myTransformableImmutableOptional" optional="YES" attributeType="Transformable" valueTransformerName="URLTransform" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+                <entry key="State.Type" value="NSURL"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myTransformableOptional" optional="YES" attributeType="Transformable" valueTransformerName="URLTransform" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="NSURL"/>
+            </userInfo>
+        </attribute>
+        <userInfo>
+            <entry key="State.Import" value="UIKit"/>
+        </userInfo>
+    </entity>
+    <entity name="TestTransient" representedClassName="TestTransient" syncable="YES">
+        <attribute name="myNonTransient" attributeType="String" syncable="YES"/>
+        <attribute name="myTransientOptional" optional="YES" transient="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="myTransientRelationship" transient="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Gender" syncable="YES">
+            <userInfo>
+                <entry key="State.Value" value="Gender.Female"/>
+            </userInfo>
+        </relationship>
+    </entity>
+    <entity name="TestTransient2" representedClassName="TestTransient2" syncable="YES">
+        <attribute name="transient1" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
+        <attribute name="transient2" optional="YES" transient="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="myNonTransient" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Gender" syncable="YES"/>
+    </entity>
+    <entity name="TestTransient3" representedClassName="TestTransient3" syncable="YES">
+        <attribute name="myNonTransient1" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="myNonTransient2" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="myTransientRelationship" optional="YES" transient="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Gender" syncable="YES"/>
+    </entity>
+    <entity name="TestTypes" representedClassName="TestTypes" syncable="YES">
+        <attribute name="myBinary" attributeType="Binary" syncable="YES"/>
+        <attribute name="myBoolean" attributeType="Boolean" syncable="YES"/>
+        <attribute name="myDate" attributeType="Date" syncable="YES"/>
+        <attribute name="myDecimal" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="myDouble" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="myFloat" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="myInt" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="myString" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Company" positionX="-20106" positionY="-10917" width="128" height="103"/>
+        <element name="Employee" positionX="-19874" positionY="-10837" width="128" height="73"/>
+        <element name="Gender" positionX="-20295" positionY="-11142" width="128" height="73"/>
+        <element name="Grandchild" positionX="-19838" positionY="-11110" width="128" height="88"/>
+        <element name="TestAssociatedEnum" positionX="-20034" positionY="-10755" width="128" height="208"/>
+        <element name="TestAssociatedOptionalEnum" positionX="-20124" positionY="-10476" width="128" height="208"/>
+        <element name="TestChild" positionX="-19910" positionY="-11385" width="128" height="103"/>
+        <element name="TestCollections" positionX="-20754" positionY="-10872" width="128" height="88"/>
+        <element name="TestDefaults" positionX="-20898" positionY="-11358" width="128" height="208"/>
+        <element name="TestDefaultsChild" positionX="-20601" positionY="-11340" width="128" height="58"/>
+        <element name="TestImmutableOptionalTypes" positionX="-20592" positionY="-10639" width="128" height="163"/>
+        <element name="TestImmutableTypes" positionX="-20763" positionY="-10639" width="128" height="163"/>
+        <element name="TestMigration" positionX="-19773" positionY="-10953" width="128" height="73"/>
+        <element name="TestOptionalTypes" positionX="-20925" positionY="-10881" width="128" height="163"/>
+        <element name="TestOverrideType" positionX="-20718" positionY="-11107" width="128" height="73"/>
+        <element name="TestRawEnum" positionX="-20423" positionY="-10645" width="128" height="88"/>
+        <element name="TestRegEnum" positionX="-20250" positionY="-10638" width="128" height="73"/>
+        <element name="TestRelationships" positionX="-20304" positionY="-11347" width="128" height="88"/>
+        <element name="TestTransformable" positionX="-20576" positionY="-10863" width="263" height="103"/>
+        <element name="TestTransient" positionX="-20538" positionY="-11142" width="128" height="88"/>
+        <element name="TestTransient2" positionX="-20502" positionY="-11034" width="128" height="88"/>
+        <element name="TestTransient3" positionX="-20936" positionY="-11088" width="128" height="88"/>
+        <element name="TestTypes" positionX="-20927" positionY="-10684" width="128" height="163"/>
+    </elements>
+</model>

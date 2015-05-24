@@ -5,13 +5,13 @@
 ************************************************/
 import State
 
-extension <$managedObjectClassName$> {
+extension TestMigrationV1 {
 
     // Extend your model entity here.
 }
 
 ///MARK: Coding
-extension <$managedObjectClassName$> {
+extension TestMigrationV1 {
 
     /**
     decoding is finished on the receiver
@@ -22,7 +22,7 @@ extension <$managedObjectClassName$> {
     or to do any initialization needed after decoding.
     */
     func didFinishDecodingWithDecoder(decoder: Decoder) {
-
+        
     }
 
     /**
@@ -33,19 +33,19 @@ extension <$managedObjectClassName$> {
     It provides a chance to encode any further data with the encoder.
     */
     func willFinishEncodingWithEncoder(encoder: Encoder) {
-
+        encoder.encode("Hello World", forKey: "migration_test")
     }
 }
 
 ///MARK: Migration
-extension <$managedObjectClassName$> {
+extension TestMigrationV1 {
 
     /**
     true if the encoder should include a model version
     when encoding the model.
     */
     static var shouldEncodeVersion: Bool {
-        return false
+        return true
     }
 
     /**
@@ -53,7 +53,7 @@ extension <$managedObjectClassName$> {
     during decoding of the model
     */
     static var shouldMigrateIfNeeded: Bool {
-        return false
+        return true
     }
 
     /**

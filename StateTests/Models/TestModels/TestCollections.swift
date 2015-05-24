@@ -1,17 +1,21 @@
 /************************************************
 
-        WARNING: HUMAN GENERATED FILE
+        HUMAN GENERATED FILE
 
 ************************************************/
 import State
 
-extension <$managedObjectClassName$> {
+extension TestCollections {
 
-    // Extend your model entity here.
+    init() {
+        self.arrayOfStrings = [String]()
+        self.dicOfInts = [String : Int]()
+        self.setOfStrings = Set<String>()
+    }
 }
 
 ///MARK: Coding
-extension <$managedObjectClassName$> {
+extension TestCollections {
 
     /**
     decoding is finished on the receiver
@@ -32,13 +36,14 @@ extension <$managedObjectClassName$> {
     :Discussion: This method is called right before encoding finishes.
     It provides a chance to encode any further data with the encoder.
     */
+
     func willFinishEncodingWithEncoder(encoder: Encoder) {
 
     }
 }
 
 ///MARK: Migration
-extension <$managedObjectClassName$> {
+extension TestCollections {
 
     /**
     true if the encoder should include a model version
