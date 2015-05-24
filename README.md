@@ -176,9 +176,9 @@ State is released under the MIT license. See
 
 ## More Info
 
-- [See the example project ](https://github.com/STLabs/State/tree/master/StateExample)
+
 - [See the Wiki](https://github.com/STLabs/State/wiki)
-- [Take a look a some models created with State](https://github.com/STLabs/State/tree/master/StateExample/StateExample/Models)
+
 
 
 Have a question? Please [open an issue](https://github.com/STLabs/State/issues/new)
