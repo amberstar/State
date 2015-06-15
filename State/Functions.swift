@@ -3,13 +3,13 @@ func curry<A, B, C>(f: (A, B) -> C) -> A -> B -> C {
 }
 
 func sequence<T>(xs: [T?]) -> [T]? {
-    return reduce(xs, [T]()) { accum, elem in
+    return xs.reduce([T]()) { accum, elem in
         return curry(+) <^> accum <*> (pure <^> elem)
     }
 }
 
 func sequence<T>(xs: [String: T?]) -> [String: T]? {
-    return reduce(xs, pure([:])) { accum, elem in
+    return xs.reduce(pure([:])) { accum, elem in
         return curry(+) <^> accum <*> ({ [elem.0: $0] } <^> elem.1)
     }
 }

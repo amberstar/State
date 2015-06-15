@@ -11,24 +11,27 @@ note: this is a subclass of Data, see Data.swift for full api
 public final class JSON: Data {
     
      override class func objectFromData(data: NSData) -> [String : AnyObject]? {
-        var error: NSError?
-        if let o: AnyObject =  NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &error) {
+        do {
+            let o: AnyObject =  try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
             return o as? [String : AnyObject]
-        } else {
+        } catch let error as NSError {
+            Swift.print(error)
             return nil
         }
     }
     
-      override class func dataFromObject(object: [String : AnyObject], prettyPrint: Bool) -> NSData?  {
-        var error: NSError?
-        if NSJSONSerialization.isValidJSONObject(object) {
-            let options: NSJSONWritingOptions = prettyPrint ? .PrettyPrinted : .allZeros
-            let data: NSData? = NSJSONSerialization.dataWithJSONObject(object, options: options, error: &error)
-            if let e = error {
-                println(error)
-            }
-            return data
+    override class func dataFromObject(object: [String : AnyObject], prettyPrint: Bool) -> NSData?  {
+        
+        guard NSJSONSerialization.isValidJSONObject(object) else { return nil }
+        
+        let options: NSJSONWritingOptions = prettyPrint ? .PrettyPrinted : []
+        let data: NSData?
+        do {
+            data = try NSJSONSerialization.dataWithJSONObject(object, options: options)
+        } catch let error as NSError {
+            Swift.print(error)
+            data = nil
         }
-        return nil
+        return data
     }
 }

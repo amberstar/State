@@ -20,9 +20,9 @@ class TemplateTests: Test {
     }
     
     func testTypes() {
-        var test_out = TestTypes()
+        let test_out = TestTypes()
         Data.write(Encoder.encodeModel(test_out), path: tempPathFor("test_types.plist"))
-        var sut: TestTypes? = Decoder.decodeModel(Data.read(tempPathFor("test_types.plist")))
+        let sut: TestTypes? = Decoder.decodeModel(Data.read(tempPathFor("test_types.plist")))
         XCTAssert(sut != nil)
         XCTAssert(sut?.myBinary != nil)
         XCTAssert(sut?.myDate != nil)
@@ -34,9 +34,9 @@ class TemplateTests: Test {
     }
     
     func testImmutableTypes() {
-        var test_out = TestImmutableTypes()
+        let test_out = TestImmutableTypes()
         Data.write(Encoder.encodeModel(test_out), path: tempPathFor("test_immutable_types.plist"))
-        var sut: TestImmutableTypes? = Decoder.decodeModel(Data.read(tempPathFor("test_immutable_types.plist")))
+        let sut: TestImmutableTypes? = Decoder.decodeModel(Data.read(tempPathFor("test_immutable_types.plist")))
         XCTAssert(sut != nil)
         XCTAssert(sut?.myBinary != nil)
         XCTAssert(sut?.myDate != nil)
@@ -48,9 +48,9 @@ class TemplateTests: Test {
     }
 
     func testOptionalTypes() {
-        var test_out = TestOptionalTypes()
+        let test_out = TestOptionalTypes()
         Data.write(Encoder.encodeModel(test_out), path: tempPathFor("test_optional_types.plist"))
-        var sut: TestOptionalTypes? = Decoder.decodeModel(Data.read(tempPathFor("test_optional_types.plist")))
+        let sut: TestOptionalTypes? = Decoder.decodeModel(Data.read(tempPathFor("test_optional_types.plist")))
         XCTAssert(sut != nil)
         XCTAssert(sut?.myBinary != nil)
         XCTAssert(sut?.myDate != nil)
@@ -62,9 +62,9 @@ class TemplateTests: Test {
     }
     
     func testImmutableOptionalTypes() {
-        var test_out = TestImmutableOptionalTypes()
+        let test_out = TestImmutableOptionalTypes()
         Data.write(Encoder.encodeModel(test_out), path: tempPathFor("test_immutable_optional_types.plist"))
-        var sut: TestImmutableOptionalTypes? = Decoder.decodeModel(Data.read(tempPathFor("test_immutable_optional_types.plist")))
+        let sut: TestImmutableOptionalTypes? = Decoder.decodeModel(Data.read(tempPathFor("test_immutable_optional_types.plist")))
         XCTAssert(sut != nil)
         XCTAssert(sut?.myBinary != nil)
         XCTAssert(sut?.myDate != nil)
@@ -83,7 +83,7 @@ class TemplateTests: Test {
         test_out.dicOfInts["int3"] = 3
         test_out.setOfStrings = ["do", "ray", "me"]
         Data.write(Encoder.encodeModel(test_out), path: tempPathFor("test_collections.plist"))
-        var sut: TestCollections? = Decoder.decodeModel(Data.read(tempPathFor("test_collections.plist")))
+        let sut: TestCollections? = Decoder.decodeModel(Data.read(tempPathFor("test_collections.plist")))
         
         XCTAssert(sut != nil)
         XCTAssert(sut?.arrayOfStrings.count == 3)
@@ -92,17 +92,17 @@ class TemplateTests: Test {
     }
     
     func testRawEnum() {
-        var test_out = TestRawEnum.Ready
+        let test_out = TestRawEnum.Ready
         Plist.write(Encoder.encodeModel(test_out), path: tempPathFor("test_enum.plist"))
-        var sut: TestRawEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_enum.plist")))
+        let sut: TestRawEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_enum.plist")))
         XCTAssert(sut != nil)
         XCTAssert(sut == TestRawEnum.Ready)
     }
     
     func testTransformable() {
-        var test_out = TestTransformable( myTransformable: NSURL(string: "http://facebook.com")!, myTransformableImmutable: NSURL(string: "http://yahoo.com")!, myTransformableImmutableOptional: nil, myTransformableOptional:NSURL(string: "http://twitter.com")!)
+        let test_out = TestTransformable( myTransformable: NSURL(string: "http://facebook.com")!, myTransformableImmutable: NSURL(string: "http://yahoo.com")!, myTransformableImmutableOptional: nil, myTransformableOptional:NSURL(string: "http://twitter.com")!)
         Data.write(Encoder.encodeModel(test_out), path: tempPathFor("test_transformable.plist"))
-        var sut: TestTransformable? = Decoder.decodeModel(Data.read(tempPathFor("test_transformable.plist")))
+        let sut: TestTransformable? = Decoder.decodeModel(Data.read(tempPathFor("test_transformable.plist")))
         XCTAssert(sut != nil)
         XCTAssert(sut?.myTransformable == test_out.myTransformable)
         XCTAssert(sut?.myTransformableImmutable == test_out.myTransformableImmutable)
@@ -111,7 +111,7 @@ class TemplateTests: Test {
     }
     
     func testOverrideType() {
-        var test_out: TestOverrideType? = TestOverrideType(myArrayOfString: ["string1", "string2"], myURL: NSURL(string: "http://simpletouchsoftware.com"))
+        let test_out: TestOverrideType? = TestOverrideType(myArrayOfString: ["string1", "string2"], myURL: NSURL(string: "http://simpletouchsoftware.com"))
         XCTAssert(test_out != nil)
     }
 

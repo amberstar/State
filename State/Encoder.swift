@@ -52,13 +52,13 @@ public final class Encoder {
     }
     
     public func encode<V>(element: V?)(forKey key: String) {
-        if let e = element {
+        if let _ = element {
             data[key] = element as? AnyObject
         }
     }
     
     public func encode<V>(element: V?, forKey key: String) {
-        if let e = element {
+        if let _ = element {
             data[key] = element as? AnyObject
         }
     }

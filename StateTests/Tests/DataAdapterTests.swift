@@ -120,7 +120,7 @@ class DataAdapterTests: Test {
     
     func testReadingAndWritingPlistData() {
         testPlistWasReadCorrectly()
-        var testData: NSData? = Plist.write(testPlist!)
+        let testData: NSData? = Plist.write(testPlist!)
         testPlist = nil
         testData >>- Plist.read >>- { self.testPlist = $0 }
         testPlistWasReadCorrectly()
@@ -128,7 +128,7 @@ class DataAdapterTests: Test {
     
     func testReadingAndWritingJSONData() {
         testJSONWasReadCorrectly()
-        var testData: NSData? = JSON.write(testJSON!)
+        let testData: NSData? = JSON.write(testJSON!)
         testJSON = nil
         testData >>- JSON.read >>- { self.testJSON = $0 }
         testJSONWasReadCorrectly()
@@ -136,7 +136,7 @@ class DataAdapterTests: Test {
     
     func testReadingAndWritingData() {
         testDataWasReadCorrectly()
-        var testNSData: NSData? = Data.write(testData!)
+        let testNSData: NSData? = Data.write(testData!)
         testData = nil
         testNSData >>- Data.read >>- { self.testData = $0 }
         testDataWasReadCorrectly()

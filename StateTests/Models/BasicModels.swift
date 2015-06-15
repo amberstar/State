@@ -30,11 +30,13 @@ struct BasicTypes<T> {
         self.tDicOpt = tDicOpt
         self.tDictImp = tDicImp
     }
+
+ 
 }
 
 extension BasicTypes : Decodable {
     
-    static func create<T>(t: T )(tOpt: T?)(tImp: T?)(tArr: [T])(tArrOpt: [T]?)(tArrImp: [T]?)(tDic: [String : T])(tDicOpt: [String : T]?)(tDicImp: [String : T]?) -> BasicTypes<T>  {
+    static func create(t: T )(tOpt: T?)(tImp: T?)(tArr: [T])(tArrOpt: [T]?)(tArrImp: [T]?)(tDic: [String : T])(tDicOpt: [String : T]?)(tDicImp: [String : T]?) -> BasicTypes<T>  {
         return BasicTypes<T>(t: t, tOpt: tOpt, tImp: tImp, tArr: tArr, tArrOpt: tArrOpt, tArrImp: tArrImp, tDic: tDic, tDicOpt: tDicOpt, tDicImp: tDicImp)
     }
     

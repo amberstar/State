@@ -11,11 +11,11 @@ public final class Decoder {
     /**
     decode a decodable element from a dictionary
     - all non-optional properties must exist in the data
-    :param: data a dictionary to use for decoding
-    :returns: returns a decodable of type T or nil if decoding failed
+    - parameter data: a dictionary to use for decoding
+    - returns: returns a decodable of type T or nil if decoding failed
     */
     public class func decodeModel<T: Decodable>(data:[String : AnyObject]) -> T? {
-        var decoder = Decoder(data: data)
+        let decoder = Decoder(data: data)
         return T(decoder: decoder)
         //return T.decode(decoder)
     }
@@ -23,8 +23,8 @@ public final class Decoder {
     /**
     decode a decodable element from AnyObject?
     - will cast data to a dictionary and call decode(data: [String : AnyObject])
-    :param: data must be cast-able to a Dictionary<String, AnyObject>
-    :returns: returns a decodable of type T or nil if decoding failed
+    - parameter data: must be cast-able to a Dictionary<String, AnyObject>
+    - returns: returns a decodable of type T or nil if decoding failed
     */
     public class func decodeModel<T:Decodable>(data: AnyObject?) -> T? {
         switch data {
@@ -41,8 +41,8 @@ public final class Decoder {
     /**
     initialize a new decoder with data
     - data is stored for decoding
-    :param: data a dictionary to use for decoding
-    :returns: returns a decoder
+    - parameter data: a dictionary to use for decoding
+    - returns: returns a decoder
     */
     public init(data: [String : AnyObject]) {
         self.data = data
@@ -50,8 +50,8 @@ public final class Decoder {
 
     /**
     decode a decodable element
-    :param: key a dictionary to use for decoding
-    :returns: return element of type T or nil if decoding failed
+    - parameter key: a dictionary to use for decoding
+    - returns: return element of type T or nil if decoding failed
     */
     public func decodeModel<T:Decodable>(key: String) -> T? {
         return _decodeDecodable(key)
@@ -59,8 +59,8 @@ public final class Decoder {
     
     /**
     decode a decodable array of element T
-    :param: key a dictionary to use for decoding
-    :returns: return an optional array of T or nil if decoding failed
+    - parameter key: a dictionary to use for decoding
+    - returns: return an optional array of T or nil if decoding failed
     */
     public func decodeModelArray<T:Decodable>(key: String) -> [T]? {
         return _decodeDecodableArray(key)
@@ -68,8 +68,8 @@ public final class Decoder {
     
     /**
     decode a dictionary of string,decodable element T
-    :param: key a dictionary to use for decoding
-    :returns: return a dictionary of string, element T or nil if decoding failed
+    - parameter key: a dictionary to use for decoding
+    - returns: return a dictionary of string, element T or nil if decoding failed
     */
     public func decodeModelDictionary<T: Decodable>(key: String) -> [String : T]? {
         return _decodeDecodableDictionary(key)
@@ -77,8 +77,8 @@ public final class Decoder {
     
     /**
     decode a value element V
-    :param: key a dictionary to use for decoding
-    :returns: return an element V or nil if decoding failed
+    - parameter key: a dictionary to use for decoding
+    - returns: return an element V or nil if decoding failed
     */
     public func decode<V>(key: String) -> V? {
         return _decode(key)

@@ -20,7 +20,7 @@ public class Data  {
     
     /**
     write data to a file
-    :returns: true if succeeded, false if failed
+    - returns: true if succeeded, false if failed
     */
     public static func write(data: [String : AnyObject]?, path: String) -> Bool {
         if let input = data {
@@ -32,7 +32,7 @@ public class Data  {
     
     /**
     write data to  NSData
-    :returns: NSData or nil if failed
+    - returns: NSData or nil if failed
     */
     public class func write(data: [String : AnyObject]) -> NSData? {
         return dataFromObject(data, prettyPrint: false)
@@ -40,7 +40,7 @@ public class Data  {
     
     /**
     write data to String
-    :returns: a string or nil if failed
+    - returns: a string or nil if failed
     */
     public class func write(data: [String : AnyObject]) -> String? {
         return stringFromObject(data)
@@ -51,13 +51,13 @@ public class Data  {
     */
     public class func print(data: [String : AnyObject]) {
         if let string: String? = write(data) {
-             println(string)
-        } else  { debugPrintln("Data: could not print") }
+             Swift.print(string)
+        } else  { debugPrint("Data: could not print") }
     }
     
     /**
     Read data from a file
-    :returns: a data object or nil
+    - returns: a data object or nil
     */
     public  class func read(path: String) -> [String : AnyObject]? {
         return objectFromFile(path)
@@ -65,7 +65,7 @@ public class Data  {
     
     /**
     Read data from NSData
-    :returns: a data object or nil
+    - returns: a data object or nil
     */
     public class func read(data: NSData) -> [String : AnyObject]? {
         return objectFromData(data)
@@ -73,7 +73,7 @@ public class Data  {
     
     /**
     Read data from a URL
-    :returns: a data object or nil
+    - returns: a data object or nil
     */
     public class func read(contentsOfURL aURL: NSURL) -> [String : AnyObject]? {
         if let data = NSData(contentsOfURL: aURL) {
@@ -84,7 +84,7 @@ public class Data  {
     
     /**
     Read data from a string
-    :returns: a data object or nil
+    - returns: a data object or nil
     */
     public class func readString(string: String) -> [String : AnyObject]? {
         return objectFromString(string)

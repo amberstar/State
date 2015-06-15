@@ -25,7 +25,7 @@ class PerfTests: Test {
     }
     
     func testTimeEncodingLargeDataSet() {
-        var player = self.generateModelOfSize(500, y:10 )
+        let player = self.generateModelOfSize(500, y:10 )
         var data = [String : AnyObject]()
         
         measureBlock() {
@@ -34,48 +34,48 @@ class PerfTests: Test {
     }
     
     func testTimeDecodingLargeDataSet() {
-        var player = self.generateModelOfSize(500, y:10 )
-        var data = [String : AnyObject]()
+        _ = self.generateModelOfSize(500, y:10 )
+        let data = [String : AnyObject]()
         
         measureBlock {
-            var newPlayer: Player?  = Decoder.decodeModel(data)
+            var _: Player?  = Decoder.decodeModel(data)
         }
     }
     
     func testTimeParsingJSON() {
         measureBlock {
-             var data = JSON.read(self.bundlePathFor("Big_data", ofType: "json")!)
+             var _ = JSON.read(self.bundlePathFor("Big_data", ofType: "json")!)
         }
     }
     
     func testTimeParsingPlist() {
         measureBlock {
-            var data = Plist.read(self.bundlePathFor("Big_data", ofType: "plist")!)
+            var _ = Plist.read(self.bundlePathFor("Big_data", ofType: "plist")!)
         }
     }
     
     func testTimeParsingBinaryPlist() {
         measureBlock {
-            var data = Data.read(self.bundlePathFor("Big_data-bin", ofType: "plist")!)
+            var _ = Data.read(self.bundlePathFor("Big_data-bin", ofType: "plist")!)
         }
     }
     
     func testTimeWritingJSON() {
-        var data = JSON.read(self.bundlePathFor("Big_data", ofType: "json")!)
+        let data = JSON.read(self.bundlePathFor("Big_data", ofType: "json")!)
         measureBlock {
             JSON.write(data, path: tempPathFor("Big_data.json"))
         }
     }
     
     func testTimeWritingPlist() {
-         var data = Plist.read(self.bundlePathFor("Big_data", ofType: "plist")!)
+         let data = Plist.read(self.bundlePathFor("Big_data", ofType: "plist")!)
         measureBlock {
             Plist.write(data, path: tempPathFor("Big_data.plist"))
         }
     }
     
     func testTimeWritingBinaryPlist() {
-        var data = Data.read(self.bundlePathFor("Big_data-bin", ofType: "plist")!)
+        let data = Data.read(self.bundlePathFor("Big_data-bin", ofType: "plist")!)
         measureBlock {
             Data.write(data, path: tempPathFor("Big_data-bin.plist"))
         }

@@ -8,19 +8,19 @@ import UIKit
 class TransformTests: Test {
     
     func testURLTransform() {
-        var string = "http://myUrl.com"
-        var testURL = NSURL(string:string)
-        var stringURL = URLTransform.transform(testURL)
-        var sut = URLTransform.reverseTransform(stringURL)
+        let string = "http://myUrl.com"
+        let testURL = NSURL(string:string)
+        let stringURL = URLTransform.transform(testURL)
+        let sut = URLTransform.reverseTransform(stringURL)
         
         XCTAssert(sut == testURL)
         XCTAssert (string == stringURL)
     }
     #if os (iOS)
     func testUIColorTransform() {
-        var color = UIColor.blueColor()
-        var colorTransformed  = UIColorTransform.transform(color)
-        var testColor = UIColorTransform.reverseTransform(colorTransformed)
+        let color = UIColor.blueColor()
+        let colorTransformed  = UIColorTransform.transform(color)
+        let testColor = UIColorTransform.reverseTransform(colorTransformed)
         
         XCTAssert(color == testColor)
     }

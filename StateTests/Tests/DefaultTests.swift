@@ -5,7 +5,7 @@ import State
 class DefaultTests: Test {
 
     func testDefaults() {
-        var test = TestDefaults()
+        let test = TestDefaults()
         
         XCTAssert(test.defaultArray.count == 3 )
         XCTAssert(test.defaultString == "defaultString")

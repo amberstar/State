@@ -9,30 +9,32 @@ class RelationshipTests: Test {
             var grandChildren = [Grandchild]()
             
             for index in 0...4 {
-                var grandChild = Grandchild(age: index, name: "GrandChild\(index)", gender: Gender.Female)
+                let grandChild = Grandchild(age: index, name: "GrandChild\(index)", gender: Gender.Female)
                 grandChildren.append(grandChild)
             }
-            var child = TestChild(age: index, name: "Child\(index)", gender: Gender.Male, myChildren: grandChildren)
+            let child = TestChild(age: index, name: "Child\(index)", gender: Gender.Male, myChildren: grandChildren)
             children.append(child)
         }
         return children
     }
     
-    func makeGrandChildren(var children: [TestChild]) -> [Grandchild] {
+    func makeGrandChildren(children: [TestChild]) -> [Grandchild] {
         var grandChildren = [Grandchild]()
         
         for child in children {
-            grandChildren.extend <*> child.myChildren
+            if let grandkids = child.myChildren {
+                grandChildren.extend(grandkids)
+            }
         }
         return grandChildren
     }
 
     func testCodingModelWithOneToMany() {
-        var children = makeChildren()
-        var grandChildren = makeGrandChildren(children)
-        var sampleData = TestRelationships(myChildren: children, myGrandChildren: grandChildren, myOneChild: TestChild(age: 22, name: "Mark", gender: Gender.Male, myChildren: nil))
+        let children = makeChildren()
+        let grandChildren = makeGrandChildren(children)
+        let sampleData = TestRelationships(myChildren: children, myGrandChildren: grandChildren, myOneChild: TestChild(age: 22, name: "Mark", gender: Gender.Male, myChildren: nil))
         JSON.write(Encoder.encodeModel(sampleData), path: tempPathFor("relationship.json"))
-        var testData : TestRelationships? = Decoder.decodeModel(JSON.read(tempPathFor("relationship.json")))
+        let testData : TestRelationships? = Decoder.decodeModel(JSON.read(tempPathFor("relationship.json")))
         
         XCTAssert(testData != nil)
         XCTAssert(testData?.myChildren?.count == sampleData.myChildren?.count)

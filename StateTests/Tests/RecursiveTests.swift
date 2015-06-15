@@ -18,7 +18,7 @@ class RecursiveTests: Test {
         player.teamates[3].fillins = innerPlayers
         
         Plist.write(Encoder.encodeModel(player), path: tempPathFor("player.plist"))
-        var resultPlayer: Player?  = Decoder.decodeModel(Plist.read(tempPathFor("player.plist")))
+        let resultPlayer: Player?  = Decoder.decodeModel(Plist.read(tempPathFor("player.plist")))
         
         XCTAssert(resultPlayer != nil)
         XCTAssert(resultPlayer?.teamates.count == 10)

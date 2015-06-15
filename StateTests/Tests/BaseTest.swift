@@ -25,7 +25,11 @@ class Test : XCTestCase {
         
         if path != nil {
             if let data = NSData(contentsOfFile: path!) {
-                return NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: nil)
+                do {
+                    return try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
+                } catch _ {
+                    return nil
+                }
             }
         }
         return .None
@@ -43,7 +47,10 @@ class Test : XCTestCase {
         let fileManager = NSFileManager.defaultManager()
         let enumerator = fileManager.enumeratorAtPath(NSTemporaryDirectory())
         while let file = enumerator?.nextObject() as? String {
-            fileManager.removeItemAtPath(NSTemporaryDirectory().stringByAppendingPathComponent(file), error: nil)
+            do {
+                try fileManager.removeItemAtPath(NSTemporaryDirectory().stringByAppendingPathComponent(file))
+            } catch _ {
+            }
         }
     }
     

@@ -32,7 +32,7 @@ extension TestImmutableTypes {
 
     /**
     decoding is finished on the receiver
-    :param: decoder the decoder used for decoding
+    - parameter decoder: the decoder used for decoding
 
     :Discussion: This method is called after decoding takes place.
     It provides a way to decode any further data with the decoder
@@ -44,7 +44,7 @@ extension TestImmutableTypes {
 
     /**
     encoding will finish on the receiver
-    :param: encoder the encoder used for encoding
+    - parameter encoder: the encoder used for encoding
 
     :Discussion: This method is called right before encoding finishes.
     It provides a chance to encode any further data with the encoder.
@@ -83,9 +83,9 @@ extension TestImmutableTypes {
 
     /**
      the current model version
-    :param: modelVersionHash a unique hash from the model design that generated the model
-    :param: modelVersionHashModifier a hash modifier if any from the model design that generated the model
-    :returns: an object the represents the model version used to denote the model "version"
+    - parameter modelVersionHash: a unique hash from the model design that generated the model
+    - parameter modelVersionHashModifier: a hash modifier if any from the model design that generated the model
+    - returns: an object the represents the model version used to denote the model "version"
 
     :Discussion: This method is called during encoding and decoding when the version is needed.
     The modelVersionHash and modelVersionHashModifier are provided from the model designer to help denote
@@ -97,8 +97,8 @@ extension TestImmutableTypes {
 
     /**
     determines if the model data being decoded needs migration
-    :param: dataVersion the version of the data to be decoded
-    :returns: true if a migration is needed
+    - parameter dataVersion: the version of the data to be decoded
+    - returns: true if a migration is needed
 
     :Discussion: This method is called during decoding if
         - shouldMigrateIfNeeded returns true
@@ -117,9 +117,9 @@ extension TestImmutableTypes {
 
     /**
     migrate model data before decoding
-    :param: data model data that needs migration
-    :param: dataVersion the version of the data to be migrated
-    :returns: migrated data
+    - parameter data: model data that needs migration
+    - parameter dataVersion: the version of the data to be migrated
+    - returns: migrated data
 
     :Discussion: This method is called during decoding if the following are true:
     - shouldMigrateIfNeeded returns true

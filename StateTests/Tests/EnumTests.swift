@@ -5,17 +5,17 @@ import UIKit
 class EnumTests: Test {
 
     func testRawEnum() {
-        var test_out = TestRawEnum.Ready
+        let test_out = TestRawEnum.Ready
         Plist.write(Encoder.encodeModel(test_out), path: tempPathFor("test_raw_enum.plist"))
-        var sut: TestRawEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_raw_enum.plist")))
+        let sut: TestRawEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_raw_enum.plist")))
         XCTAssert(sut != nil)
         XCTAssert(sut == TestRawEnum.Ready)
     }
     
     func testRegEnum() {
-        var test_out = TestRegEnum.Cold
+        let test_out = TestRegEnum.Cold
         Plist.write(Encoder.encodeModel(test_out), path: tempPathFor("test_reg_enum.plist"))
-        var sut: TestRegEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_reg_enum.plist")))
+        let sut: TestRegEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_reg_enum.plist")))
         XCTAssert(sut != nil)
         XCTAssert(sut == TestRegEnum.Cold)
     }
@@ -31,7 +31,7 @@ class EnumTests: Test {
         
         func performTestFor(testEnum: TestAssociatedEnum, message: String) {
             Data.write(Encoder.encodeModel(testEnum), path: tempPathFor("test_associated_enum.plist"))
-            var sut: TestAssociatedEnum? = Decoder.decodeModel(Data.read(tempPathFor("test_associated_enum.plist")))
+            let sut: TestAssociatedEnum? = Decoder.decodeModel(Data.read(tempPathFor("test_associated_enum.plist")))
             XCTAssert(sut != nil)
             if let sut = sut {
                 switch sut {
@@ -60,24 +60,24 @@ class EnumTests: Test {
 
         }
         
-        performTestFor(TestAssociatedEnum.StringType("Hello World"), "StringType should be Hello World")
-        performTestFor(TestAssociatedEnum.IntType(10), "IntType should be 10")
-        performTestFor(TestAssociatedEnum.FloatType(0.1235), "FloatType should be .1235")
-        performTestFor(TestAssociatedEnum.DoubleType(-12.34), "DoubleType should be -12.34")
-        performTestFor(TestAssociatedEnum.BooleanType(true), "BooleanType should be true")
-        performTestFor(TestAssociatedEnum.BinaryType(createBinary()!), "Binary should not be nil")
-        performTestFor(TestAssociatedEnum.DecimalType(NSDecimalNumber(double: 0.8976)), "DecimalType should equal 0.8976")
-        performTestFor(TestAssociatedEnum.DateType(NSDate(timeIntervalSince1970: 10000)), "DateType should equal 10000 since 1970")
-        performTestFor(TestAssociatedEnum.TransformableColorType(UIColor.blueColor()), "Color should be blue")
+        performTestFor(TestAssociatedEnum.StringType("Hello World"), message: "StringType should be Hello World")
+        performTestFor(TestAssociatedEnum.IntType(10), message: "IntType should be 10")
+        performTestFor(TestAssociatedEnum.FloatType(0.1235), message: "FloatType should be .1235")
+        performTestFor(TestAssociatedEnum.DoubleType(-12.34), message: "DoubleType should be -12.34")
+        performTestFor(TestAssociatedEnum.BooleanType(true), message: "BooleanType should be true")
+        performTestFor(TestAssociatedEnum.BinaryType(createBinary()!), message: "Binary should not be nil")
+        performTestFor(TestAssociatedEnum.DecimalType(NSDecimalNumber(double: 0.8976)), message: "DecimalType should equal 0.8976")
+        performTestFor(TestAssociatedEnum.DateType(NSDate(timeIntervalSince1970: 10000)), message: "DateType should equal 10000 since 1970")
+        performTestFor(TestAssociatedEnum.TransformableColorType(UIColor.blueColor()), message: "Color should be blue")
     }
     
     
     func testAssociatedDecodeableToManyEnum() {
-        var employee = Employee(name: "Joe", title: "Manager")
-        var employees = [employee, employee, employee]
-        var test_out = TestAssociatedEnum.DecodableToManyType(employees)
+        let employee = Employee(name: "Joe", title: "Manager")
+        let employees = [employee, employee, employee]
+        let test_out = TestAssociatedEnum.DecodableToManyType(employees)
         Plist.write(Encoder.encodeModel(test_out), path: tempPathFor("test_associated_tomany_enum.plist"))
-        var sut: TestAssociatedEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_associated_tomany_enum.plist")))
+        let sut: TestAssociatedEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_associated_tomany_enum.plist")))
         XCTAssert(sut != nil)
         
         switch sut! {
@@ -90,10 +90,10 @@ class EnumTests: Test {
     }
     
     func testAssociatedDecodeableToOneEnum() {
-        var employee = Employee(name: "Joe", title: "Manager")
-        var test_out = TestAssociatedEnum.DecodableToOneType(employee)
+        let employee = Employee(name: "Joe", title: "Manager")
+        let test_out = TestAssociatedEnum.DecodableToOneType(employee)
         Plist.write(Encoder.encodeModel(test_out), path: tempPathFor("test_associated_toone_enum.plist"))
-        var sut: TestAssociatedEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_associated_toone_enum.plist")))
+        let sut: TestAssociatedEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_associated_toone_enum.plist")))
         XCTAssert(sut != nil)
         
         switch sut! {
@@ -115,7 +115,7 @@ class EnumTests: Test {
         
         func performTestFor(testEnum: TestAssociatedOptionalEnum, message: String) {
             Data.write(Encoder.encodeModel(testEnum), path: tempPathFor("test_associated_optional_enum.plist"))
-            var sut: TestAssociatedOptionalEnum? = Decoder.decodeModel(Data.read(tempPathFor("test_associated_optional_enum.plist")))
+            let sut: TestAssociatedOptionalEnum? = Decoder.decodeModel(Data.read(tempPathFor("test_associated_optional_enum.plist")))
             XCTAssert(sut != nil, "system under test is nil")
             if let sut = sut {
                 switch sut {
@@ -144,23 +144,23 @@ class EnumTests: Test {
             
         }
         
-        performTestFor(TestAssociatedOptionalEnum.StringType("Hello World"), "StringType should be Hello World")
-        performTestFor(TestAssociatedOptionalEnum.IntType(10), "IntType should be 10")
-        performTestFor(TestAssociatedOptionalEnum.FloatType(0.1235), "FloatType should be .1235")
-        performTestFor(TestAssociatedOptionalEnum.DoubleType(-12.34), "DoubleType should be -12.34")
-        performTestFor(TestAssociatedOptionalEnum.BooleanType(true), "BooleanType should be true")
-        performTestFor(TestAssociatedOptionalEnum.BinaryType(createBinary()!), "Binary should not be nil")
-        performTestFor(TestAssociatedOptionalEnum.DecimalType(NSDecimalNumber(double: 0.8976)), "DecimalType should equal 0.8976")
-        performTestFor(TestAssociatedOptionalEnum.DateType(NSDate(timeIntervalSince1970: 10000)), "DateType should equal 10000 since 1970")
-        performTestFor(TestAssociatedOptionalEnum.TransformableColorType(UIColor.blueColor()), "Color should be blue")
+        performTestFor(TestAssociatedOptionalEnum.StringType("Hello World"), message: "StringType should be Hello World")
+        performTestFor(TestAssociatedOptionalEnum.IntType(10), message: "IntType should be 10")
+        performTestFor(TestAssociatedOptionalEnum.FloatType(0.1235), message: "FloatType should be .1235")
+        performTestFor(TestAssociatedOptionalEnum.DoubleType(-12.34), message: "DoubleType should be -12.34")
+        performTestFor(TestAssociatedOptionalEnum.BooleanType(true), message: "BooleanType should be true")
+        performTestFor(TestAssociatedOptionalEnum.BinaryType(createBinary()!), message: "Binary should not be nil")
+        performTestFor(TestAssociatedOptionalEnum.DecimalType(NSDecimalNumber(double: 0.8976)), message: "DecimalType should equal 0.8976")
+        performTestFor(TestAssociatedOptionalEnum.DateType(NSDate(timeIntervalSince1970: 10000)), message: "DateType should equal 10000 since 1970")
+        performTestFor(TestAssociatedOptionalEnum.TransformableColorType(UIColor.blueColor()), message: "Color should be blue")
     }
 
     func testAssociatedDecodeableOptionalToManyEnum() {
-        var employee = Employee(name: "Joe", title: "Manager")
-        var employees = [employee, employee, employee]
-        var test_out = TestAssociatedOptionalEnum.DecodableToManyType(employees)
+        let employee = Employee(name: "Joe", title: "Manager")
+        let employees = [employee, employee, employee]
+        let test_out = TestAssociatedOptionalEnum.DecodableToManyType(employees)
         Plist.write(Encoder.encodeModel(test_out), path: tempPathFor("test_associated_optional_tomany_enum.plist"))
-        var sut: TestAssociatedOptionalEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_associated_optional_tomany_enum.plist")))
+        let sut: TestAssociatedOptionalEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_associated_optional_tomany_enum.plist")))
         XCTAssert(sut != nil)
         
         switch sut! {
@@ -173,10 +173,10 @@ class EnumTests: Test {
     }
     
     func testAssociatedDecodeableOptionalToOneEnum() {
-        var employee = Employee(name: "Joe", title: "Manager")
-        var test_out = TestAssociatedOptionalEnum.DecodableToOneType(employee)
+        let employee = Employee(name: "Joe", title: "Manager")
+        let test_out = TestAssociatedOptionalEnum.DecodableToOneType(employee)
         Plist.write(Encoder.encodeModel(test_out), path: tempPathFor("test_associated_optional_toone_enum.plist"))
-        var sut: TestAssociatedOptionalEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_associated_optional_toone_enum.plist")))
+        let sut: TestAssociatedOptionalEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_associated_optional_toone_enum.plist")))
         XCTAssert(sut != nil)
         
         switch sut! {
