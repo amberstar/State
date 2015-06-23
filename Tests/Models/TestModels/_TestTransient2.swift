@@ -11,7 +11,7 @@ public struct TestTransient2 {
     public var transient2: Int?
     public var myNonTransient: Gender?
 
-    public init(myNonTransient: Gender?) {
+public init(myNonTransient: Gender?) {
 
     self.myNonTransient = myNonTransient
 

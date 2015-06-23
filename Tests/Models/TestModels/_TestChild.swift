@@ -12,7 +12,7 @@ public struct TestChild {
     public var gender: Gender?
     public var myChildren: [Grandchild]?
 
-    public init(age: Int?, name: String?, gender: Gender?, myChildren: [Grandchild]?) {
+public init(age: Int?, name: String?, gender: Gender?, myChildren: [Grandchild]?) {
 
     self.age = age
     self.name = name

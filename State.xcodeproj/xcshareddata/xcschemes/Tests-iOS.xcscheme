@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "047B22D31AF3DAAF003B7F39"
+               BlueprintIdentifier = "04012A7F1AE12FA6006DAC19"
                BuildableName = "StateTests.xctest"
-               BlueprintName = "StateTests-OSX"
+               BlueprintName = "Tests-iOS"
                ReferencedContainer = "container:State.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,19 +32,24 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "047B22D31AF3DAAF003B7F39"
+               BlueprintIdentifier = "04012A7F1AE12FA6006DAC19"
                BuildableName = "StateTests.xctest"
-               BlueprintName = "StateTests-OSX"
+               BlueprintName = "Tests-iOS"
                ReferencedContainer = "container:State.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "PerfTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "047B22D31AF3DAAF003B7F39"
+            BlueprintIdentifier = "04012A7F1AE12FA6006DAC19"
             BuildableName = "StateTests.xctest"
-            BlueprintName = "StateTests-OSX"
+            BlueprintName = "Tests-iOS"
             ReferencedContainer = "container:State.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,9 +69,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "047B22D31AF3DAAF003B7F39"
+            BlueprintIdentifier = "04012A7F1AE12FA6006DAC19"
             BuildableName = "StateTests.xctest"
-            BlueprintName = "StateTests-OSX"
+            BlueprintName = "Tests-iOS"
             ReferencedContainer = "container:State.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +87,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "047B22D31AF3DAAF003B7F39"
+            BlueprintIdentifier = "04012A7F1AE12FA6006DAC19"
             BuildableName = "StateTests.xctest"
-            BlueprintName = "StateTests-OSX"
+            BlueprintName = "Tests-iOS"
             ReferencedContainer = "container:State.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

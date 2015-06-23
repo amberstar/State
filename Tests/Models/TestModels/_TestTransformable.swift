@@ -12,7 +12,7 @@ public struct TestTransformable {
     public let myTransformableImmutableOptional: NSURL?
     public var myTransformableOptional: NSURL?
 
-    public init(myTransformable: NSURL, myTransformableImmutable: NSURL, myTransformableImmutableOptional: NSURL?, myTransformableOptional: NSURL?) {
+public init(myTransformable: NSURL, myTransformableImmutable: NSURL, myTransformableImmutableOptional: NSURL?, myTransformableOptional: NSURL?) {
 
     self.myTransformable = myTransformable
     self.myTransformableImmutable = myTransformableImmutable

@@ -19,7 +19,7 @@ public struct TestDefaults {
     public var noDefaultChild: TestDefaultsChild?
     public var noDefaultChildren: TestDefaultsChild?
 
-    public init(defaultArray: [String], defaultEmptyArray: [String], defaultInt: Int, defaultManualString: String, defaultString: String, noDefaultInt: Int?, noDefaultString: String?, defaultChild: TestDefaultsChild, defaultChildren: [TestDefaultsChild], noDefaultChild: TestDefaultsChild?, noDefaultChildren: TestDefaultsChild?) {
+public init(defaultArray: [String], defaultEmptyArray: [String], defaultInt: Int, defaultManualString: String, defaultString: String, noDefaultInt: Int?, noDefaultString: String?, defaultChild: TestDefaultsChild, defaultChildren: [TestDefaultsChild], noDefaultChild: TestDefaultsChild?, noDefaultChildren: TestDefaultsChild?) {
 
     self.defaultArray = defaultArray
     self.defaultEmptyArray = defaultEmptyArray

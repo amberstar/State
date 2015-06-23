@@ -10,7 +10,7 @@ public struct Employee {
     public var name: String
     public var title: String?
 
-    public init(name: String, title: String?) {
+public init(name: String, title: String?) {
 
     self.name = name
     self.title = title

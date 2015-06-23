@@ -10,7 +10,7 @@ public struct TestOverrideType {
     public var myArrayOfString: [String]?
     public var myURL: NSURL?
 
-    public init(myArrayOfString: [String]?, myURL: NSURL?) {
+public init(myArrayOfString: [String]?, myURL: NSURL?) {
 
     self.myArrayOfString = myArrayOfString
     self.myURL = myURL

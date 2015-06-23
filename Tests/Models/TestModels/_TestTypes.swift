@@ -16,7 +16,7 @@ public struct TestTypes {
     public var myInt: Int
     public var myString: String
 
-    public init(myBinary: NSData, myBoolean: Bool, myDate: NSDate, myDecimal: NSDecimalNumber, myDouble: Double, myFloat: Float, myInt: Int, myString: String) {
+public init(myBinary: NSData, myBoolean: Bool, myDate: NSDate, myDecimal: NSDecimalNumber, myDouble: Double, myFloat: Float, myInt: Int, myString: String) {
 
     self.myBinary = myBinary
     self.myBoolean = myBoolean

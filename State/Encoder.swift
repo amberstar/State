@@ -1,3 +1,4 @@
+
 public protocol Encodable {
     func encode(encoder: Encoder)
 }
@@ -6,9 +7,9 @@ public final class Encoder {
     internal private(set) var data = [String : AnyObject]()
     
     public class func encodeModel<T: Encodable>(element: T) -> [String : AnyObject] {
-            let coder = Encoder()
-            element.encode(coder)
-            return coder.data
+        let coder = Encoder()
+        element.encode(coder)
+        return coder.data
     }
     
     public func encode<T: Encodable>(element: T?)(forKey key: String) {

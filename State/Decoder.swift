@@ -3,6 +3,8 @@ public protocol Decodable {
     init?(decoder: Decoder)
 }
 
+
+
 public final class Decoder {
     private var data = [String : AnyObject]()
     

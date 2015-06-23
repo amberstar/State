@@ -10,7 +10,7 @@ public struct TestMigrationV2 {
     public var age: Int?
     public var name: String
 
-    public init(age: Int?, name: String) {
+public init(age: Int?, name: String) {
 
     self.age = age
     self.name = name

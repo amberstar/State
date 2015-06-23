@@ -30,7 +30,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "04012A7F1AE12FA6006DAC19"
                BuildableName = "StateTests.xctest"
-               BlueprintName = "StateTests-iOS"
+               BlueprintName = "Tests-iOS"
                ReferencedContainer = "container:State.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

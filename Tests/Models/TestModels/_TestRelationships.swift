@@ -11,7 +11,7 @@ public struct TestRelationships {
     public var myGrandChildren: [Grandchild]?
     public var myOneChild: TestChild?
 
-    public init(myChildren: [TestChild]?, myGrandChildren: [Grandchild]?, myOneChild: TestChild?) {
+public init(myChildren: [TestChild]?, myGrandChildren: [Grandchild]?, myOneChild: TestChild?) {
 
     self.myChildren = myChildren
     self.myGrandChildren = myGrandChildren

@@ -12,7 +12,7 @@ public struct Company {
     public var yearFounded: Double
     public var employees: [Employee]?
 
-    public init(name: String, phoneNumber: String?, yearFounded: Double, employees: [Employee]?) {
+public init(name: String, phoneNumber: String?, yearFounded: Double, employees: [Employee]?) {
 
     self.name = name
     self.phoneNumber = phoneNumber

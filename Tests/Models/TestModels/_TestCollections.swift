@@ -11,7 +11,7 @@ public struct TestCollections {
     public var dicOfInts: [String : Int]
     public var setOfStrings: Set<String>
 
-    public init(arrayOfStrings: [String], dicOfInts: [String : Int], setOfStrings: Set<String>) {
+public init(arrayOfStrings: [String], dicOfInts: [String : Int], setOfStrings: Set<String>) {
 
     self.arrayOfStrings = arrayOfStrings
     self.dicOfInts = dicOfInts

@@ -9,7 +9,7 @@ import State
 public struct TestDefaultsChild {
     public var name = "New Child"
 
-    public init(name: String) {
+public init(name: String) {
 
     self.name = name
 
