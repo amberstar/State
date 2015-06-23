@@ -6,6 +6,7 @@ public protocol Encodable {
 public final class Encoder {
     internal private(set) var data = [String : AnyObject]()
     
+    /// Encode model to a dictionary
     public class func encodeModel<T: Encodable>(element: T) -> [String : AnyObject] {
         let coder = Encoder()
         element.encode(coder)

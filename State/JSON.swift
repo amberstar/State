@@ -2,7 +2,7 @@ import Foundation
 /*******************************************************************************
 JSON:
 
-json serialization
+JSON serialization
 
 note: this is a subclass of Data, see Data.swift for full api
 
