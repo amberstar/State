@@ -135,11 +135,10 @@ extension TestAssociatedEnum: Encodable {
 }
 
 extension TestAssociatedEnum {
-    /**
-    These are provided from the data model designer
-    and can be used to determine if the model is
-    a different version.
-    */
+
+    /// These are provided from the data model designer
+    /// and can be used to determine if the model is
+    /// a different version.
     static var modelVersionHash: String {
         return "<6da9f98e 37df6363 56b14e25 3100b317 ea72bc42 9578573b 17427080 0a824a73>"
     }

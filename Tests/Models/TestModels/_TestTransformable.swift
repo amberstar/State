@@ -68,11 +68,10 @@ encoder.encode(TestTransformable.version(TestTransformable.modelVersionHash, mod
 }
 
 extension TestTransformable {
-    /**
-    These are provided from the data model designer
-    and can be used to determine if the model is
-    a different version.
-    */
+
+    /// These are provided from the data model designer
+    /// and can be used to determine if the model is
+    /// a different version.
     static var modelVersionHash: String {
         return "<ab73b735 b1201428 cbab765c 5357fbe9 b413a176 90618f51 b3efae27 d31a5116>"
     }

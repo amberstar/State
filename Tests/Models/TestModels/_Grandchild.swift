@@ -64,11 +64,10 @@ encoder.encode(Grandchild.version(Grandchild.modelVersionHash, modelVersionHashM
 }
 
 extension Grandchild {
-    /**
-    These are provided from the data model designer
-    and can be used to determine if the model is
-    a different version.
-    */
+
+    /// These are provided from the data model designer
+    /// and can be used to determine if the model is
+    /// a different version.
     static var modelVersionHash: String {
         return "<10d8adcc 35a3ab52 8d11fa17 fbbdb083 23527533 29812594 823e8a17 8e1cb50d>"
     }

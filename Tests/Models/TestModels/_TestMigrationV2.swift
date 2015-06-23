@@ -60,11 +60,10 @@ encoder.encode(TestMigrationV2.version(TestMigrationV2.modelVersionHash, modelVe
 }
 
 extension TestMigrationV2 {
-    /**
-    These are provided from the data model designer
-    and can be used to determine if the model is
-    a different version.
-    */
+
+    /// These are provided from the data model designer
+    /// and can be used to determine if the model is
+    /// a different version.
     static var modelVersionHash: String {
         return "<a72776b0 ed41d0ad 357dc213 d628b690 61fa4fa3 a91c4c0e 941122a8 c581023e>"
     }

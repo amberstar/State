@@ -84,11 +84,10 @@ encoder.encode(TestTypes.version(TestTypes.modelVersionHash, modelVersionHashMod
 }
 
 extension TestTypes {
-    /**
-    These are provided from the data model designer
-    and can be used to determine if the model is
-    a different version.
-    */
+
+    /// These are provided from the data model designer
+    /// and can be used to determine if the model is
+    /// a different version.
     static var modelVersionHash: String {
         return "<a9fa31de ad1cc5f1 d85c3e3e ff64b9b2 3a3c9221 f8f44ba9 75e33daa b277f852>"
     }

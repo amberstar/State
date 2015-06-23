@@ -84,11 +84,10 @@ encoder.encode(TestImmutableTypes.version(TestImmutableTypes.modelVersionHash, m
 }
 
 extension TestImmutableTypes {
-    /**
-    These are provided from the data model designer
-    and can be used to determine if the model is
-    a different version.
-    */
+
+    /// These are provided from the data model designer
+    /// and can be used to determine if the model is
+    /// a different version.
     static var modelVersionHash: String {
         return "<053f29fe 14df09a6 b7d222ee 5b611256 e3e3f8d5 0ab9d644 c9a1466a f9293bea>"
     }

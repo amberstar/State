@@ -28,11 +28,10 @@ import State
 
 <$procedure writeVersionHashExtension$>
 extension <$managedObjectClassName$> {
-    /**
-    These are provided from the data model designer
-    and can be used to determine if the model is
-    a different version.
-    */
+
+    /// These are provided from the data model designer
+    /// and can be used to determine if the model is
+    /// a different version.
     static var modelVersionHash: String {
         return "<$versionHash$>"
     }
@@ -152,10 +151,10 @@ extension <$managedObjectClassName$> : Encodable {
 <$procedure writeRelationshipDecodeSwitchCaseForEnumCase Relationship$>case "<$Relationship.name.initialCapitalString$>":
                     <$if userInfo.State.Type$><$call writeRelationshipDecodeRawSwitchCaseForEnum Relationship$><$elseif  Relationship.destinationEntity.managedObjectClassName$><$call writeRelationshipDecodeAssociatedSwitchCaseForEnum Relationship$><$else$><$call writeRelationshipDecodeBasicSwitchCaseForEnum Relationship$><$endif$><$endprocedure$>
 
-<$procedure writeAttributeEncodeBasicSwitchCaseForEnum Attribute$>case let .<$Attribute.name.initialCapitalString$>:
+<$procedure writeAttributeEncodeBasicSwitchCaseForEnum Attribute$>case .<$Attribute.name.initialCapitalString$>:
                 encoder.encode("<$Attribute.name.initialCapitalString$>", forKey: "type")<$endprocedure$>
 
-<$procedure writeAttributeEncodeRawSwitchCaseForEnum Attribute$>case let .<$Attribute.name.initialCapitalString$>:
+<$procedure writeAttributeEncodeRawSwitchCaseForEnum Attribute$>case  .<$Attribute.name.initialCapitalString$>:
                 encoder.encode("<$Attribute.name.initialCapitalString$>", forKey: "type")
                 encoder.encode(self.rawValue, forKey: "value")<$endprocedure$>
 
@@ -165,7 +164,7 @@ extension <$managedObjectClassName$> : Encodable {
 
 <$procedure writeAttributeEncodeSwitchCaseForEnumCase Attribute$><$if userInfo.State.Type$><$call writeAttributeEncodeRawSwitchCaseForEnum Attribute$><$elseif Attribute.userInfo.State.Type$><$call writeAttributeEncodeAssociatedSwitchCaseForEnum Attribute$><$else$><$call writeAttributeEncodeBasicSwitchCaseForEnum Attribute$><$endif$><$endprocedure$>
 
-<$procedure writeRelationshipEncodeBasicSwitchCaseForEnum Relationship$>case let .<$Relationship.name.initialCapitalString$>:
+<$procedure writeRelationshipEncodeBasicSwitchCaseForEnum Relationship$>case .<$Relationship.name.initialCapitalString$>:
                 encoder.encode("<$Relationship.name.initialCapitalString$>", forKey: "type")<$endprocedure$>
 
 <$procedure writeRelationshipEncodeRawSwitchCaseForEnum Relationship$>case let .<$Relationship.name.initialCapitalString$>:

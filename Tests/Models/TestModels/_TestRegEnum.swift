@@ -45,9 +45,9 @@ extension TestRegEnum: Encodable {
     public func encode(encoder: Encoder) {
 
         switch self {
-            case let .Cold:
+            case .Cold:
                 encoder.encode("Cold", forKey: "type")
-            case let .Hot:
+            case .Hot:
                 encoder.encode("Hot", forKey: "type")
 
         }
@@ -56,11 +56,10 @@ extension TestRegEnum: Encodable {
 }
 
 extension TestRegEnum {
-    /**
-    These are provided from the data model designer
-    and can be used to determine if the model is
-    a different version.
-    */
+
+    /// These are provided from the data model designer
+    /// and can be used to determine if the model is
+    /// a different version.
     static var modelVersionHash: String {
         return "<a3ed22fb 5deb7f55 1bee0f09 d897dfba 9f6b506f da233147 ba5d0c7b 67981e5c>"
     }

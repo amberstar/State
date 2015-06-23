@@ -68,11 +68,10 @@ encoder.encode(TestChild.version(TestChild.modelVersionHash, modelVersionHashMod
 }
 
 extension TestChild {
-    /**
-    These are provided from the data model designer
-    and can be used to determine if the model is
-    a different version.
-    */
+
+    /// These are provided from the data model designer
+    /// and can be used to determine if the model is
+    /// a different version.
     static var modelVersionHash: String {
         return "<4b2e27e5 53e329ff 69cfb4ba 1573537c 35d26944 7199acfc 729b6b5c c6e0ac88>"
     }

@@ -59,11 +59,10 @@ encoder.encode(TestTransient2.version(TestTransient2.modelVersionHash, modelVers
 }
 
 extension TestTransient2 {
-    /**
-    These are provided from the data model designer
-    and can be used to determine if the model is
-    a different version.
-    */
+
+    /// These are provided from the data model designer
+    /// and can be used to determine if the model is
+    /// a different version.
     static var modelVersionHash: String {
         return "<3bdb5dca 2d9104fe d8d34881 3d5e8518 763ba9eb 44d3c0b4 c57a65ec 1c4e4924>"
     }

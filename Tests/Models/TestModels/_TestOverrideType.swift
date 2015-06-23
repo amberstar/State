@@ -60,11 +60,10 @@ encoder.encode(TestOverrideType.version(TestOverrideType.modelVersionHash, model
 }
 
 extension TestOverrideType {
-    /**
-    These are provided from the data model designer
-    and can be used to determine if the model is
-    a different version.
-    */
+
+    /// These are provided from the data model designer
+    /// and can be used to determine if the model is
+    /// a different version.
     static var modelVersionHash: String {
         return "<1b2022d4 1d237610 f72665c6 67dea8a1 a68750de df8625c3 d9495017 916e62c6>"
     }

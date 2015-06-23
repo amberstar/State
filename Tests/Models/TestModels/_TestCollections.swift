@@ -64,11 +64,10 @@ encoder.encode(TestCollections.version(TestCollections.modelVersionHash, modelVe
 }
 
 extension TestCollections {
-    /**
-    These are provided from the data model designer
-    and can be used to determine if the model is
-    a different version.
-    */
+
+    /// These are provided from the data model designer
+    /// and can be used to determine if the model is
+    /// a different version.
     static var modelVersionHash: String {
         return "<313ca880 7b444092 cef097e8 0b29feb7 e70ab4b5 3b7298dc 4debc39c 90801887>"
     }

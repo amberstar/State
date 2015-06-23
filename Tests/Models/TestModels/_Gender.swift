@@ -53,10 +53,10 @@ extension Gender: Encodable {
     public func encode(encoder: Encoder) {
 
         switch self {
-            case let .Female:
+            case  .Female:
                 encoder.encode("Female", forKey: "type")
                 encoder.encode(self.rawValue, forKey: "value")
-            case let .Male:
+            case  .Male:
                 encoder.encode("Male", forKey: "type")
                 encoder.encode(self.rawValue, forKey: "value")
 
@@ -66,11 +66,10 @@ extension Gender: Encodable {
 }
 
 extension Gender {
-    /**
-    These are provided from the data model designer
-    and can be used to determine if the model is
-    a different version.
-    */
+
+    /// These are provided from the data model designer
+    /// and can be used to determine if the model is
+    /// a different version.
     static var modelVersionHash: String {
         return "<ffba7348 838d3758 c6b41d57 ad7ea1b5 7c0a7ae4 0a9ead14 a727496b e503f5c2>"
     }

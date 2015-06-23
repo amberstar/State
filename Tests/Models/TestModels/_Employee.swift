@@ -60,11 +60,10 @@ encoder.encode(Employee.version(Employee.modelVersionHash, modelVersionHashModif
 }
 
 extension Employee {
-    /**
-    These are provided from the data model designer
-    and can be used to determine if the model is
-    a different version.
-    */
+
+    /// These are provided from the data model designer
+    /// and can be used to determine if the model is
+    /// a different version.
     static var modelVersionHash: String {
         return "<a7d3395e 2571c3cc f97901e5 26580a8c a813984e e25ffdd4 40813f22 16357528>"
     }

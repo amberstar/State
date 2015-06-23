@@ -96,11 +96,10 @@ encoder.encode(TestDefaults.version(TestDefaults.modelVersionHash, modelVersionH
 }
 
 extension TestDefaults {
-    /**
-    These are provided from the data model designer
-    and can be used to determine if the model is
-    a different version.
-    */
+
+    /// These are provided from the data model designer
+    /// and can be used to determine if the model is
+    /// a different version.
     static var modelVersionHash: String {
         return "<0e8e50ed 18d24253 6a725634 c5478e08 df6549ca 70f50d04 adec849b 3e79bdfc>"
     }
