@@ -1,10 +1,6 @@
-
-/*****************************************************************************
-Encoder:
-
-encode models to key value data
-
-******************************************************************************/
+public protocol Encodable {
+    func encode(encoder: Encoder)
+}
 
 public final class Encoder {
     internal private(set) var data = [String : AnyObject]()

@@ -18,10 +18,9 @@ bool success = Data.write(Encoder.encodeModel(myModel), <path>)
 
 public class Data  {
     
-    /**
-    write data to a file
-    - returns: true if succeeded, false if failed
-    */
+
+    /// write data to a file
+    /// - returns: true if succeeded, false if failed
     public static func write(data: [String : AnyObject]?, path: String) -> Bool {
         if let input = data {
             return fileFromObject(input, path: path)
@@ -30,51 +29,43 @@ public class Data  {
         }
     }
     
-    /**
-    write data to  NSData
-    - returns: NSData or nil if failed
-    */
+
+    /// write data to  NSData
+    /// - returns: NSData or nil if failed
     public class func write(data: [String : AnyObject]) -> NSData? {
         return dataFromObject(data, prettyPrint: false)
     }
     
-    /**
-    write data to String
-    - returns: a string or nil if failed
-    */
+    /// write data to String
+    /// - returns: a string or nil if failed
     public class func write(data: [String : AnyObject]) -> String? {
         return stringFromObject(data)
     }
     
-    /**
-    print data to standard output
-    */
+
+    /// print data to standard output
     public class func print(data: [String : AnyObject]) {
         if let string: String? = write(data) {
              Swift.print(string)
         } else  { debugPrint("Data: could not print") }
     }
     
-    /**
-    Read data from a file
-    - returns: a data object or nil
-    */
+
+    /// Read data from a file
+    /// - returns: a data object or nil
     public  class func read(path: String) -> [String : AnyObject]? {
         return objectFromFile(path)
     }
     
-    /**
-    Read data from NSData
-    - returns: a data object or nil
-    */
+
+    /// Read data from NSData
+    /// - returns: a data object or nil
     public class func read(data: NSData) -> [String : AnyObject]? {
         return objectFromData(data)
     }
     
-    /**
-    Read data from a URL
-    - returns: a data object or nil
-    */
+    /// Read data from a URL
+    /// - returns: a data object or nil
     public class func read(contentsOfURL aURL: NSURL) -> [String : AnyObject]? {
         if let data = NSData(contentsOfURL: aURL) {
             return objectFromData(data)
@@ -82,20 +73,14 @@ public class Data  {
         return nil
     }
     
-    /**
-    Read data from a string
-    - returns: a data object or nil
-    */
+    /// Read data from a string
+    /// - returns: a data object or nil
     public class func readString(string: String) -> [String : AnyObject]? {
         return objectFromString(string)
     }
     
-/************************************************************************************************
+// MARK: - INTERNAL METHODS
 
-///MARK: - INTERNAL METHODS
-
-************************************************************************************************/
-    
     class func fileFromObject(object: [String : AnyObject], path: String) -> Bool  {
         if let data = dataFromObject(object, prettyPrint: true) {
             return data.writeToFile(path, atomically: true )
