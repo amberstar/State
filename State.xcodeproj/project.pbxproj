@@ -213,7 +213,7 @@
 
 /* Begin PBXFileReference section */
 		04012A751AE12FA6006DAC19 /* State.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = State.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		04012A801AE12FA6006DAC19 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = Tests.xctest; path = StateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		04012A801AE12FA6006DAC19 /* StateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04012A861AE12FA6006DAC19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = Tests/Info.plist; sourceTree = "<group>"; };
 		04012AC51AE132AE006DAC19 /* BasicModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicModels.swift; path = Tests/Models/BasicModels.swift; sourceTree = "<group>"; };
 		04012AC61AE132AE006DAC19 /* ObjectModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ObjectModels.swift; path = Tests/Models/ObjectModels.swift; sourceTree = "<group>"; };
@@ -258,7 +258,7 @@
 		044F88C61AE6BC9B00FAB475 /* Decoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Decoder.swift; path = State/Decoder.swift; sourceTree = SOURCE_ROOT; };
 		044F88C81AE6BC9B00FAB475 /* Encoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Encoder.swift; path = State/Encoder.swift; sourceTree = SOURCE_ROOT; };
 		047B22CA1AF3DAAF003B7F39 /* State.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = State.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		047B22D41AF3DAAF003B7F39 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = Tests.xctest; path = StateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		047B22D41AF3DAAF003B7F39 /* StateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0485AA171AFE9B83008E89D6 /* _TestMigrationV1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestMigrationV1.swift; path = Tests/Models/TestModels/_TestMigrationV1.swift; sourceTree = "<group>"; };
 		0485AA181AFE9B83008E89D6 /* TestMigrationV1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestMigrationV1.swift; path = Tests/Models/TestModels/TestMigrationV1.swift; sourceTree = "<group>"; };
 		0485AA1E1AFE9BDE008E89D6 /* TestMigrationV2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestMigrationV2.swift; path = Tests/Models/TestModels/TestMigrationV2.swift; sourceTree = "<group>"; };
@@ -356,9 +356,9 @@
 			isa = PBXGroup;
 			children = (
 				04012A751AE12FA6006DAC19 /* State.framework */,
-				04012A801AE12FA6006DAC19 /* Tests.xctest */,
+				04012A801AE12FA6006DAC19 /* StateTests.xctest */,
 				047B22CA1AF3DAAF003B7F39 /* State.framework */,
-				047B22D41AF3DAAF003B7F39 /* Tests.xctest */,
+				047B22D41AF3DAAF003B7F39 /* StateTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -595,7 +595,7 @@
 			);
 			name = "Tests-iOS";
 			productName = SpotTests;
-			productReference = 04012A801AE12FA6006DAC19 /* Tests.xctest */;
+			productReference = 04012A801AE12FA6006DAC19 /* StateTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		047B22C91AF3DAAF003B7F39 /* State-OSX */ = {
@@ -632,7 +632,7 @@
 			);
 			name = "Tests-OSX";
 			productName = "Spot-OSXTests";
-			productReference = 047B22D41AF3DAAF003B7F39 /* Tests.xctest */;
+			productReference = 047B22D41AF3DAAF003B7F39 /* StateTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
