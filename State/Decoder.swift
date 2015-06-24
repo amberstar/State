@@ -29,7 +29,7 @@ extension Decodable {
     }
     
     public static func decodeFromBinaryFile(path: String) -> Self? {
-        return decodeFromFile(Data.self, path: path)
+        return decodeFromFile(Binary.self, path: path)
     }
 }
 

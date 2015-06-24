@@ -24,7 +24,7 @@ public extension Encodable {
     }
     
     func encodeToBinaryFile(path: String) {
-        self.encodeToFile(Data.self, path: path)
+        self.encodeToFile(Binary.self, path: path)
     }
     
 }

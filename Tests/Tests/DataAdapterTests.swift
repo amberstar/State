@@ -136,9 +136,9 @@ class DataAdapterTests: Test {
     
     func testReadingAndWritingData() {
         testDataWasReadCorrectly()
-        let testNSData: NSData? = Data.write(testData!)
+        let testNSData: NSData? = Binary.write(testData!)
         testData = nil
-        testNSData >>- Data.read >>- { self.testData = $0 }
+        testNSData >>- Binary.read >>- { self.testData = $0 }
         testDataWasReadCorrectly()
     }
     
@@ -177,11 +177,11 @@ class DataAdapterTests: Test {
         
     private func writeDataOutToTempFile() {
         let path = tempPathFor("temp.data")
-        testData >>- { Data.write($0, path: path) }
+        testData >>- { Binary.write($0, path: path) }
     }
     
     private func readDataFromTempFile() {
         let path = tempPathFor("temp.data")
-        path >>- { self.testData = Data.read($0) }
+        path >>- { self.testData = Binary.read($0) }
     }
 }

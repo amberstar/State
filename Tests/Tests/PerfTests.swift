@@ -55,7 +55,7 @@ class PerfTests: Test {
     
     func testTimeParsingBinaryPlist() {
         measureBlock {
-            var _ = Data.read(self.bundlePathFor("Big_data-bin", ofType: "plist")!)
+            var _ = Binary.read(self.bundlePathFor("Big_data-bin", ofType: "plist")!)
         }
     }
     
@@ -74,9 +74,9 @@ class PerfTests: Test {
     }
     
     func testTimeWritingBinaryPlist() {
-        let data = Data.read(self.bundlePathFor("Big_data-bin", ofType: "plist")!)
+        let data = Binary.read(self.bundlePathFor("Big_data-bin", ofType: "plist")!)
         measureBlock {
-            Data.write(data, path: tempPathFor("Big_data-bin.plist"))
+            Binary.write(data, path: tempPathFor("Big_data-bin.plist"))
         }
     }
 }
