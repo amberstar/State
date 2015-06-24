@@ -9,7 +9,6 @@ public protocol DataFormat {
     static func read(data: NSData) -> [String : AnyObject]?
     static func read(contentsOfURL aURL: NSURL) -> [String : AnyObject]?
     static func readString(string: String) -> [String : AnyObject]?
-    
 }
 
 extension DataFormat {

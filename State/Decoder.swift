@@ -111,3 +111,5 @@ public final class Decoder {
         return nil
     }
 }
+
+}
