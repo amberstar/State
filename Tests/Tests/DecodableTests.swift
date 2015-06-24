@@ -4,9 +4,9 @@ import State
 class DecodableTests: Test {
     
     func testDecodingDecodableFromJSON() {
-        let user: User? = Decoder.decodeModel(jsonData["t"])
-        let userNoEmail : User? = Decoder.decodeModel(jsonData["u"])
-        let users : UserTypes? = Decoder.decodeModel(jsonData)
+        let user = User.decode(jsonData["t"])
+        let userNoEmail  = User.decode(jsonData["u"])
+        let users = UserTypes.decode(jsonData)
         XCTAssert(user != nil)
         XCTAssert(user?.id == 10)
         XCTAssert(user?.name == "John Doe")
@@ -24,9 +24,9 @@ class DecodableTests: Test {
     }
     
     func testDecodingDecodableFromPlist() {
-        let user: User? = Decoder.decodeModel(plistData["User1"])
-        let userNoEmail : User? = Decoder.decodeModel(plistData["User2"])
-        let users : UserTypes? = Decoder.decodeModel(plistData["Users"])
+        let user = User.decode(plistData["User1"])
+        let userNoEmail = User.decode(plistData["User2"])
+        let users = UserTypes.decode(plistData["Users"])
         XCTAssert(user != nil)
         XCTAssert(user?.id == 10)
         XCTAssert(user?.name == "John Doe")
@@ -44,7 +44,7 @@ class DecodableTests: Test {
     }
     
     func testDecodingInvalidDecodableShouldFail() {
-        let user: User? = Decoder.decodeModel(jsonData["x"])
+        let user = User.decode(jsonData["x"])
         XCTAssert(user == nil)
     }
 }

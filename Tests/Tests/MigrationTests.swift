@@ -23,11 +23,11 @@ class MigrationTests: Test {
         JSON.write(Encoder.encodeModel(testVersion1), path: tempPathFor("version1.json"))
         
         // read in version 1, and migrate to version 2
-        let testVersion2 : TestMigrationV2! = Decoder.decodeModel(JSON.read(tempPathFor("version1.json")))
+        let testVersion2 = TestMigrationV2.decode(JSON.read(tempPathFor("version1.json")))
         
         // should now have a version 2 type (should have an age property that defaults to 10)
         
-        XCTAssert(testVersion2.age == 10)
+        XCTAssert(testVersion2?.age == 10)
     
     }
     

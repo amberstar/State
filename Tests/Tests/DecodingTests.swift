@@ -4,7 +4,7 @@ import State
 class DecodingTests: Test {
        
     func testDecodingBools() {
-        let bools: BasicTypes<Bool>? = Decoder.decodeModel(plistData["Bool"])
+        let bools = BasicTypes<Bool>.decode(plistData["Bool"])
         ///  Bools
         XCTAssert(bools != nil)
         XCTAssert(bools?.t == true)
@@ -27,7 +27,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingIntTypes() {
-        let ints: BasicTypes<Int>? = Decoder.decodeModel(plistData["Int"])
+        let ints = BasicTypes<Int>.decode(plistData["Int"])
         
         /// Ints
         XCTAssert(ints != nil)
@@ -51,7 +51,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingDoubles() {
-        let doubles: BasicTypes<Double>? = Decoder.decodeModel(plistData["Double"])
+        let doubles = BasicTypes<Double>.decode(plistData["Double"])
         
         /// Doubles
         XCTAssert(doubles != nil)
@@ -75,7 +75,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingFloats() {
-        let floats: BasicTypes<Float>? = Decoder.decodeModel(plistData["Float"])
+        let floats = BasicTypes<Float>.decode(plistData["Float"])
         
         /// Floats
         XCTAssert(floats != nil)
@@ -99,7 +99,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingStrings() {
-        let strings: StringTypes? = Decoder.decodeModel(plistData["String"])
+        let strings = StringTypes.decode(plistData["String"])
         
         /// Strings
         XCTAssert(strings != nil)
@@ -123,7 +123,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingAnyObjects() {
-        let objects: AnyObjectTypes? = Decoder.decodeModel(plistData["Object"])
+        let objects = AnyObjectTypes.decode(plistData["Object"])
         
         /// AnyObjects
         XCTAssert(objects != nil)

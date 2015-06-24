@@ -4,7 +4,7 @@ import State
 class EncodableTests: Test {
     
     func testEcodingToAndFromJSON() {
-        let inUsers: UserTypes? = Decoder.decodeModel(jsonData)
+        let inUsers =  UserTypes.decode(jsonData)
         if let inUsers = inUsers {
             JSON.write(Encoder.encodeModel(inUsers), path: tempPathFor("temp.json"))
         }

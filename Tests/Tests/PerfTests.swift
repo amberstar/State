@@ -26,10 +26,9 @@ class PerfTests: Test {
     
     func testTimeEncodingLargeDataSet() {
         let player = self.generateModelOfSize(500, y:10 )
-        var data = [String : AnyObject]()
         
         measureBlock() {
-            data = Encoder.encodeModel(player)
+            Encoder.encodeModel(player)
         }
     }
     
@@ -38,7 +37,7 @@ class PerfTests: Test {
         let data = [String : AnyObject]()
         
         measureBlock {
-            var _: Player?  = Decoder.decodeModel(data)
+            var _ =  Player.decode(data)
         }
     }
     

@@ -9,7 +9,7 @@ base class for all data services. (see JSON, and Plist)
 Example:
 
 // read and decode model object
-let myModel: MyType? = Decoder.decodeModel(Data.read(<path>))
+let myModel = MyType.decode(Data.read(<path>))
 
 // encode model object and write to file
 bool success = Data.write(Encoder.encodeModel(myModel), <path>)

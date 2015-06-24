@@ -7,7 +7,7 @@ class EnumTests: Test {
     func testRawEnum() {
         let test_out = TestRawEnum.Ready
         Plist.write(Encoder.encodeModel(test_out), path: tempPathFor("test_raw_enum.plist"))
-        let sut: TestRawEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_raw_enum.plist")))
+        let sut = TestRawEnum.decode(Plist.read(tempPathFor("test_raw_enum.plist")))
         XCTAssert(sut != nil)
         XCTAssert(sut == TestRawEnum.Ready)
     }
@@ -15,7 +15,7 @@ class EnumTests: Test {
     func testRegEnum() {
         let test_out = TestRegEnum.Cold
         Plist.write(Encoder.encodeModel(test_out), path: tempPathFor("test_reg_enum.plist"))
-        let sut: TestRegEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_reg_enum.plist")))
+        let sut = TestRegEnum.decode(Plist.read(tempPathFor("test_reg_enum.plist")))
         XCTAssert(sut != nil)
         XCTAssert(sut == TestRegEnum.Cold)
     }
@@ -31,7 +31,7 @@ class EnumTests: Test {
         
         func performTestFor(testEnum: TestAssociatedEnum, message: String) {
             Data.write(Encoder.encodeModel(testEnum), path: tempPathFor("test_associated_enum.plist"))
-            let sut: TestAssociatedEnum? = Decoder.decodeModel(Data.read(tempPathFor("test_associated_enum.plist")))
+            let sut = TestAssociatedEnum.decode(Data.read(tempPathFor("test_associated_enum.plist")))
             XCTAssert(sut != nil)
             if let sut = sut {
                 switch sut {
@@ -77,7 +77,7 @@ class EnumTests: Test {
         let employees = [employee, employee, employee]
         let test_out = TestAssociatedEnum.DecodableToManyType(employees)
         Plist.write(Encoder.encodeModel(test_out), path: tempPathFor("test_associated_tomany_enum.plist"))
-        let sut: TestAssociatedEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_associated_tomany_enum.plist")))
+        let sut = TestAssociatedEnum.decode(Plist.read(tempPathFor("test_associated_tomany_enum.plist")))
         XCTAssert(sut != nil)
         
         switch sut! {
@@ -93,7 +93,7 @@ class EnumTests: Test {
         let employee = Employee(name: "Joe", title: "Manager")
         let test_out = TestAssociatedEnum.DecodableToOneType(employee)
         Plist.write(Encoder.encodeModel(test_out), path: tempPathFor("test_associated_toone_enum.plist"))
-        let sut: TestAssociatedEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_associated_toone_enum.plist")))
+        let sut = TestAssociatedEnum.decode(Plist.read(tempPathFor("test_associated_toone_enum.plist")))
         XCTAssert(sut != nil)
         
         switch sut! {
@@ -115,7 +115,7 @@ class EnumTests: Test {
         
         func performTestFor(testEnum: TestAssociatedOptionalEnum, message: String) {
             Data.write(Encoder.encodeModel(testEnum), path: tempPathFor("test_associated_optional_enum.plist"))
-            let sut: TestAssociatedOptionalEnum? = Decoder.decodeModel(Data.read(tempPathFor("test_associated_optional_enum.plist")))
+            let sut = TestAssociatedOptionalEnum.decode(Data.read(tempPathFor("test_associated_optional_enum.plist")))
             XCTAssert(sut != nil, "system under test is nil")
             if let sut = sut {
                 switch sut {
@@ -160,7 +160,7 @@ class EnumTests: Test {
         let employees = [employee, employee, employee]
         let test_out = TestAssociatedOptionalEnum.DecodableToManyType(employees)
         Plist.write(Encoder.encodeModel(test_out), path: tempPathFor("test_associated_optional_tomany_enum.plist"))
-        let sut: TestAssociatedOptionalEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_associated_optional_tomany_enum.plist")))
+        let sut = TestAssociatedOptionalEnum.decode(Plist.read(tempPathFor("test_associated_optional_tomany_enum.plist")))
         XCTAssert(sut != nil)
         
         switch sut! {
@@ -176,7 +176,7 @@ class EnumTests: Test {
         let employee = Employee(name: "Joe", title: "Manager")
         let test_out = TestAssociatedOptionalEnum.DecodableToOneType(employee)
         Plist.write(Encoder.encodeModel(test_out), path: tempPathFor("test_associated_optional_toone_enum.plist"))
-        let sut: TestAssociatedOptionalEnum? = Decoder.decodeModel(Plist.read(tempPathFor("test_associated_optional_toone_enum.plist")))
+        let sut = TestAssociatedOptionalEnum.decode(Plist.read(tempPathFor("test_associated_optional_toone_enum.plist")))
         XCTAssert(sut != nil)
         
         switch sut! {
@@ -186,8 +186,4 @@ class EnumTests: Test {
             XCTFail()
         }
     }
-
-
-
-
 }

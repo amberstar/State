@@ -1,11 +1,28 @@
 
+/// A model type that can be decoded from other data types
 public protocol Decodable {
     init?(decoder: Decoder)
 }
 
+
+extension Decodable {
+    public static func decode(data: [String : AnyObject]) -> Self? {
+        let decoder = Decoder(data: data)
+        return Self.init(decoder: decoder)
+    }
+    
+    public static func decode(data: AnyObject?) -> Self? {
+        if let data = data as? [String : AnyObject] {
+            return Self.decode(data)
+        }
+        return nil 
+    }
+}
+
+///decodes decodable types from
+/// key value dictionaries.
 public final class Decoder {
     private var data = [String : AnyObject]()
-    
     
     /// decode a decodable element from a dictionary
     /// - parameter data: a dictionary to use for decoding

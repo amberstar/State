@@ -142,13 +142,13 @@ Plist.write(Encoder.encodeModel(issues), path: documentPathFor("issues.plist"))
 
 ```swift
 // Read JSON and decode model
-let loadedIssues: Issues? = Decoder.decodeModel(JSON.read(documentPathFor("issues.json")))
+let loadedIssues =  Issues.decode(JSON.read(documentPathFor("issues.json")))
 
 // Read binary Plist and decode model
-let loadedIssues: Issues? = Decoder.decodeModel(Data.read(documentPathFor("issues.plist")))
+let loadedIssues = Issues.decode(Data.read(documentPathFor("issues.plist")))
 
 // Read XML Plist and decode model
-let loadedIssues: Issues? = Decoder.decodeModel(Plist.read(documentPathFor("issues.plist")))
+let loadedIssues = Issues.decode(Plist.read(documentPathFor("issues.plist")))
 ```
 
 

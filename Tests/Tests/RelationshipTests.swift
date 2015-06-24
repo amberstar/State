@@ -34,7 +34,7 @@ class RelationshipTests: Test {
         let grandChildren = makeGrandChildren(children)
         let sampleData = TestRelationships(myChildren: children, myGrandChildren: grandChildren, myOneChild: TestChild(age: 22, name: "Mark", gender: Gender.Male, myChildren: nil))
         JSON.write(Encoder.encodeModel(sampleData), path: tempPathFor("relationship.json"))
-        let testData : TestRelationships? = Decoder.decodeModel(JSON.read(tempPathFor("relationship.json")))
+        let testData = TestRelationships.decode(JSON.read(tempPathFor("relationship.json")))
         
         XCTAssert(testData != nil)
         XCTAssert(testData?.myChildren?.count == sampleData.myChildren?.count)
