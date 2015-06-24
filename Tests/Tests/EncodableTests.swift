@@ -6,9 +6,9 @@ class EncodableTests: Test {
     func testEcodingToAndFromJSON() {
         let inUsers =  UserTypes.decode(jsonData)
         if let inUsers = inUsers {
-            JSON.write(Encoder.encodeModel(inUsers), path: tempPathFor("temp.json"))
+            inUsers.encodeToJSONFile(tempPathFor("temp.json"))
         }
-        let users: UserTypes? = Decoder.decodeModel(JSON.read(tempPathFor("temp.json")))
+        let users =  UserTypes.decodeFromJSONFile(tempPathFor("temp.json"))
         XCTAssert(users != nil)
         XCTAssert(users?.tArr.count == 3)
         XCTAssert(users?.tImp.name == "John Doe")
@@ -18,11 +18,11 @@ class EncodableTests: Test {
     }
 
     func testEcodingToAndFromPlist() {
-        let inUsers : UserTypes? = Decoder.decodeModel(plistData["Users"])
+        let inUsers = UserTypes.decode(plistData["Users"])
         if let inUsers = inUsers {
-            Plist.write(Encoder.encodeModel(inUsers), path: tempPathFor("temp.plist"))
+            inUsers.encodeToPlistFile(tempPathFor("temp.plist"))
         }
-        let users: UserTypes? = Decoder.decodeModel(Plist.read(tempPathFor("temp.plist")))
+        let users =  UserTypes.decodeFromPlistFile(tempPathFor("temp.plist"))
         XCTAssert(users != nil)
         XCTAssert(users?.tArr.count == 3)
         XCTAssert(users?.tImp.name == "John Doe")

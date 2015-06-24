@@ -4,8 +4,8 @@ import State
 class EncodingTests: Test {
         func testEncodingBools() {
         let bools_in = BasicTypes<Bool>.decode(plistData["Bool"])
-        let bools_data = Encoder.encodeModel(bools_in!)
-        let bools: BasicTypes<Bool>? = Decoder.decodeModel(bools_data)
+        let bools_data = bools_in!.encode()
+        let bools = BasicTypes<Bool>.decode(bools_data)
         
         /// Bools
         XCTAssert(bools != nil)
@@ -30,8 +30,8 @@ class EncodingTests: Test {
     
     func testEncodingInts() {
         let ints_in =  BasicTypes<Int>.decode(plistData["Int"])
-        let ints_data = Encoder.encodeModel(ints_in!)
-        let ints: BasicTypes<Int>? = Decoder.decodeModel(ints_data)
+        let ints_data = ints_in!.encode()
+        let ints =  BasicTypes<Int>.decode(ints_data)
         
         /// Ints
         XCTAssert(ints != nil)
@@ -56,7 +56,7 @@ class EncodingTests: Test {
 
     func testEncodingDoubles() {
         let doubles_in = BasicTypes<Double>.decode(plistData["Double"])
-        let doubles_data = Encoder.encodeModel(doubles_in!)
+        let doubles_data = doubles_in!.encode()
         let doubles =  BasicTypes<Double>.decode(doubles_data)
 
         /// Doubles
@@ -82,7 +82,7 @@ class EncodingTests: Test {
     
     func testEncodingFloats() {
         let floats_in =  BasicTypes<Float>.decode(plistData["Float"])
-        let floats_data = Encoder.encodeModel(floats_in!)
+        let floats_data = floats_in!.encode()
         let floats = BasicTypes<Float>.decode(floats_data)
         
         /// Floats
@@ -108,7 +108,7 @@ class EncodingTests: Test {
     
     func testEncodingStringTypes() {
         let strings_in = StringTypes.decode(plistData["String"])
-        let strings_data = Encoder.encodeModel(strings_in!)
+        let strings_data = strings_in!.encode()
         let strings = StringTypes.decode(strings_data)
         
         /// Strings
@@ -134,7 +134,7 @@ class EncodingTests: Test {
 
     func testEncodingAnyObjectTypes() {
         let objects_in = AnyObjectTypes.decode(plistData["Object"])
-        let objects_data = Encoder.encodeModel(objects_in!)
+        let objects_data = objects_in!.encode()
         let objects = AnyObjectTypes.decode(objects_data)
     
         /// AnyObjects

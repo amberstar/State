@@ -1,9 +1,7 @@
 
-/// A model type that can be decoded from other data types
 public protocol Decodable {
     init?(decoder: Decoder)
 }
-
 
 extension Decodable {
     public static func decode(data: [String : AnyObject]) -> Self? {
@@ -17,37 +15,26 @@ extension Decodable {
         }
         return nil 
     }
+    
+    public static func decodeFromFile(format: DataFormat.Type, path: String) -> Self? {
+        return decode(format.read(path))
+    }
+    
+    public static func decodeFromJSONFile(path: String) -> Self? {
+        return decodeFromFile(JSON.self, path: path)
+    }
+    
+    public static func decodeFromPlistFile(path: String) -> Self? {
+        return decodeFromFile(Plist.self, path: path)
+    }
+    
+    public static func decodeFromBinaryFile(path: String) -> Self? {
+        return decodeFromFile(Data.self, path: path)
+    }
 }
 
-///decodes decodable types from
-/// key value dictionaries.
 public final class Decoder {
     private var data = [String : AnyObject]()
-    
-    /// decode a decodable element from a dictionary
-    /// - parameter data: a dictionary to use for decoding
-    /// - returns: returns a decodable of type T or nil if decoding failed
-    public class func decodeModel<T: Decodable>(data:[String : AnyObject]) -> T? {
-        let decoder = Decoder(data: data)
-        return T(decoder: decoder)
-        //return T.decode(decoder)
-    }
-    
-    /// decode a decodable element from AnyObject?
-    /// will cast data to a dictionary and call decode(data: [String : AnyObject])
-    /// - parameter data: must be cast-able to a Dictionary<String, AnyObject>
-    /// - returns: returns a decodable of type T or nil if decoding failed
-    public class func decodeModel<T:Decodable>(data: AnyObject?) -> T? {
-        switch data {
-        case let .Some(d):
-            if let ud = d as? [String : AnyObject] {
-                return self.decodeModel(ud)
-            }
-            return nil
-        default:
-            return nil
-        }
-    }
     
     /// initialize a new decoder with data
     /// - parameter data: a dictionary to use for decoding

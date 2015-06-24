@@ -369,7 +369,7 @@
 				044F88C61AE6BC9B00FAB475 /* Decoder.swift */,
 				044F88C81AE6BC9B00FAB475 /* Encoder.swift */,
 				04AC92031B39D98C00F881B1 /* Library.swift */,
-				04AC920F1B39DE6800F881B1 /* DataAdapters */,
+				04AC920F1B39DE6800F881B1 /* DataFormats */,
 				04012AB41AE130C2006DAC19 /* Transforms */,
 				04012AAF1AE130B7006DAC19 /* Templates */,
 				04012A781AE12FA6006DAC19 /* Supporting Files */,
@@ -511,14 +511,14 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-		04AC920F1B39DE6800F881B1 /* DataAdapters */ = {
+		04AC920F1B39DE6800F881B1 /* DataFormats */ = {
 			isa = PBXGroup;
 			children = (
 				04AC92061B39DD2000F881B1 /* Data.swift */,
 				04AC92081B39DD2000F881B1 /* Plist.swift */,
 				04AC92071B39DD2000F881B1 /* JSON.swift */,
 			);
-			name = DataAdapters;
+			name = DataFormats;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

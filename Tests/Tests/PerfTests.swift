@@ -28,7 +28,7 @@ class PerfTests: Test {
         let player = self.generateModelOfSize(500, y:10 )
         
         measureBlock() {
-            Encoder.encodeModel(player)
+           player.encode()
         }
     }
     

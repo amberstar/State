@@ -1,27 +1,35 @@
 import Foundation
-/*******************************************************************************
-Data:
 
-binary plist serialization
 
-base class for all data services. (see JSON, and Plist)
+public protocol DataFormat {
+    static func write(data: [String : AnyObject]?, path: String) -> Bool
+    static func write(data: [String : AnyObject]) -> NSData?
+    static func write(data: [String : AnyObject]) -> String?
+    static func read(path: String) -> [String : AnyObject]?
+    static func read(data: NSData) -> [String : AnyObject]?
+    static func read(contentsOfURL aURL: NSURL) -> [String : AnyObject]?
+    static func readString(string: String) -> [String : AnyObject]?
+    
+}
 
-Example:
+ extension DataFormat {
+    
+    /// print data to standard output
+    static func inspect(data: [String : AnyObject]) {
+        if let string: String? = write(data) {
+            print(string)
+        } else  { debugPrint("Data: could not print") }
+    }
+}
 
-// read and decode model object
-let myModel = MyType.decode(Data.read(<path>))
-
-// encode model object and write to file
-bool success = Data.write(Encoder.encodeModel(myModel), <path>)
-
-******************************************************************************/
-
-public class Data  {
+/// base class for all data services. (see JSON, and Plist)
+/// provides binary plist format
+public class Data: DataFormat {
     
 
     /// write data to a file
     /// - returns: true if succeeded, false if failed
-    public static func write(data: [String : AnyObject]?, path: String) -> Bool {
+    public class func write(data: [String : AnyObject]?, path: String) -> Bool {
         if let input = data {
             return fileFromObject(input, path: path)
         } else {
@@ -29,7 +37,6 @@ public class Data  {
         }
     }
     
-
     /// write data to  NSData
     /// - returns: NSData or nil if failed
     public class func write(data: [String : AnyObject]) -> NSData? {
@@ -40,14 +47,6 @@ public class Data  {
     /// - returns: a string or nil if failed
     public class func write(data: [String : AnyObject]) -> String? {
         return stringFromObject(data)
-    }
-    
-
-    /// print data to standard output
-    public class func print(data: [String : AnyObject]) {
-        if let string: String? = write(data) {
-             Swift.print(string)
-        } else  { debugPrint("Data: could not print") }
     }
     
 

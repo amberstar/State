@@ -1,63 +1,50 @@
 
 public protocol Encodable {
-    func encode(encoder: Encoder)
+    func encode(data: Encoder)
+}
+
+public extension Encodable {
+    
+    func encode() -> [String : AnyObject] {
+        let coder = Encoder()
+        self.encode(coder)
+        return coder.data
+    }
+    
+    func encodeToFile(format: DataFormat.Type, path: String) {
+        format.write(self.encode(), path: path)
+    }
+    
+    func encodeToJSONFile(path: String) {
+        self.encodeToFile(JSON.self, path: path)
+    }
+    
+    func encodeToPlistFile(path: String) {
+        self.encodeToFile(Plist.self, path: path)
+    }
+    
+    func encodeToBinaryFile(path: String) {
+        self.encodeToFile(Data.self, path: path)
+    }
+    
 }
 
 public final class Encoder {
     internal private(set) var data = [String : AnyObject]()
     
-    /// Encode model to a dictionary
-    public class func encodeModel<T: Encodable>(element: T) -> [String : AnyObject] {
-        let coder = Encoder()
-        element.encode(coder)
-        return coder.data
-    }
-    
-    public func encode<T: Encodable>(element: T?)(forKey key: String) {
-        if let e = element {
-            data[key] = Encoder.encodeModel(e)
-        }
-    }
-    
     public func encode<T: Encodable>(element: T?, forKey key: String) {
-        if let e = element {
-            data[key] = Encoder.encodeModel(e)
-        }
-    }
-    
-    public func encode<T: Encodable>(element: [T]?)(forKey key: String) {
-        if let e = element {
-            data[key] = e.map{ Encoder.encodeModel($0) }
-        }
+        element.flatMap { self.data[key] = $0.encode() }
     }
     
     public  func encode<T: Encodable>(element: [T]?, forKey key: String) {
-        if let e = element {
-            data[key] = e.map{ Encoder.encodeModel($0) }
-        }
+           element.flatMap { self.data[key] = $0.map { $0.encode() } }
     }
-    
-    public func encode<T: Encodable>(element: [String : T]?)(forKey key: String) {
-        if let e = element {
-            data[key] = e.map{ Encoder.encodeModel($0) }
-        }
-    }
-    
+ 
     public func encode<T: Encodable>(element: [String : T]?, forKey key: String) {
-        if let e = element {
-            data[key] = e.map{ Encoder.encodeModel($0) }
-        }
-    }
-    
-    public func encode<V>(element: V?)(forKey key: String) {
-        if let _ = element {
-            data[key] = element as? AnyObject
-        }
+        element.flatMap { self.data[key] = $0.map { $0.encode() } }
     }
     
     public func encode<V>(element: V?, forKey key: String) {
-        if let _ = element {
-            data[key] = element as? AnyObject
-        }
+        element.flatMap{ self.data[key] = $0 as? AnyObject }
     }
 }
