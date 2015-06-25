@@ -1,21 +1,15 @@
-#State Documentation
+#State Model Framework Documentation:
+
+
+###Contents:
+- [Getting Started] ()
+- [Model Design Reference](Reference.md)
+- [Enum Design Guide](Enums.md)
+- [How to Setup a target in your project to automatically generate your models](Setup.md)
+- [Version and Migration Management](Versioning.md)
 
 
 
-#### A model framework for swift struct based models.
-State is a swift model framework that uses structs. You design models using [Xcode's Core Data model design tool](https://developer.apple.com/library/ios/recipes/xcode_help-core_data_modeling_tool/Articles/about_cd_modeling_tool.html#//apple_ref/doc/uid/TP40010379-CH3-SW1). Model code is  generated automatically using [Mogenerator](https://github.com/rentzsch/mogenerator) and provides serialization to and from Plists, XML Plists, or JSON.
-
-                                                                                                                                                                                                                                                      
-####Key Features: 
-
-
-- Design model structs and enums in the Xcode model designer
-- model code automatically generated
-- use immutable, optional, and non-optional properties 
-- serialize/deserialize to and from Plists and JSON 
-- model versioning and migration management
-- make fast changes and additions to the model layer
-- no heavy subclassing required
 
 ##Getting Started
 The process of creating models is:
