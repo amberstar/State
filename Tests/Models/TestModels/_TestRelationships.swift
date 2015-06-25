@@ -52,12 +52,12 @@ extension TestRelationships : Decodable {
 extension TestRelationships : Encodable {
 
     public func encode(encoder: Encoder) {
-        encoder.encode(self.myChildren, forKey: "myChildren")
-        encoder.encode(self.myGrandChildren, forKey: "myGrandChildren")
-        encoder.encode(self.myOneChild, forKey: "myOneChild")
+        encoder.encode(myChildren, "myChildren")
+        encoder.encode(myGrandChildren, "myGrandChildren")
+        encoder.encode(myOneChild, "myOneChild")
 
         if TestRelationships.shouldEncodeVersion {
-encoder.encode(TestRelationships.version(TestRelationships.modelVersionHash, modelVersionHashModifier: TestRelationships.modelVersionHashModifier), forKey:TestRelationships.versionKey)
+encoder.encode(TestRelationships.version(TestRelationships.modelVersionHash, modelVersionHashModifier: TestRelationships.modelVersionHashModifier), TestRelationships.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

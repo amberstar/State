@@ -54,11 +54,11 @@ extension Gender: Encodable {
 
         switch self {
             case  .Female:
-                encoder.encode("Female", forKey: "type")
-                encoder.encode(self.rawValue, forKey: "value")
+                encoder.encode("Female", "type")
+                encoder.encode(self.rawValue, "value")
             case  .Male:
-                encoder.encode("Male", forKey: "type")
-                encoder.encode(self.rawValue, forKey: "value")
+                encoder.encode("Male", "type")
+                encoder.encode(self.rawValue, "value")
 
         }
          self.willFinishEncodingWithEncoder(encoder)

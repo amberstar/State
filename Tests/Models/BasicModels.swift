@@ -59,15 +59,15 @@ extension BasicTypes : Decodable {
 extension BasicTypes : Encodable {
     
     func encode(encoder: Encoder){
-        encoder.encode(self.t, forKey:"t")
-        encoder.encode(self.tOpt, forKey:"t_opt")
-        encoder.encode(self.tImp, forKey:"t_imp")
-        encoder.encode(self.tArr, forKey:"t_arr")
-        encoder.encode(self.tArrOpt, forKey:"t_arr_opt")
-        encoder.encode(self.tArrImp, forKey:"t_arr_imp")
-        encoder.encode(self.tDic, forKey:"t_dic")
-        encoder.encode(self.tDicOpt, forKey:"t_dic_opt")
-        encoder.encode (self.tDictImp, forKey:"t_dic_imp")
+        encoder.encode(t, "t")
+        encoder.encode(tOpt, "t_opt")
+        encoder.encode(tImp, "t_imp")
+        encoder.encode(tArr, "t_arr")
+        encoder.encode(tArrOpt, "t_arr_opt")
+        encoder.encode(tArrImp, "t_arr_imp")
+        encoder.encode(tDic, "t_dic")
+        encoder.encode(tDicOpt, "t_dic_opt")
+        encoder.encode(tDictImp, "t_dic_imp")
     }
 }
 
@@ -130,15 +130,15 @@ extension StringTypes : Decodable {
 extension StringTypes : Encodable {
     
     func encode(encoder: Encoder){
-        encoder.encode(self.t, forKey:"t")
-        encoder.encode(self.tOpt, forKey:"t_opt")
-        encoder.encode(self.tImp, forKey:"t_imp")
-        encoder.encode(self.tArr, forKey:"t_arr")
-        encoder.encode(self.tArrOpt, forKey:"t_arr_opt")
-        encoder.encode(self.tArrImp, forKey:"t_arr_imp")
-        encoder.encode(self.tDic, forKey:"t_dic")
-        encoder.encode(self.tDicOpt, forKey:"t_dic_opt")
-        encoder.encode(self.tDictImp, forKey:"t_dic_imp")
+        encoder.encode(t, "t")
+        encoder.encode(tOpt, "t_opt")
+        encoder.encode(tImp, "t_imp")
+        encoder.encode(tArr, "t_arr")
+        encoder.encode(tArrOpt, "t_arr_opt")
+        encoder.encode(tArrImp, "t_arr_imp")
+        encoder.encode(tDic, "t_dic")
+        encoder.encode(tDicOpt, "t_dic_opt")
+        encoder.encode(tDictImp, "t_dic_imp")
     }
 }
 
@@ -201,14 +201,14 @@ extension AnyObjectTypes : Decodable {
 extension AnyObjectTypes : Encodable {
     
     func encode(encoder: Encoder){
-        encoder.encode(self.t, forKey:"t")
-        encoder.encode(self.tOpt, forKey:"t_opt")
-        encoder.encode(self.tImp, forKey:"t_imp")
-        encoder.encode(self.tArr, forKey:"t_arr")
-        encoder.encode(self.tArrOpt, forKey:"t_arr_opt")
-        encoder.encode(self.tArrImp, forKey:"t_arr_imp")
-        encoder.encode(self.tDic, forKey:"t_dic")
-        encoder.encode(self.tDicOpt, forKey:"t_dic_opt")
-        encoder.encode(self.tDictImp, forKey:"t_dic_imp")
+        encoder.encode(t, "t")
+        encoder.encode(tOpt, "t_opt")
+        encoder.encode(tImp, "t_imp")
+        encoder.encode(tArr, "t_arr")
+        encoder.encode(tArrOpt, "t_arr_opt")
+        encoder.encode(tArrImp, "t_arr_imp")
+        encoder.encode(tDic, "t_dic")
+        encoder.encode(tDicOpt,"t_dic_opt")
+        encoder.encode(tDictImp, "t_dic_imp")
     }
 }

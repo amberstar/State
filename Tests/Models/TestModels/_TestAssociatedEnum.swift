@@ -96,38 +96,38 @@ extension TestAssociatedEnum: Encodable {
 
         switch self {
             case let .BinaryType(value):
-                encoder.encode("BinaryType", forKey: "type")
-                encoder.encode(value, forKey: "value")
+                encoder.encode("BinaryType", "type")
+                encoder.encode(value, "value")
             case let .BooleanType(value):
-                encoder.encode("BooleanType", forKey: "type")
-                encoder.encode(value, forKey: "value")
+                encoder.encode("BooleanType", "type")
+                encoder.encode(value, "value")
             case let .DateType(value):
-                encoder.encode("DateType", forKey: "type")
-                encoder.encode(value, forKey: "value")
+                encoder.encode("DateType", "type")
+                encoder.encode(value, "value")
             case let .DecimalType(value):
-                encoder.encode("DecimalType", forKey: "type")
-                encoder.encode(value, forKey: "value")
+                encoder.encode("DecimalType", "type")
+                encoder.encode(value, "value")
             case let .DoubleType(value):
-                encoder.encode("DoubleType", forKey: "type")
-                encoder.encode(value, forKey: "value")
+                encoder.encode("DoubleType", "type")
+                encoder.encode(value, "value")
             case let .FloatType(value):
-                encoder.encode("FloatType", forKey: "type")
-                encoder.encode(value, forKey: "value")
+                encoder.encode("FloatType", "type")
+                encoder.encode(value, "value")
             case let .IntType(value):
-                encoder.encode("IntType", forKey: "type")
-                encoder.encode(value, forKey: "value")
+                encoder.encode("IntType", "type")
+                encoder.encode(value, "value")
             case let .StringType(value):
-                encoder.encode("StringType", forKey: "type")
-                encoder.encode(value, forKey: "value")
+                encoder.encode("StringType", "type")
+                encoder.encode(value, "value")
             case let .TransformableColorType(value):
-                encoder.encode("TransformableColorType", forKey: "type")
-                encoder.encode(value >>> UIColorTransform.transform, forKey: "value")
+                encoder.encode("TransformableColorType", "type")
+                encoder.encode(value >>> UIColorTransform.transform, "value")
             case let .DecodableToManyType(value):
-                encoder.encode("DecodableToManyType", forKey: "type")
-                encoder.encode(value, forKey: "value")
+                encoder.encode("DecodableToManyType", "type")
+                encoder.encode(value, "value")
             case let .DecodableToOneType(value):
-                encoder.encode("DecodableToOneType", forKey: "type")
-                encoder.encode(value, forKey: "value")
+                encoder.encode("DecodableToOneType", "type")
+                encoder.encode(value, "value")
 
         }
          self.willFinishEncodingWithEncoder(encoder)

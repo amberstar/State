@@ -52,12 +52,12 @@ extension Grandchild : Decodable {
 extension Grandchild : Encodable {
 
     public func encode(encoder: Encoder) {
-        encoder.encode(self.age, forKey: "age")
-        encoder.encode(self.name, forKey: "name")
-        encoder.encode(self.gender, forKey: "gender")
+        encoder.encode(age, "age")
+        encoder.encode(name, "name")
+        encoder.encode(gender, "gender")
 
         if Grandchild.shouldEncodeVersion {
-encoder.encode(Grandchild.version(Grandchild.modelVersionHash, modelVersionHashModifier: Grandchild.modelVersionHashModifier), forKey:Grandchild.versionKey)
+encoder.encode(Grandchild.version(Grandchild.modelVersionHash, modelVersionHashModifier: Grandchild.modelVersionHashModifier), Grandchild.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

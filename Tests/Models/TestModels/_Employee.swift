@@ -49,11 +49,11 @@ extension Employee : Decodable {
 extension Employee : Encodable {
 
     public func encode(encoder: Encoder) {
-        encoder.encode(self.name, forKey: "name")
-        encoder.encode(self.title, forKey: "title")
+        encoder.encode(name, "name")
+        encoder.encode(title, "title")
 
         if Employee.shouldEncodeVersion {
-encoder.encode(Employee.version(Employee.modelVersionHash, modelVersionHashModifier: Employee.modelVersionHashModifier), forKey:Employee.versionKey)
+encoder.encode(Employee.version(Employee.modelVersionHash, modelVersionHashModifier: Employee.modelVersionHashModifier), Employee.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

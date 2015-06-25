@@ -50,11 +50,11 @@ extension TestTransient3 : Decodable {
 extension TestTransient3 : Encodable {
 
     public func encode(encoder: Encoder) {
-        encoder.encode(self.myNonTransient1, forKey: "myNonTransient1")
-        encoder.encode(self.myNonTransient2, forKey: "myNonTransient2")
+        encoder.encode(myNonTransient1, "myNonTransient1")
+        encoder.encode(myNonTransient2, "myNonTransient2")
 
         if TestTransient3.shouldEncodeVersion {
-encoder.encode(TestTransient3.version(TestTransient3.modelVersionHash, modelVersionHashModifier: TestTransient3.modelVersionHashModifier), forKey:TestTransient3.versionKey)
+encoder.encode(TestTransient3.version(TestTransient3.modelVersionHash, modelVersionHashModifier: TestTransient3.modelVersionHashModifier), TestTransient3.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

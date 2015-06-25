@@ -1,4 +1,6 @@
-#State
+#State Documentation
+
+
 
 #### A model framework for swift struct based models.
 State is a swift model framework that uses structs. You design models using [Xcode's Core Data model design tool](https://developer.apple.com/library/ios/recipes/xcode_help-core_data_modeling_tool/Articles/about_cd_modeling_tool.html#//apple_ref/doc/uid/TP40010379-CH3-SW1). Model code is  generated automatically using [Mogenerator](https://github.com/rentzsch/mogenerator) and provides serialization to and from Plists, XML Plists, or JSON.

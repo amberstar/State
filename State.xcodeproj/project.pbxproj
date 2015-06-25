@@ -308,6 +308,7 @@
 		96604DDC1B3B3A33009AC33A /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		96604DDD1B3B3A33009AC33A /* Plist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plist.swift; sourceTree = "<group>"; };
 		96604DE41B3B3A5A009AC33A /* DataFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataFormat.swift; sourceTree = "<group>"; };
+		96CE6B7B1B3BFDEC00D632BF /* Docs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Docs; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -349,6 +350,7 @@
 			children = (
 				04C1B93E1AE93DA100A85730 /* LICENSE */,
 				04C1B93D1AE93D9800A85730 /* README.md */,
+				96CE6B7B1B3BFDEC00D632BF /* Docs */,
 				04012A771AE12FA6006DAC19 /* State */,
 				04012A841AE12FA6006DAC19 /* Tests */,
 				04012A761AE12FA6006DAC19 /* Products */,

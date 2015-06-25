@@ -49,11 +49,11 @@ extension TestMigrationV2 : Decodable {
 extension TestMigrationV2 : Encodable {
 
     public func encode(encoder: Encoder) {
-        encoder.encode(self.age, forKey: "age")
-        encoder.encode(self.name, forKey: "name")
+        encoder.encode(age, "age")
+        encoder.encode(name, "name")
 
         if TestMigrationV2.shouldEncodeVersion {
-encoder.encode(TestMigrationV2.version(TestMigrationV2.modelVersionHash, modelVersionHashModifier: TestMigrationV2.modelVersionHashModifier), forKey:TestMigrationV2.versionKey)
+encoder.encode(TestMigrationV2.version(TestMigrationV2.modelVersionHash, modelVersionHashModifier: TestMigrationV2.modelVersionHashModifier), TestMigrationV2.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

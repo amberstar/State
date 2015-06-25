@@ -26,25 +26,24 @@ public extension Encodable {
     func encodeToBinaryFile(path: String) {
         self.encodeToFile(Binary.self, path: path)
     }
-    
 }
 
 public final class Encoder {
     internal private(set) var data = [String : AnyObject]()
     
-    public func encode<T: Encodable>(element: T?, forKey key: String) {
+    public func encode<T: Encodable>(element: T?, _ key: String) {
         element.flatMap { self.data[key] = $0.encode() }
     }
     
-    public  func encode<T: Encodable>(element: [T]?, forKey key: String) {
+    public  func encode<T: Encodable>(element: [T]?, _ key: String) {
            element.flatMap { self.data[key] = $0.map { $0.encode() } }
     }
  
-    public func encode<T: Encodable>(element: [String : T]?, forKey key: String) {
+    public func encode<T: Encodable>(element: [String : T]?, _ key: String) {
         element.flatMap { self.data[key] = $0.map { $0.encode() } }
     }
     
-    public func encode<V>(element: V?, forKey key: String) {
+    public func encode<V>(element: V?, _ key: String) {
         element.flatMap{ self.data[key] = $0 as? AnyObject }
     }
 }

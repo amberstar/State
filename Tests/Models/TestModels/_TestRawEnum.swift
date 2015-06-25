@@ -61,14 +61,14 @@ extension TestRawEnum: Encodable {
 
         switch self {
             case  .Aim:
-                encoder.encode("Aim", forKey: "type")
-                encoder.encode(self.rawValue, forKey: "value")
+                encoder.encode("Aim", "type")
+                encoder.encode(self.rawValue, "value")
             case  .Fire:
-                encoder.encode("Fire", forKey: "type")
-                encoder.encode(self.rawValue, forKey: "value")
+                encoder.encode("Fire", "type")
+                encoder.encode(self.rawValue, "value")
             case  .Ready:
-                encoder.encode("Ready", forKey: "type")
-                encoder.encode(self.rawValue, forKey: "value")
+                encoder.encode("Ready", "type")
+                encoder.encode(self.rawValue, "value")
 
         }
          self.willFinishEncodingWithEncoder(encoder)

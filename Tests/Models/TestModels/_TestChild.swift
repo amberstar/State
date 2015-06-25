@@ -55,13 +55,13 @@ extension TestChild : Decodable {
 extension TestChild : Encodable {
 
     public func encode(encoder: Encoder) {
-        encoder.encode(self.age, forKey: "age")
-        encoder.encode(self.name, forKey: "name")
-        encoder.encode(self.gender, forKey: "gender")
-        encoder.encode(self.myChildren, forKey: "myChildren")
+        encoder.encode(age, "age")
+        encoder.encode(name, "name")
+        encoder.encode(gender, "gender")
+        encoder.encode(myChildren, "myChildren")
 
         if TestChild.shouldEncodeVersion {
-encoder.encode(TestChild.version(TestChild.modelVersionHash, modelVersionHashModifier: TestChild.modelVersionHashModifier), forKey:TestChild.versionKey)
+encoder.encode(TestChild.version(TestChild.modelVersionHash, modelVersionHashModifier: TestChild.modelVersionHashModifier), TestChild.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

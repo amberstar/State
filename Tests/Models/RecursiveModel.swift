@@ -75,16 +75,16 @@ extension Player: Decodable {
 
 extension Player: Encodable {
     func encode(encoder: Encoder) {
-        encoder.encode(self.id, forKey: "id")
-        encoder.encode(self.name, forKey: "name")
-        encoder.encode(self.email, forKey: "email")
-        encoder.encode(self.age, forKey: "age")
-        encoder.encode(self.height, forKey: "height")
-        encoder.encode(self.weight, forKey: "weight")
-        encoder.encode(self.MVP, forKey: "mvp")
-        encoder.encode(self.teamates, forKey: "teamates")
-        encoder.encode(self.fillins, forKey: "fillins")
-        encoder.encode(self.teamatesByName, forKey: "teamatesByName")
-        encoder.encode(self.awards, forKey: "awards")
+        encoder.encode(id, "id")
+        encoder.encode(name, "name")
+        encoder.encode(email, "email")
+        encoder.encode(age, "age")
+        encoder.encode(height, "height")
+        encoder.encode(weight, "weight")
+        encoder.encode(MVP, "mvp")
+        encoder.encode(teamates, "teamates")
+        encoder.encode(fillins, "fillins")
+        encoder.encode(teamatesByName, "teamatesByName")
+        encoder.encode(awards, "awards")
     }
 }

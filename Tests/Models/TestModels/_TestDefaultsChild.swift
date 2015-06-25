@@ -46,10 +46,10 @@ extension TestDefaultsChild : Decodable {
 extension TestDefaultsChild : Encodable {
 
     public func encode(encoder: Encoder) {
-        encoder.encode(self.name, forKey: "name")
+        encoder.encode(name, "name")
 
         if TestDefaultsChild.shouldEncodeVersion {
-encoder.encode(TestDefaultsChild.version(TestDefaultsChild.modelVersionHash, modelVersionHashModifier: TestDefaultsChild.modelVersionHashModifier), forKey:TestDefaultsChild.versionKey)
+encoder.encode(TestDefaultsChild.version(TestDefaultsChild.modelVersionHash, modelVersionHashModifier: TestDefaultsChild.modelVersionHashModifier), TestDefaultsChild.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

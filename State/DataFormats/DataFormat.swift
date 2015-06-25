@@ -12,7 +12,6 @@ public protocol DataFormat {
 }
 
 extension DataFormat {
-    
     /// print data to standard output
     static func inspect(data: [String : AnyObject]) {
         if let string: String? = write(data) {

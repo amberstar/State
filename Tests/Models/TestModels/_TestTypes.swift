@@ -67,17 +67,17 @@ extension TestTypes : Decodable {
 extension TestTypes : Encodable {
 
     public func encode(encoder: Encoder) {
-        encoder.encode(self.myBinary, forKey: "myBinary")
-        encoder.encode(self.myBoolean, forKey: "myBoolean")
-        encoder.encode(self.myDate, forKey: "myDate")
-        encoder.encode(self.myDecimal, forKey: "myDecimal")
-        encoder.encode(self.myDouble, forKey: "myDouble")
-        encoder.encode(self.myFloat, forKey: "myFloat")
-        encoder.encode(self.myInt, forKey: "myInt")
-        encoder.encode(self.myString, forKey: "myString")
+        encoder.encode(myBinary, "myBinary")
+        encoder.encode(myBoolean, "myBoolean")
+        encoder.encode(myDate, "myDate")
+        encoder.encode(myDecimal, "myDecimal")
+        encoder.encode(myDouble, "myDouble")
+        encoder.encode(myFloat, "myFloat")
+        encoder.encode(myInt, "myInt")
+        encoder.encode(myString, "myString")
 
         if TestTypes.shouldEncodeVersion {
-encoder.encode(TestTypes.version(TestTypes.modelVersionHash, modelVersionHashModifier: TestTypes.modelVersionHashModifier), forKey:TestTypes.versionKey)
+encoder.encode(TestTypes.version(TestTypes.modelVersionHash, modelVersionHashModifier: TestTypes.modelVersionHashModifier), TestTypes.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

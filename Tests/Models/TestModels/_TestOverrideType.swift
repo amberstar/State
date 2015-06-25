@@ -49,11 +49,11 @@ extension TestOverrideType : Decodable {
 extension TestOverrideType : Encodable {
 
     public func encode(encoder: Encoder) {
-        encoder.encode(self.myArrayOfString, forKey: "myArrayOfString")
-        encoder.encode(self.myURL, forKey: "myURL")
+        encoder.encode(myArrayOfString, "myArrayOfString")
+        encoder.encode(myURL, "myURL")
 
         if TestOverrideType.shouldEncodeVersion {
-encoder.encode(TestOverrideType.version(TestOverrideType.modelVersionHash, modelVersionHashModifier: TestOverrideType.modelVersionHashModifier), forKey:TestOverrideType.versionKey)
+encoder.encode(TestOverrideType.version(TestOverrideType.modelVersionHash, modelVersionHashModifier: TestOverrideType.modelVersionHashModifier), TestOverrideType.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

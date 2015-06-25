@@ -76,20 +76,20 @@ extension TestDefaults : Decodable {
 extension TestDefaults : Encodable {
 
     public func encode(encoder: Encoder) {
-        encoder.encode(self.defaultArray, forKey: "defaultArray")
-        encoder.encode(self.defaultEmptyArray, forKey: "defaultEmptyArray")
-        encoder.encode(self.defaultInt, forKey: "defaultInt")
-        encoder.encode(self.defaultManualString, forKey: "defaultManualString")
-        encoder.encode(self.defaultString, forKey: "defaultString")
-        encoder.encode(self.noDefaultInt, forKey: "noDefaultInt")
-        encoder.encode(self.noDefaultString, forKey: "noDefaultString")
-        encoder.encode(self.defaultChild, forKey: "defaultChild")
-        encoder.encode(self.defaultChildren, forKey: "defaultChildren")
-        encoder.encode(self.noDefaultChild, forKey: "noDefaultChild")
-        encoder.encode(self.noDefaultChildren, forKey: "noDefaultChildren")
+        encoder.encode(defaultArray, "defaultArray")
+        encoder.encode(defaultEmptyArray, "defaultEmptyArray")
+        encoder.encode(defaultInt, "defaultInt")
+        encoder.encode(defaultManualString, "defaultManualString")
+        encoder.encode(defaultString, "defaultString")
+        encoder.encode(noDefaultInt, "noDefaultInt")
+        encoder.encode(noDefaultString, "noDefaultString")
+        encoder.encode(defaultChild, "defaultChild")
+        encoder.encode(defaultChildren, "defaultChildren")
+        encoder.encode(noDefaultChild, "noDefaultChild")
+        encoder.encode(noDefaultChildren, "noDefaultChildren")
 
         if TestDefaults.shouldEncodeVersion {
-encoder.encode(TestDefaults.version(TestDefaults.modelVersionHash, modelVersionHashModifier: TestDefaults.modelVersionHashModifier), forKey:TestDefaults.versionKey)
+encoder.encode(TestDefaults.version(TestDefaults.modelVersionHash, modelVersionHashModifier: TestDefaults.modelVersionHashModifier), TestDefaults.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

@@ -55,13 +55,13 @@ extension Company : Decodable {
 extension Company : Encodable {
 
     public func encode(encoder: Encoder) {
-        encoder.encode(self.name, forKey: "name")
-        encoder.encode(self.phoneNumber, forKey: "phoneNumber")
-        encoder.encode(self.yearFounded, forKey: "yearFounded")
-        encoder.encode(self.employees, forKey: "employees")
+        encoder.encode(name, "name")
+        encoder.encode(phoneNumber, "phoneNumber")
+        encoder.encode(yearFounded, "yearFounded")
+        encoder.encode(employees, "employees")
 
         if Company.shouldEncodeVersion {
-encoder.encode(Company.version(Company.modelVersionHash, modelVersionHashModifier: Company.modelVersionHashModifier), forKey:Company.versionKey)
+encoder.encode(Company.version(Company.modelVersionHash, modelVersionHashModifier: Company.modelVersionHashModifier), Company.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

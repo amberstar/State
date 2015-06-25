@@ -33,7 +33,7 @@ extension TestMigrationV1 {
     It provides a chance to encode any further data with the encoder.
     */
     func willFinishEncodingWithEncoder(encoder: Encoder) {
-        encoder.encode("Hello World", forKey: "migration_test")
+        encoder.encode("Hello World", "migration_test")
     }
 }
 

@@ -4,7 +4,6 @@ import Foundation
 /// base class for all data services. (see JSON, and Plist)
 public class Binary: DataFormat {
     
-
     /// write data to a file
     /// - returns: true if succeeded, false if failed
     public class func write(data: [String : AnyObject]?, path: String) -> Bool {

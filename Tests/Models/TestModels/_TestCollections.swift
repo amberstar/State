@@ -52,12 +52,12 @@ extension TestCollections : Decodable {
 extension TestCollections : Encodable {
 
     public func encode(encoder: Encoder) {
-        encoder.encode(self.arrayOfStrings, forKey: "arrayOfStrings")
-        encoder.encode(self.dicOfInts, forKey: "dicOfInts")
-        encoder.encode(self.setOfStrings, forKey: "setOfStrings")
+        encoder.encode(arrayOfStrings, "arrayOfStrings")
+        encoder.encode(dicOfInts, "dicOfInts")
+        encoder.encode(setOfStrings, "setOfStrings")
 
         if TestCollections.shouldEncodeVersion {
-encoder.encode(TestCollections.version(TestCollections.modelVersionHash, modelVersionHashModifier: TestCollections.modelVersionHashModifier), forKey:TestCollections.versionKey)
+encoder.encode(TestCollections.version(TestCollections.modelVersionHash, modelVersionHashModifier: TestCollections.modelVersionHashModifier), TestCollections.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }

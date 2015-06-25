@@ -46,9 +46,9 @@ extension TestRegEnum: Encodable {
 
         switch self {
             case .Cold:
-                encoder.encode("Cold", forKey: "type")
+                encoder.encode("Cold", "type")
             case .Hot:
-                encoder.encode("Hot", forKey: "type")
+                encoder.encode("Hot", "type")
 
         }
          self.willFinishEncodingWithEncoder(encoder)

@@ -55,13 +55,13 @@ extension TestTransformable : Decodable {
 extension TestTransformable : Encodable {
 
     public func encode(encoder: Encoder) {
-        encoder.encode(self.myTransformable >>> URLTransform.transform, forKey: "myTransformable")
-        encoder.encode(self.myTransformableImmutable >>> URLTransform.transform, forKey: "myTransformableImmutable")
-        encoder.encode(self.myTransformableImmutableOptional >>> URLTransform.transform, forKey: "myTransformableImmutableOptional")
-        encoder.encode(self.myTransformableOptional >>> URLTransform.transform, forKey: "myTransformableOptional")
+        encoder.encode(myTransformable >>> URLTransform.transform, "myTransformable")
+        encoder.encode(myTransformableImmutable >>> URLTransform.transform, "myTransformableImmutable")
+        encoder.encode(myTransformableImmutableOptional >>> URLTransform.transform, "myTransformableImmutableOptional")
+        encoder.encode(myTransformableOptional >>> URLTransform.transform, "myTransformableOptional")
 
         if TestTransformable.shouldEncodeVersion {
-encoder.encode(TestTransformable.version(TestTransformable.modelVersionHash, modelVersionHashModifier: TestTransformable.modelVersionHashModifier), forKey:TestTransformable.versionKey)
+encoder.encode(TestTransformable.version(TestTransformable.modelVersionHash, modelVersionHashModifier: TestTransformable.modelVersionHashModifier), TestTransformable.versionKey)
         }
         self.willFinishEncodingWithEncoder(encoder)
     }
