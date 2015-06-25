@@ -2,11 +2,11 @@
 
 
 ###Contents:
-- [Getting Started] ()
+- [Getting Started] (#getting-started)
 - [Model Design Reference](Reference.md)
 - [Enum Design Guide](Enums.md)
 - [How to Setup a target in your project to automatically generate your models](Setup.md)
-- [Version and Migration Management](Versioning.md)
+- [Version and Migration Management](#versioning-and-migration)
 
 
 
@@ -158,23 +158,6 @@ Versioning and migration management is opt in. It allows you to fully control th
 - directly migrate raw key-value data to the current version before attempting to read a model
 
 When designing the models in the model designer, you can specify a version hash modifier signifying a new model version. This version modifier get's carried over to the model code so you can determine if a model version about to be decoded is a different version than the current version of the model code.
-
-##System Requirements
-- Swift 1.2
-- Xcode 6.3
-- iOS 8.0
-- Mogenerator 1.28
-
-## License
-
-State is released under the MIT license. See
-[LICENSE.md](https://github.com/STLabs/State/blob/master/LICENSE).
-
-## More Info
-
-
-- [See the Wiki](https://github.com/STLabs/State/wiki)
-
 
 
 Have a question? Please [open an issue](https://github.com/STLabs/State/issues/new)
