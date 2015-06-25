@@ -115,11 +115,7 @@ see [How to set up a target to automatically generate model code every time you 
 
 
 ##Serialization
-Serialization of models is done with data adapters provided in the State framework. Three data adapters are included:
-
-1. Data.swift to read and write binary plist files
-2. Plist.swift to reads and writes XML plist files
-3. JSON.swift to read and write JSON files
+Serialization of Models is easy with State:
 
 
 #### Read and write models to JSON or PLISTS :
@@ -127,24 +123,24 @@ Serialization of models is done with data adapters provided in the State framewo
 
 ```swift
 // Encode model and write out to a JSON file
-JSON.write(Encoder.encodeModel(issues), path: documentPathFor("issues.json"))
+issues.encodeToJSONFile(path: "issues.json")
 
 // Encode model and write out to a binary Plist file
-Data.write(Encoder.encodeModel(issues), path: documentPathFor("issues.plist"))
+issues.encodeToBinaryFile(path: "issues.plist")
 
 // Encode model and write out to a XML Plist file
-Plist.write(Encoder.encodeModel(issues), path: documentPathFor("issues.plist"))
+issues.enocodeToPlistFile(path: "issues.plist")
 ```
 
 ```swift
 // Read JSON and decode model
-let loadedIssues: Issues? = Decoder.decodeModel(JSON.read(documentPathFor("issues.json")))
+let loadedIssues =  Issues.decodeFromJSONFile("issues.json")
 
 // Read binary Plist and decode model
-let loadedIssues: Issues? = Decoder.decodeModel(Data.read(documentPathFor("issues.plist")))
+let loadedIssues = Issues.decodeFromBinaryFile("issues.plist")
 
 // Read XML Plist and decode model
-let loadedIssues: Issues? = Decoder.decodeModel(Plist.read(documentPathFor("issues.plist")))
+let loadedIssues = Issues.decodeFromPlistFile("issues.plist")
 ```
 
 
