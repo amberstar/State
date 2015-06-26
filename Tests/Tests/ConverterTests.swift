@@ -2,7 +2,7 @@ import XCTest
 import State
 import Foundation
 
-class DataAdapterTests: Test {
+class ConverterTests: Test {
     var testPlist : [String : AnyObject]?
     var testJSON  : [String : AnyObject]?
     var testData  : [String : AnyObject]?

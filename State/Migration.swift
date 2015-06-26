@@ -1,7 +1,7 @@
 let default_version_key = "model_version"
 
 // All implemented as func because: http://openradar.appspot.com/21550415
-/// Provides migration a version managment for models
+/// Provides migration and version managment for models
 public protocol Migratable {
     static func version(modelVersionHash: String, modelVersionHashModifier: String?) -> AnyObject?
     static func needsMigration(dataVersion: AnyObject) -> Bool
@@ -97,7 +97,6 @@ public extension Migratable {
 }
 
 public extension Migratable where Self: Decodable {
-    
     static func performMigrationIfNeeded(decoder: Decoder) -> Decoder {
         guard Self.shouldMigrateIfNeeded() else { return decoder }
         
