@@ -84,7 +84,6 @@ public extension Migratable {
         return data
     }
 
-
     /// These are provided from the data model designer
     /// and can be used to determine if the model is
     /// a different version.
@@ -95,7 +94,6 @@ public extension Migratable {
     static func modelVersionHashModifier()-> String? {
         return nil
     }
-
 }
 
 public extension Migratable where Self: Decodable {

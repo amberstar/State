@@ -1,8 +1,7 @@
 
-/// a model type that is decodable, encodeable and migratable
+/// a model type that is decodable, encodable and migratable
 /// all generated models implement this protocol
 public protocol Model : Decodable, Encodable, Migratable {}
-
 
 public extension Model {
     
