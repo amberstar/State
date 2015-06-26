@@ -1,4 +1,4 @@
-#How to set up a target to automatically generate model code every time you build your host.
+#How to set up a target to automatically generate model code every time you build your project.
 
 If you do not have State framework, or mogenerator installed do that first. 
  

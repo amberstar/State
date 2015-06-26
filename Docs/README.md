@@ -38,7 +38,7 @@ In the modeler elements correspond to the model as follows:
 * One-Many Relationship == \[composition\] (array)
 * Enum Relationship == Enum Type property
 
-See the [Data Model Design Reference](https://github.com/STLabs/State/wiki/Data-Model-Design-Reference) for more information.
+See the [Data Model Design Reference](Reference.md) for more information.
 
 ## Generating model code with Mogenerator
 
@@ -111,7 +111,7 @@ Drag the model code files in to your project to add them.
 ####Set up a target to automatically generate model code every time you build
 
 If you would like to make changes to your model as you are working and automate updating the code
-see [How to set up a target to automatically generate model code every time you build.] (https://github.com/STLabs/State/wiki/How-to-set-up-a-target-to-automatically-generate-model-code-every-time-you-build-your-host.)
+see [How to set up a target to automatically generate model code every time you build.] (Setup.md)
 
 
 ##Serialization

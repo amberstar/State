@@ -19,7 +19,7 @@ State is implemented as a protocol oriented design giving you powerful extension
 
 The migration scheme is implemented as a protocol and extension. When you override these protocol implementations you tap in to the migration features.
 
-Convenient serialization API is provided using the model `protocol extension`, but that is just a start. You can add API to all of your model elements by extending the Model protocol with your own code.
+Convenient serialization API is provided using the model `protocol extension`, but that is just a start. Not only can you extend each individule model type with an extension, you can also add API to all of your model elements by extending the Model protocol with your own protocol extension.
 
 
 ```swift

@@ -16,7 +16,7 @@
 | `State.Type`       | Specify a type for the attribute. For example, `[String : Int]` would specify to use a Dictionary of String, Ints for this property **-or-** Specifies the associated value type for enum cases.| The exact type  |
 | `State.Value`	| Specify a default value for a property. (only supported for non-optional properties) **-or-** The raw value of an enum case. | The exact value
 | `State.Import`	| Import a module in source for attribute type  | The exact module name 
-| `State.ModelCollectionType`       | Type of collection to use for one to many compositions.|Dictionary, Array  |
+| `State.CompositionType`       | Type of collection to use for one to many compositions.|Dictionary, Array  |
 
 
 ## Compose models with relationships between model items
@@ -36,8 +36,6 @@ You can specify a default value in the inspector window, or use `State.Value` in
 1. Not supported for optional types
 2. Some type inference problems can occur but will be caught at compile time if so.
 
-## Protocols:
-Protocols are not yet supported.
 
 ## Versioning:
 You can add a versionHashModifier to each entity in your model design. This value along with the versionHash are imported in to the code generated and used in the migration scheme of state. For more information see [Versioning and Migration](https://github.com/STLabs/State#versioning-and-migration)
