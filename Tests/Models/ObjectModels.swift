@@ -8,7 +8,7 @@ a model for testing decodable/encodable types
 */
 
 ///MARK: - ObjectTypes
-struct UserTypes {
+struct UserTypes: Model {
     let t: User
     let tOpt: User?
     let tImp: User!

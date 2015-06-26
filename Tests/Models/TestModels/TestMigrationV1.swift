@@ -44,7 +44,7 @@ extension TestMigrationV1 {
     true if the encoder should include a model version
     when encoding the model.
     */
-    static var shouldEncodeVersion: Bool {
+    public static func shouldEncodeVersion() -> Bool {
         return true
     }
 
@@ -52,31 +52,11 @@ extension TestMigrationV1 {
     true if the decoder should perform a migration if needed
     during decoding of the model
     */
-    static var shouldMigrateIfNeeded: Bool {
+    public static func shouldMigrateIfNeeded() -> Bool {
         return true
     }
 
-    /**
-    a key to use for encoding the model version
-    */
-    static var versionKey: String {
-        return "model_version"
-    }
-
-    /**
-     the current model version
-    - parameter modelVersionHash: a unique hash from the model design that generated the model
-    - parameter modelVersionHashModifier: a hash modifier if any from the model design that generated the model
-    - returns: an object the represents the model version used to denote the model "version"
-
-    :Discussion: This method is called during encoding and decoding when the version is needed.
-    The modelVersionHash and modelVersionHashModifier are provided from the model designer to help denote
-    a unique version. What type, and how to make that denotation is unspecified
-    */
-    static func version(modelVersionHash: String, modelVersionHashModifier: String?) -> AnyObject? {
-        return modelVersionHash
-    }
-
+   
     /**
     determines if the model data being decoded needs migration
     - parameter dataVersion: the version of the data to be decoded
@@ -88,7 +68,7 @@ extension TestMigrationV1 {
     given the dataVersion parameter, this method should determine if the data being decoded is a different version
     than the current version, and needs to be migrated.
     */
-    static func needsMigration(dataVersion: AnyObject) -> Bool {
+    public static func needsMigration(dataVersion: AnyObject) -> Bool {
         if let dataVersion = dataVersion as? String,
             currentVersion = version( modelVersionHash, modelVersionHashModifier: modelVersionHashModifier) as? String {
             return dataVersion != currentVersion
@@ -114,7 +94,7 @@ extension TestMigrationV1 {
 
     Note: the data version will automatically be updated the next time the model is encoded.
     */
-    static func migrateDataForDecoding(data: [String : AnyObject], dataVersion: AnyObject) -> [String : AnyObject] {
+   public static func migrateDataForDecoding(data: [String : AnyObject], dataVersion: AnyObject) -> [String : AnyObject] {
         return data
     }
 }

@@ -11,7 +11,7 @@ NOTE: recursion only supported for classes
 */
 
 ///MARK: - Player
-struct Player {
+struct Player: Model {
     let id: Int
     let name: String
     var email: String?

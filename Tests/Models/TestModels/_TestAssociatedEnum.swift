@@ -7,7 +7,7 @@ import Foundation
 import State
 import UIKit
 
-public enum TestAssociatedEnum {
+public enum TestAssociatedEnum : Model  {
     case BinaryType (NSData)
     case BooleanType (Bool)
     case DateType (NSDate)
@@ -26,14 +26,7 @@ extension TestAssociatedEnum: Decodable {
 
     public init?(var decoder: Decoder) {
 
-        if TestAssociatedEnum.shouldMigrateIfNeeded {
-            if let dataVersion: AnyObject = decoder.decode(TestAssociatedEnum.versionKey) {
-                if TestAssociatedEnum.needsMigration(dataVersion) {
-                   let migratedData = TestAssociatedEnum.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
-                    decoder = Decoder(data: migratedData)
-                }
-            }
-        }
+    decoder = TestAssociatedEnum.performMigrationIfNeeded(decoder)
 
         if let type: String = decoder.decode("type") {
 
@@ -139,11 +132,11 @@ extension TestAssociatedEnum {
     /// These are provided from the data model designer
     /// and can be used to determine if the model is
     /// a different version.
-    static var modelVersionHash: String {
+    public static func modelVersionHash() -> String {
         return "<6da9f98e 37df6363 56b14e25 3100b317 ea72bc42 9578573b 17427080 0a824a73>"
     }
 
-    static var modelVersionHashModifier: String? {
+    public static func modelVersionHashModifier() -> String? {
         return nil
     }
 }

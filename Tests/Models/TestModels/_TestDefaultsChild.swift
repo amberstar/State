@@ -6,7 +6,7 @@
 import Foundation
 import State
 
-public struct TestDefaultsChild {
+public struct TestDefaultsChild : Model {
     public var name = "New Child"
 
 public init(name: String) {
@@ -24,14 +24,7 @@ extension TestDefaultsChild : Decodable {
 
     public init?(var decoder: Decoder) {
 
-        if TestDefaultsChild.shouldMigrateIfNeeded {
-            if let dataVersion: AnyObject = decoder.decode(TestDefaultsChild.versionKey) {
-                if TestDefaultsChild.needsMigration(dataVersion) {
-                   let migratedData = TestDefaultsChild.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
-                    decoder = Decoder(data: migratedData)
-                }
-            }
-        }
+    decoder = TestDefaultsChild.performMigrationIfNeeded(decoder)
 
         let instance: TestDefaultsChild? = TestDefaultsChild.create
         <^> decoder.decode("name")
@@ -48,9 +41,8 @@ extension TestDefaultsChild : Encodable {
     public func encode(encoder: Encoder) {
         encoder.encode(name, "name")
 
-        if TestDefaultsChild.shouldEncodeVersion {
-encoder.encode(TestDefaultsChild.version(TestDefaultsChild.modelVersionHash, modelVersionHashModifier: TestDefaultsChild.modelVersionHashModifier), TestDefaultsChild.versionKey)
-        }
+        TestDefaultsChild.encodeVersionIfNeeded(encoder)
+
         self.willFinishEncodingWithEncoder(encoder)
     }
 }
@@ -60,11 +52,11 @@ extension TestDefaultsChild {
     /// These are provided from the data model designer
     /// and can be used to determine if the model is
     /// a different version.
-    static var modelVersionHash: String {
+    public static func modelVersionHash() -> String {
         return "<6b3afe9f ee54b7fc e944c82f 03ec6569 96cbe98a c3f4b991 13e91cf9 2abea4f9>"
     }
 
-    static var modelVersionHashModifier: String? {
+    public static func modelVersionHashModifier() -> String? {
         return nil
     }
 }

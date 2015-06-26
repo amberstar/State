@@ -4,13 +4,14 @@ State is a light weight model framework written in pure Swift that uses `structs
                                                                                                                                                                                                                                                    
 ####Key Features: 
 
-- Design Models just like Core Data, in the Model Designer
+- Design Models just like Core Data, in the Xcode model designer
 - Model code generated automatically
-- Struct and Enum models 
+- Struct and Enum models (including assiociated types)
 - Immutable, optional, and non-optional properties.
 - Read and write models to and from JSON, Plists, and Binary 
-- Model versioning and migration management (Optional)
+- Model versioning and migration management (optional)
 - Models are not subclasses
+- Serialization to/from files, NSData, or Strings
 
 
 Easy serialization is provided using `protocol extensions`:
@@ -18,18 +19,15 @@ Easy serialization is provided using `protocol extensions`:
 
 ```swift
 // JSON
-model.toJSON("model.json")
-
-let loadedIssues =  model.fromJSON("issues.json")
+model.save(.JSON, path: "model.json")
+let model = ModelType(.JSON, path: "model.json")
 
 // Plist
-model.toPlist("model.plist")
-
-let model = model.fromPlist("issues.plist")
+model.save(.Plist, path: "model.plist")
+let model = ModelType(.Plist, path: "model.plist")
 ```
 
-
-### [ Read the Documentation To Get Started](Docs/)
+### [ Read the Documentation to Get Started](Docs/)
 
 
 ##System Requirements

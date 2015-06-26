@@ -6,7 +6,7 @@
 import Foundation
 import State
 
-public struct TestTransformable {
+public struct TestTransformable : Model {
     public var myTransformable: NSURL
     public let myTransformableImmutable: NSURL
     public let myTransformableImmutableOptional: NSURL?
@@ -30,14 +30,7 @@ extension TestTransformable : Decodable {
 
     public init?(var decoder: Decoder) {
 
-        if TestTransformable.shouldMigrateIfNeeded {
-            if let dataVersion: AnyObject = decoder.decode(TestTransformable.versionKey) {
-                if TestTransformable.needsMigration(dataVersion) {
-                   let migratedData = TestTransformable.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
-                    decoder = Decoder(data: migratedData)
-                }
-            }
-        }
+    decoder = TestTransformable.performMigrationIfNeeded(decoder)
 
         let instance: TestTransformable? = TestTransformable.create
         <^> decoder.decode("myTransformable") >>> URLTransform.reverseTransform
@@ -60,9 +53,8 @@ extension TestTransformable : Encodable {
         encoder.encode(myTransformableImmutableOptional >>> URLTransform.transform, "myTransformableImmutableOptional")
         encoder.encode(myTransformableOptional >>> URLTransform.transform, "myTransformableOptional")
 
-        if TestTransformable.shouldEncodeVersion {
-encoder.encode(TestTransformable.version(TestTransformable.modelVersionHash, modelVersionHashModifier: TestTransformable.modelVersionHashModifier), TestTransformable.versionKey)
-        }
+        TestTransformable.encodeVersionIfNeeded(encoder)
+
         self.willFinishEncodingWithEncoder(encoder)
     }
 }
@@ -72,11 +64,11 @@ extension TestTransformable {
     /// These are provided from the data model designer
     /// and can be used to determine if the model is
     /// a different version.
-    static var modelVersionHash: String {
+    public static func modelVersionHash() -> String {
         return "<ab73b735 b1201428 cbab765c 5357fbe9 b413a176 90618f51 b3efae27 d31a5116>"
     }
 
-    static var modelVersionHashModifier: String? {
+    public static func modelVersionHashModifier() -> String? {
         return nil
     }
 }

@@ -6,7 +6,7 @@
 import Foundation
 import State
 
-public enum TestRawEnum: String {
+public enum TestRawEnum : String, Model  {
     case Aim  = "Aim"
     case Fire  = "Fire"
     case Ready  = "Ready"
@@ -17,14 +17,7 @@ extension TestRawEnum: Decodable {
 
     public init?(var decoder: Decoder) {
 
-        if TestRawEnum.shouldMigrateIfNeeded {
-            if let dataVersion: AnyObject = decoder.decode(TestRawEnum.versionKey) {
-                if TestRawEnum.needsMigration(dataVersion) {
-                   let migratedData = TestRawEnum.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
-                    decoder = Decoder(data: migratedData)
-                }
-            }
-        }
+    decoder = TestRawEnum.performMigrationIfNeeded(decoder)
 
         if let type: String = decoder.decode("type") {
 
@@ -80,11 +73,11 @@ extension TestRawEnum {
     /// These are provided from the data model designer
     /// and can be used to determine if the model is
     /// a different version.
-    static var modelVersionHash: String {
+    public static func modelVersionHash() -> String {
         return "<4a42ad80 0164503c a7c17d8c 2a24bcf5 f44a5730 0fab6252 969f7b23 e3ff6822>"
     }
 
-    static var modelVersionHashModifier: String? {
+    public static func modelVersionHashModifier() -> String? {
         return nil
     }
 }

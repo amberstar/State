@@ -2,7 +2,7 @@ import Foundation
 
 /// binary Plist data format
 /// base class for all data services. (see JSON, and Plist)
-public class Binary: DataFormat {
+public class Binary: KeyedConverter {
     
     /// write data to a file
     /// - returns: true if succeeded, false if failed
@@ -26,14 +26,12 @@ public class Binary: DataFormat {
         return stringFromObject(data)
     }
     
-
     /// Read data from a file
     /// - returns: a data object or nil
     public  class func read(path: String) -> [String : AnyObject]? {
         return objectFromFile(path)
     }
     
-
     /// Read data from NSData
     /// - returns: a data object or nil
     public class func read(data: NSData) -> [String : AnyObject]? {

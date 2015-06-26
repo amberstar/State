@@ -6,7 +6,7 @@
 import Foundation
 import State
 
-public struct TestOverrideType {
+public struct TestOverrideType : Model {
     public var myArrayOfString: [String]?
     public var myURL: NSURL?
 
@@ -26,14 +26,7 @@ extension TestOverrideType : Decodable {
 
     public init?(var decoder: Decoder) {
 
-        if TestOverrideType.shouldMigrateIfNeeded {
-            if let dataVersion: AnyObject = decoder.decode(TestOverrideType.versionKey) {
-                if TestOverrideType.needsMigration(dataVersion) {
-                   let migratedData = TestOverrideType.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
-                    decoder = Decoder(data: migratedData)
-                }
-            }
-        }
+    decoder = TestOverrideType.performMigrationIfNeeded(decoder)
 
         let instance: TestOverrideType? = TestOverrideType.create
         <^> decoder.decode("myArrayOfString") >>> asOptional
@@ -52,9 +45,8 @@ extension TestOverrideType : Encodable {
         encoder.encode(myArrayOfString, "myArrayOfString")
         encoder.encode(myURL, "myURL")
 
-        if TestOverrideType.shouldEncodeVersion {
-encoder.encode(TestOverrideType.version(TestOverrideType.modelVersionHash, modelVersionHashModifier: TestOverrideType.modelVersionHashModifier), TestOverrideType.versionKey)
-        }
+        TestOverrideType.encodeVersionIfNeeded(encoder)
+
         self.willFinishEncodingWithEncoder(encoder)
     }
 }
@@ -64,11 +56,11 @@ extension TestOverrideType {
     /// These are provided from the data model designer
     /// and can be used to determine if the model is
     /// a different version.
-    static var modelVersionHash: String {
+    public static func modelVersionHash() -> String {
         return "<1b2022d4 1d237610 f72665c6 67dea8a1 a68750de df8625c3 d9495017 916e62c6>"
     }
 
-    static var modelVersionHashModifier: String? {
+    public static func modelVersionHashModifier() -> String? {
         return nil
     }
 }

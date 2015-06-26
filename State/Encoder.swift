@@ -1,6 +1,5 @@
-
 public protocol Encodable {
-    func encode(data: Encoder)
+    func encode(encoder: Encoder)
 }
 
 public extension Encodable {
@@ -11,20 +10,8 @@ public extension Encodable {
         return coder.data
     }
     
-    func encodeToFile(format: DataFormat.Type, path: String) {
-        format.write(self.encode(), path: path)
-    }
-    
-    func encodeToJSONFile(path: String) {
-        self.encodeToFile(JSON.self, path: path)
-    }
-    
-    func encodeToPlistFile(path: String) {
-        self.encodeToFile(Plist.self, path: path)
-    }
-    
-    func encodeToBinaryFile(path: String) {
-        self.encodeToFile(Binary.self, path: path)
+    func encodeToFile(converter: KeyedConverter.Type, path: String) {
+        converter.write(self.encode(), path: path)
     }
 }
 
@@ -36,9 +23,9 @@ public final class Encoder {
     }
     
     public  func encode<T: Encodable>(element: [T]?, _ key: String) {
-           element.flatMap { self.data[key] = $0.map { $0.encode() } }
+        element.flatMap { self.data[key] = $0.map { $0.encode() } }
     }
- 
+    
     public func encode<T: Encodable>(element: [String : T]?, _ key: String) {
         element.flatMap { self.data[key] = $0.map { $0.encode() } }
     }

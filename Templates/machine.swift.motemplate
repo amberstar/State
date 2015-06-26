@@ -32,32 +32,26 @@ extension <$managedObjectClassName$> {
     /// These are provided from the data model designer
     /// and can be used to determine if the model is
     /// a different version.
-    static var modelVersionHash: String {
+    public static func modelVersionHash() -> String {
         return "<$versionHash$>"
     }
 
-    static var modelVersionHashModifier: String? {
+    public static func modelVersionHashModifier() -> String? {
         return <$if versionHashModifier$>"<$versionHashModifier$>"<$else$>nil<$endif$>
     }
 }<$endprocedure$>
 
 <$procedure writeEncodingVersioningBlock$>
-        if <$managedObjectClassName$>.shouldEncodeVersion {
-encoder.encode(<$managedObjectClassName$>.version(<$managedObjectClassName$>.modelVersionHash, modelVersionHashModifier: <$managedObjectClassName$>.modelVersionHashModifier), <$managedObjectClassName$>.versionKey)
-        }<$endprocedure$>
+        <$managedObjectClassName$>.encodeVersionIfNeeded(encoder)
+        <$endprocedure$>
 
 <$procedure writeDecodingMigrationBlock$>
-        if <$managedObjectClassName$>.shouldMigrateIfNeeded {
-            if let dataVersion: AnyObject = decoder.decode(<$managedObjectClassName$>.versionKey) {
-                if <$managedObjectClassName$>.needsMigration(dataVersion) {
-                   let migratedData = <$managedObjectClassName$>.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
-                    decoder = Decoder(data: migratedData)
-                }
-            }
-        }<$endprocedure$>
+
+    decoder = <$managedObjectClassName$>.performMigrationIfNeeded(decoder)
+    <$endprocedure$>
 
 <$if userInfo.State.Enum != YES$>
-public struct <$managedObjectClassName$><$if hasCustomSuperentity$>: <$customSuperentity$><$endif$> {
+public struct <$managedObjectClassName$><$if hasCustomSuperentity$> : <$customSuperentity$>, Model<$else$> : Model<$endif$> {
     <$foreach Attribute noninheritedAttributes do$><$call getPropertyDeclarationForAttribute Attribute$>
     <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$call getPropertyDeclarationForRelationship Relationship$>
     <$endforeach do$>
@@ -180,7 +174,7 @@ extension <$managedObjectClassName$> : Encodable {
 
 
 <$if userInfo.State.Enum == YES$>
-public enum <$managedObjectClassName$><$if userInfo.State.Type$>: <$userInfo.State.Type$><$endif$> {
+public enum <$managedObjectClassName$><$if userInfo.State.Type$> : <$userInfo.State.Type$>, Model<$else$> : Model<$endif$>  {
     <$foreach Attribute noninheritedAttributes do$><$call writeEnumCaseForAttribute Attribute$>
     <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$call writeEnumCaseForRelationship Relationship$>
     <$endforeach do$>

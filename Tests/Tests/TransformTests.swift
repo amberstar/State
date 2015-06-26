@@ -4,7 +4,6 @@ import State
 import UIKit
 #endif
 
-
 class TransformTests: Test {
     
     func testURLTransform() {

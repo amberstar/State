@@ -144,8 +144,8 @@ class DataAdapterTests: Test {
     
     func testReadingJSONAndWritingPlist() {
         let users_out = UserTypes.decode(jsonData)
-        users_out!.encodeToPlistFile(tempPathFor("users.plist"))
-        let users  =  UserTypes.decodeFromPlistFile(tempPathFor("users.plist"))
+        users_out!.save(.Plist, path: tempPathFor("users.plist"))
+        let users  =  UserTypes(.Plist, path: tempPathFor("users.plist"))
         XCTAssert(users != nil)
         XCTAssert(users?.tArr.count == 3)
         XCTAssert(users?.tImp.name == "John Doe")

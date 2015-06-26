@@ -6,7 +6,7 @@
 import Foundation
 import State
 
-public struct TestMigrationV2 {
+public struct TestMigrationV2 : Model {
     public var age: Int?
     public var name: String
 
@@ -26,14 +26,7 @@ extension TestMigrationV2 : Decodable {
 
     public init?(var decoder: Decoder) {
 
-        if TestMigrationV2.shouldMigrateIfNeeded {
-            if let dataVersion: AnyObject = decoder.decode(TestMigrationV2.versionKey) {
-                if TestMigrationV2.needsMigration(dataVersion) {
-                   let migratedData = TestMigrationV2.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
-                    decoder = Decoder(data: migratedData)
-                }
-            }
-        }
+    decoder = TestMigrationV2.performMigrationIfNeeded(decoder)
 
         let instance: TestMigrationV2? = TestMigrationV2.create
         <^> decoder.decode("age") >>> asOptional
@@ -52,9 +45,8 @@ extension TestMigrationV2 : Encodable {
         encoder.encode(age, "age")
         encoder.encode(name, "name")
 
-        if TestMigrationV2.shouldEncodeVersion {
-encoder.encode(TestMigrationV2.version(TestMigrationV2.modelVersionHash, modelVersionHashModifier: TestMigrationV2.modelVersionHashModifier), TestMigrationV2.versionKey)
-        }
+        TestMigrationV2.encodeVersionIfNeeded(encoder)
+
         self.willFinishEncodingWithEncoder(encoder)
     }
 }
@@ -64,11 +56,11 @@ extension TestMigrationV2 {
     /// These are provided from the data model designer
     /// and can be used to determine if the model is
     /// a different version.
-    static var modelVersionHash: String {
+    public static func modelVersionHash() -> String {
         return "<a72776b0 ed41d0ad 357dc213 d628b690 61fa4fa3 a91c4c0e 941122a8 c581023e>"
     }
 
-    static var modelVersionHashModifier: String? {
+    public static func modelVersionHashModifier() -> String? {
         return "2.0"
     }
 }

@@ -6,7 +6,7 @@
 import Foundation
 import State
 
-public struct TestImmutableTypes {
+public struct TestImmutableTypes : Model {
     public let myBinary: NSData
     public let myBoolean: Bool
     public let myDate: NSDate
@@ -38,14 +38,7 @@ extension TestImmutableTypes : Decodable {
 
     public init?(var decoder: Decoder) {
 
-        if TestImmutableTypes.shouldMigrateIfNeeded {
-            if let dataVersion: AnyObject = decoder.decode(TestImmutableTypes.versionKey) {
-                if TestImmutableTypes.needsMigration(dataVersion) {
-                   let migratedData = TestImmutableTypes.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
-                    decoder = Decoder(data: migratedData)
-                }
-            }
-        }
+    decoder = TestImmutableTypes.performMigrationIfNeeded(decoder)
 
         let instance: TestImmutableTypes? = TestImmutableTypes.create
         <^> decoder.decode("myBinary")
@@ -76,9 +69,8 @@ extension TestImmutableTypes : Encodable {
         encoder.encode(myInt, "myInt")
         encoder.encode(myString, "myString")
 
-        if TestImmutableTypes.shouldEncodeVersion {
-encoder.encode(TestImmutableTypes.version(TestImmutableTypes.modelVersionHash, modelVersionHashModifier: TestImmutableTypes.modelVersionHashModifier), TestImmutableTypes.versionKey)
-        }
+        TestImmutableTypes.encodeVersionIfNeeded(encoder)
+
         self.willFinishEncodingWithEncoder(encoder)
     }
 }
@@ -88,11 +80,11 @@ extension TestImmutableTypes {
     /// These are provided from the data model designer
     /// and can be used to determine if the model is
     /// a different version.
-    static var modelVersionHash: String {
+    public static func modelVersionHash() -> String {
         return "<053f29fe 14df09a6 b7d222ee 5b611256 e3e3f8d5 0ab9d644 c9a1466a f9293bea>"
     }
 
-    static var modelVersionHashModifier: String? {
+    public static func modelVersionHashModifier() -> String? {
         return nil
     }
 }

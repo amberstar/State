@@ -6,7 +6,7 @@
 import Foundation
 import State
 
-public struct Company {
+public struct Company : Model {
     public var name: String
     public var phoneNumber: String?
     public var yearFounded: Double
@@ -30,14 +30,7 @@ extension Company : Decodable {
 
     public init?(var decoder: Decoder) {
 
-        if Company.shouldMigrateIfNeeded {
-            if let dataVersion: AnyObject = decoder.decode(Company.versionKey) {
-                if Company.needsMigration(dataVersion) {
-                   let migratedData = Company.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
-                    decoder = Decoder(data: migratedData)
-                }
-            }
-        }
+    decoder = Company.performMigrationIfNeeded(decoder)
 
         let instance: Company? = Company.create
         <^> decoder.decode("name")
@@ -60,9 +53,8 @@ extension Company : Encodable {
         encoder.encode(yearFounded, "yearFounded")
         encoder.encode(employees, "employees")
 
-        if Company.shouldEncodeVersion {
-encoder.encode(Company.version(Company.modelVersionHash, modelVersionHashModifier: Company.modelVersionHashModifier), Company.versionKey)
-        }
+        Company.encodeVersionIfNeeded(encoder)
+
         self.willFinishEncodingWithEncoder(encoder)
     }
 }
@@ -72,11 +64,11 @@ extension Company {
     /// These are provided from the data model designer
     /// and can be used to determine if the model is
     /// a different version.
-    static var modelVersionHash: String {
+    public static func modelVersionHash() -> String {
         return "<96a6f843 e4004fa9 5be7cca8 25260494 31324f8c 67a0643f 53096004 e1f9e4f0>"
     }
 
-    static var modelVersionHashModifier: String? {
+    public static func modelVersionHashModifier() -> String? {
         return nil
     }
 }

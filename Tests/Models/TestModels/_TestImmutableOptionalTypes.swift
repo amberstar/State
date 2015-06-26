@@ -6,7 +6,7 @@
 import Foundation
 import State
 
-public struct TestImmutableOptionalTypes {
+public struct TestImmutableOptionalTypes : Model {
     public let myBinary: NSData?
     public let myBoolean: Bool?
     public let myDate: NSDate?
@@ -38,14 +38,7 @@ extension TestImmutableOptionalTypes : Decodable {
 
     public init?(var decoder: Decoder) {
 
-        if TestImmutableOptionalTypes.shouldMigrateIfNeeded {
-            if let dataVersion: AnyObject = decoder.decode(TestImmutableOptionalTypes.versionKey) {
-                if TestImmutableOptionalTypes.needsMigration(dataVersion) {
-                   let migratedData = TestImmutableOptionalTypes.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
-                    decoder = Decoder(data: migratedData)
-                }
-            }
-        }
+    decoder = TestImmutableOptionalTypes.performMigrationIfNeeded(decoder)
 
         let instance: TestImmutableOptionalTypes? = TestImmutableOptionalTypes.create
         <^> decoder.decode("myBinary") >>> asOptional
@@ -76,9 +69,8 @@ extension TestImmutableOptionalTypes : Encodable {
         encoder.encode(myInt, "myInt")
         encoder.encode(myString, "myString")
 
-        if TestImmutableOptionalTypes.shouldEncodeVersion {
-encoder.encode(TestImmutableOptionalTypes.version(TestImmutableOptionalTypes.modelVersionHash, modelVersionHashModifier: TestImmutableOptionalTypes.modelVersionHashModifier), TestImmutableOptionalTypes.versionKey)
-        }
+        TestImmutableOptionalTypes.encodeVersionIfNeeded(encoder)
+
         self.willFinishEncodingWithEncoder(encoder)
     }
 }
@@ -88,11 +80,11 @@ extension TestImmutableOptionalTypes {
     /// These are provided from the data model designer
     /// and can be used to determine if the model is
     /// a different version.
-    static var modelVersionHash: String {
+    public static func modelVersionHash() -> String {
         return "<8954c691 e621c6bd bad84d7f 4fb9addd 53ed8e45 053f272c fafd2d9b 63de0acc>"
     }
 
-    static var modelVersionHashModifier: String? {
+    public static func modelVersionHashModifier() -> String? {
         return nil
     }
 }

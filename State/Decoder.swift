@@ -1,9 +1,8 @@
-
 public protocol Decodable {
     init?(decoder: Decoder)
 }
 
-extension Decodable {
+public extension Decodable {
     public static func decode(data: [String : AnyObject]) -> Self? {
         let decoder = Decoder(data: data)
         return Self.init(decoder: decoder)
@@ -16,20 +15,8 @@ extension Decodable {
         return nil 
     }
     
-    public static func decodeFromFile(format: DataFormat.Type, path: String) -> Self? {
-        return decode(format.read(path))
-    }
-    
-    public static func decodeFromJSONFile(path: String) -> Self? {
-        return decodeFromFile(JSON.self, path: path)
-    }
-    
-    public static func decodeFromPlistFile(path: String) -> Self? {
-        return decodeFromFile(Plist.self, path: path)
-    }
-    
-    public static func decodeFromBinaryFile(path: String) -> Self? {
-        return decodeFromFile(Binary.self, path: path)
+    public static func decodeFromFile(converter: KeyedConverter.Type, path: String) -> Self? {
+        return decode(converter.read(path))
     }
 }
 

@@ -6,7 +6,7 @@
 import Foundation
 import State
 
-public struct Grandchild {
+public struct Grandchild : Model {
     public var age: Int?
     public var name: String?
     public var gender: Gender?
@@ -28,14 +28,7 @@ extension Grandchild : Decodable {
 
     public init?(var decoder: Decoder) {
 
-        if Grandchild.shouldMigrateIfNeeded {
-            if let dataVersion: AnyObject = decoder.decode(Grandchild.versionKey) {
-                if Grandchild.needsMigration(dataVersion) {
-                   let migratedData = Grandchild.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
-                    decoder = Decoder(data: migratedData)
-                }
-            }
-        }
+    decoder = Grandchild.performMigrationIfNeeded(decoder)
 
         let instance: Grandchild? = Grandchild.create
         <^> decoder.decode("age") >>> asOptional
@@ -56,9 +49,8 @@ extension Grandchild : Encodable {
         encoder.encode(name, "name")
         encoder.encode(gender, "gender")
 
-        if Grandchild.shouldEncodeVersion {
-encoder.encode(Grandchild.version(Grandchild.modelVersionHash, modelVersionHashModifier: Grandchild.modelVersionHashModifier), Grandchild.versionKey)
-        }
+        Grandchild.encodeVersionIfNeeded(encoder)
+
         self.willFinishEncodingWithEncoder(encoder)
     }
 }
@@ -68,11 +60,11 @@ extension Grandchild {
     /// These are provided from the data model designer
     /// and can be used to determine if the model is
     /// a different version.
-    static var modelVersionHash: String {
+    public static func modelVersionHash() -> String {
         return "<10d8adcc 35a3ab52 8d11fa17 fbbdb083 23527533 29812594 823e8a17 8e1cb50d>"
     }
 
-    static var modelVersionHashModifier: String? {
+    public static func modelVersionHashModifier() -> String? {
         return nil
     }
 }

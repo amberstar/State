@@ -123,24 +123,24 @@ Serialization of Models is easy with State:
 
 ```swift
 // Encode model and write out to a JSON file
-issues.encodeToJSONFile(path: "issues.json")
+issues.save(.JSON, path: "issues.json")
 
 // Encode model and write out to a binary Plist file
-issues.encodeToBinaryFile(path: "issues.plist")
+issues.save(.Binary, path: "issues.plist")
 
 // Encode model and write out to a XML Plist file
-issues.enocodeToPlistFile(path: "issues.plist")
+issues.save(.Plist, path: "issues.plist")
 ```
 
 ```swift
 // Read JSON and decode model
-let loadedIssues =  Issues.decodeFromJSONFile("issues.json")
+let loadedIssues =  Issues(.JSON, path: "issues.json")
 
 // Read binary Plist and decode model
-let loadedIssues = Issues.decodeFromBinaryFile("issues.plist")
+let loadedIssues = Issues(.Binary, path: "issues.plist")
 
 // Read XML Plist and decode model
-let loadedIssues = Issues.decodeFromPlistFile("issues.plist")
+let loadedIssues = Issues(.Plist, path: "issues.plist")
 ```
 
 

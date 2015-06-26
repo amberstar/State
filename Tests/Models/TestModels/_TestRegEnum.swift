@@ -6,7 +6,7 @@
 import Foundation
 import State
 
-public enum TestRegEnum {
+public enum TestRegEnum : Model  {
     case Cold 
     case Hot
 
@@ -16,14 +16,7 @@ extension TestRegEnum: Decodable {
 
     public init?(var decoder: Decoder) {
 
-        if TestRegEnum.shouldMigrateIfNeeded {
-            if let dataVersion: AnyObject = decoder.decode(TestRegEnum.versionKey) {
-                if TestRegEnum.needsMigration(dataVersion) {
-                   let migratedData = TestRegEnum.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
-                    decoder = Decoder(data: migratedData)
-                }
-            }
-        }
+    decoder = TestRegEnum.performMigrationIfNeeded(decoder)
 
         if let type: String = decoder.decode("type") {
 
@@ -60,11 +53,11 @@ extension TestRegEnum {
     /// These are provided from the data model designer
     /// and can be used to determine if the model is
     /// a different version.
-    static var modelVersionHash: String {
+    public static func modelVersionHash() -> String {
         return "<a3ed22fb 5deb7f55 1bee0f09 d897dfba 9f6b506f da233147 ba5d0c7b 67981e5c>"
     }
 
-    static var modelVersionHashModifier: String? {
+    public static func modelVersionHashModifier() -> String? {
         return nil
     }
 }

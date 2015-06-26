@@ -6,7 +6,7 @@
 import Foundation
 import State
 
-public enum Gender: String {
+public enum Gender : String, Model  {
     case Female  = "Female"
     case Male  = "Male"
 
@@ -16,14 +16,7 @@ extension Gender: Decodable {
 
     public init?(var decoder: Decoder) {
 
-        if Gender.shouldMigrateIfNeeded {
-            if let dataVersion: AnyObject = decoder.decode(Gender.versionKey) {
-                if Gender.needsMigration(dataVersion) {
-                   let migratedData = Gender.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
-                    decoder = Decoder(data: migratedData)
-                }
-            }
-        }
+    decoder = Gender.performMigrationIfNeeded(decoder)
 
         if let type: String = decoder.decode("type") {
 
@@ -70,11 +63,11 @@ extension Gender {
     /// These are provided from the data model designer
     /// and can be used to determine if the model is
     /// a different version.
-    static var modelVersionHash: String {
+    public static func modelVersionHash() -> String {
         return "<ffba7348 838d3758 c6b41d57 ad7ea1b5 7c0a7ae4 0a9ead14 a727496b e503f5c2>"
     }
 
-    static var modelVersionHashModifier: String? {
+    public static func modelVersionHashModifier() -> String? {
         return nil
     }
 }
