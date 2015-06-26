@@ -208,6 +208,7 @@ extension <$managedObjectClassName$>: Encodable {
             <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$call writeRelationshipEncodeSwitchCaseForEnumCase Relationship$>
             <$endforeach do$>
         }
+        <$call writeEncodingVersioningBlock$>
          self.willFinishEncodingWithEncoder(encoder)
     }
 }

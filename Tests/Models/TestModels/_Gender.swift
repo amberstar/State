@@ -54,6 +54,9 @@ extension Gender: Encodable {
                 encoder.encode(self.rawValue, "value")
 
         }
+
+        Gender.encodeVersionIfNeeded(encoder)
+
          self.willFinishEncodingWithEncoder(encoder)
     }
 }

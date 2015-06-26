@@ -123,6 +123,9 @@ extension TestAssociatedEnum: Encodable {
                 encoder.encode(value, "value")
 
         }
+
+        TestAssociatedEnum.encodeVersionIfNeeded(encoder)
+
          self.willFinishEncodingWithEncoder(encoder)
     }
 }

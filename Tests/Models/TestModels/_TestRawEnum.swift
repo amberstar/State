@@ -64,6 +64,9 @@ extension TestRawEnum: Encodable {
                 encoder.encode(self.rawValue, "value")
 
         }
+
+        TestRawEnum.encodeVersionIfNeeded(encoder)
+
          self.willFinishEncodingWithEncoder(encoder)
     }
 }

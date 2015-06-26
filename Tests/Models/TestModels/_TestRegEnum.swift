@@ -44,6 +44,9 @@ extension TestRegEnum: Encodable {
                 encoder.encode("Hot", "type")
 
         }
+
+        TestRegEnum.encodeVersionIfNeeded(encoder)
+
          self.willFinishEncodingWithEncoder(encoder)
     }
 }
