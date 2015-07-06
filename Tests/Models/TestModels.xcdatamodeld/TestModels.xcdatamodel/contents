@@ -429,7 +429,7 @@
         <element name="Grandchild" positionX="-19838" positionY="-11110" width="128" height="88"/>
         <element name="TestAssociatedEnum" positionX="-20034" positionY="-10755" width="128" height="208"/>
         <element name="TestAssociatedOptionalEnum" positionX="-20304" positionY="-10540" width="128" height="208"/>
-        <element name="TestChild" positionX="-19910" positionY="-11385" width="128" height="103"/>
+        <element name="TestChild" positionX="-19971" positionY="-11308" width="128" height="103"/>
         <element name="TestCollections" positionX="-20754" positionY="-10872" width="128" height="88"/>
         <element name="TestDefaults" positionX="-20898" positionY="-11358" width="128" height="208"/>
         <element name="TestDefaultsChild" positionX="-20601" positionY="-11340" width="128" height="58"/>
@@ -446,8 +446,8 @@
         <element name="TestTransient2" positionX="-20502" positionY="-11034" width="128" height="88"/>
         <element name="TestTransient3" positionX="-20936" positionY="-11088" width="128" height="88"/>
         <element name="TestTypes" positionX="-20927" positionY="-10684" width="128" height="163"/>
-        <element name="TestProtocol" positionX="-19640" positionY="-11254" width="128" height="103"/>
+        <element name="TestProtocol" positionX="-19640" positionY="-11254" width="137" height="103"/>
         <element name="TestParentProtocol" positionX="-19640" positionY="-11367" width="128" height="58"/>
-        <element name="TestProtocolConformer" positionX="-19638" positionY="-10944" width="128" height="73"/>
+        <element name="TestProtocolConformer" positionX="-19638" positionY="-11106" width="135" height="73"/>
     </elements>
 </model>

@@ -43,6 +43,7 @@ public final class Decoder {
     public func decodeModelArray<T:Decodable>(key: String) -> [T]? {
         return _decodeDecodableArray(key)
     }
+
     
     /// decode a dictionary of string,decodable element T
     /// - parameter key: a dictionary to use for decoding

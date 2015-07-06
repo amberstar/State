@@ -24,18 +24,10 @@
 Model one-to-one, and one-to-many single direction relationships to compose models and enums together.
 
 ## Enums
-See the [Enum Design Guide](https://github.com/STLabs/State/wiki/Enum-Design-Guide)
+See the [Enum Design Guide](Enums.md)
 
 ## Protocols 
-There is limited support for protocols. Limited means protocols only support properties, not methods, and there is currently no way to specify "out of design" protocols at this time.
-However you can implement protocol requirements in the modeler, and model items that implment designed protocols.
-
-For example: Maybe you have a type such as Asset. But then you have ColorAsset, and SoundAsset. You can design all of the common properties as an Asset protocol, then design the other
-asset types with Asset as it's parent. This allows you to only have to specify the common properties once. The protocol will be implmented for the items automaticly. You can then create relashionships to
-the protocol itself.
-
-You  model protocols by specifiying the State.Protocol key or checking the abstract checkbox. A protocol will inherit the `Model` protocol. To specifiy a model item has protocol comformance,
-set the protocol entity as it's parent entity. You do not need to re-specify the protocols attributes, they will be implmented automaticly. 
+[Protocol Design Guide](Protocols.md)
 
 ## Transients (experimental)
 There is preliminary support for transient properties. Mark the attribute as transient in the inspector. Transients MUST be optional OR have a default value.
