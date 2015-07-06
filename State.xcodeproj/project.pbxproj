@@ -322,8 +322,6 @@
 		96CE6B7B1B3BFDEC00D632BF /* Docs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Docs; sourceTree = "<group>"; };
 		96CE6B7C1B3C232300D632BF /* Migration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Migration.swift; path = State/Migration.swift; sourceTree = SOURCE_ROOT; };
 		96CE6B801B3C237D00D632BF /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
-		96CE6B861B3C26A000D632BF /* Runes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Runes.framework; path = Carthage/Build/iOS/Runes.framework; sourceTree = "<group>"; };
-		96CE6B891B3C26CD00D632BF /* Runes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Runes.framework; path = Carthage/Build/Mac/Runes.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -567,8 +565,6 @@
 		96CE6B881B3C26B200D632BF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				96CE6B891B3C26CD00D632BF /* Runes.framework */,
-				96CE6B861B3C26A000D632BF /* Runes.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

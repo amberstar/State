@@ -14,8 +14,8 @@ public extension Model {
     }
     
     /// Save a model to a specified format
-    public func save(format: Format, path: String) {
-        format.converter.write(self.encode(), path: path)
+    public func save(format: Format, path: String) -> Bool {
+        return format.converter.write(self.encode(), path: path)
     }
     
     /// Print the models JSON representation to the standard output

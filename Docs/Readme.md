@@ -2,7 +2,7 @@
 
 
 ###Contents:
-- [Getting Started] (#getting-started)
+- [Getting Started] (GetStarted.md/#getting-started)
 - [Model Design Reference](Reference.md)
 - [Enum Design Guide](Enums.md)
 - [How to Setup a target in your project to automatically generate your models](Setup.md)
