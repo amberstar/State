@@ -7,33 +7,33 @@ import Foundation
 import State
 
 public struct TestOptionalTypes : Model {
-    public var myBinary: NSData?
-    public var myBoolean: Bool?
     public var myDate: NSDate?
-    public var myDecimal: NSDecimalNumber?
-    public var myDouble: Double?
     public var myFloat: Float?
-    public var myInt: Int?
+    public var myBinary: NSData?
+    public var myDouble: Double?
     public var myString: String?
+    public var myBoolean: Bool?
+    public var myDecimal: NSDecimalNumber?
+    public var myInt: Int?
 
-public init(myBinary: NSData?, myBoolean: Bool?, myDate: NSDate?, myDecimal: NSDecimalNumber?, myDouble: Double?, myFloat: Float?, myInt: Int?, myString: String?) {
+public init(myDate: NSDate?, myFloat: Float?, myBinary: NSData?, myDouble: Double?, myString: String?, myBoolean: Bool?, myDecimal: NSDecimalNumber?, myInt: Int?) {
 
-    self.myBinary = myBinary
-    self.myBoolean = myBoolean
     self.myDate = myDate
-    self.myDecimal = myDecimal
-    self.myDouble = myDouble
     self.myFloat = myFloat
-    self.myInt = myInt
+    self.myBinary = myBinary
+    self.myDouble = myDouble
     self.myString = myString
+    self.myBoolean = myBoolean
+    self.myDecimal = myDecimal
+    self.myInt = myInt
 
     }
 }
 
 extension TestOptionalTypes : Decodable {
 
-    static func create(myBinary: NSData?)(myBoolean: Bool?)(myDate: NSDate?)(myDecimal: NSDecimalNumber?)(myDouble: Double?)(myFloat: Float?)(myInt: Int?)(myString: String?) -> TestOptionalTypes  {
-        return TestOptionalTypes(myBinary: myBinary, myBoolean: myBoolean, myDate: myDate, myDecimal: myDecimal, myDouble: myDouble, myFloat: myFloat, myInt: myInt, myString: myString)
+    static func create(myDate: NSDate?)(myFloat: Float?)(myBinary: NSData?)(myDouble: Double?)(myString: String?)(myBoolean: Bool?)(myDecimal: NSDecimalNumber?)(myInt: Int?) -> TestOptionalTypes  {
+        return TestOptionalTypes(myDate: myDate, myFloat: myFloat, myBinary: myBinary, myDouble: myDouble, myString: myString, myBoolean: myBoolean, myDecimal: myDecimal, myInt: myInt)
     }
 
     public init?(var decoder: Decoder) {
@@ -41,14 +41,14 @@ extension TestOptionalTypes : Decodable {
     decoder = TestOptionalTypes.performMigrationIfNeeded(decoder)
 
         let instance: TestOptionalTypes? = TestOptionalTypes.create
-        <^> decoder.decode("myBinary") >>> asOptional
-        <*> decoder.decode("myBoolean") >>> asOptional
-        <*> decoder.decode("myDate") >>> asOptional
-        <*> decoder.decode("myDecimal") >>> asOptional
-        <*> decoder.decode("myDouble") >>> asOptional
+        <^> decoder.decode("myDate") >>> asOptional
         <*> decoder.decode("myFloat") >>> asOptional
-        <*> decoder.decode("myInt") >>> asOptional
+        <*> decoder.decode("myBinary") >>> asOptional
+        <*> decoder.decode("myDouble") >>> asOptional
         <*> decoder.decode("myString") >>> asOptional
+        <*> decoder.decode("myBoolean") >>> asOptional
+        <*> decoder.decode("myDecimal") >>> asOptional
+        <*> decoder.decode("myInt") >>> asOptional
 
         if let i = instance {
             i.didFinishDecodingWithDecoder(decoder)
@@ -60,14 +60,14 @@ extension TestOptionalTypes : Decodable {
 extension TestOptionalTypes : Encodable {
 
     public func encode(encoder: Encoder) {
-        encoder.encode(myBinary, "myBinary")
-        encoder.encode(myBoolean, "myBoolean")
         encoder.encode(myDate, "myDate")
-        encoder.encode(myDecimal, "myDecimal")
-        encoder.encode(myDouble, "myDouble")
         encoder.encode(myFloat, "myFloat")
-        encoder.encode(myInt, "myInt")
+        encoder.encode(myBinary, "myBinary")
+        encoder.encode(myDouble, "myDouble")
         encoder.encode(myString, "myString")
+        encoder.encode(myBoolean, "myBoolean")
+        encoder.encode(myDecimal, "myDecimal")
+        encoder.encode(myInt, "myInt")
 
         TestOptionalTypes.encodeVersionIfNeeded(encoder)
 

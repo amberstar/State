@@ -5,15 +5,13 @@
 ************************************************/
 import State
 
-extension <$managedObjectClassName$> {
+extension TestProtocolConformer {
 
     // Extend your entity here.
 }
-<$if isAbstract || userInfo.State.Protocol == YES$><$next$><$else$>
 
 // MARK: Coding
-extension <$managedObjectClassName$> {
-
+extension TestProtocolConformer {
 
     /// decoding is finished on the receiver
     /// - Parameter decoder: the decoder used for decoding
@@ -38,8 +36,7 @@ extension <$managedObjectClassName$> {
 }
 
 // MARK: Migration
-extension <$managedObjectClassName$> {
+extension TestProtocolConformer {
 
     // implement migration here. See: https://github.com/STLabs/State/blob/feat/swift2.0/Docs/Migration.md
 }
-<$endif$>

@@ -7,7 +7,8 @@ import Foundation
 import State
 import UIKit
 
-public enum TestAssociatedEnum : Model  {
+public enum TestAssociatedEnum  : Model {
+
     case BinaryType (NSData)
     case BooleanType (Bool)
     case DateType (NSDate)

@@ -12,7 +12,7 @@ class RelationshipTests: Test {
                 let grandChild = Grandchild(age: index, name: "GrandChild\(index)", gender: Gender.Female)
                 grandChildren.append(grandChild)
             }
-            let child = TestChild(age: index, name: "Child\(index)", gender: Gender.Male, myChildren: grandChildren)
+            let child = TestChild(age: index, name: "Child\(index)",   myChildren: grandChildren, gender: Gender.Male)
             children.append(child)
         }
         return children
@@ -32,7 +32,7 @@ class RelationshipTests: Test {
     func testCodingModelWithOneToMany() {
         let children = makeChildren()
         let grandChildren = makeGrandChildren(children)
-        let sampleData = TestRelationships(myChildren: children, myGrandChildren: grandChildren, myOneChild: TestChild(age: 22, name: "Mark", gender: Gender.Male, myChildren: nil))
+        let sampleData = TestRelationships(myChildren: children, myGrandChildren: grandChildren, myOneChild: TestChild(age: 22, name: "Mark", myChildren: nil, gender: Gender.Male ))
         sampleData.save(.JSON, path: tempPathFor("relationship.json"))
 
         let testData = TestRelationships(.JSON, path:tempPathFor("relationship.json"))

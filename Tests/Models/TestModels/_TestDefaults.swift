@@ -7,29 +7,29 @@ import Foundation
 import State
 
 public struct TestDefaults : Model {
-    public var defaultArray = ["zero", "one", "two"]
-    public var defaultEmptyArray = [String]()
-    public var defaultInt = 10
     public var defaultManualString = "defaultManualString"
+    public var defaultArray = ["zero", "one", "two"]
     public var defaultString = "defaultString"
     public var noDefaultInt: Int?
+    public var defaultInt = 10
     public var noDefaultString: String?
-    public var defaultChild = TestDefaultsChild()
+    public var defaultEmptyArray = [String]()
     public var defaultChildren = [TestDefaultsChild]()
+    public var defaultChild = TestDefaultsChild()
     public var noDefaultChild: TestDefaultsChild?
     public var noDefaultChildren: TestDefaultsChild?
 
-public init(defaultArray: [String], defaultEmptyArray: [String], defaultInt: Int, defaultManualString: String, defaultString: String, noDefaultInt: Int?, noDefaultString: String?, defaultChild: TestDefaultsChild, defaultChildren: [TestDefaultsChild], noDefaultChild: TestDefaultsChild?, noDefaultChildren: TestDefaultsChild?) {
+public init(defaultManualString: String, defaultArray: [String], defaultString: String, noDefaultInt: Int?, defaultInt: Int, noDefaultString: String?, defaultEmptyArray: [String], defaultChildren: [TestDefaultsChild], defaultChild: TestDefaultsChild, noDefaultChild: TestDefaultsChild?, noDefaultChildren: TestDefaultsChild?) {
 
-    self.defaultArray = defaultArray
-    self.defaultEmptyArray = defaultEmptyArray
-    self.defaultInt = defaultInt
     self.defaultManualString = defaultManualString
+    self.defaultArray = defaultArray
     self.defaultString = defaultString
     self.noDefaultInt = noDefaultInt
+    self.defaultInt = defaultInt
     self.noDefaultString = noDefaultString
-    self.defaultChild = defaultChild
+    self.defaultEmptyArray = defaultEmptyArray
     self.defaultChildren = defaultChildren
+    self.defaultChild = defaultChild
     self.noDefaultChild = noDefaultChild
     self.noDefaultChildren = noDefaultChildren
 
@@ -38,8 +38,8 @@ public init(defaultArray: [String], defaultEmptyArray: [String], defaultInt: Int
 
 extension TestDefaults : Decodable {
 
-    static func create(defaultArray: [String])(defaultEmptyArray: [String])(defaultInt: Int)(defaultManualString: String)(defaultString: String)(noDefaultInt: Int?)(noDefaultString: String?)(defaultChild: TestDefaultsChild)(defaultChildren: [TestDefaultsChild])(noDefaultChild: TestDefaultsChild?)(noDefaultChildren: TestDefaultsChild?) -> TestDefaults  {
-        return TestDefaults(defaultArray: defaultArray, defaultEmptyArray: defaultEmptyArray, defaultInt: defaultInt, defaultManualString: defaultManualString, defaultString: defaultString, noDefaultInt: noDefaultInt, noDefaultString: noDefaultString, defaultChild: defaultChild, defaultChildren: defaultChildren, noDefaultChild: noDefaultChild, noDefaultChildren: noDefaultChildren)
+    static func create(defaultManualString: String)(defaultArray: [String])(defaultString: String)(noDefaultInt: Int?)(defaultInt: Int)(noDefaultString: String?)(defaultEmptyArray: [String])(defaultChildren: [TestDefaultsChild])(defaultChild: TestDefaultsChild)(noDefaultChild: TestDefaultsChild?)(noDefaultChildren: TestDefaultsChild?) -> TestDefaults  {
+        return TestDefaults(defaultManualString: defaultManualString, defaultArray: defaultArray, defaultString: defaultString, noDefaultInt: noDefaultInt, defaultInt: defaultInt, noDefaultString: noDefaultString, defaultEmptyArray: defaultEmptyArray, defaultChildren: defaultChildren, defaultChild: defaultChild, noDefaultChild: noDefaultChild, noDefaultChildren: noDefaultChildren)
     }
 
     public init?(var decoder: Decoder) {
@@ -47,15 +47,15 @@ extension TestDefaults : Decodable {
     decoder = TestDefaults.performMigrationIfNeeded(decoder)
 
         let instance: TestDefaults? = TestDefaults.create
-        <^> decoder.decode("defaultArray")
-        <*> decoder.decode("defaultEmptyArray")
-        <*> decoder.decode("defaultInt")
-        <*> decoder.decode("defaultManualString")
+        <^> decoder.decode("defaultManualString")
+        <*> decoder.decode("defaultArray")
         <*> decoder.decode("defaultString")
         <*> decoder.decode("noDefaultInt") >>> asOptional
+        <*> decoder.decode("defaultInt")
         <*> decoder.decode("noDefaultString") >>> asOptional
-        <*> decoder.decodeModel("defaultChild")
+        <*> decoder.decode("defaultEmptyArray")
         <*> decoder.decodeModelArray("defaultChildren")
+        <*> decoder.decodeModel("defaultChild")
         <*> decoder.decodeModel("noDefaultChild") >>> asOptional
         <*> decoder.decodeModel("noDefaultChildren") >>> asOptional
 
@@ -69,15 +69,15 @@ extension TestDefaults : Decodable {
 extension TestDefaults : Encodable {
 
     public func encode(encoder: Encoder) {
-        encoder.encode(defaultArray, "defaultArray")
-        encoder.encode(defaultEmptyArray, "defaultEmptyArray")
-        encoder.encode(defaultInt, "defaultInt")
         encoder.encode(defaultManualString, "defaultManualString")
+        encoder.encode(defaultArray, "defaultArray")
         encoder.encode(defaultString, "defaultString")
         encoder.encode(noDefaultInt, "noDefaultInt")
+        encoder.encode(defaultInt, "defaultInt")
         encoder.encode(noDefaultString, "noDefaultString")
-        encoder.encode(defaultChild, "defaultChild")
+        encoder.encode(defaultEmptyArray, "defaultEmptyArray")
         encoder.encode(defaultChildren, "defaultChildren")
+        encoder.encode(defaultChild, "defaultChild")
         encoder.encode(noDefaultChild, "noDefaultChild")
         encoder.encode(noDefaultChildren, "noDefaultChildren")
 

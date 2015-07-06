@@ -9,23 +9,23 @@ import State
 public struct TestChild : Model {
     public var age: Int?
     public var name: String?
-    public var gender: Gender?
     public var myChildren: [Grandchild]?
+    public var gender: Gender?
 
-public init(age: Int?, name: String?, gender: Gender?, myChildren: [Grandchild]?) {
+public init(age: Int?, name: String?, myChildren: [Grandchild]?, gender: Gender?) {
 
     self.age = age
     self.name = name
-    self.gender = gender
     self.myChildren = myChildren
+    self.gender = gender
 
     }
 }
 
 extension TestChild : Decodable {
 
-    static func create(age: Int?)(name: String?)(gender: Gender?)(myChildren: [Grandchild]?) -> TestChild  {
-        return TestChild(age: age, name: name, gender: gender, myChildren: myChildren)
+    static func create(age: Int?)(name: String?)(myChildren: [Grandchild]?)(gender: Gender?) -> TestChild  {
+        return TestChild(age: age, name: name, myChildren: myChildren, gender: gender)
     }
 
     public init?(var decoder: Decoder) {
@@ -35,8 +35,8 @@ extension TestChild : Decodable {
         let instance: TestChild? = TestChild.create
         <^> decoder.decode("age") >>> asOptional
         <*> decoder.decode("name") >>> asOptional
-        <*> decoder.decodeModel("gender") >>> asOptional
         <*> decoder.decodeModelArray("myChildren") >>> asOptional
+        <*> decoder.decodeModel("gender") >>> asOptional
 
         if let i = instance {
             i.didFinishDecodingWithDecoder(decoder)
@@ -50,8 +50,8 @@ extension TestChild : Encodable {
     public func encode(encoder: Encoder) {
         encoder.encode(age, "age")
         encoder.encode(name, "name")
-        encoder.encode(gender, "gender")
         encoder.encode(myChildren, "myChildren")
+        encoder.encode(gender, "gender")
 
         TestChild.encodeVersionIfNeeded(encoder)
 

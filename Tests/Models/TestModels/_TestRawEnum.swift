@@ -6,7 +6,8 @@
 import Foundation
 import State
 
-public enum TestRawEnum : String, Model  {
+public enum TestRawEnum  : String, Model {
+
     case Aim  = "Aim"
     case Fire  = "Fire"
     case Ready  = "Ready"

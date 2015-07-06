@@ -8,15 +8,15 @@ import State
 
 public struct Company : Model {
     public var name: String
-    public var phoneNumber: String?
     public var yearFounded: Double
+    public var phoneNumber: String?
     public var employees: [Employee]?
 
-public init(name: String, phoneNumber: String?, yearFounded: Double, employees: [Employee]?) {
+public init(name: String, yearFounded: Double, phoneNumber: String?, employees: [Employee]?) {
 
     self.name = name
-    self.phoneNumber = phoneNumber
     self.yearFounded = yearFounded
+    self.phoneNumber = phoneNumber
     self.employees = employees
 
     }
@@ -24,8 +24,8 @@ public init(name: String, phoneNumber: String?, yearFounded: Double, employees: 
 
 extension Company : Decodable {
 
-    static func create(name: String)(phoneNumber: String?)(yearFounded: Double)(employees: [Employee]?) -> Company  {
-        return Company(name: name, phoneNumber: phoneNumber, yearFounded: yearFounded, employees: employees)
+    static func create(name: String)(yearFounded: Double)(phoneNumber: String?)(employees: [Employee]?) -> Company  {
+        return Company(name: name, yearFounded: yearFounded, phoneNumber: phoneNumber, employees: employees)
     }
 
     public init?(var decoder: Decoder) {
@@ -34,8 +34,8 @@ extension Company : Decodable {
 
         let instance: Company? = Company.create
         <^> decoder.decode("name")
-        <*> decoder.decode("phoneNumber") >>> asOptional
         <*> decoder.decode("yearFounded")
+        <*> decoder.decode("phoneNumber") >>> asOptional
         <*> decoder.decodeModelArray("employees") >>> asOptional
 
         if let i = instance {
@@ -49,8 +49,8 @@ extension Company : Encodable {
 
     public func encode(encoder: Encoder) {
         encoder.encode(name, "name")
-        encoder.encode(phoneNumber, "phoneNumber")
         encoder.encode(yearFounded, "yearFounded")
+        encoder.encode(phoneNumber, "phoneNumber")
         encoder.encode(employees, "employees")
 
         Company.encodeVersionIfNeeded(encoder)

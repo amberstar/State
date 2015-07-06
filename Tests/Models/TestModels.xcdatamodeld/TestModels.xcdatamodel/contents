@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E17e" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8118.20" systemVersion="15A204h" minimumToolsVersion="Xcode 4.3">
     <entity name="Company" representedClassName="Company" syncable="YES">
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
@@ -309,6 +309,30 @@
             </userInfo>
         </attribute>
     </entity>
+    <entity name="TestParentProtocol" representedClassName="TestParentProtocol" syncable="YES">
+        <attribute name="ss_number" attributeType="String" syncable="YES"/>
+        <userInfo>
+            <entry key="State.Protocol" value="YES"/>
+        </userInfo>
+    </entity>
+    <entity name="TestProtocol" representedClassName="TestProtocol" isAbstract="YES" parentEntity="TestParentProtocol" syncable="YES">
+        <attribute name="age" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+            </userInfo>
+        </attribute>
+        <relationship name="children" toMany="YES" deletionRule="Nullify" destinationEntity="TestChild" syncable="YES"/>
+        <relationship name="grandchild" maxCount="1" deletionRule="Nullify" destinationEntity="Grandchild" syncable="YES">
+            <userInfo>
+                <entry key="State.Immutable" value="YES"/>
+            </userInfo>
+        </relationship>
+    </entity>
+    <entity name="TestProtocolConformer" representedClassName="TestProtocolConformer" parentEntity="TestProtocol" syncable="YES">
+        <attribute name="isReady" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="employee" maxCount="1" deletionRule="Nullify" destinationEntity="Employee" syncable="YES"/>
+    </entity>
     <entity name="TestRawEnum" representedClassName="TestRawEnum" syncable="YES">
         <attribute name="aim" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
@@ -404,23 +428,26 @@
         <element name="Gender" positionX="-20295" positionY="-11142" width="128" height="73"/>
         <element name="Grandchild" positionX="-19838" positionY="-11110" width="128" height="88"/>
         <element name="TestAssociatedEnum" positionX="-20034" positionY="-10755" width="128" height="208"/>
-        <element name="TestAssociatedOptionalEnum" positionX="-20124" positionY="-10476" width="128" height="208"/>
+        <element name="TestAssociatedOptionalEnum" positionX="-20304" positionY="-10540" width="128" height="208"/>
         <element name="TestChild" positionX="-19910" positionY="-11385" width="128" height="103"/>
         <element name="TestCollections" positionX="-20754" positionY="-10872" width="128" height="88"/>
         <element name="TestDefaults" positionX="-20898" positionY="-11358" width="128" height="208"/>
         <element name="TestDefaultsChild" positionX="-20601" positionY="-11340" width="128" height="58"/>
         <element name="TestImmutableOptionalTypes" positionX="-20592" positionY="-10639" width="128" height="163"/>
         <element name="TestImmutableTypes" positionX="-20763" positionY="-10639" width="128" height="163"/>
-        <element name="TestMigration" positionX="-19773" positionY="-10953" width="128" height="73"/>
+        <element name="TestMigration" positionX="-19872" positionY="-10962" width="128" height="73"/>
         <element name="TestOptionalTypes" positionX="-20925" positionY="-10881" width="128" height="163"/>
         <element name="TestOverrideType" positionX="-20718" positionY="-11107" width="128" height="73"/>
         <element name="TestRawEnum" positionX="-20423" positionY="-10645" width="128" height="88"/>
         <element name="TestRegEnum" positionX="-20250" positionY="-10638" width="128" height="73"/>
-        <element name="TestRelationships" positionX="-20304" positionY="-11347" width="128" height="88"/>
+        <element name="TestRelationships" positionX="-20268" positionY="-11374" width="128" height="88"/>
         <element name="TestTransformable" positionX="-20576" positionY="-10863" width="263" height="103"/>
         <element name="TestTransient" positionX="-20538" positionY="-11142" width="128" height="88"/>
         <element name="TestTransient2" positionX="-20502" positionY="-11034" width="128" height="88"/>
         <element name="TestTransient3" positionX="-20936" positionY="-11088" width="128" height="88"/>
         <element name="TestTypes" positionX="-20927" positionY="-10684" width="128" height="163"/>
+        <element name="TestProtocol" positionX="-19640" positionY="-11254" width="128" height="103"/>
+        <element name="TestParentProtocol" positionX="-19640" positionY="-11367" width="128" height="58"/>
+        <element name="TestProtocolConformer" positionX="-19638" positionY="-10944" width="128" height="73"/>
     </elements>
 </model>

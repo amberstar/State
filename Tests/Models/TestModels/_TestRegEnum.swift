@@ -6,7 +6,8 @@
 import Foundation
 import State
 
-public enum TestRegEnum : Model  {
+public enum TestRegEnum  : Model {
+
     case Cold 
     case Hot
 

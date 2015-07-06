@@ -7,21 +7,21 @@ import Foundation
 import State
 
 public struct TestOverrideType : Model {
-    public var myArrayOfString: [String]?
     public var myURL: NSURL?
+    public var myArrayOfString: [String]?
 
-public init(myArrayOfString: [String]?, myURL: NSURL?) {
+public init(myURL: NSURL?, myArrayOfString: [String]?) {
 
-    self.myArrayOfString = myArrayOfString
     self.myURL = myURL
+    self.myArrayOfString = myArrayOfString
 
     }
 }
 
 extension TestOverrideType : Decodable {
 
-    static func create(myArrayOfString: [String]?)(myURL: NSURL?) -> TestOverrideType  {
-        return TestOverrideType(myArrayOfString: myArrayOfString, myURL: myURL)
+    static func create(myURL: NSURL?)(myArrayOfString: [String]?) -> TestOverrideType  {
+        return TestOverrideType(myURL: myURL, myArrayOfString: myArrayOfString)
     }
 
     public init?(var decoder: Decoder) {
@@ -29,8 +29,8 @@ extension TestOverrideType : Decodable {
     decoder = TestOverrideType.performMigrationIfNeeded(decoder)
 
         let instance: TestOverrideType? = TestOverrideType.create
-        <^> decoder.decode("myArrayOfString") >>> asOptional
-        <*> decoder.decode("myURL") >>> asOptional
+        <^> decoder.decode("myURL") >>> asOptional
+        <*> decoder.decode("myArrayOfString") >>> asOptional
 
         if let i = instance {
             i.didFinishDecodingWithDecoder(decoder)
@@ -42,8 +42,8 @@ extension TestOverrideType : Decodable {
 extension TestOverrideType : Encodable {
 
     public func encode(encoder: Encoder) {
-        encoder.encode(myArrayOfString, "myArrayOfString")
         encoder.encode(myURL, "myURL")
+        encoder.encode(myArrayOfString, "myArrayOfString")
 
         TestOverrideType.encodeVersionIfNeeded(encoder)
 

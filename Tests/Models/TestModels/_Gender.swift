@@ -6,7 +6,8 @@
 import Foundation
 import State
 
-public enum Gender : String, Model  {
+public enum Gender  : String, Model {
+
     case Female  = "Female"
     case Male  = "Male"
 
