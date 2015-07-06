@@ -25,3 +25,22 @@ Notes:
 * Protocols can inherit from other protocols
 * Protocol requirements can include other model items
 * Model items cannot have relationships to protocols unless the item is transient
+
+
+![Example](Resources/protocol_1.png)
+
+```swift
+public protocol Asset : Model {
+   var name : String { get set }
+   var type : AssetType { get set }
+}
+
+public protocol FileAsset : Asset {
+   var path : String { get set }
+}
+
+public struct AssetItem : Asset {
+    public var name: String
+    public var type: AssetType?
+
+```

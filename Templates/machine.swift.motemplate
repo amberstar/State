@@ -50,9 +50,7 @@ extension <$managedObjectClassName$> {
     decoder = <$managedObjectClassName$>.performMigrationIfNeeded(decoder)
     <$endprocedure$>
 
-<$if userInfo.State.Enum == YES$><$call Enum$><$elseif isAbstract || userInfo.State.Protocol == YES$><$call Protocol$><$else$>
-
-
+<$procedure Struct$>
 public struct <$managedObjectClassName$><$if hasSuperentity$> : <$superentity.managedObjectClassName$><$else$> : Model<$endif$> {
     <$foreach Attribute attributesByName do$><$call getPropertyDeclarationForAttribute Attribute$>
     <$endforeach do$><$foreach Relationship relationshipsByName do$><$call getPropertyDeclarationForRelationship Relationship$>
@@ -99,7 +97,7 @@ extension <$managedObjectClassName$> : Encodable {
 }
 
 <$call writeVersionHashExtension $>
-<$endif$>
+<$endprocedure$>
 
 
 <$procedure writeRawValueCaseForAttribute Attribute$><$if Attribute.userInfo.State.Value$> = <$if userInfo.State.Type == String$>"<$endif$><$ Attribute.userInfo.State.Value$><$if userInfo.State.Type == String$>"<$endif$><$endif$><$endprocedure$>
@@ -235,3 +233,4 @@ public protocol <$managedObjectClassName$><$if hasSuperentity$> : <$superentity.
 <$call writeVersionHashExtension $>
 <$endprocedure$>
 
+<$if userInfo.State.Enum == YES$><$call Enum$><$elseif isAbstract || userInfo.State.Protocol == YES$><$call Protocol$><$else$><$call Struct$>
