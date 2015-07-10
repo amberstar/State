@@ -6,7 +6,6 @@
 | -------------------------------- | -------------------------- | :----------------:|
 | `State.Enum` | Specify entity is an enum. All attributes are considered cases of the enum. Specify raw value type with `State.Type` . *required for enums. | `YES`, `NO` |
 | `State.Protocol` | Specify entity is a protocol. (**note:** you can also check the abstract checkbox) | `YES`, `NO` |
-| `State.GenerateStub` | Specify a protocol stub should be generated. (see protocol docs for more info) | `YES`, `NO` |
 | `State.Type`       | Raw value type for  enum. *required for enums.|The exact type  |
 
 ## Attribute Key-Value Reference

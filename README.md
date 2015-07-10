@@ -29,8 +29,7 @@ model.save(.Plist, path: "model.plist")
 let model = ModelType(.Plist, path: "model.plist")
 ```
 
-### [ Read the Documentation to Get Started](Docs/)
-
+# [ Read the Documentation to Get Started](Docs/)
 
 ##System Requirements
 - Swift 2.0
