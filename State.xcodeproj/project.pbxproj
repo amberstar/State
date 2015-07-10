@@ -157,14 +157,18 @@
 		96A85FD71B4AD38E006A5ABE /* _TestParentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A85FD41B4AD38E006A5ABE /* _TestParentProtocol.swift */; };
 		96A85FD81B4AD38E006A5ABE /* _TestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A85FD51B4AD38E006A5ABE /* _TestProtocol.swift */; };
 		96A85FD91B4AD38E006A5ABE /* _TestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A85FD51B4AD38E006A5ABE /* _TestProtocol.swift */; };
-		96A85FDE1B4AD397006A5ABE /* TestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A85FDB1B4AD397006A5ABE /* TestProtocol.swift */; };
-		96A85FDF1B4AD397006A5ABE /* TestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A85FDB1B4AD397006A5ABE /* TestProtocol.swift */; };
-		96A85FE11B4AD5D4006A5ABE /* TestParentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A85FE01B4AD5D4006A5ABE /* TestParentProtocol.swift */; };
-		96A85FE21B4AD5D4006A5ABE /* TestParentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A85FE01B4AD5D4006A5ABE /* TestParentProtocol.swift */; };
-		96A85FE51B4ADCF8006A5ABE /* _TestProtocolConformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A85FE31B4ADCF8006A5ABE /* _TestProtocolConformer.swift */; };
-		96A85FE61B4ADCF8006A5ABE /* _TestProtocolConformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A85FE31B4ADCF8006A5ABE /* _TestProtocolConformer.swift */; };
-		96A85FF61B4AF84C006A5ABE /* TestProtocolConformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A85FF51B4AF84C006A5ABE /* TestProtocolConformer.swift */; };
-		96A85FF71B4AF84C006A5ABE /* TestProtocolConformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A85FF51B4AF84C006A5ABE /* TestProtocolConformer.swift */; };
+		96A8602A1B4B2D5E006A5ABE /* TestParentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A860291B4B2D5E006A5ABE /* TestParentProtocol.swift */; };
+		96A8602B1B4B2D5E006A5ABE /* TestParentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A860291B4B2D5E006A5ABE /* TestParentProtocol.swift */; };
+		96A8602D1B4B3040006A5ABE /* _TestProtocolContainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8602C1B4B3040006A5ABE /* _TestProtocolContainter.swift */; };
+		96A8602E1B4B3040006A5ABE /* _TestProtocolContainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8602C1B4B3040006A5ABE /* _TestProtocolContainter.swift */; };
+		96A860301B4B304A006A5ABE /* TestProtocolContainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8602F1B4B304A006A5ABE /* TestProtocolContainter.swift */; };
+		96A860311B4B304A006A5ABE /* TestProtocolContainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8602F1B4B304A006A5ABE /* TestProtocolContainter.swift */; };
+		96A860331B4B35A8006A5ABE /* TestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A860321B4B35A8006A5ABE /* TestProtocol.swift */; };
+		96A860341B4B35A8006A5ABE /* TestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A860321B4B35A8006A5ABE /* TestProtocol.swift */; };
+		96A860351B4D9AC3006A5ABE /* TestProtocolConformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A85FF51B4AF84C006A5ABE /* TestProtocolConformer.swift */; };
+		96A860361B4D9AC4006A5ABE /* TestProtocolConformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A85FF51B4AF84C006A5ABE /* TestProtocolConformer.swift */; };
+		96A860371B4D9AF8006A5ABE /* _TestProtocolConformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A85FE31B4ADCF8006A5ABE /* _TestProtocolConformer.swift */; };
+		96A860381B4D9AF8006A5ABE /* _TestProtocolConformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A85FE31B4ADCF8006A5ABE /* _TestProtocolConformer.swift */; };
 		96C5C37B1B3C293F009121A1 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C5C3781B3C293F009121A1 /* Array.swift */; };
 		96C5C37C1B3C293F009121A1 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C5C3781B3C293F009121A1 /* Array.swift */; };
 		96C5C37D1B3C293F009121A1 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C5C3791B3C293F009121A1 /* Operators.swift */; };
@@ -325,10 +329,12 @@
 		04C3C6E41AFA7E2400C95039 /* TestTransient3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestTransient3.swift; path = Tests/Models/TestModels/TestTransient3.swift; sourceTree = "<group>"; };
 		96A85FD41B4AD38E006A5ABE /* _TestParentProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestParentProtocol.swift; path = Tests/Models/TestModels/_TestParentProtocol.swift; sourceTree = "<group>"; };
 		96A85FD51B4AD38E006A5ABE /* _TestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestProtocol.swift; path = Tests/Models/TestModels/_TestProtocol.swift; sourceTree = "<group>"; };
-		96A85FDB1B4AD397006A5ABE /* TestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocol.swift; path = Tests/Models/TestModels/TestProtocol.swift; sourceTree = "<group>"; };
-		96A85FE01B4AD5D4006A5ABE /* TestParentProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestParentProtocol.swift; path = Tests/Models/TestModels/TestParentProtocol.swift; sourceTree = "<group>"; };
 		96A85FE31B4ADCF8006A5ABE /* _TestProtocolConformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestProtocolConformer.swift; path = Tests/Models/TestModels/_TestProtocolConformer.swift; sourceTree = "<group>"; };
 		96A85FF51B4AF84C006A5ABE /* TestProtocolConformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocolConformer.swift; path = Tests/Models/TestModels/TestProtocolConformer.swift; sourceTree = "<group>"; };
+		96A860291B4B2D5E006A5ABE /* TestParentProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestParentProtocol.swift; path = Tests/Models/TestModels/TestParentProtocol.swift; sourceTree = "<group>"; };
+		96A8602C1B4B3040006A5ABE /* _TestProtocolContainter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestProtocolContainter.swift; path = Tests/Models/TestModels/_TestProtocolContainter.swift; sourceTree = "<group>"; };
+		96A8602F1B4B304A006A5ABE /* TestProtocolContainter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocolContainter.swift; path = Tests/Models/TestModels/TestProtocolContainter.swift; sourceTree = "<group>"; };
+		96A860321B4B35A8006A5ABE /* TestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocol.swift; path = Tests/Models/TestModels/TestProtocol.swift; sourceTree = "<group>"; };
 		96C5C3781B3C293F009121A1 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Array.swift; path = Carthage/Checkouts/Runes/Source/Array.swift; sourceTree = SOURCE_ROOT; };
 		96C5C3791B3C293F009121A1 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Carthage/Checkouts/Runes/Source/Operators.swift; sourceTree = SOURCE_ROOT; };
 		96C5C37A1B3C293F009121A1 /* Optional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Optional.swift; path = Carthage/Checkouts/Runes/Source/Optional.swift; sourceTree = SOURCE_ROOT; };
@@ -540,11 +546,13 @@
 				044F88951AE69BD900FAB475 /* TestTypes.swift */,
 				96A85FD41B4AD38E006A5ABE /* _TestParentProtocol.swift */,
 				96A85FD51B4AD38E006A5ABE /* _TestProtocol.swift */,
-				96A85FDB1B4AD397006A5ABE /* TestProtocol.swift */,
-				96A85FE01B4AD5D4006A5ABE /* TestParentProtocol.swift */,
 				96A85FE31B4ADCF8006A5ABE /* _TestProtocolConformer.swift */,
 				96A85FF51B4AF84C006A5ABE /* TestProtocolConformer.swift */,
+				96A860291B4B2D5E006A5ABE /* TestParentProtocol.swift */,
+				96A8602C1B4B3040006A5ABE /* _TestProtocolContainter.swift */,
+				96A8602F1B4B304A006A5ABE /* TestProtocolContainter.swift */,
 				041817611B1239C4002CA532 /* TestModels.xcdatamodeld */,
+				96A860321B4B35A8006A5ABE /* TestProtocol.swift */,
 				0493E73B1B12330B00CD93E2 /* TestModels */,
 				04012AC51AE132AE006DAC19 /* BasicModels.swift */,
 				04012AC61AE132AE006DAC19 /* ObjectModels.swift */,
@@ -817,7 +825,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				041817871B124AB4002CA532 /* BaseTest.swift in Sources */,
-				96A85FE51B4ADCF8006A5ABE /* _TestProtocolConformer.swift in Sources */,
 				044F88971AE69BD900FAB475 /* Employee.swift in Sources */,
 				04B46BE41B2EF89400ED20BF /* RelationshipTests.swift in Sources */,
 				04C3C6E21AFA77E300C95039 /* TestTransient2.swift in Sources */,
@@ -835,7 +842,6 @@
 				044F889B1AE69BD900FAB475 /* TestCollections.swift in Sources */,
 				04C1B9301AE9219900A85730 /* _Employee.swift in Sources */,
 				044F88A31AE69BD900FAB475 /* TestTypes.swift in Sources */,
-				96A85FE11B4AD5D4006A5ABE /* TestParentProtocol.swift in Sources */,
 				044F88A11AE69BD900FAB475 /* TestRelationships.swift in Sources */,
 				044F88981AE69BD900FAB475 /* Gender.swift in Sources */,
 				0485AA221AFE9BDE008E89D6 /* TestMigrationV2.swift in Sources */,
@@ -844,8 +850,10 @@
 				04925EC21AE9967B00BF1D88 /* _TestDefaults.swift in Sources */,
 				04C3C6DA1AFA73E600C95039 /* _TestTransient.swift in Sources */,
 				96A85FD61B4AD38E006A5ABE /* _TestParentProtocol.swift in Sources */,
+				96A860331B4B35A8006A5ABE /* TestProtocol.swift in Sources */,
 				041817951B124AB4002CA532 /* EnumTests.swift in Sources */,
 				044F88961AE69BD900FAB475 /* Company.swift in Sources */,
+				96A860381B4D9AF8006A5ABE /* _TestProtocolConformer.swift in Sources */,
 				04B46BE21B2EF44F00ED20BF /* BasicModels.swift in Sources */,
 				04C1B93A1AE9219900A85730 /* _TestRelationships.swift in Sources */,
 				04BD1AF01AEACF75008F576C /* TestRegEnum.swift in Sources */,
@@ -857,14 +865,14 @@
 				04B46BE71B2EFAE800ED20BF /* DecodingTests.swift in Sources */,
 				04BD1AF31AEACF86008F576C /* _TestRawEnum.swift in Sources */,
 				044F88A21AE69BD900FAB475 /* TestTransformable.swift in Sources */,
-				96A85FDE1B4AD397006A5ABE /* TestProtocol.swift in Sources */,
+				96A8602D1B4B3040006A5ABE /* _TestProtocolContainter.swift in Sources */,
 				04C1B9371AE9219900A85730 /* _TestImmutableTypes.swift in Sources */,
 				04C1B92F1AE9219900A85730 /* _Company.swift in Sources */,
+				96A860351B4D9AC3006A5ABE /* TestProtocolConformer.swift in Sources */,
 				04B46BE51B2EFAE000ED20BF /* EncodingTests.swift in Sources */,
 				04C1B9381AE9219900A85730 /* _TestOptionalTypes.swift in Sources */,
 				04C3C6E01AFA77E300C95039 /* _TestTransient2.swift in Sources */,
 				041817A11B124AB4002CA532 /* TransformTests.swift in Sources */,
-				96A85FF61B4AF84C006A5ABE /* TestProtocolConformer.swift in Sources */,
 				0485AA1C1AFE9B83008E89D6 /* TestMigrationV1.swift in Sources */,
 				041817911B124AB4002CA532 /* EncodableTests.swift in Sources */,
 				04BD1AD01AE9A6E4008F576C /* TestDefaultsChild.swift in Sources */,
@@ -879,7 +887,9 @@
 				044F88991AE69BD900FAB475 /* Grandchild.swift in Sources */,
 				04BD1AF81AEAD2B9008F576C /* TestAssociatedEnum.swift in Sources */,
 				044F889D1AE69BD900FAB475 /* TestImmutableOptionalTypes.swift in Sources */,
+				96A8602A1B4B2D5E006A5ABE /* TestParentProtocol.swift in Sources */,
 				96A85FD81B4AD38E006A5ABE /* _TestProtocol.swift in Sources */,
+				96A860301B4B304A006A5ABE /* TestProtocolContainter.swift in Sources */,
 				04C1B9321AE9219900A85730 /* _Grandchild.swift in Sources */,
 				04C1B9331AE9219900A85730 /* _TestChild.swift in Sources */,
 				04C1B9341AE9219900A85730 /* _TestCollections.swift in Sources */,
@@ -916,17 +926,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96A860311B4B304A006A5ABE /* TestProtocolContainter.swift in Sources */,
 				047B23001AF3EEA0003B7F39 /* _TestDefaults.swift in Sources */,
 				0418178E1B124AB4002CA532 /* DefaultTests.swift in Sources */,
 				047B22FF1AF3EEA0003B7F39 /* TestDefaults.swift in Sources */,
 				047B23041AF3EEA0003B7F39 /* _Grandchild.swift in Sources */,
+				96A860371B4D9AF8006A5ABE /* _TestProtocolConformer.swift in Sources */,
 				047B23121AF3EEA0003B7F39 /* TestChild.swift in Sources */,
 				041817861B124AB4002CA532 /* BaseTest.swift in Sources */,
 				04C3C6E11AFA77E300C95039 /* TestTransient2.swift in Sources */,
 				04C3C6D91AFA73E600C95039 /* _TestTransient.swift in Sources */,
+				96A8602B1B4B2D5E006A5ABE /* TestParentProtocol.swift in Sources */,
 				047B23021AF3EEA0003B7F39 /* _Employee.swift in Sources */,
 				041817A01B124AB4002CA532 /* TransformTests.swift in Sources */,
 				04B46BE61B2EFAE000ED20BF /* EncodingTests.swift in Sources */,
+				96A860361B4D9AC4006A5ABE /* TestProtocolConformer.swift in Sources */,
 				047B23161AF3EEA0003B7F39 /* TestOptionalTypes.swift in Sources */,
 				04C3C6DB1AFA73E600C95039 /* TestTransient.swift in Sources */,
 				047B23101AF3EEA0003B7F39 /* Gender.swift in Sources */,
@@ -935,10 +949,8 @@
 				047B230B1AF3EEA0003B7F39 /* _TestRelationships.swift in Sources */,
 				04C3C6E51AFA7E2400C95039 /* _TestTransient3.swift in Sources */,
 				047B230C1AF3EEA0003B7F39 /* _TestTransformable.swift in Sources */,
-				96A85FF71B4AF84C006A5ABE /* TestProtocolConformer.swift in Sources */,
 				96A85FD91B4AD38E006A5ABE /* _TestProtocol.swift in Sources */,
 				0485AA211AFE9BDE008E89D6 /* TestMigrationV2.swift in Sources */,
-				96A85FE21B4AD5D4006A5ABE /* TestParentProtocol.swift in Sources */,
 				04B46BE81B2EFAE900ED20BF /* DecodingTests.swift in Sources */,
 				047B23291AF3EFDA003B7F39 /* ObjectModels.swift in Sources */,
 				047B23091AF3EEA0003B7F39 /* _TestOptionalTypes.swift in Sources */,
@@ -950,6 +962,7 @@
 				0418178A1B124AB4002CA532 /* DecodableTests.swift in Sources */,
 				047B23181AF3EEA0003B7F39 /* TestRelationships.swift in Sources */,
 				047B23171AF3EEA0003B7F39 /* TestOverrideType.swift in Sources */,
+				96A8602E1B4B3040006A5ABE /* _TestProtocolContainter.swift in Sources */,
 				047B23151AF3EEA0003B7F39 /* TestImmutableTypes.swift in Sources */,
 				0485AA241AFE9C43008E89D6 /* _TestMigrationV2.swift in Sources */,
 				047B23191AF3EEA0003B7F39 /* TestTransformable.swift in Sources */,
@@ -967,15 +980,14 @@
 				047B231A1AF3EEA0003B7F39 /* TestTypes.swift in Sources */,
 				0485AA191AFE9B83008E89D6 /* _TestMigrationV1.swift in Sources */,
 				041817901B124AB4002CA532 /* EncodableTests.swift in Sources */,
-				96A85FE61B4ADCF8006A5ABE /* _TestProtocolConformer.swift in Sources */,
 				047B23081AF3EEA0003B7F39 /* _TestImmutableTypes.swift in Sources */,
 				047B23011AF3EEA0003B7F39 /* _Company.swift in Sources */,
 				047B23111AF3EEA0003B7F39 /* Grandchild.swift in Sources */,
 				047B22FB1AF3EEA0003B7F39 /* _TestRegEnum.swift in Sources */,
 				96A85FD71B4AD38E006A5ABE /* _TestParentProtocol.swift in Sources */,
-				96A85FDF1B4AD397006A5ABE /* TestProtocol.swift in Sources */,
 				047B232A1AF3EFDA003B7F39 /* RecursiveModel.swift in Sources */,
 				047B23061AF3EEA0003B7F39 /* _TestCollections.swift in Sources */,
+				96A860341B4B35A8006A5ABE /* TestProtocol.swift in Sources */,
 				047B22FC1AF3EEA0003B7F39 /* TestRegEnum.swift in Sources */,
 				0418179E1B124AB4002CA532 /* TemplateTests.swift in Sources */,
 				04C3C6E71AFA7E2400C95039 /* TestTransient3.swift in Sources */,

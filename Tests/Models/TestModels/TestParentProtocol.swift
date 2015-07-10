@@ -9,3 +9,4 @@ extension TestParentProtocol {
 
     // Extend your entity here.
 }
+

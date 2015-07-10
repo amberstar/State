@@ -65,6 +65,8 @@ extension TestProtocolConformer : Encodable {
         encoder.encode(grandchild, "grandchild")
         encoder.encode(children, "children")
 
+        encoder.encode("TestProtocolConformer", model_type_key)
+
         TestProtocolConformer.encodeVersionIfNeeded(encoder)
 
         self.willFinishEncodingWithEncoder(encoder)

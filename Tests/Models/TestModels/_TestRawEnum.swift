@@ -85,4 +85,3 @@ extension TestRawEnum {
         return nil
     }
 }
-

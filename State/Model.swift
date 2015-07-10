@@ -1,4 +1,3 @@
-
 /// a model type that is decodable, encodable and migratable
 /// all generated models implement this protocol
 public protocol Model : Decodable, Encodable, Migratable {}
@@ -14,8 +13,8 @@ public extension Model {
     }
     
     /// Save a model to a specified format
-    public func save(format: Format, path: String) {
-        format.converter.write(self.encode(), path: path)
+    public func save(format: Format, path: String) -> Bool {
+        return format.converter.write(self.encode(), path: path)
     }
     
     /// Print the models JSON representation to the standard output
@@ -23,3 +22,8 @@ public extension Model {
         print(JSON.inspect(self.encode()))
     }
 }
+
+public protocol ModelProtocol: Model { }
+
+/// Key used to code protocol type
+public let model_type_key = "model_type"

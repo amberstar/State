@@ -16,17 +16,44 @@ public protocol TestProtocol : TestParentProtocol {
 
 }
 
-extension TestProtocol {
+/// Mark: Decoding
 
-    /// These are provided from the data model designer
-    /// and can be used to determine if the model is
-    /// a different version.
-    public static func modelVersionHash() -> String {
-        return "<db58f1fd 6d599ec8 9d037779 e8348f86 2b66e21d ad7b2763 e9b20a65 da3cf127>"
+public extension Decoder {
+
+    public func decodeTestProtocol(key: String) -> TestProtocol? {
+        let data = self.extractData()
+        let d = data[key] as? [String : AnyObject]
+        return d.flatMap(_decodeTestProtocol)
     }
 
-    public static func modelVersionHashModifier() -> String? {
+    public func decodeTestProtocolArray(key: String) -> [TestProtocol]? {
+        let data = self.extractData()
+        let d = data[key] as? [[String : AnyObject]]
+        return d.flatMap { sequence($0.map(_decodeTestProtocol)) }
+    }
+
+    public func decodeTestProtocolDictionary(key: String) -> [String : TestProtocol]? {
+        let data = self.extractData()
+        let d = data[key] as? [String : [String : AnyObject]]
+        return d.flatMap { sequence($0.map(_decodeTestProtocol)) }
+    }
+
+    private func _decodeTestProtocol(data: [String : AnyObject]) -> TestProtocol? {
+        if let t = TestProtocolTypeForKey(model_type_key) {
+            return t.init(decoder: Decoder(data: data))
+        }
         return nil
+    }
+
+    private func TestProtocolTypeForKey(key: String) -> TestProtocol.Type? {
+        switch key {
+
+        case "TestProtocolConformer":
+            return TestProtocolConformer.self
+
+        default:
+            return nil
+        }
     }
 }
 

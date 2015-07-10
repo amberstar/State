@@ -65,4 +65,3 @@ extension TestRegEnum {
         return nil
     }
 }
-

@@ -5,19 +5,13 @@
 ************************************************/
 import State
 
-extension TestProtocolConformer {
+extension TestProtocolContainter {
 
     // Extend your entity here.
 }
 
-
-
-extension TestProtocolContainter  {
-    
-}
-
 // MARK: Coding
-extension TestProtocolConformer {
+extension TestProtocolContainter {
 
     /// decoding is finished on the receiver
     /// - Parameter decoder: the decoder used for decoding
@@ -37,12 +31,12 @@ extension TestProtocolConformer {
     /// It provides a chance to encode any further data with the encoder.
     ///
     func willFinishEncodingWithEncoder(encoder: Encoder) {
-      
+
     }
 }
 
 // MARK: Migration
-extension TestProtocolConformer {
+extension TestProtocolContainter {
 
     // implement migration here. See: https://github.com/STLabs/State/blob/feat/swift2.0/Docs/Migration.md
 }
