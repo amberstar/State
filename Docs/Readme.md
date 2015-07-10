@@ -1,6 +1,5 @@
 #State Model Framework Documentation:
 
-
 ###Contents:
 - [Getting Started] (#getting-started)
 - [Model Design Reference](Reference.md)
@@ -11,6 +10,3 @@
 
 
 Have a question? Please [open an issue](https://github.com/STLabs/State/issues/new)
-
-
-
