@@ -16,7 +16,7 @@ public extension Encodable {
 }
 
 public final class Encoder {
-    internal private(set) var data = [String : AnyObject]()
+    public var data = [String : AnyObject]()
     
     public func encode<T: Encodable>(element: T?, _ key: String) {
         element.flatMap { self.data[key] = $0.encode() }
@@ -27,6 +27,10 @@ public final class Encoder {
     }
     
     public func encode<T: Encodable>(element: [String : T]?, _ key: String) {
+        element.flatMap { self.data[key] = $0.map { $0.encode() } }
+    }
+    
+    public func encode<T: ModelProtocol>(element: [String : T]?, _ key: String) {
         element.flatMap { self.data[key] = $0.map { $0.encode() } }
     }
     

@@ -247,7 +247,7 @@ public protocol <$typeName$><$if hasSuperentity$> : <$superentity.managedObjectC
 
 }
 
-/// Mark: Decoding
+// Mark: Decoding
 
 public extension Decoder {
 
@@ -284,6 +284,24 @@ public extension Decoder {
         }
     }
 }
+
+// Mark: Encoding
+
+public extension Encoder {
+
+    public func encode(element: <$typeName$>?, _ key: String) {
+        element.flatMap { self.data[key] = $0.encode() }
+    }
+
+    public func encode(element: [<$typeName$>]?, _ key: String) {
+        element.flatMap { self.data[key] = $0.map { $0.encode() } }
+    }
+
+    public func encode(element: [String : <$typeName$>]?, _ key: String) {
+        element.flatMap { self.data[key] = $0.map { $0.encode() } }
+    }
+}
+
 
 <$endprocedure$>
 
