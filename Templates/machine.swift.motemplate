@@ -270,7 +270,8 @@ public extension Decoder {
     }
 
     private func _decode<$typeName$>(data: [String : AnyObject]) -> <$typeName$>? {
-        if let t = <$typeName$>TypeForKey(model_type_key) {
+        guard let dataTypeKey = data[model_type_key] as? String else { return nil }
+        if let t = <$typeName$>TypeForKey(dataTypeKey) {
             return t.init(decoder: Decoder(data: data))
         }
         return nil
