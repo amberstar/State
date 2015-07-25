@@ -21,8 +21,6 @@ public extension Decodable {
     }
 }
 
-
-
 public final class Decoder {
     private var data = [String : AnyObject]()
     
