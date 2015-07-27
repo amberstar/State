@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8118.20" systemVersion="15A204h" minimumToolsVersion="Xcode 4.3">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8166.2" systemVersion="15A226f" minimumToolsVersion="Xcode 4.3">
     <entity name="Company" representedClassName="Company" syncable="YES">
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
@@ -198,6 +198,13 @@
     </entity>
     <entity name="TestDefaultsChild" representedClassName="TestDefaultsChild" syncable="YES">
         <attribute name="name" attributeType="String" defaultValueString="New Child" syncable="YES"/>
+    </entity>
+    <entity name="TestDictionaryComposition" representedClassName="TestDictionaryComposition" syncable="YES">
+        <relationship name="employees" toMany="YES" deletionRule="Nullify" destinationEntity="Employee" syncable="YES">
+            <userInfo>
+                <entry key="State.CompositionType" value="Dictionary"/>
+            </userInfo>
+        </relationship>
     </entity>
     <entity name="TestImmutableOptionalTypes" representedClassName="TestImmutableOptionalTypes" syncable="YES">
         <attribute name="myBinary" optional="YES" attributeType="Binary" syncable="YES">
@@ -441,12 +448,13 @@
         <element name="TestDefaultsChild" positionX="-20601" positionY="-11340" width="128" height="58"/>
         <element name="TestImmutableOptionalTypes" positionX="-20592" positionY="-10639" width="128" height="163"/>
         <element name="TestImmutableTypes" positionX="-20763" positionY="-10639" width="128" height="163"/>
-        <element name="TestMigration" positionX="-19980" positionY="-10962" width="128" height="73"/>
+        <element name="TestMigration" positionX="-19937" positionY="-10971" width="128" height="73"/>
         <element name="TestOptionalTypes" positionX="-20925" positionY="-10881" width="128" height="163"/>
         <element name="TestOverrideType" positionX="-20718" positionY="-11107" width="128" height="73"/>
         <element name="TestParentProtocol" positionX="-19710" positionY="-11403" width="128" height="58"/>
         <element name="TestProtocol" positionX="-19710" positionY="-11259" width="137" height="103"/>
         <element name="TestProtocolConformer" positionX="-19710" positionY="-10981" width="135" height="73"/>
+        <element name="TestProtocolContainter" positionX="-19485" positionY="-11295" width="171" height="58"/>
         <element name="TestRawEnum" positionX="-20423" positionY="-10645" width="128" height="88"/>
         <element name="TestRegEnum" positionX="-20250" positionY="-10638" width="128" height="73"/>
         <element name="TestRelationships" positionX="-20268" positionY="-11374" width="128" height="88"/>
@@ -455,6 +463,6 @@
         <element name="TestTransient2" positionX="-20502" positionY="-11034" width="128" height="88"/>
         <element name="TestTransient3" positionX="-20936" positionY="-11088" width="128" height="88"/>
         <element name="TestTypes" positionX="-20927" positionY="-10684" width="128" height="163"/>
-        <element name="TestProtocolContainter" positionX="-19485" positionY="-11295" width="171" height="58"/>
+        <element name="TestDictionaryComposition" positionX="-19674" positionY="-10872" width="171" height="58"/>
     </elements>
 </model>

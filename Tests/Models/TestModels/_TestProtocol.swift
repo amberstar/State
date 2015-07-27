@@ -16,7 +16,7 @@ public protocol TestProtocol : TestParentProtocol {
 
 }
 
-/// Mark: Decoding
+// Mark: Decoding
 
 public extension Decoder {
 
@@ -39,7 +39,8 @@ public extension Decoder {
     }
 
     private func _decodeTestProtocol(data: [String : AnyObject]) -> TestProtocol? {
-        if let t = TestProtocolTypeForKey(model_type_key) {
+        guard let dataTypeKey = data[model_type_key] as? String else { return nil }
+        if let t = TestProtocolTypeForKey(dataTypeKey) {
             return t.init(decoder: Decoder(data: data))
         }
         return nil
@@ -54,6 +55,23 @@ public extension Decoder {
         default:
             return nil
         }
+    }
+}
+
+// Mark: Encoding
+
+public extension Encoder {
+
+    public func encode(element: TestProtocol?, _ key: String) {
+        element.flatMap { self.data[key] = $0.encode() }
+    }
+
+    public func encode(element: [TestProtocol]?, _ key: String) {
+        element.flatMap { self.data[key] = $0.map { $0.encode() } }
+    }
+
+    public func encode(element: [String : TestProtocol]?, _ key: String) {
+        element.flatMap { self.data[key] = $0.map { $0.encode() } }
     }
 }
 

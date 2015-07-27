@@ -45,4 +45,19 @@ class RelationshipTests: Test {
         XCTAssert(testData?.myGrandChildren?[0].gender == sampleData.myGrandChildren?[0].gender)
         XCTAssert(testData?.myChildren?[3].age == sampleData.myGrandChildren?[3].age)
     }
+    
+    
+    func testCodingModelWithDictionaryComposition() {
+        var testComposition = TestDictionaryComposition(employees: [String : Employee]())
+        let employee1 = Employee(name: "Jane", title: "Manager")
+        let employee2 = Employee(name: "John", title: nil)
+        testComposition.employees["Jane"] = employee1
+        testComposition.employees["John"] = employee2
+        testComposition.save(.Plist, path: tempPathFor("test_composition.plist"))
+        
+        let inTestComposition = TestDictionaryComposition(.Plist, path: tempPathFor("test_composition.plist"))
+        
+        XCTAssert(inTestComposition != nil)
+        XCTAssert(inTestComposition?.employees["Jane"]?.title == "Manager")
+    }
 }
