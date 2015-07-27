@@ -6,7 +6,7 @@
 | -------------------------------- | -------------------------- | :----------------:|
 | `State.Enum` | Specify entity is an enum. All attributes are considered cases of the enum. Specify raw value type with `State.Type` . *required for enums. | `YES`, `NO` |
 | `State.Protocol` | Specify entity is a protocol. (**note:** you can also check the abstract checkbox) | `YES`, `NO` |
-| `State.Type`       | Raw value type for  enum. *required for enums.|The exact type  |
+| `State.Type`       | Used in combination with the enum option, declares the enum as a raw value enum, and specifies it's raw value type.  |The exact type  |
 
 ## Attribute Key-Value Reference
 **Note:** You enter the keys and values below into the user-info section of the data modeler inspector window when you want to use the options.
@@ -16,8 +16,8 @@
 | `State.Immutable`    | Specify an attribute is immutable (code will use `let` instead of `var` for the property) | `YES`, `NO` |
 | `State.Type`       | Specify a type for the attribute. For example, `[String : Int]` would specify to use a Dictionary of String, Ints for this property **-or-** Specifies the associated value type for enum cases.| The exact type  |
 | `State.Value`	| Specify a default value for a property. (only supported for non-optional properties) **-or-** The raw value of an enum case. | The exact value
-| `State.Import`	| Import a module in source for attribute type  | The exact module name 
-| `State.CompositionType`       | Type of collection to use for one to many compositions.|Dictionary, Array  |
+| `State.Import`	| Useful when you need to import a module in the generated source for the particular attribute type  | The exact module name 
+| `State.CompositionType`       | Used with one-to-many relationships. Type of collection to use for a one to many compositions.|Dictionary, Array  |
 
 
 ## Compose models with relationships between model items
@@ -32,8 +32,10 @@ See the [Enum Design Guide](Enums.md)
 ## Transients (experimental)
 There is preliminary support for transient properties. Mark the attribute as transient in the inspector. Transients MUST be optional OR have a default value.
 
-## Transformables:
+## Transforms:
 Set the attribute type as transformable in the data modeler attribute type selector in the inspector window and enter a value transformer name in the name field. The value transformer name entered must be of a type that implements the [ValueTransform] (https://github.com/amberstar/State/blob/master/State/Transforms/ValueTransform.swift) protocol. Your model will automatically use the transform type to transform the attribute when encoding and decoding the element. Add a State.Type to indicate the non-transformed type. For example: for an URLTransform, enter State.Type and NSURL to indicate the type.
+
+To learn more about Transforms see [Transforms](Transforms.md)
 
 ## Optionals:
 Select the optional check box for an attribute in the data modeler inspector window and the property will be implemented as an optional type.
@@ -45,7 +47,7 @@ You can specify a default value in the inspector window, or use `State.Value` in
 
 
 ## Versioning:
-You can add a versionHashModifier to each entity in your model design. This value along with the versionHash are imported in to the code generated and used in the migration scheme of state. For more information see [Versioning and Migration](https://github.com/STLabs/State#versioning-and-migration)
+You can add a versionHashModifier to each entity in your model design. This value along with the versionHash are imported in to the code generated and used in the migration scheme of state. For more information see [Versioning and Migration](vVersioning.md)
 
 ## Data Modeler Notes:
 
