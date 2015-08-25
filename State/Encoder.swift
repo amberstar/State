@@ -19,22 +19,22 @@ public final class Encoder {
     public var data = [String : AnyObject]()
     
     public func encode<T: Encodable>(element: T?, _ key: String) {
-        element.flatMap { self.data[key] = $0.encode() }
+        element.apply { self.data[key] = $0.encode() }
     }
     
     public  func encode<T: Encodable>(element: [T]?, _ key: String) {
-        element.flatMap { self.data[key] = $0.map { $0.encode() } }
+        element.apply { self.data[key] = $0.map { $0.encode() } }
     }
     
     public func encode<T: Encodable>(element: [String : T]?, _ key: String) {
-        element.flatMap { self.data[key] = $0.map { $0.encode() } }
+        element.apply { self.data[key] = $0.map { $0.encode() } }
     }
     
     public func encode<T: ModelProtocol>(element: [String : T]?, _ key: String) {
-        element.flatMap { self.data[key] = $0.map { $0.encode() } }
+        element.apply { self.data[key] = $0.map { $0.encode() } }
     }
     
     public func encode<V>(element: V?, _ key: String) {
-        element.flatMap{ self.data[key] = $0 as? AnyObject }
+        element.apply{ self.data[key] = $0 as? AnyObject }
     }
 }

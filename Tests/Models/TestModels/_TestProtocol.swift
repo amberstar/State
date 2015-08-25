@@ -63,15 +63,15 @@ public extension Decoder {
 public extension Encoder {
 
     public func encode(element: TestProtocol?, _ key: String) {
-        element.flatMap { self.data[key] = $0.encode() }
+        element.apply { self.data[key] = $0.encode() }
     }
 
     public func encode(element: [TestProtocol]?, _ key: String) {
-        element.flatMap { self.data[key] = $0.map { $0.encode() } }
+        element.apply { self.data[key] = $0.map { $0.encode() } }
     }
 
     public func encode(element: [String : TestProtocol]?, _ key: String) {
-        element.flatMap { self.data[key] = $0.map { $0.encode() } }
+        element.apply { self.data[key] = $0.map { $0.encode() } }
     }
 }
 

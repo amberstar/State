@@ -69,7 +69,7 @@ public func pure<T>(a: T) -> T? {
     return .Some(a)
 }
 
-extension Optional {
+public extension Optional {
     /**
         apply an optional function to self
 
@@ -80,7 +80,7 @@ extension Optional {
 
         - returns: A value of type Optional<U>
     */
-    func apply<U>(f: (T -> U)?) -> U? {
+    public func apply<U>(f: (Wrapped -> U)?) -> U? {
         return f.flatMap { self.map($0) }
     }
 }

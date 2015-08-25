@@ -48,7 +48,7 @@ class Test : XCTestCase {
         let enumerator = fileManager.enumeratorAtPath(NSTemporaryDirectory())
         while let file = enumerator?.nextObject() as? String {
             do {
-                try fileManager.removeItemAtPath(NSTemporaryDirectory().stringByAppendingPathComponent(file))
+                try fileManager.removeItemAtURL(NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(file))
             } catch _ {
             }
         }

@@ -23,7 +23,7 @@ class RelationshipTests: Test {
         
         for child in children {
             if let grandkids = child.myChildren {
-                grandChildren.extend(grandkids)
+                grandChildren.appendContentsOf(grandkids)
             }
         }
         return grandChildren
