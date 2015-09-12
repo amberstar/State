@@ -1,65 +1,40 @@
+public protocol Encodable {
+    func encode(encoder: Encoder)
+}
 
-/*****************************************************************************
-Encoder:
-
-encode models to key value data
-
-******************************************************************************/
+public extension Encodable {
+    
+    func encode() -> [String : AnyObject] {
+        let coder = Encoder()
+        self.encode(coder)
+        return coder.data
+    }
+    
+    func encodeToFile(converter: KeyedConverter.Type, path: String) {
+        converter.write(self.encode(), path: path)
+    }
+}
 
 public final class Encoder {
-    internal private(set) var data = [String : AnyObject]()
+    public var data = [String : AnyObject]()
     
-    public class func encodeModel<T: Encodable>(element: T) -> [String : AnyObject] {
-            let coder = Encoder()
-            element.encode(coder)
-            return coder.data
+    public func encode<T: Encodable>(element: T?, _ key: String) {
+        element.apply { self.data[key] = $0.encode() }
     }
     
-    public func encode<T: Encodable>(element: T?)(forKey key: String) {
-        if let e = element {
-            data[key] = Encoder.encodeModel(e)
-        }
+    public  func encode<T: Encodable>(element: [T]?, _ key: String) {
+        element.apply { self.data[key] = $0.map { $0.encode() } }
     }
     
-    public func encode<T: Encodable>(element: T?, forKey key: String) {
-        if let e = element {
-            data[key] = Encoder.encodeModel(e)
-        }
+    public func encode<T: Encodable>(element: [String : T]?, _ key: String) {
+        element.apply { self.data[key] = $0.map { $0.encode() } }
     }
     
-    public func encode<T: Encodable>(element: [T]?)(forKey key: String) {
-        if let e = element {
-            data[key] = e.map{ Encoder.encodeModel($0) }
-        }
+    public func encode<T: ModelProtocol>(element: [String : T]?, _ key: String) {
+        element.apply { self.data[key] = $0.map { $0.encode() } }
     }
     
-    public  func encode<T: Encodable>(element: [T]?, forKey key: String) {
-        if let e = element {
-            data[key] = e.map{ Encoder.encodeModel($0) }
-        }
-    }
-    
-    public func encode<T: Encodable>(element: [String : T]?)(forKey key: String) {
-        if let e = element {
-            data[key] = e.map{ Encoder.encodeModel($0) }
-        }
-    }
-    
-    public func encode<T: Encodable>(element: [String : T]?, forKey key: String) {
-        if let e = element {
-            data[key] = e.map{ Encoder.encodeModel($0) }
-        }
-    }
-    
-    public func encode<V>(element: V?)(forKey key: String) {
-        if let e = element {
-            data[key] = element as? AnyObject
-        }
-    }
-    
-    public func encode<V>(element: V?, forKey key: String) {
-        if let e = element {
-            data[key] = element as? AnyObject
-        }
+    public func encode<V>(element: V?, _ key: String) {
+        element.apply{ self.data[key] = $0 as? AnyObject }
     }
 }

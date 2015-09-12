@@ -24,66 +24,64 @@ import State
 
 <$procedure getPropertyDeclarationForAttribute Attribute$><$if Attribute.userInfo.State.Immutable == YES$>public let<$else$>public var<$endif$> <$Attribute.name$><$if  !Attribute.isOptional && (Attribute.userInfo.State.Value || Attribute.defaultValue !=)$><$call getDefaultExpressionForAttribute Attribute$><$else$>: <$call getTypeForAttribute Attribute$><$endif$><$endProcedure$>
 
-<$procedure getPropertyDeclarationForRelationship Relationship$><$if Relationship.userInfo.State.Immutable == YES$>public let<$else$>public var<$endif$> <$Relationship.name$><$if !Relationship.isOptional && Relationship.userInfo.State.Value$> <$call getDefaultExpressionForRelationship Relationship$><$else$>: <$if Relationship.isToMany$>[<$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$><$endif$><$endProcedure$>
+<$procedure getPropertyDeclarationForRelationship Relationship$><$if Relationship.userInfo.State.Immutable == YES$>public let<$else$>public var<$endif$> <$Relationship.name$><$if !Relationship.isOptional && Relationship.userInfo.State.Value$> <$call getDefaultExpressionForRelationship Relationship$><$else$>: <$if Relationship.isToMany$>[<$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$><$endif$><$endProcedure$>
 
 <$procedure writeVersionHashExtension$>
-extension <$managedObjectClassName$> {
-    /**
-    These are provided from the data model designer
-    and can be used to determine if the model is
-    a different version.
-    */
-    static var modelVersionHash: String {
+extension <$typeName$> {
+
+    /// These are provided from the data model designer
+    /// and can be used to determine if the model is
+    /// a different version.
+    public static func modelVersionHash() -> String {
         return "<$versionHash$>"
     }
 
-    static var modelVersionHashModifier: String? {
+    public static func modelVersionHashModifier() -> String? {
         return <$if versionHashModifier$>"<$versionHashModifier$>"<$else$>nil<$endif$>
     }
 }<$endprocedure$>
 
 <$procedure writeEncodingVersioningBlock$>
-        if <$managedObjectClassName$>.shouldEncodeVersion {
-encoder.encode(<$managedObjectClassName$>.version(<$managedObjectClassName$>.modelVersionHash, modelVersionHashModifier: <$managedObjectClassName$>.modelVersionHashModifier), forKey:<$managedObjectClassName$>.versionKey)
-        }<$endprocedure$>
+        <$typeName$>.encodeVersionIfNeeded(encoder)
+        <$endprocedure$>
 
 <$procedure writeDecodingMigrationBlock$>
-        if <$managedObjectClassName$>.shouldMigrateIfNeeded {
-            if let dataVersion: AnyObject = decoder.decode(<$managedObjectClassName$>.versionKey) {
-                if <$managedObjectClassName$>.needsMigration(dataVersion) {
-                   let migratedData = <$managedObjectClassName$>.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
-                    decoder = Decoder(data: migratedData)
-                }
-            }
-        }<$endprocedure$>
 
-<$if userInfo.State.Enum != YES$>
-public struct <$managedObjectClassName$><$if hasCustomSuperentity$>: <$customSuperentity$><$endif$> {
-    <$foreach Attribute noninheritedAttributes do$><$call getPropertyDeclarationForAttribute Attribute$>
-    <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$call getPropertyDeclarationForRelationship Relationship$>
+    decoder = <$typeName$>.performMigrationIfNeeded(decoder)
+    <$endprocedure$>
+
+<$procedure Struct$>
+
+<$setmerge typeName = <$managedObjectClassName$>$>
+<$setmerge superTypeName = <$if isAbstract || userInfo.State.Protocol$><$managedObjectClassName$>
+<$elseif hasSuperentity$><$superentity.managedObjectClassName$><$else$>Model<$endif$>$>
+
+public struct <$typeName$> : <$superTypeName$> {
+    <$foreach Attribute attributesByName do$><$call getPropertyDeclarationForAttribute Attribute$>
+    <$endforeach do$><$foreach Relationship relationshipsByName do$><$call getPropertyDeclarationForRelationship Relationship$>
     <$endforeach do$>
 
-    public init(<$foreach Attribute noninheritedAttributes do$><$if !Attribute.isTransient$><$Attribute.name$>: <$call getTypeForAttribute Attribute$><$if (AttributeIndex + 1) < (noninheritedAttributes.@count - transientAttributeCount)$>, <$endif$><$endif$><$endforeach do$><$if noninheritedAttributes.@count - transientAttributeCount > 0 && noninheritedRelationships.@count - transientRelationshipCount > 0$>, <$endif$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isTransient$><$if ! Relationship.isToMany$><$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$><$if (RelationshipIndex + 1 < noninheritedRelationships.@count - transientRelationshipCount) $>, <$endif$><$else$><$Relationship.name$>: [<$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$><$if (RelationshipIndex + 1 < noninheritedRelationships.@count - transientRelationshipCount) $>, <$endif$><$endif$><$endif$><$endforeach do$>) {
+public init(<$foreach Attribute attributesByName do$><$if !Attribute.isTransient$><$Attribute.name$>: <$call getTypeForAttribute Attribute$><$if (AttributeIndex + 1) < (attributesByName.@count - transientAttributeCount)$>, <$endif$><$endif$><$endforeach do$><$if attributesByName.@count - transientAttributeCount > 0 && relationshipsByName.@count - transientRelationshipCount > 0$>, <$endif$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient$><$if ! Relationship.isToMany$><$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$><$if (RelationshipIndex + 1 < relationshipsByName.@count - transientRelationshipCount) $>, <$endif$><$else$><$Relationship.name$>: [<$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$><$if (RelationshipIndex + 1 < relationshipsByName.@count - transientRelationshipCount) $>, <$endif$><$endif$><$endif$><$endforeach do$>) {
 
-    <$foreach Attribute noninheritedAttributes do$><$if !Attribute.isTransient$>self.<$Attribute.name$> = <$Attribute.name$><$endif$>
-    <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isTransient$>self.<$Relationship.name$> = <$Relationship.name$><$endif$>
+    <$foreach Attribute attributesByName do$><$if !Attribute.isTransient$>self.<$Attribute.name$> = <$Attribute.name$><$endif$>
+    <$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient$>self.<$Relationship.name$> = <$Relationship.name$><$endif$>
     <$endforeach do$>
     }
 }
 
-extension <$managedObjectClassName$> : Decodable {
+extension <$typeName$> : Decodable {
 
-    static func create<$foreach Attribute noninheritedAttributes do$><$if !Attribute.isTransient$>(<$Attribute.name$>: <$call getTypeForAttribute Attribute$>)<$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isTransient$><$if ! Relationship.isToMany$>(<$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$>)<$else$>(<$Relationship.name$>: [<$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$>)<$endif$><$endif$><$endforeach do$> -> <$managedObjectClassName$>  {
-        return <$managedObjectClassName$>(<$foreach Attribute noninheritedAttributes do$><$if !Attribute.isTransient$><$Attribute.name$>: <$Attribute.name$><$if AttributeIndex + 1 < noninheritedAttributes.@count - transientAttributeCount$>, <$endif$><$endif$><$endforeach do$><$if (noninheritedAttributes.@count - transientAttributeCount) > 0 && (noninheritedRelationships.@count - transientRelationshipCount) > 0$>, <$endif$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isTransient$><$Relationship.name$>: <$Relationship.name$><$if (RelationshipIndex + 1 < noninheritedRelationships.@count - transientRelationshipCount) $>, <$endif$><$endif$><$endforeach do$>)
+    static func create<$foreach Attribute attributesByName do$><$if !Attribute.isTransient$>(<$Attribute.name$>: <$call getTypeForAttribute Attribute$>)<$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient$><$if ! Relationship.isToMany$>(<$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$>)<$else$>(<$Relationship.name$>: [<$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$>)<$endif$><$endif$><$endforeach do$> -> <$typeName$>  {
+        return <$typeName$>(<$foreach Attribute attributesByName do$><$if !Attribute.isTransient$><$Attribute.name$>: <$Attribute.name$><$if AttributeIndex + 1 < attributesByName.@count - transientAttributeCount$>, <$endif$><$endif$><$endforeach do$><$if (attributesByName.@count - transientAttributeCount) > 0 && (relationshipsByName.@count - transientRelationshipCount) > 0$>, <$endif$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient$><$Relationship.name$>: <$Relationship.name$><$if (RelationshipIndex + 1 < relationshipsByName.@count - transientRelationshipCount) $>, <$endif$><$endif$><$endforeach do$>)
     }
 
     public init?(var decoder: Decoder) {
 
         <$call writeDecodingMigrationBlock$>
 
-        let instance: <$managedObjectClassName$>? = <$managedObjectClassName$>.create
-        <$setlocal firstNonTransientAttribute = 0$><$setlocal firstNonTransientRelationship = 0$><$foreach Attribute noninheritedAttributes do$><$if !Attribute.isTransient$><$if firstNonTransientAttribute == 0$><$setlocal firstNonTransientAttribute = 1$><$else$><$setlocal firstNonTransientAttribute = 2$><$endif$><$if firstNonTransientAttribute == 1$><^><$else$><*><$endif$> decoder.decode("<$Attribute.name$>")<$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.reverseTransform<$endif$><$if Attribute.isOptional$> >>> asOptional<$endif$><$endif$>
-        <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isTransient$><$if firstNonTransientRelationship == 0$><$setlocal firstNonTransientRelationship = 1$><$else$><$setlocal firstNonTransientRelationship = 2$><$endif$><$if firstNonTransientRelationship == 1 && firstNonTransientAttribute == 0$><^><$else$><*><$endif$> decoder.decodeModel<$if Relationship.isToMany$>Array<$endif$>("<$Relationship.name$>")<$if Relationship.isOptional$> >>> asOptional<$endif$><$endif$>
+        let instance: <$typeName$>? = <$typeName$>.create
+        <$setlocal firstNonTransientAttribute = 0$><$setlocal firstNonTransientRelationship = 0$><$foreach Attribute attributesByName do$><$if !Attribute.isTransient$><$if firstNonTransientAttribute == 0$><$setlocal firstNonTransientAttribute = 1$><$else$><$setlocal firstNonTransientAttribute = 2$><$endif$><$if firstNonTransientAttribute == 1$><^><$else$><*><$endif$> decoder.decode("<$Attribute.name$>")<$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.reverseTransform<$endif$><$if Attribute.isOptional$> >>> asOptional<$endif$><$endif$>
+        <$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient$><$if firstNonTransientRelationship == 0$><$setlocal firstNonTransientRelationship = 1$><$else$><$setlocal firstNonTransientRelationship = 2$><$endif$><$if firstNonTransientRelationship == 1 && firstNonTransientAttribute == 0$><^><$else$><*><$endif$> decoder.decode<$if Relationship.destinationEntity.isAbstract || Relationship.destinationEntity.userInfo.State.Protocol == YES$><$Relationship.destinationEntity.managedObjectClassName$><$else$>Model<$endif$><$if Relationship.isToMany$><$if Relationship.userInfo.State.CompositionType == Dictionary$>Dictionary<$else$>Array<$endif$><$endif$>("<$Relationship.name$>")<$if Relationship.isOptional$> >>> asOptional<$endif$><$endif$>
         <$endforeach do$>
         if let i = instance {
             i.didFinishDecodingWithDecoder(decoder)
@@ -92,19 +90,20 @@ extension <$managedObjectClassName$> : Decodable {
     }
 }
 
-extension <$managedObjectClassName$> : Encodable {
+extension <$typeName$> : Encodable {
 
     public func encode(encoder: Encoder) {
-        <$foreach Attribute noninheritedAttributes do$><$if !Attribute.isTransient$>encoder.encode(self.<$Attribute.name$><$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.transform<$endif$>, forKey: "<$Attribute.name$>")
-        <$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isTransient$>encoder.encode(self.<$Relationship.name$>, forKey: "<$Relationship.name$>")
+        <$foreach Attribute attributesByName do$><$if !Attribute.isTransient$>encoder.encode(<$Attribute.name$><$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.transform<$endif$>, "<$Attribute.name$>")
+        <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient$>encoder.encode(<$Relationship.name$>, "<$Relationship.name$>")
         <$endif$><$endforeach do$>
+        <$if hasSuperentity$>encoder.encode("<$typeName$>", model_type_key)<$endif$>
         <$call writeEncodingVersioningBlock$>
         self.willFinishEncodingWithEncoder(encoder)
     }
 }
 
 <$call writeVersionHashExtension $>
-<$endif$>
+<$endprocedure$>
 
 
 <$procedure writeRawValueCaseForAttribute Attribute$><$if Attribute.userInfo.State.Value$> = <$if userInfo.State.Type == String$>"<$endif$><$ Attribute.userInfo.State.Value$><$if userInfo.State.Type == String$>"<$endif$><$endif$><$endprocedure$>
@@ -123,13 +122,13 @@ extension <$managedObjectClassName$> : Encodable {
 
 
 <$procedure writeAttributeDecodeAssociatedSwitchCaseForEnum Attribute$>if let value: <$Attribute.userInfo.State.Type$><$if Attribute.isOptional$>?<$endif$> = decoder.decode("value")<$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.reverseTransform<$endif$><$if Attribute.isOptional$> >>> asOptional<$endif$> {
-                        self = <$managedObjectClassName$>.<$Attribute.name.initialCapitalString$>(value)
+                        self = <$typeName$>.<$Attribute.name.initialCapitalString$>(value)
                     } else { return nil }<$endprocedure$>
 
-<$procedure writeAttributeDecodeBasicSwitchCaseForEnum Attribute$>self = <$managedObjectClassName$>.<$Attribute.name.initialCapitalString$><$endprocedure$>
+<$procedure writeAttributeDecodeBasicSwitchCaseForEnum Attribute$>self = <$typeName$>.<$Attribute.name.initialCapitalString$><$endprocedure$>
 
 <$procedure writeAttributeDecodeRawSwitchCaseForEnum Attribute$>if let value: <$userInfo.State.Type$> = decoder.decode("value"),
-                        instance = <$managedObjectClassName$>(rawValue: value) {
+                        instance = <$typeName$>(rawValue: value) {
                         instance.didFinishDecodingWithDecoder(decoder)
                         self = instance
                     } else { return nil }<$endprocedure$>
@@ -138,13 +137,13 @@ extension <$managedObjectClassName$> : Encodable {
                     <$if userInfo.State.Type$><$call writeAttributeDecodeRawSwitchCaseForEnum Attribute$><$elseif Attribute.userInfo.State.Type$><$call writeAttributeDecodeAssociatedSwitchCaseForEnum Attribute$><$else$><$call writeAttributeDecodeBasicSwitchCaseForEnum Attribute$><$endif$><$endprocedure$>
 
 <$procedure writeRelationshipDecodeAssociatedSwitchCaseForEnum Relationship$>if let value: <$if Relationship.isToMany$>[<$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> = decoder.decodeModel<$if Relationship.isToMany$>Array<$endif$>("value") <$if Relationship.isOptional$>>>> asOptional<$endif$>{
-                        self = <$managedObjectClassName$>.<$Relationship.name.initialCapitalString$>(value)
+                        self = <$typeName$>.<$Relationship.name.initialCapitalString$>(value)
                     } else { return nil }<$endprocedure$>
 
-<$procedure writeRelationshipDecodeBasicSwitchCaseForEnum Relationship$>self = <$managedObjectClassName$>.<$Relationship.name.initialCapitalString$><$endprocedure$>
+<$procedure writeRelationshipDecodeBasicSwitchCaseForEnum Relationship$>self = <$typeName$>.<$Relationship.name.initialCapitalString$><$endprocedure$>
 
 <$procedure writeRelationshipDecodeRawSwitchCaseForEnum Relationship$>if let value: <$userInfo.State.Type$> = decoder.decodeModel<$if Relationship.isToMany$>Array<$endif$>("value"),
-                        instance = <$managedObjectClassName$>(rawValue: value) {
+                        instance = <$typeName$>(rawValue: value) {
                         instance.didFinishDecodingWithDecoder(decoder)
                         self = instance
                     } else { return nil }<$endprocedure$>
@@ -152,42 +151,43 @@ extension <$managedObjectClassName$> : Encodable {
 <$procedure writeRelationshipDecodeSwitchCaseForEnumCase Relationship$>case "<$Relationship.name.initialCapitalString$>":
                     <$if userInfo.State.Type$><$call writeRelationshipDecodeRawSwitchCaseForEnum Relationship$><$elseif  Relationship.destinationEntity.managedObjectClassName$><$call writeRelationshipDecodeAssociatedSwitchCaseForEnum Relationship$><$else$><$call writeRelationshipDecodeBasicSwitchCaseForEnum Relationship$><$endif$><$endprocedure$>
 
-<$procedure writeAttributeEncodeBasicSwitchCaseForEnum Attribute$>case let .<$Attribute.name.initialCapitalString$>:
-                encoder.encode("<$Attribute.name.initialCapitalString$>", forKey: "type")<$endprocedure$>
+<$procedure writeAttributeEncodeBasicSwitchCaseForEnum Attribute$>case .<$Attribute.name.initialCapitalString$>:
+                encoder.encode("<$Attribute.name.initialCapitalString$>", "type")<$endprocedure$>
 
-<$procedure writeAttributeEncodeRawSwitchCaseForEnum Attribute$>case let .<$Attribute.name.initialCapitalString$>:
-                encoder.encode("<$Attribute.name.initialCapitalString$>", forKey: "type")
-                encoder.encode(self.rawValue, forKey: "value")<$endprocedure$>
+<$procedure writeAttributeEncodeRawSwitchCaseForEnum Attribute$>case  .<$Attribute.name.initialCapitalString$>:
+                encoder.encode("<$Attribute.name.initialCapitalString$>", "type")
+                encoder.encode(self.rawValue, "value")<$endprocedure$>
 
 <$procedure writeAttributeEncodeAssociatedSwitchCaseForEnum Attribute$>case let .<$Attribute.name.initialCapitalString$>(value):
-                encoder.encode("<$Attribute.name.initialCapitalString$>", forKey: "type")
-                encoder.encode(value<$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.transform<$endif$>, forKey: "value")<$endprocedure$>
+                encoder.encode("<$Attribute.name.initialCapitalString$>", "type")
+                encoder.encode(value<$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.transform<$endif$>, "value")<$endprocedure$>
 
 <$procedure writeAttributeEncodeSwitchCaseForEnumCase Attribute$><$if userInfo.State.Type$><$call writeAttributeEncodeRawSwitchCaseForEnum Attribute$><$elseif Attribute.userInfo.State.Type$><$call writeAttributeEncodeAssociatedSwitchCaseForEnum Attribute$><$else$><$call writeAttributeEncodeBasicSwitchCaseForEnum Attribute$><$endif$><$endprocedure$>
 
-<$procedure writeRelationshipEncodeBasicSwitchCaseForEnum Relationship$>case let .<$Relationship.name.initialCapitalString$>:
-                encoder.encode("<$Relationship.name.initialCapitalString$>", forKey: "type")<$endprocedure$>
+<$procedure writeRelationshipEncodeBasicSwitchCaseForEnum Relationship$>case .<$Relationship.name.initialCapitalString$>:
+                encoder.encode("<$Relationship.name.initialCapitalString$>", "type")<$endprocedure$>
 
 <$procedure writeRelationshipEncodeRawSwitchCaseForEnum Relationship$>case let .<$Relationship.name.initialCapitalString$>:
-                encoder.encode("<$Relationship.name.initialCapitalString$>", forKey: "type")
-                encoder.encode(self.rawValue, forKey: "value")<$endprocedure$>
+                encoder.encode("<$Relationship.name.initialCapitalString$>", "type")
+                encoder.encode(self.rawValue, "value")<$endprocedure$>
 
 <$procedure writeRelationshipEncodeAssociatedSwitchCaseForEnum Relationship$>case let .<$Relationship.name.initialCapitalString$>(value):
-                encoder.encode("<$Relationship.name.initialCapitalString$>", forKey: "type")
-                encoder.encode(value, forKey: "value")<$endprocedure$>
+                encoder.encode("<$Relationship.name.initialCapitalString$>", "type")
+                encoder.encode(value, "value")<$endprocedure$>
 
 <$procedure writeRelationshipEncodeSwitchCaseForEnumCase Relationship$><$if userInfo.State.Type$><$call writeRelationshipEncodeRawSwitchCaseForEnum Relationship$><$elseif Relationship.destinationEntity.managedObjectClassName$><$call writeRelationshipEncodeAssociatedSwitchCaseForEnum Relationship$><$else$><$call writeRelationshipEncodeBasicSwitchCaseForEnum Relationship$><$endif$><$endprocedure$>
 
+<$procedure Enum$>
+<$setmerge typeName = <$managedObjectClassName$>$>
+public enum <$typeName$> <$if userInfo.State.Type$> : <$userInfo.State.Type$>, Model<$else$> : Model<$endif$> {
 
 
-<$if userInfo.State.Enum == YES$>
-public enum <$managedObjectClassName$><$if userInfo.State.Type$>: <$userInfo.State.Type$><$endif$> {
     <$foreach Attribute noninheritedAttributes do$><$call writeEnumCaseForAttribute Attribute$>
     <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$call writeEnumCaseForRelationship Relationship$>
     <$endforeach do$>
 }
 
-extension <$managedObjectClassName$>: Decodable {
+extension <$typeName$>: Decodable {
 
     public init?(var decoder: Decoder) {
 
@@ -206,7 +206,7 @@ extension <$managedObjectClassName$>: Decodable {
     }
 }
 
-extension <$managedObjectClassName$>: Encodable {
+extension <$typeName$>: Encodable {
 
     public func encode(encoder: Encoder) {
 
@@ -215,11 +215,95 @@ extension <$managedObjectClassName$>: Encodable {
             <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$call writeRelationshipEncodeSwitchCaseForEnumCase Relationship$>
             <$endforeach do$>
         }
+        <$call writeEncodingVersioningBlock$>
          self.willFinishEncodingWithEncoder(encoder)
     }
 }
 
 <$call writeVersionHashExtension $>
-<$endif$>
+<$endprocedure$>
+
+<$procedure writeAttributeProtocolRequirement Attribute$>   var <$Attribute.name$> : <$call getTypeForAttribute Attribute$> { get <$if Attribute.userInfo.State.Immutable == YES$>}<$else$>set }<$endif$>
+<$endprocedure$>
+
+<$procedure writeRelationshipProtocolRequirement Relationship$>   var <$Relationship.name$> : <$if Relationship.isToMany$>[<$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> { get <$if Relationship.userInfo.State.Immutable == YES$>}<$else$>set }<$endif$>
+<$endprocedure$>
+
+<$procedure writeCasesForTypes Subtypes$>
+    <$foreach Type Subtypes do$><$if Type.isAbstract || Type.userInfo.State.Protocol == YES$><$call writeCasesForTypes Type.subentities$><$else$><$call writeCaseForDecodeType Type$><$endif$><$endforeach do$>
+<$endprocedure$>
+
+<$procedure writeCaseForDecodeType Type$>
+        case "<$Type.managedObjectClassName$>":
+            return <$Type.managedObjectClassName$>.self
+<$endprocedure$>
+
+<$procedure Protocol$>
+<$setmerge typeName = <$managedObjectClassName$>$>
+public protocol <$typeName$><$if hasSuperentity$> : <$superentity.managedObjectClassName$><$else$> : ModelProtocol<$endif$> {
+
+<$foreach Attribute noninheritedAttributes do$><$call writeAttributeProtocolRequirement Attribute$><$endforeach do$>
+<$foreach Relationship noninheritedRelationships do$><$call writeRelationshipProtocolRequirement Relationship$><$endforeach do$>
+
+}
+
+// Mark: Decoding
+
+public extension Decoder {
+
+    public func decode<$typeName$>(key: String) -> <$typeName$>? {
+        let data = self.extractData()
+        let d = data[key] as? [String : AnyObject]
+        return d.flatMap(_decode<$typeName$>)
+    }
+
+    public func decode<$typeName$>Array(key: String) -> [<$typeName$>]? {
+        let data = self.extractData()
+        let d = data[key] as? [[String : AnyObject]]
+        return d.flatMap { sequence($0.map(_decode<$typeName$>)) }
+    }
+
+    public func decode<$typeName$>Dictionary(key: String) -> [String : <$typeName$>]? {
+        let data = self.extractData()
+        let d = data[key] as? [String : [String : AnyObject]]
+        return d.flatMap { sequence($0.map(_decode<$typeName$>)) }
+    }
+
+    private func _decode<$typeName$>(data: [String : AnyObject]) -> <$typeName$>? {
+        guard let dataTypeKey = data[model_type_key] as? String else { return nil }
+        if let t = <$typeName$>TypeForKey(dataTypeKey) {
+            return t.init(decoder: Decoder(data: data))
+        }
+        return nil
+    }
+
+    private func <$typeName$>TypeForKey(key: String) -> <$typeName$>.Type? {
+        switch key {
+<$call writeCasesForTypes subentities$>
+        default:
+            return nil
+        }
+    }
+}
+
+// Mark: Encoding
+
+public extension Encoder {
+
+    public func encode(element: <$typeName$>?, _ key: String) {
+        element.apply { self.data[key] = $0.encode() }
+    }
+
+    public func encode(element: [<$typeName$>]?, _ key: String) {
+        element.apply { self.data[key] = $0.map { $0.encode() } }
+    }
+
+    public func encode(element: [String : <$typeName$>]?, _ key: String) {
+        element.apply { self.data[key] = $0.map { $0.encode() } }
+    }
+}
 
 
+<$endprocedure$>
+
+<$if userInfo.State.Enum == YES$><$call Enum$><$elseif isAbstract || userInfo.State.Protocol == YES$><$call Protocol$><$else$><$call Struct$>

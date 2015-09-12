@@ -1,6 +1,7 @@
 
 State
-Copyright (c) 2015 Amber Star <amber@simpletouchsoftware.com>
+https://github.com/STLabs/State
+Copyright (c) 2015 SimpleTouch LLC <amber@simpletouchsoftware.com>
 
 The MIT License (MIT)
 
@@ -23,7 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ---
-Curry, Sequence, Runes
+Sequence, Runes
+https://github.com/thoughtbot/Runes
 
 Copyright (c) 2014 thoughtbot, inc.
 
@@ -48,3 +50,4 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+--
