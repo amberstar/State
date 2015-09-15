@@ -5,7 +5,7 @@ You can create protocols in the data model designer.
 You  create protocols by specifying the `State.Protocol` key or checking the abstract checkbox in the inspector for the entity to be a protocol. 
 
 ### Function requirements
-You can specify function requirements on protocols using the `State.Func` key on the protocol entities attributes. 
+You can specify function requirements on protocols using the `State.ProtocolRequirementType` and the `State.Func` key on the protocol entities attributes. 
 
 ##Conforming to protocol
 To specify a model item has conformance to a protocol, set the protocol as the parent entity of a model item. 
