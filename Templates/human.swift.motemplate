@@ -9,6 +9,11 @@ import State
 
 extension <$typeName$> {
 
+<$foreach Attribute attributesByName do$><$if Attribute.userInfo.State.ProtocolRequirementType == func$>   public func <$Attribute.userInfo.State.Func$> {
+        // implement protocol requirement here
+    }
+<$endif$><$endforeach do$>
+
     // Extend your entity here.
 }
 

@@ -29,7 +29,6 @@ extension TestTransient2 : Decodable {
     decoder = TestTransient2.performMigrationIfNeeded(decoder)
 
         let instance: TestTransient2? = TestTransient2.create
-
         <^> decoder.decodeModel("myNonTransient") >>> asOptional
 
         if let i = instance {

@@ -79,7 +79,7 @@ extension TestProtocolConformer {
     /// and can be used to determine if the model is
     /// a different version.
     public static func modelVersionHash() -> String {
-        return "<966cf016 9867ea5c 9010a157 7aac4fde b0b6d69f ab1e1461 9aff2c52 2fd1db7f>"
+        return "<d32fcba3 281d4cc9 b37e5db7 913bf809 201719ca af7abe39 905ab5fe 694ab08b>"
     }
 
     public static func modelVersionHashModifier() -> String? {

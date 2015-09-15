@@ -10,9 +10,11 @@ public protocol TestProtocol : TestParentProtocol {
 
    var age : Int? { get set }
    var name : String { get }
-
    var children : [TestChild] { get set }
    var grandchild : Grandchild { get }
+
+   func calculateAge() -> Int
+   func getFullName() -> String
 
 }
 

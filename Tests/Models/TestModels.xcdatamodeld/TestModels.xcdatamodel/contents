@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8166.2" systemVersion="15A226f" minimumToolsVersion="Xcode 4.3">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="15A282b" minimumToolsVersion="Xcode 4.3">
     <entity name="Company" representedClassName="Company" syncable="YES">
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
@@ -324,6 +324,18 @@
     </entity>
     <entity name="TestProtocol" representedClassName="TestProtocol" isAbstract="YES" parentEntity="TestParentProtocol" syncable="YES">
         <attribute name="age" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="calculateAge" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="State.Func" value="calculateAge() -&gt; Int"/>
+                <entry key="State.ProtocolRequirementType" value="func"/>
+            </userInfo>
+        </attribute>
+        <attribute name="getFullName" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="State.Func" value="getFullName() -&gt; String"/>
+                <entry key="State.ProtocolRequirementType" value="func"/>
+            </userInfo>
+        </attribute>
         <attribute name="name" attributeType="String" syncable="YES">
             <userInfo>
                 <entry key="State.Immutable" value="YES"/>
@@ -446,13 +458,14 @@
         <element name="TestCollections" positionX="-20754" positionY="-10872" width="128" height="88"/>
         <element name="TestDefaults" positionX="-20898" positionY="-11358" width="128" height="208"/>
         <element name="TestDefaultsChild" positionX="-20601" positionY="-11340" width="128" height="58"/>
+        <element name="TestDictionaryComposition" positionX="-19674" positionY="-10872" width="171" height="58"/>
         <element name="TestImmutableOptionalTypes" positionX="-20592" positionY="-10639" width="128" height="163"/>
         <element name="TestImmutableTypes" positionX="-20763" positionY="-10639" width="128" height="163"/>
         <element name="TestMigration" positionX="-19937" positionY="-10971" width="128" height="73"/>
         <element name="TestOptionalTypes" positionX="-20925" positionY="-10881" width="128" height="163"/>
         <element name="TestOverrideType" positionX="-20718" positionY="-11107" width="128" height="73"/>
         <element name="TestParentProtocol" positionX="-19710" positionY="-11403" width="128" height="58"/>
-        <element name="TestProtocol" positionX="-19710" positionY="-11259" width="137" height="103"/>
+        <element name="TestProtocol" positionX="-19710" positionY="-11259" width="137" height="133"/>
         <element name="TestProtocolConformer" positionX="-19710" positionY="-10981" width="135" height="73"/>
         <element name="TestProtocolContainter" positionX="-19485" positionY="-11295" width="171" height="58"/>
         <element name="TestRawEnum" positionX="-20423" positionY="-10645" width="128" height="88"/>
@@ -463,6 +476,5 @@
         <element name="TestTransient2" positionX="-20502" positionY="-11034" width="128" height="88"/>
         <element name="TestTransient3" positionX="-20936" positionY="-11088" width="128" height="88"/>
         <element name="TestTypes" positionX="-20927" positionY="-10684" width="128" height="163"/>
-        <element name="TestDictionaryComposition" positionX="-19674" positionY="-10872" width="171" height="58"/>
     </elements>
 </model>
