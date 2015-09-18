@@ -9,30 +9,19 @@ import State
 public struct TestDictionaryComposition : Model {
     public var employees: [String : Employee]
 
-public init(employees: [String : Employee]) {
-
-    self.employees = employees
-
-    }
 }
 
 extension TestDictionaryComposition : Decodable {
 
-    static func create(employees: [String : Employee]) -> TestDictionaryComposition  {
-        return TestDictionaryComposition(employees: employees)
-    }
-
     public init?(var decoder: Decoder) {
+        decoder = TestDictionaryComposition.performMigrationIfNeeded(decoder)
 
-    decoder = TestDictionaryComposition.performMigrationIfNeeded(decoder)
+        guard
+            let employees: [String : Employee] = decoder.decodeModelDictionary("employees")
+        else { return  nil }
 
-        let instance: TestDictionaryComposition? = TestDictionaryComposition.create
-        <^> decoder.decodeModelDictionary("employees")
-
-        if let i = instance {
-            i.didFinishDecodingWithDecoder(decoder)
-            self = i
-        } else { return nil }
+        self.employees = employees
+        didFinishDecodingWithDecoder(decoder)
     }
 }
 

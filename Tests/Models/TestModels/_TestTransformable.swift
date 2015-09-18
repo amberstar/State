@@ -12,36 +12,25 @@ public struct TestTransformable : Model {
     public let myTransformableImmutableOptional: NSURL?
     public var myTransformableOptional: NSURL?
 
-public init(myTransformable: NSURL, myTransformableImmutable: NSURL, myTransformableImmutableOptional: NSURL?, myTransformableOptional: NSURL?) {
-
-    self.myTransformable = myTransformable
-    self.myTransformableImmutable = myTransformableImmutable
-    self.myTransformableImmutableOptional = myTransformableImmutableOptional
-    self.myTransformableOptional = myTransformableOptional
-
-    }
 }
 
 extension TestTransformable : Decodable {
 
-    static func create(myTransformable: NSURL)(myTransformableImmutable: NSURL)(myTransformableImmutableOptional: NSURL?)(myTransformableOptional: NSURL?) -> TestTransformable  {
-        return TestTransformable(myTransformable: myTransformable, myTransformableImmutable: myTransformableImmutable, myTransformableImmutableOptional: myTransformableImmutableOptional, myTransformableOptional: myTransformableOptional)
-    }
-
     public init?(var decoder: Decoder) {
+        decoder = TestTransformable.performMigrationIfNeeded(decoder)
 
-    decoder = TestTransformable.performMigrationIfNeeded(decoder)
+        guard
+            let myTransformable: NSURL = URLTransform.reverseTransform(decoder.decode("myTransformable")),
+            let myTransformableImmutable: NSURL = URLTransform.reverseTransform(decoder.decode("myTransformableImmutable")),
+            let myTransformableImmutableOptional: NSURL? = URLTransform.reverseTransform(decoder.decode("myTransformableImmutableOptional")),
+            let myTransformableOptional: NSURL? = URLTransform.reverseTransform(decoder.decode("myTransformableOptional"))
+        else { return  nil }
 
-        let instance: TestTransformable? = TestTransformable.create
-        <^> decoder.decode("myTransformable") >>> URLTransform.reverseTransform
-        <*> decoder.decode("myTransformableImmutable") >>> URLTransform.reverseTransform
-        <*> decoder.decode("myTransformableImmutableOptional") >>> URLTransform.reverseTransform >>> asOptional
-        <*> decoder.decode("myTransformableOptional") >>> URLTransform.reverseTransform >>> asOptional
-
-        if let i = instance {
-            i.didFinishDecodingWithDecoder(decoder)
-            self = i
-        } else { return nil }
+        self.myTransformable = myTransformable
+        self.myTransformableImmutable = myTransformableImmutable
+        self.myTransformableImmutableOptional = myTransformableImmutableOptional
+        self.myTransformableOptional = myTransformableOptional
+        didFinishDecodingWithDecoder(decoder)
     }
 }
 

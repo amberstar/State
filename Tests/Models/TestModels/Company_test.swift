@@ -6,35 +6,42 @@
 import Foundation
 import State
 
-public struct Company : Model {
+
+public struct Building  {
+    public init?(var decoder: Decoder) {
+        
+    }
+
+}
+
+public struct Company2 : Building, Model {
     public var name: String
     public var yearFounded: Double
     public var phoneNumber: String?
     public var employees: [Employee]?
-
 }
 
-extension Company : Decodable {
+extension Company2 : Decodable {
 
+    
     public init?(var decoder: Decoder) {
-        decoder = Company.performMigrationIfNeeded(decoder)
-
+    decoder = Company.performMigrationIfNeeded(decoder)
+        
         guard
             let name: String = decoder.decode("name"),
             let yearFounded: Double = decoder.decode("yearFounded"),
             let phoneNumber: String? = decoder.decode("phoneNumber"),
             let employees: [Employee]? = decoder.decodeModelArray("employees")
-        else { return  nil }
-
+        else { return nil }
+        
         self.name = name
         self.yearFounded = yearFounded
         self.phoneNumber = phoneNumber
         self.employees = employees
-        didFinishDecodingWithDecoder(decoder)
     }
 }
 
-extension Company : Encodable {
+extension Company2 : Encodable {
 
     public func encode(encoder: Encoder) {
         encoder.encode(name, "name")
@@ -48,7 +55,7 @@ extension Company : Encodable {
     }
 }
 
-extension Company {
+extension Company2 {
 
     /// These are provided from the data model designer
     /// and can be used to determine if the model is

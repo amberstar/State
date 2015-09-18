@@ -11,34 +11,23 @@ public struct TestCollections : Model {
     public var dicOfInts: [String : Int]
     public var setOfStrings: Set<String>
 
-public init(arrayOfStrings: [String], dicOfInts: [String : Int], setOfStrings: Set<String>) {
-
-    self.arrayOfStrings = arrayOfStrings
-    self.dicOfInts = dicOfInts
-    self.setOfStrings = setOfStrings
-
-    }
 }
 
 extension TestCollections : Decodable {
 
-    static func create(arrayOfStrings: [String])(dicOfInts: [String : Int])(setOfStrings: Set<String>) -> TestCollections  {
-        return TestCollections(arrayOfStrings: arrayOfStrings, dicOfInts: dicOfInts, setOfStrings: setOfStrings)
-    }
-
     public init?(var decoder: Decoder) {
+        decoder = TestCollections.performMigrationIfNeeded(decoder)
 
-    decoder = TestCollections.performMigrationIfNeeded(decoder)
+        guard
+            let arrayOfStrings: [String] = decoder.decode("arrayOfStrings"),
+            let dicOfInts: [String : Int] = decoder.decode("dicOfInts"),
+            let setOfStrings: Set<String> = decoder.decode("setOfStrings")
+        else { return  nil }
 
-        let instance: TestCollections? = TestCollections.create
-        <^> decoder.decode("arrayOfStrings")
-        <*> decoder.decode("dicOfInts")
-        <*> decoder.decode("setOfStrings")
-
-        if let i = instance {
-            i.didFinishDecodingWithDecoder(decoder)
-            self = i
-        } else { return nil }
+        self.arrayOfStrings = arrayOfStrings
+        self.dicOfInts = dicOfInts
+        self.setOfStrings = setOfStrings
+        didFinishDecodingWithDecoder(decoder)
     }
 }
 

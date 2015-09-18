@@ -7,12 +7,6 @@ import State
 
 extension TestDefaults {
 
-    init() {
-        self.noDefaultString = nil
-        self.noDefaultInt = nil
-        self.noDefaultChild = nil
-        self.noDefaultChildren = nil
-    }
 }
 
 ///MARK: Coding

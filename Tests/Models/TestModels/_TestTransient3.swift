@@ -11,32 +11,21 @@ public struct TestTransient3 : Model {
     public var myNonTransient2: String?
     public var myTransientRelationship: Gender?
 
-public init(myNonTransient1: Double?, myNonTransient2: String?) {
-
-    self.myNonTransient1 = myNonTransient1
-    self.myNonTransient2 = myNonTransient2
-
-    }
 }
 
 extension TestTransient3 : Decodable {
 
-    static func create(myNonTransient1: Double?)(myNonTransient2: String?) -> TestTransient3  {
-        return TestTransient3(myNonTransient1: myNonTransient1, myNonTransient2: myNonTransient2)
-    }
-
     public init?(var decoder: Decoder) {
+        decoder = TestTransient3.performMigrationIfNeeded(decoder)
 
-    decoder = TestTransient3.performMigrationIfNeeded(decoder)
+        guard
+            let myNonTransient1: Double? = decoder.decode("myNonTransient1"),
+            let myNonTransient2: String? = decoder.decode("myNonTransient2")
+        else { return  nil }
 
-        let instance: TestTransient3? = TestTransient3.create
-        <^> decoder.decode("myNonTransient1") >>> asOptional
-        <*> decoder.decode("myNonTransient2") >>> asOptional
-
-        if let i = instance {
-            i.didFinishDecodingWithDecoder(decoder)
-            self = i
-        } else { return nil }
+        self.myNonTransient1 = myNonTransient1
+        self.myNonTransient2 = myNonTransient2
+        didFinishDecodingWithDecoder(decoder)
     }
 }
 

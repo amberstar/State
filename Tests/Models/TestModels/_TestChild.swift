@@ -12,36 +12,25 @@ public struct TestChild : Model {
     public var myChildren: [Grandchild]?
     public var gender: Gender?
 
-public init(age: Int?, name: String?, myChildren: [Grandchild]?, gender: Gender?) {
-
-    self.age = age
-    self.name = name
-    self.myChildren = myChildren
-    self.gender = gender
-
-    }
 }
 
 extension TestChild : Decodable {
 
-    static func create(age: Int?)(name: String?)(myChildren: [Grandchild]?)(gender: Gender?) -> TestChild  {
-        return TestChild(age: age, name: name, myChildren: myChildren, gender: gender)
-    }
-
     public init?(var decoder: Decoder) {
+        decoder = TestChild.performMigrationIfNeeded(decoder)
 
-    decoder = TestChild.performMigrationIfNeeded(decoder)
+        guard
+            let age: Int? = decoder.decode("age"),
+            let name: String? = decoder.decode("name"),
+            let myChildren: [Grandchild]? = decoder.decodeModelArray("myChildren"),
+            let gender: Gender? = decoder.decodeModel("gender")
+        else { return  nil }
 
-        let instance: TestChild? = TestChild.create
-        <^> decoder.decode("age") >>> asOptional
-        <*> decoder.decode("name") >>> asOptional
-        <*> decoder.decodeModelArray("myChildren") >>> asOptional
-        <*> decoder.decodeModel("gender") >>> asOptional
-
-        if let i = instance {
-            i.didFinishDecodingWithDecoder(decoder)
-            self = i
-        } else { return nil }
+        self.age = age
+        self.name = name
+        self.myChildren = myChildren
+        self.gender = gender
+        didFinishDecodingWithDecoder(decoder)
     }
 }
 

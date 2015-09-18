@@ -7,7 +7,7 @@ import State
 
 public extension TestDefaultsChild {
 
-    public init () { }
+
 }
 
 ///MARK: Coding

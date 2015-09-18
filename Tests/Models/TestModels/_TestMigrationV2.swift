@@ -10,32 +10,21 @@ public struct TestMigrationV2 : Model {
     public var age: Int?
     public var name: String
 
-public init(age: Int?, name: String) {
-
-    self.age = age
-    self.name = name
-
-    }
 }
 
 extension TestMigrationV2 : Decodable {
 
-    static func create(age: Int?)(name: String) -> TestMigrationV2  {
-        return TestMigrationV2(age: age, name: name)
-    }
-
     public init?(var decoder: Decoder) {
+        decoder = TestMigrationV2.performMigrationIfNeeded(decoder)
 
-    decoder = TestMigrationV2.performMigrationIfNeeded(decoder)
+        guard
+            let age: Int? = decoder.decode("age"),
+            let name: String = decoder.decode("name")
+        else { return  nil }
 
-        let instance: TestMigrationV2? = TestMigrationV2.create
-        <^> decoder.decode("age") >>> asOptional
-        <*> decoder.decode("name")
-
-        if let i = instance {
-            i.didFinishDecodingWithDecoder(decoder)
-            self = i
-        } else { return nil }
+        self.age = age
+        self.name = name
+        didFinishDecodingWithDecoder(decoder)
     }
 }
 

@@ -49,10 +49,7 @@ extension <$typeName$> {
         <$typeName$>.encodeVersionIfNeeded(encoder)
         <$endprocedure$>
 
-<$procedure writeDecodingMigrationBlock$>
-
-    decoder = <$typeName$>.performMigrationIfNeeded(decoder)
-    <$endprocedure$>
+<$procedure writeDecodingMigrationBlock$>decoder = <$typeName$>.performMigrationIfNeeded(decoder)<$endprocedure$>
 
 <$procedure Struct$>
 
@@ -63,33 +60,22 @@ public struct <$typeName$> : <$superTypeName$> {
     <$foreach Attribute attributesByName do$><$if Attribute.userInfo.State.ProtocolRequirementType != func$><$call getPropertyDeclarationForAttribute Attribute$>
     <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$call getPropertyDeclarationForRelationship Relationship$>
     <$endforeach do$>
-
-public init(<$setlocal index1 = 0$><$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func$><$setlocal index1 = index1 + 1$><$Attribute.name$>: <$call getTypeForAttribute Attribute$><$if index1 < (attributesByName.@count - transientAndFunctionAttributeCount)$>, <$endif$><$endif$><$endforeach do$><$if attributesByName.@count - transientAndFunctionAttributeCount > 0 && relationshipsByName.@count - transientRelationshipCount > 0$>, <$endif$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient$><$if ! Relationship.isToMany$><$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$><$if (RelationshipIndex + 1 < relationshipsByName.@count - transientRelationshipCount) $>, <$endif$><$else$><$Relationship.name$>: [<$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$><$if (RelationshipIndex + 1 < relationshipsByName.@count - transientRelationshipCount) $>, <$endif$><$endif$><$endif$><$endforeach do$>) {
-
-    <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func$>self.<$Attribute.name$> = <$Attribute.name$>
-    <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient$>self.<$Relationship.name$> = <$Relationship.name$><$endif$>
-    <$endforeach do$>
-    }
 }
 
 extension <$typeName$> : Decodable {
 
-    static func create<$setlocal index2 = 0$><$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func$>(<$Attribute.name$>: <$call getTypeForAttribute Attribute$>)<$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient$><$if ! Relationship.isToMany$>(<$Relationship.name$>: <$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isOptional$>?<$endif$>)<$else$>(<$Relationship.name$>: [<$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$Relationship.destinationEntity.managedObjectClassName$>]<$if Relationship.isOptional$>?<$endif$>)<$endif$><$endif$><$endforeach do$> -> <$typeName$>  {
-        return <$typeName$>(<$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func$><$setlocal index2 = index2 + 1$><$Attribute.name$>: <$Attribute.name$><$if index2 < attributesByName.@count - transientAndFunctionAttributeCount$>, <$endif$><$endif$><$endforeach do$><$if (attributesByName.@count - transientAndFunctionAttributeCount) > 0 && (relationshipsByName.@count - transientRelationshipCount) > 0$>, <$endif$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient$><$Relationship.name$>: <$Relationship.name$><$if (RelationshipIndex + 1 < relationshipsByName.@count - transientRelationshipCount) $>, <$endif$><$endif$><$endforeach do$>)
-    }
-
     public init?(var decoder: Decoder) {
-
         <$call writeDecodingMigrationBlock$>
 
-        let instance: <$typeName$>? = <$typeName$>.create
-        <$setlocal firstNonTransientAttribute = 0$><$setlocal firstNonTransientRelationship = 0$><$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func$><$if firstNonTransientAttribute == 0$><$setlocal firstNonTransientAttribute = 1$><$else$><$setlocal firstNonTransientAttribute = 2$><$endif$><$if firstNonTransientAttribute == 1$><^><$else$><*><$endif$> decoder.decode("<$Attribute.name$>")<$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.reverseTransform<$endif$><$if Attribute.isOptional$> >>> asOptional<$endif$>
-        <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient$><$if firstNonTransientRelationship == 0$><$setlocal firstNonTransientRelationship = 1$><$else$><$setlocal firstNonTransientRelationship = 2$><$endif$><$if firstNonTransientRelationship == 1 && firstNonTransientAttribute == 0$><^><$else$><*><$endif$> decoder.decode<$if Relationship.destinationEntity.isAbstract || Relationship.destinationEntity.userInfo.State.Protocol == YES$><$Relationship.destinationEntity.managedObjectClassName$><$else$>Model<$endif$><$if Relationship.isToMany$><$if Relationship.userInfo.State.CompositionType == Dictionary$>Dictionary<$else$>Array<$endif$><$endif$>("<$Relationship.name$>")<$if Relationship.isOptional$> >>> asOptional<$endif$><$endif$>
-        <$endforeach do$>
-        if let i = instance {
-            i.didFinishDecodingWithDecoder(decoder)
-            self = i
-        } else { return nil }
+        guard
+            <$setlocal prop = 0$><$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func$><$if prop > 0$>,
+            <$endif$><$setlocal prop = prop + 1$>let <$Attribute.name$>: <$call getTypeForAttribute$> = <$if Attribute.attributeType == 1800$><$Attribute.valueTransformerName$>.reverseTransform(<$endif$>decoder.decode("<$Attribute.name$>")<$if Attribute.attributeType == 1800$>)<$endif$><$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient$><$if prop > 0$>,
+            <$endif$><$setlocal prop = prop + 1$>let <$Relationship.name$>: <$if  Relationship.isToMany$>[<$endif$><$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if  Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> = decoder.decode<$if Relationship.destinationEntity.isAbstract || Relationship.destinationEntity.userInfo.State.Protocol == YES$><$Relationship.destinationEntity.managedObjectClassName$><$else$>Model<$endif$><$if Relationship.isToMany$><$if Relationship.userInfo.State.CompositionType == Dictionary$>Dictionary<$else$>Array<$endif$><$endif$>("<$Relationship.name$>")<$endif$><$endforeach do$>
+        else { return  nil }
+
+        <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func$>self.<$Attribute.name$> = <$Attribute.name$>
+        <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient$>self.<$Relationship.name$> = <$Relationship.name$>
+        <$endif$><$endforeach do$>didFinishDecodingWithDecoder(decoder)
     }
 }
 

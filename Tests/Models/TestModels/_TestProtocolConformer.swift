@@ -15,42 +15,31 @@ public struct TestProtocolConformer : TestProtocol {
     public let grandchild: Grandchild
     public var children: [TestChild]
 
-public init(age: Int?, ss_number: String, isReady: Bool?, name: String, employee: Employee, grandchild: Grandchild, children: [TestChild]) {
-
-    self.age = age
-    self.ss_number = ss_number
-    self.isReady = isReady
-    self.name = name
-    self.employee = employee
-    self.grandchild = grandchild
-    self.children = children
-
-    }
 }
 
 extension TestProtocolConformer : Decodable {
 
-    static func create(age: Int?)(ss_number: String)(isReady: Bool?)(name: String)(employee: Employee)(grandchild: Grandchild)(children: [TestChild]) -> TestProtocolConformer  {
-        return TestProtocolConformer(age: age, ss_number: ss_number, isReady: isReady, name: name, employee: employee, grandchild: grandchild, children: children)
-    }
-
     public init?(var decoder: Decoder) {
+        decoder = TestProtocolConformer.performMigrationIfNeeded(decoder)
 
-    decoder = TestProtocolConformer.performMigrationIfNeeded(decoder)
+        guard
+            let age: Int? = decoder.decode("age"),
+            let ss_number: String = decoder.decode("ss_number"),
+            let isReady: Bool? = decoder.decode("isReady"),
+            let name: String = decoder.decode("name"),
+            let employee: Employee = decoder.decodeModel("employee"),
+            let grandchild: Grandchild = decoder.decodeModel("grandchild"),
+            let children: [TestChild] = decoder.decodeModelArray("children")
+        else { return  nil }
 
-        let instance: TestProtocolConformer? = TestProtocolConformer.create
-        <^> decoder.decode("age") >>> asOptional
-        <*> decoder.decode("ss_number")
-        <*> decoder.decode("isReady") >>> asOptional
-        <*> decoder.decode("name")
-        <*> decoder.decodeModel("employee")
-        <*> decoder.decodeModel("grandchild")
-        <*> decoder.decodeModelArray("children")
-
-        if let i = instance {
-            i.didFinishDecodingWithDecoder(decoder)
-            self = i
-        } else { return nil }
+        self.age = age
+        self.ss_number = ss_number
+        self.isReady = isReady
+        self.name = name
+        self.employee = employee
+        self.grandchild = grandchild
+        self.children = children
+        didFinishDecodingWithDecoder(decoder)
     }
 }
 

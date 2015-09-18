@@ -17,7 +17,7 @@ extension TestRegEnum: Decodable {
 
     public init?(var decoder: Decoder) {
 
-    decoder = TestRegEnum.performMigrationIfNeeded(decoder)
+        decoder = TestRegEnum.performMigrationIfNeeded(decoder)
 
         if let type: String = decoder.decode("type") {
 
