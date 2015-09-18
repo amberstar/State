@@ -57,8 +57,7 @@ extension <$typeName$> {
 <$procedure Struct$>
 
 <$setmerge typeName = <$managedObjectClassName$>$>
-<$setmerge superTypeName = <$if isAbstract || userInfo.State.Protocol$><$managedObjectClassName$>
-<$elseif hasSuperentity$><$superentity.managedObjectClassName$><$else$>Model<$endif$>$>
+<$setmerge superTypeName = <$if hasSuperentity$><$superentity.managedObjectClassName$><$else$>Model<$endif$>$>
 
 public struct <$typeName$> : <$superTypeName$> {
     <$foreach Attribute attributesByName do$><$if Attribute.userInfo.State.ProtocolRequirementType != func$><$call getPropertyDeclarationForAttribute Attribute$>
