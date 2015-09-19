@@ -11,6 +11,8 @@ A Swift model framework that supports `structs`, `enums` and `protocols` in the 
 - Read and write models to and from JSON, Plists, and Binary 
 - Model versioning and migration management (optional)
 
+For more information on the benfiets of State read [About State](Docs/About.md)
+
 #### Example:
 Whether you use the data modeler and code generation, or you code your models by hand, it is very easy to define models with State.
 This is a complete model as it would be generated, or defined by hand. The example shows you can have constants, optionals, and composition of other models.
