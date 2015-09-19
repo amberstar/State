@@ -1,6 +1,6 @@
 #State
 
-A Swift model framework that supports `structs`, `enums` and `protocols` in the model layer. Models are defined just like with Core Data, using [Xcode's Core Data model design tool](https://developer.apple.com/library/ios/recipes/xcode_help-core_data_modeling_tool/Articles/about_cd_modeling_tool.html#//apple_ref/doc/uid/TP40010379-CH3-SW1). Model code is  generated automatically using [Mogenerator](https://github.com/rentzsch/mogenerator). The framework provides serialization to and from Plists, JSON, or Binary.
+A Swift model framework that supports `structs`, `enums` and `protocols` in the model layer. Models optionally can be defined just like with Core Data, using [Xcode's Core Data model design tool](https://developer.apple.com/library/ios/recipes/xcode_help-core_data_modeling_tool/Articles/about_cd_modeling_tool.html#//apple_ref/doc/uid/TP40010379-CH3-SW1). Model code is  generated automatically using [Mogenerator](https://github.com/rentzsch/mogenerator). The framework provides serialization to and from Plists, JSON, or Binary.
                                                                                                                                                                                                                                                    
 ####Features: 
 
@@ -13,7 +13,7 @@ A Swift model framework that supports `structs`, `enums` and `protocols` in the 
 
 #### Example:
 Whether you use the data modeler and code generation, or you code your models by hand, it is very easy to define models with State.
-This is a complete model as it would be generated, or defined by hand. The example shows you have constants, optionals, and composition of other models.
+This is a complete model as it would be generated, or defined by hand. The example shows you can have constants, optionals, and composition of other models.
 
 ```swift
 public struct MyModel : Model {
@@ -25,9 +25,7 @@ public struct MyModel : Model {
 }
 
 extension MyModel : Decodable {
-
     public init?(var decoder: Decoder) {
-
         // use guard for non-optionals
         guard
             let myDate: NSDate = decoder.decode("myDate"),
@@ -48,7 +46,6 @@ extension MyModel : Decodable {
 }
 
 extension MyModel : Encodable {
-
     public func encode(encoder: Encoder) {
         encoder.encode(myDate, "myDate")
         endcoder.encode(myArrayOfStrings, "myArraryOfStrings")
@@ -67,7 +64,7 @@ Model items can compose with protocol types with full serialization support.
 
 ![<Protocol Oriented>](Docs/Resources/diag2.png)
 
-Not only can you extend each individual model type with an extension, you can also add API to all of your model elements by extending the Model protocol with your own protocol extension.
+Not only can you extend each individual model type with an extension, you can also add API to all of your model elements by extending the Model protocol with your own protocol extension. In-fact, this is exactly how State provides a save function to every model.
 
 
 ## Serialization
