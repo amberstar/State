@@ -18,10 +18,8 @@ extension TestTransient3 : Decodable {
     public init?(var decoder: Decoder) {
         decoder = TestTransient3.performMigrationIfNeeded(decoder)
 
-        guard
-            let myNonTransient1: Double? = decoder.decode("myNonTransient1"),
-            let myNonTransient2: String? = decoder.decode("myNonTransient2")
-        else { return  nil }
+        let myNonTransient1: Double? = decoder.decode("myNonTransient1")
+        let myNonTransient2: String? = decoder.decode("myNonTransient2")
 
         self.myNonTransient1 = myNonTransient1
         self.myNonTransient2 = myNonTransient2

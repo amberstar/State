@@ -48,7 +48,7 @@ class TemplateTests: Test {
     }
 
     func testOptionalTypes() {
-        let test_out = TestOptionalTypes()
+        let test_out = TestOptionalTypes.CreateTestInstance()
         test_out.save(.Binary, path: tempPathFor("test_optional_types.plist"))
         let sut =  TestOptionalTypes(.Binary, path: tempPathFor("test_optional_types.plist"))
         XCTAssert(sut != nil)

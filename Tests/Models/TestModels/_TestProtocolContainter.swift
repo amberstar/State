@@ -16,9 +16,7 @@ extension TestProtocolContainter : Decodable {
     public init?(var decoder: Decoder) {
         decoder = TestProtocolContainter.performMigrationIfNeeded(decoder)
 
-        guard
-            let testProtocols: TestProtocol? = decoder.decodeTestProtocol("testProtocols")
-        else { return  nil }
+        let testProtocols: TestProtocol? = decoder.decodeTestProtocol("testProtocols")
 
         self.testProtocols = testProtocols
         didFinishDecodingWithDecoder(decoder)

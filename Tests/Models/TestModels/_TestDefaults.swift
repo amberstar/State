@@ -30,15 +30,18 @@ extension TestDefaults : Decodable {
             let defaultManualString: String = decoder.decode("defaultManualString"),
             let defaultArray: [String] = decoder.decode("defaultArray"),
             let defaultString: String = decoder.decode("defaultString"),
-            let noDefaultInt: Int? = decoder.decode("noDefaultInt"),
             let defaultInt: Int = decoder.decode("defaultInt"),
-            let noDefaultString: String? = decoder.decode("noDefaultString"),
             let defaultEmptyArray: [String] = decoder.decode("defaultEmptyArray"),
             let defaultChildren: [TestDefaultsChild] = decoder.decodeModelArray("defaultChildren"),
-            let defaultChild: TestDefaultsChild = decoder.decodeModel("defaultChild"),
-            let noDefaultChild: TestDefaultsChild? = decoder.decodeModel("noDefaultChild"),
-            let noDefaultChildren: TestDefaultsChild? = decoder.decodeModel("noDefaultChildren")
+            let defaultChild: TestDefaultsChild = decoder.decodeModel("defaultChild")
         else { return  nil }
+
+        let noDefaultInt: Int? = decoder.decode("noDefaultInt")
+
+        let noDefaultString: String? = decoder.decode("noDefaultString")
+
+        let noDefaultChild: TestDefaultsChild? = decoder.decodeModel("noDefaultChild")
+        let noDefaultChildren: TestDefaultsChild? = decoder.decodeModel("noDefaultChildren")
 
         self.defaultManualString = defaultManualString
         self.defaultArray = defaultArray

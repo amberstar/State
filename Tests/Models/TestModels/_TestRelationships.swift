@@ -18,11 +18,9 @@ extension TestRelationships : Decodable {
     public init?(var decoder: Decoder) {
         decoder = TestRelationships.performMigrationIfNeeded(decoder)
 
-        guard
-            let myChildren: [TestChild]? = decoder.decodeModelArray("myChildren"),
-            let myGrandChildren: [Grandchild]? = decoder.decodeModelArray("myGrandChildren"),
-            let myOneChild: TestChild? = decoder.decodeModel("myOneChild")
-        else { return  nil }
+        let myChildren: [TestChild]? = decoder.decodeModelArray("myChildren")
+        let myGrandChildren: [Grandchild]? = decoder.decodeModelArray("myGrandChildren")
+        let myOneChild: TestChild? = decoder.decodeModel("myOneChild")
 
         self.myChildren = myChildren
         self.myGrandChildren = myGrandChildren

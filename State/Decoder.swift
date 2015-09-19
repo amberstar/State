@@ -44,8 +44,7 @@ public final class Decoder {
     /// - returns: return an optional array of T or nil if decoding failed
     public func decodeModelArray<T:Decodable>(key: String) -> [T]? {
         let d = data[key] as? [[String : AnyObject]]
-        var e = d.flatMap { sequence($0.map( _decodeDecodable)) }
-        return e
+        return d.flatMap { sequence($0.map( _decodeDecodable)) }
     }
     
     /// decode a dictionary of string,decodable element T

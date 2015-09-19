@@ -18,11 +18,9 @@ extension Grandchild : Decodable {
     public init?(var decoder: Decoder) {
         decoder = Grandchild.performMigrationIfNeeded(decoder)
 
-        guard
-            let age: Int? = decoder.decode("age"),
-            let name: String? = decoder.decode("name"),
-            let gender: Gender? = decoder.decodeModel("gender")
-        else { return  nil }
+        let age: Int? = decoder.decode("age")
+        let name: String? = decoder.decode("name")
+        let gender: Gender? = decoder.decodeModel("gender")
 
         self.age = age
         self.name = name

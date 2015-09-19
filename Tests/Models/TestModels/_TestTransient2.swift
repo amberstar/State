@@ -18,9 +18,7 @@ extension TestTransient2 : Decodable {
     public init?(var decoder: Decoder) {
         decoder = TestTransient2.performMigrationIfNeeded(decoder)
 
-        guard
-            let myNonTransient: Gender? = decoder.decodeModel("myNonTransient")
-        else { return  nil }
+        let myNonTransient: Gender? = decoder.decodeModel("myNonTransient")
 
         self.myNonTransient = myNonTransient
         didFinishDecodingWithDecoder(decoder)

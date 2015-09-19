@@ -18,9 +18,10 @@ extension TestMigrationV2 : Decodable {
         decoder = TestMigrationV2.performMigrationIfNeeded(decoder)
 
         guard
-            let age: Int? = decoder.decode("age"),
             let name: String = decoder.decode("name")
         else { return  nil }
+
+        let age: Int? = decoder.decode("age")
 
         self.age = age
         self.name = name

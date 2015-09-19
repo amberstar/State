@@ -17,10 +17,8 @@ extension TestOverrideType : Decodable {
     public init?(var decoder: Decoder) {
         decoder = TestOverrideType.performMigrationIfNeeded(decoder)
 
-        guard
-            let myURL: NSURL? = decoder.decode("myURL"),
-            let myArrayOfString: [String]? = decoder.decode("myArrayOfString")
-        else { return  nil }
+        let myURL: NSURL? = decoder.decode("myURL")
+        let myArrayOfString: [String]? = decoder.decode("myArrayOfString")
 
         self.myURL = myURL
         self.myArrayOfString = myArrayOfString

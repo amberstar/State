@@ -21,10 +21,11 @@ extension Company : Decodable {
 
         guard
             let name: String = decoder.decode("name"),
-            let yearFounded: Double = decoder.decode("yearFounded"),
-            let phoneNumber: String? = decoder.decode("phoneNumber"),
-            let employees: [Employee]? = decoder.decodeModelArray("employees")
+            let yearFounded: Double = decoder.decode("yearFounded")
         else { return  nil }
+
+        let phoneNumber: String? = decoder.decode("phoneNumber")
+        let employees: [Employee]? = decoder.decodeModelArray("employees")
 
         self.name = name
         self.yearFounded = yearFounded

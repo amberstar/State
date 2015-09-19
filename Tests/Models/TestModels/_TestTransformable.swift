@@ -21,10 +21,11 @@ extension TestTransformable : Decodable {
 
         guard
             let myTransformable: NSURL = URLTransform.reverseTransform(decoder.decode("myTransformable")),
-            let myTransformableImmutable: NSURL = URLTransform.reverseTransform(decoder.decode("myTransformableImmutable")),
-            let myTransformableImmutableOptional: NSURL? = URLTransform.reverseTransform(decoder.decode("myTransformableImmutableOptional")),
-            let myTransformableOptional: NSURL? = URLTransform.reverseTransform(decoder.decode("myTransformableOptional"))
+            let myTransformableImmutable: NSURL = URLTransform.reverseTransform(decoder.decode("myTransformableImmutable"))
         else { return  nil }
+
+        let myTransformableImmutableOptional: NSURL? = URLTransform.reverseTransform(decoder.decode("myTransformableImmutableOptional"))
+        let myTransformableOptional: NSURL? = URLTransform.reverseTransform(decoder.decode("myTransformableOptional"))
 
         self.myTransformable = myTransformable
         self.myTransformableImmutable = myTransformableImmutable

@@ -23,14 +23,16 @@ extension TestProtocolConformer : Decodable {
         decoder = TestProtocolConformer.performMigrationIfNeeded(decoder)
 
         guard
-            let age: Int? = decoder.decode("age"),
             let ss_number: String = decoder.decode("ss_number"),
-            let isReady: Bool? = decoder.decode("isReady"),
             let name: String = decoder.decode("name"),
             let employee: Employee = decoder.decodeModel("employee"),
             let grandchild: Grandchild = decoder.decodeModel("grandchild"),
             let children: [TestChild] = decoder.decodeModelArray("children")
         else { return  nil }
+
+        let age: Int? = decoder.decode("age")
+
+        let isReady: Bool? = decoder.decode("isReady")
 
         self.age = age
         self.ss_number = ss_number

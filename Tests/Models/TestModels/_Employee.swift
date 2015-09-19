@@ -18,9 +18,10 @@ extension Employee : Decodable {
         decoder = Employee.performMigrationIfNeeded(decoder)
 
         guard
-            let name: String = decoder.decode("name"),
-            let title: String? = decoder.decode("title")
+            let name: String = decoder.decode("name")
         else { return  nil }
+
+        let title: String? = decoder.decode("title")
 
         self.name = name
         self.title = title
