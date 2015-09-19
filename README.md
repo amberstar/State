@@ -82,7 +82,7 @@ let model = ModelType(.Plist, path: "model.plist")
 ```
 
 ## General Design Philosophy 
-State is designed for the application that has one, or a hundred model items where you want to use lightweight plist, or JSON formats to store models, and you want to take advantage of Swift's structs, enums, and protocols.
+State is designed to be simple, lightweight, and fast. It's for the application that has only one, or a hundred model items where you want to use lightweight plist, or JSON formats to store models, and you want to take advantage of Swift's structs, enums, and protocols.
 It was designed with the following in mind:
 
 * extremely light weight code base
@@ -100,6 +100,14 @@ The encoding and decoding process is decoupled from the data conversion format. 
 ![<Protocol Oriented>](Docs/Resources/diag1.png)
 
 ![<Protocol Oriented>](Docs/Resources/diag4.png)
+
+
+##Code Generation
+Seperate from the framework itself, State also comes with custom Mogenerator templates, and instructions on how to use them. I believe strongly in the power of automatic code generation or "Meta-Programming". Writing model code that reads and writes your models to JSON or Plists, is a tedius uncessary task. Being able to make changes quickly to your model layer and have your models generated automaticly, with consistent clean code, when you build your project is a powerful way to save you hours of writing tedius code. This is espeacialy useful now, beacuse as the Swift language changes, you can easily update all of your model code by just updating to the latest version of State.
+
+Note:You do not have to use the code genertion features of State, but if you want to iterate fast on your model layer design, being able to make changes quicly I highly reccomend taking the time to set up your project to generate your models.
+
+
 # [ Read the Documentation to Get Started](Docs/)
 
 ##System Requirements
