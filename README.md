@@ -21,7 +21,7 @@ public struct MyModel : Model {
     public let myArrayOfStrings: [String]
     public var myBinary: NSData?
     public var myOtherModel: MyOtherModel
-    public var myOtherModelCollection: [MyOtherModel]
+    public var myModelCollection: [MyOtherModel]
 }
 
 extension MyModel : Decodable {
@@ -31,7 +31,7 @@ extension MyModel : Decodable {
             let myDate: NSDate = decoder.decode("myDate"),
             let myArrayOfStrings = decoder.decode("myArrayOfStrings"),
             let myOtherModel: MyOtherModel = decoder.decodeModel("myOtherModel"),
-            let myOtherModelCollection: [MyOtherModel] = decoder.decodeModelArray("myOtherModelCollection"),
+            let myModelCollection: [MyOtherModel] = decoder.decodeModelArray("myModelCollection"),
         else { return  nil }
         let myBinary: NSData = decoder.decode("myBinary")
 
@@ -39,7 +39,7 @@ extension MyModel : Decodable {
         self.myArrayOfStrings = myArrayOfStrings
         self.myBinary = myBinary
         self.myOtherModel = myOtherModel
-        self.myOtherModelCollection = myOtherModelCollection
+        self.myModelCollection = myModelCollection
     }
 }
 
@@ -49,7 +49,7 @@ extension MyModel : Encodable {
         endcoder.encode(myArrayOfStrings, "myArraryOfStrings")
         encoder.encode(myBinary, "myBinary")
         encoder.encode(myOtherModel, "myOtherModel")
-        encoder.encode(myOtherModelCollection, "myOtherModelCollection")
+        encoder.encode(myModelCollection, "myModelCollection")
     }
 }
 
