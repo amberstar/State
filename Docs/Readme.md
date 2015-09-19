@@ -1,7 +1,8 @@
 #State Model Framework Documentation:
 
 ###Topics:
-- [Getting Started / General Setup information] (GetStarted.md)
+- [About State] (About.md)
+- [Getting Started With Xcode data model designer] (GetStarted.md)
 - [Model Design Reference](Reference.md)
 - [Enum Design Guide](Enums.md)
 - [Protocols](Protocols.md)
