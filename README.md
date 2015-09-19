@@ -16,12 +16,15 @@ State has a protocol oriented design with extension points to extend all of your
 Model items can compose with protocol types with full serialization support.
 
 ![<Protocol Oriented>](Docs/Resources/diag2.png)
+Not only can you extend each individual model type with an extension, you can also add API to all of your model elements by extending the Model protocol with your own protocol extension.
+
 
 ## Serialization
-Convenient serialization API is provided using the model `protocol extension`, but that is just a start. Not only can you extend each individual model type with an extension, you can also add API to all of your model elements by extending the Model protocol with your own protocol extension.
+Convenient serialization API is provided with the  `save` function by passing in the format, and the path. Load models using an initializer that takes the format and the path.
 
-
+#### Saving models to a file
 ```swift
+
 // JSON
 model.save(.JSON, path: "model.json")
 let model = ModelType(.JSON, path: "model.json")
@@ -30,6 +33,9 @@ let model = ModelType(.JSON, path: "model.json")
 model.save(.Plist, path: "model.plist")
 let model = ModelType(.Plist, path: "model.plist")
 ```
+
+## How it works
+
 ![<Protocol Oriented>](Docs/Resources/diag4.png)
 # [ Read the Documentation to Get Started](Docs/)
 
