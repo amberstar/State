@@ -13,17 +13,15 @@ A Swift model framework that supports `structs`, `enums` and `protocols` in the 
 
 #### Example:
 Whether you use the data modeler and code generation, or you code your models by hand, it is very easy to define models with State.
-
+This is a complete model as it would be generated, or defined by hand. The example shows you have constants, optionals, and composition of other models.
 
 ```swift
 public struct MyModel : Model {
     public let myDate: NSDate
     public let myArrayOfStrings: [String]
-    public var myFloat: Float
     public var myBinary: NSData?
     public var myOtherModel: MyOtherModel
     public var myOtherModelCollection: [MyOtherModel]
-    public var myOtherModelDictionary: [String : MyOtherMode]
 }
 
 extension MyModel : Decodable {
@@ -34,7 +32,6 @@ extension MyModel : Decodable {
         guard
             let myDate: NSDate = decoder.decode("myDate"),
             let myArrayOfStrings = decoder.decode("myArrayOfStrings"),
-            let myFloat: Float = decoder.decode("myFloat"),
             let myOtherModel: MyOtherModel = decoder.decodeModel("myOtherModel"),
             let myOtherModelCollection: [MyOtherModel] = decoder.decodeModelArray("myOtherModelCollection"),
             let myOtherModelDictionary: [String : MyOtherModel] = decoder.decodeModelDictionary("myOtherModelDictionary")
@@ -43,7 +40,6 @@ extension MyModel : Decodable {
 
         self.myDate = myDate
         self.myArrayOfStrings = myArrayOfStrings
-        self.myFloat = myFloat
         self.myBinary = myBinary
         self.myOtherModel = myOtherModel
         self.myOtherModelCollection = myOtherModelCollection
@@ -51,12 +47,11 @@ extension MyModel : Decodable {
     }
 }
 
-extension TestTypes : Encodable {
+extension MyModel : Encodable {
 
     public func encode(encoder: Encoder) {
         encoder.encode(myDate, "myDate")
         endcoder.encode(myArrayOfStrings, "myArraryOfStrings")
-        encoder.encode(myFloat, "myFloat")
         encoder.encode(myBinary, "myBinary")
         encoder.encode(myOtherModel, "myOtherModel")
         encoder.encode(myOtherModelCollection, "myOtherModelCollection")
