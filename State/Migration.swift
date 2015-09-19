@@ -1,4 +1,5 @@
 let default_version_key = "model_version"
+let blank_version_hash = ""
 
 // All implemented as func because: http://openradar.appspot.com/21550415
 /// Provides migration and version managment for models
@@ -88,7 +89,7 @@ public extension Migratable {
     /// and can be used to determine if the model is
     /// a different version.
     static func modelVersionHash() -> String {
-        return default_version_key
+        return blank_version_hash
     }
 
     static func modelVersionHashModifier()-> String? {
