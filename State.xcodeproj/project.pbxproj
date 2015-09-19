@@ -341,7 +341,6 @@
 		96A8602C1B4B3040006A5ABE /* _TestProtocolContainter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestProtocolContainter.swift; path = Tests/Models/TestModels/_TestProtocolContainter.swift; sourceTree = "<group>"; };
 		96A8602F1B4B304A006A5ABE /* TestProtocolContainter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocolContainter.swift; path = Tests/Models/TestModels/TestProtocolContainter.swift; sourceTree = "<group>"; };
 		96A860321B4B35A8006A5ABE /* TestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocol.swift; path = Tests/Models/TestModels/TestProtocol.swift; sourceTree = "<group>"; };
-		96BB83371BAC359100DAA9DD /* Company_test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Company_test.swift; path = Tests/Models/TestModels/Company_test.swift; sourceTree = "<group>"; };
 		96C5C3781B3C293F009121A1 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Array.swift; path = Carthage/Checkouts/Runes/Source/Array.swift; sourceTree = SOURCE_ROOT; };
 		96C5C3791B3C293F009121A1 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Carthage/Checkouts/Runes/Source/Operators.swift; sourceTree = SOURCE_ROOT; };
 		96C5C37A1B3C293F009121A1 /* Optional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Optional.swift; path = Carthage/Checkouts/Runes/Source/Optional.swift; sourceTree = SOURCE_ROOT; };
@@ -503,7 +502,6 @@
 		04012AC41AE13290006DAC19 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				96BB83371BAC359100DAA9DD /* Company_test.swift */,
 				0485AA1E1AFE9BDE008E89D6 /* TestMigrationV2.swift */,
 				0485AA231AFE9C43008E89D6 /* _TestMigrationV2.swift */,
 				0485AA171AFE9B83008E89D6 /* _TestMigrationV1.swift */,

@@ -62,7 +62,6 @@ struct Player: Model {
         
         if let i = instance { self = i } else { return nil }
     }
-
 }
 
 extension Player: Decodable {
@@ -70,8 +69,7 @@ extension Player: Decodable {
     static func create(id: Int)(name: String)(email: String?)(age: Int)(height: Float?)(weight: Double?)(MVP: Bool)(partner: Player?)(teamates: [Player])(fillins: [Player]?)(teamatesByName: [String : Player]?)(awards: [AnyObject]?) -> Player {
         return Player(id: id, name: name, email: email, age: age, height: height, weight: weight, MVP: MVP, teamates: teamates, fillins: fillins, teamatesByName: teamatesByName, awards: awards )
     }
-    
-     }
+}
 
 extension Player: Encodable {
     func encode(encoder: Encoder) {

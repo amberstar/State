@@ -15,6 +15,8 @@ A Swift model framework that supports `structs`, `enums` and `protocols` in the 
 State has a protocol oriented design with extension points to extend all of your models.
 Model items can compose with protocol types with full serialization support.
 
+![<Protocol Oriented>](Docs/Resources/diag2.png)
+
 ## Serialization
 Convenient serialization API is provided using the model `protocol extension`, but that is just a start. Not only can you extend each individual model type with an extension, you can also add API to all of your model elements by extending the Model protocol with your own protocol extension.
 
@@ -28,7 +30,7 @@ let model = ModelType(.JSON, path: "model.json")
 model.save(.Plist, path: "model.plist")
 let model = ModelType(.Plist, path: "model.plist")
 ```
-
+![<Protocol Oriented>](Docs/Resources/diag4.png)
 # [ Read the Documentation to Get Started](Docs/)
 
 ##System Requirements

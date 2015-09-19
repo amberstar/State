@@ -29,9 +29,7 @@ struct BasicTypes<T> {
         self.tDic = tDic
         self.tDicOpt = tDicOpt
         self.tDictImp = tDicImp
-    }
-
- 
+    } 
 }
 
 extension BasicTypes : Decodable {
