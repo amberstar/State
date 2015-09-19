@@ -41,7 +41,6 @@ extension MyModel : Decodable {
         self.myBinary = myBinary
         self.myOtherModel = myOtherModel
         self.myOtherModelCollection = myOtherModelCollection
-        self.myOtherModelDictionary = myOtherModelDictionary
     }
 }
 
@@ -52,7 +51,6 @@ extension MyModel : Encodable {
         encoder.encode(myBinary, "myBinary")
         encoder.encode(myOtherModel, "myOtherModel")
         encoder.encode(myOtherModelCollection, "myOtherModelCollection")
-        encoder.encode(myOtherModelDictionary, "myOtherModelDictionary")
     }
 }
 
