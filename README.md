@@ -82,7 +82,9 @@ model.save(.Plist, path: "model.plist")
 let model = ModelType(.Plist, path: "model.plist")
 ```
 
-## How it works
+## General Design Philosophy 
+The encoding and decoding process is decoupled from the data conversion format. All models are encoded and decoded to an intermediate Key-Value dictionary. The Key-Value data is then either decoded into a model, or converted to a target format (bin, plist, json).
+![<Protocol Oriented>](Docs/Resources/diag1.png)
 
 ![<Protocol Oriented>](Docs/Resources/diag4.png)
 # [ Read the Documentation to Get Started](Docs/)
