@@ -11,6 +11,61 @@ A Swift model framework that supports `structs`, `enums` and `protocols` in the 
 - Read and write models to and from JSON, Plists, and Binary 
 - Model versioning and migration management (optional)
 
+#### Example:
+Whether you use the data modeler and code generation, or you code your models by hand, it is very easy to define models with State.
+
+
+```swift
+public struct MyModel : Model {
+    public let myDate: NSDate
+    public let myArrayOfStrings: [String]
+    public var myFloat: Float
+    public var myBinary: NSData?
+    public var myOtherModel: MyOtherModel
+    public var myOtherModelCollection: [MyOtherModel]
+    public var myOtherModelDictionary: [String : MyOtherMode]
+}
+
+extension MyModel : Decodable {
+
+    public init?(var decoder: Decoder) {
+
+        // use guard for non-optionals
+        guard
+            let myDate: NSDate = decoder.decode("myDate"),
+            let myArrayOfStrings = decoder.decode("myArrayOfStrings"),
+            let myFloat: Float = decoder.decode("myFloat"),
+            let myOtherModel: MyOtherModel = decoder.decodeModel("myOtherModel"),
+            let myOtherModelCollection: [MyOtherModel] = decoder.decodeModelArray("myOtherModelCollection"),
+            let myOtherModelDictionary: [String : MyOtherModel] = decoder.decodeModelDictionary("myOtherModelDictionary")
+        else { return  nil }
+        let myBinary: NSData = decoder.decode("myBinary")
+
+        self.myDate = myDate
+        self.myArrayOfStrings = myArrayOfStrings
+        self.myFloat = myFloat
+        self.myBinary = myBinary
+        self.myOtherModel = myOtherModel
+        self.myOtherModelCollection = myOtherModelCollection
+        self.myOtherModelDictionary = myOtherModelDictionary
+    }
+}
+
+extension TestTypes : Encodable {
+
+    public func encode(encoder: Encoder) {
+        encoder.encode(myDate, "myDate")
+        endcoder.encode(myArrayOfStrings, "myArraryOfStrings")
+        encoder.encode(myFloat, "myFloat")
+        encoder.encode(myBinary, "myBinary")
+        encoder.encode(myOtherModel, "myOtherModel")
+        encoder.encode(myOtherModelCollection, "myOtherModelCollection")
+        encoder.encode(myOtherModelDictionary, "myOtherModelDictionary")
+    }
+}
+
+```
+
 ## Protocol Oriented
 State has a protocol oriented design with extension points to extend all of your models.
 Model items can compose with protocol types with full serialization support.
