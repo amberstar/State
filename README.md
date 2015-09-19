@@ -82,6 +82,20 @@ let model = ModelType(.Plist, path: "model.plist")
 ```
 
 ## General Design Philosophy 
+State is designed for the application that has one, or a hundred model items where you want to use lightweight plist, or JSON formats to store models, and you want to take advantage of Swift's structs, enums, and protocols.
+It was designed with the following in mind:
+
+* extremely light weight code base
+* low dependency surface area
+* No subclassing of a base class
+* support for struct, enum, and protocol model items
+* models can have optional, non-optional, constant and transient properties.
+* models can be composed together
+* optional migration/version management if you need it
+
+Most frameworks require all optionals, or all vars. I see that as a compromise.
+
+
 The encoding and decoding process is decoupled from the data conversion format. All models are encoded and decoded to an intermediate Key-Value dictionary. The Key-Value data is then either decoded into a model, or converted to a target format (bin, plist, json).
 ![<Protocol Oriented>](Docs/Resources/diag1.png)
 

@@ -1,6 +1,6 @@
 
 ##Getting Started With Designing Models Using the Xcode data model designer
-The process of creating models is:
+If you want to take advantage of automatic code generation, the process of creating models is:
 
 1.  Design the models in Xcode's data model tool
 2.  Run the model design file through mogenerator using the state templates
