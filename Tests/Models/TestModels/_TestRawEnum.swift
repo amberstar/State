@@ -18,7 +18,7 @@ extension TestRawEnum: Decodable {
 
     public init?(var decoder: Decoder) {
 
-    decoder = TestRawEnum.performMigrationIfNeeded(decoder)
+        decoder = TestRawEnum.performMigrationIfNeeded(decoder)
 
         if let type: String = decoder.decode("type") {
 

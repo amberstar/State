@@ -17,7 +17,7 @@ extension Gender: Decodable {
 
     public init?(var decoder: Decoder) {
 
-    decoder = Gender.performMigrationIfNeeded(decoder)
+        decoder = Gender.performMigrationIfNeeded(decoder)
 
         if let type: String = decoder.decode("type") {
 

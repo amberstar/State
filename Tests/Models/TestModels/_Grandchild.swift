@@ -11,34 +11,21 @@ public struct Grandchild : Model {
     public var name: String?
     public var gender: Gender?
 
-public init(age: Int?, name: String?, gender: Gender?) {
-
-    self.age = age
-    self.name = name
-    self.gender = gender
-
-    }
 }
 
 extension Grandchild : Decodable {
 
-    static func create(age: Int?)(name: String?)(gender: Gender?) -> Grandchild  {
-        return Grandchild(age: age, name: name, gender: gender)
-    }
-
     public init?(var decoder: Decoder) {
+        decoder = Grandchild.performMigrationIfNeeded(decoder)
 
-    decoder = Grandchild.performMigrationIfNeeded(decoder)
+        let age: Int? = decoder.decode("age")
+        let name: String? = decoder.decode("name")
+        let gender: Gender? = decoder.decodeModel("gender")
 
-        let instance: Grandchild? = Grandchild.create
-        <^> decoder.decode("age") >>> asOptional
-        <*> decoder.decode("name") >>> asOptional
-        <*> decoder.decodeModel("gender") >>> asOptional
-
-        if let i = instance {
-            i.didFinishDecodingWithDecoder(decoder)
-            self = i
-        } else { return nil }
+        self.age = age
+        self.name = name
+        self.gender = gender
+        didFinishDecodingWithDecoder(decoder)
     }
 }
 

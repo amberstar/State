@@ -77,6 +77,7 @@ class EnumTests: Test {
         let employees = [employee, employee, employee]
         let test_out = TestAssociatedEnum.DecodableToManyType(employees)
         test_out.save(.Plist, path: tempPathFor("test_associated_tomany_enum.plist"))
+        print(tempPathFor("test_associated_tomany_enum.plist"))
         let sut = TestAssociatedEnum(.Plist, path: tempPathFor("test_associated_tomany_enum.plist"))
         XCTAssert(sut != nil)
         

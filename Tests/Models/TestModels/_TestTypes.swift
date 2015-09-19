@@ -16,44 +16,33 @@ public struct TestTypes : Model {
     public var myDecimal: NSDecimalNumber
     public var myInt: Int
 
-public init(myDate: NSDate, myFloat: Float, myBinary: NSData, myDouble: Double, myString: String, myBoolean: Bool, myDecimal: NSDecimalNumber, myInt: Int) {
-
-    self.myDate = myDate
-    self.myFloat = myFloat
-    self.myBinary = myBinary
-    self.myDouble = myDouble
-    self.myString = myString
-    self.myBoolean = myBoolean
-    self.myDecimal = myDecimal
-    self.myInt = myInt
-
-    }
 }
 
 extension TestTypes : Decodable {
 
-    static func create(myDate: NSDate)(myFloat: Float)(myBinary: NSData)(myDouble: Double)(myString: String)(myBoolean: Bool)(myDecimal: NSDecimalNumber)(myInt: Int) -> TestTypes  {
-        return TestTypes(myDate: myDate, myFloat: myFloat, myBinary: myBinary, myDouble: myDouble, myString: myString, myBoolean: myBoolean, myDecimal: myDecimal, myInt: myInt)
-    }
-
     public init?(var decoder: Decoder) {
+        decoder = TestTypes.performMigrationIfNeeded(decoder)
 
-    decoder = TestTypes.performMigrationIfNeeded(decoder)
+        guard
+            let myDate: NSDate = decoder.decode("myDate"),
+            let myFloat: Float = decoder.decode("myFloat"),
+            let myBinary: NSData = decoder.decode("myBinary"),
+            let myDouble: Double = decoder.decode("myDouble"),
+            let myString: String = decoder.decode("myString"),
+            let myBoolean: Bool = decoder.decode("myBoolean"),
+            let myDecimal: NSDecimalNumber = decoder.decode("myDecimal"),
+            let myInt: Int = decoder.decode("myInt")
+        else { return  nil }
 
-        let instance: TestTypes? = TestTypes.create
-        <^> decoder.decode("myDate")
-        <*> decoder.decode("myFloat")
-        <*> decoder.decode("myBinary")
-        <*> decoder.decode("myDouble")
-        <*> decoder.decode("myString")
-        <*> decoder.decode("myBoolean")
-        <*> decoder.decode("myDecimal")
-        <*> decoder.decode("myInt")
-
-        if let i = instance {
-            i.didFinishDecodingWithDecoder(decoder)
-            self = i
-        } else { return nil }
+        self.myDate = myDate
+        self.myFloat = myFloat
+        self.myBinary = myBinary
+        self.myDouble = myDouble
+        self.myString = myString
+        self.myBoolean = myBoolean
+        self.myDecimal = myDecimal
+        self.myInt = myInt
+        didFinishDecodingWithDecoder(decoder)
     }
 }
 

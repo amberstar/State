@@ -9,30 +9,19 @@ import State
 public struct TestDefaultsChild : Model {
     public var name = "New Child"
 
-public init(name: String) {
-
-    self.name = name
-
-    }
 }
 
 extension TestDefaultsChild : Decodable {
 
-    static func create(name: String) -> TestDefaultsChild  {
-        return TestDefaultsChild(name: name)
-    }
-
     public init?(var decoder: Decoder) {
+        decoder = TestDefaultsChild.performMigrationIfNeeded(decoder)
 
-    decoder = TestDefaultsChild.performMigrationIfNeeded(decoder)
+        guard
+            let name: String = decoder.decode("name")
+        else { return  nil }
 
-        let instance: TestDefaultsChild? = TestDefaultsChild.create
-        <^> decoder.decode("name")
-
-        if let i = instance {
-            i.didFinishDecodingWithDecoder(decoder)
-            self = i
-        } else { return nil }
+        self.name = name
+        didFinishDecodingWithDecoder(decoder)
     }
 }
 

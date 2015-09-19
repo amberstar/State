@@ -27,7 +27,7 @@ extension TestAssociatedOptionalEnum: Decodable {
 
     public init?(var decoder: Decoder) {
 
-    decoder = TestAssociatedOptionalEnum.performMigrationIfNeeded(decoder)
+        decoder = TestAssociatedOptionalEnum.performMigrationIfNeeded(decoder)
 
         if let type: String = decoder.decode("type") {
 

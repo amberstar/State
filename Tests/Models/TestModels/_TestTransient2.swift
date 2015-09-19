@@ -11,30 +11,17 @@ public struct TestTransient2 : Model {
     public var transient1: String?
     public var myNonTransient: Gender?
 
-public init(myNonTransient: Gender?) {
-
-    self.myNonTransient = myNonTransient
-
-    }
 }
 
 extension TestTransient2 : Decodable {
 
-    static func create(myNonTransient: Gender?) -> TestTransient2  {
-        return TestTransient2(myNonTransient: myNonTransient)
-    }
-
     public init?(var decoder: Decoder) {
+        decoder = TestTransient2.performMigrationIfNeeded(decoder)
 
-    decoder = TestTransient2.performMigrationIfNeeded(decoder)
+        let myNonTransient: Gender? = decoder.decodeModel("myNonTransient")
 
-        let instance: TestTransient2? = TestTransient2.create
-        <^> decoder.decodeModel("myNonTransient") >>> asOptional
-
-        if let i = instance {
-            i.didFinishDecodingWithDecoder(decoder)
-            self = i
-        } else { return nil }
+        self.myNonTransient = myNonTransient
+        didFinishDecodingWithDecoder(decoder)
     }
 }
 

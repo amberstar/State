@@ -10,32 +10,19 @@ public struct TestOverrideType : Model {
     public var myURL: NSURL?
     public var myArrayOfString: [String]?
 
-public init(myURL: NSURL?, myArrayOfString: [String]?) {
-
-    self.myURL = myURL
-    self.myArrayOfString = myArrayOfString
-
-    }
 }
 
 extension TestOverrideType : Decodable {
 
-    static func create(myURL: NSURL?)(myArrayOfString: [String]?) -> TestOverrideType  {
-        return TestOverrideType(myURL: myURL, myArrayOfString: myArrayOfString)
-    }
-
     public init?(var decoder: Decoder) {
+        decoder = TestOverrideType.performMigrationIfNeeded(decoder)
 
-    decoder = TestOverrideType.performMigrationIfNeeded(decoder)
+        let myURL: NSURL? = decoder.decode("myURL")
+        let myArrayOfString: [String]? = decoder.decode("myArrayOfString")
 
-        let instance: TestOverrideType? = TestOverrideType.create
-        <^> decoder.decode("myURL") >>> asOptional
-        <*> decoder.decode("myArrayOfString") >>> asOptional
-
-        if let i = instance {
-            i.didFinishDecodingWithDecoder(decoder)
-            self = i
-        } else { return nil }
+        self.myURL = myURL
+        self.myArrayOfString = myArrayOfString
+        didFinishDecodingWithDecoder(decoder)
     }
 }
 

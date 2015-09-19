@@ -12,6 +12,8 @@ public extension Dictionary {
     }
 }
 
+
+
 public func sequence<T>(xs: [T?]) -> [T]? {
     return xs.reduce([T]()) { accum, elem in
         return curry(+) <^> accum <*> (pure <^> elem)

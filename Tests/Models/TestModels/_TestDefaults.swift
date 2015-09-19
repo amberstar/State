@@ -19,50 +19,42 @@ public struct TestDefaults : Model {
     public var noDefaultChild: TestDefaultsChild?
     public var noDefaultChildren: TestDefaultsChild?
 
-public init(defaultManualString: String, defaultArray: [String], defaultString: String, noDefaultInt: Int?, defaultInt: Int, noDefaultString: String?, defaultEmptyArray: [String], defaultChildren: [TestDefaultsChild], defaultChild: TestDefaultsChild, noDefaultChild: TestDefaultsChild?, noDefaultChildren: TestDefaultsChild?) {
-
-    self.defaultManualString = defaultManualString
-    self.defaultArray = defaultArray
-    self.defaultString = defaultString
-    self.noDefaultInt = noDefaultInt
-    self.defaultInt = defaultInt
-    self.noDefaultString = noDefaultString
-    self.defaultEmptyArray = defaultEmptyArray
-    self.defaultChildren = defaultChildren
-    self.defaultChild = defaultChild
-    self.noDefaultChild = noDefaultChild
-    self.noDefaultChildren = noDefaultChildren
-
-    }
 }
 
 extension TestDefaults : Decodable {
 
-    static func create(defaultManualString: String)(defaultArray: [String])(defaultString: String)(noDefaultInt: Int?)(defaultInt: Int)(noDefaultString: String?)(defaultEmptyArray: [String])(defaultChildren: [TestDefaultsChild])(defaultChild: TestDefaultsChild)(noDefaultChild: TestDefaultsChild?)(noDefaultChildren: TestDefaultsChild?) -> TestDefaults  {
-        return TestDefaults(defaultManualString: defaultManualString, defaultArray: defaultArray, defaultString: defaultString, noDefaultInt: noDefaultInt, defaultInt: defaultInt, noDefaultString: noDefaultString, defaultEmptyArray: defaultEmptyArray, defaultChildren: defaultChildren, defaultChild: defaultChild, noDefaultChild: noDefaultChild, noDefaultChildren: noDefaultChildren)
-    }
-
     public init?(var decoder: Decoder) {
+        decoder = TestDefaults.performMigrationIfNeeded(decoder)
 
-    decoder = TestDefaults.performMigrationIfNeeded(decoder)
+        guard
+            let defaultManualString: String = decoder.decode("defaultManualString"),
+            let defaultArray: [String] = decoder.decode("defaultArray"),
+            let defaultString: String = decoder.decode("defaultString"),
+            let defaultInt: Int = decoder.decode("defaultInt"),
+            let defaultEmptyArray: [String] = decoder.decode("defaultEmptyArray"),
+            let defaultChildren: [TestDefaultsChild] = decoder.decodeModelArray("defaultChildren"),
+            let defaultChild: TestDefaultsChild = decoder.decodeModel("defaultChild")
+        else { return  nil }
 
-        let instance: TestDefaults? = TestDefaults.create
-        <^> decoder.decode("defaultManualString")
-        <*> decoder.decode("defaultArray")
-        <*> decoder.decode("defaultString")
-        <*> decoder.decode("noDefaultInt") >>> asOptional
-        <*> decoder.decode("defaultInt")
-        <*> decoder.decode("noDefaultString") >>> asOptional
-        <*> decoder.decode("defaultEmptyArray")
-        <*> decoder.decodeModelArray("defaultChildren")
-        <*> decoder.decodeModel("defaultChild")
-        <*> decoder.decodeModel("noDefaultChild") >>> asOptional
-        <*> decoder.decodeModel("noDefaultChildren") >>> asOptional
+        let noDefaultInt: Int? = decoder.decode("noDefaultInt")
 
-        if let i = instance {
-            i.didFinishDecodingWithDecoder(decoder)
-            self = i
-        } else { return nil }
+        let noDefaultString: String? = decoder.decode("noDefaultString")
+
+        let noDefaultChild: TestDefaultsChild? = decoder.decodeModel("noDefaultChild")
+        let noDefaultChildren: TestDefaultsChild? = decoder.decodeModel("noDefaultChildren")
+
+        self.defaultManualString = defaultManualString
+        self.defaultArray = defaultArray
+        self.defaultString = defaultString
+        self.noDefaultInt = noDefaultInt
+        self.defaultInt = defaultInt
+        self.noDefaultString = noDefaultString
+        self.defaultEmptyArray = defaultEmptyArray
+        self.defaultChildren = defaultChildren
+        self.defaultChild = defaultChild
+        self.noDefaultChild = noDefaultChild
+        self.noDefaultChildren = noDefaultChildren
+        didFinishDecodingWithDecoder(decoder)
     }
 }
 

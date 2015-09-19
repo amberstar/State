@@ -9,30 +9,17 @@ import State
 public struct TestProtocolContainter : Model {
     public var testProtocols: TestProtocol?
 
-public init(testProtocols: TestProtocol?) {
-
-    self.testProtocols = testProtocols
-
-    }
 }
 
 extension TestProtocolContainter : Decodable {
 
-    static func create(testProtocols: TestProtocol?) -> TestProtocolContainter  {
-        return TestProtocolContainter(testProtocols: testProtocols)
-    }
-
     public init?(var decoder: Decoder) {
+        decoder = TestProtocolContainter.performMigrationIfNeeded(decoder)
 
-    decoder = TestProtocolContainter.performMigrationIfNeeded(decoder)
+        let testProtocols: TestProtocol? = decoder.decodeTestProtocol("testProtocols")
 
-        let instance: TestProtocolContainter? = TestProtocolContainter.create
-        <^> decoder.decodeTestProtocol("testProtocols") >>> asOptional
-
-        if let i = instance {
-            i.didFinishDecodingWithDecoder(decoder)
-            self = i
-        } else { return nil }
+        self.testProtocols = testProtocols
+        didFinishDecodingWithDecoder(decoder)
     }
 }
 

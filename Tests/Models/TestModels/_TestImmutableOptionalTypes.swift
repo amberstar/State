@@ -16,44 +16,31 @@ public struct TestImmutableOptionalTypes : Model {
     public let myDecimal: NSDecimalNumber?
     public let myInt: Int?
 
-public init(myDate: NSDate?, myFloat: Float?, myBinary: NSData?, myDouble: Double?, myString: String?, myBoolean: Bool?, myDecimal: NSDecimalNumber?, myInt: Int?) {
-
-    self.myDate = myDate
-    self.myFloat = myFloat
-    self.myBinary = myBinary
-    self.myDouble = myDouble
-    self.myString = myString
-    self.myBoolean = myBoolean
-    self.myDecimal = myDecimal
-    self.myInt = myInt
-
-    }
 }
 
 extension TestImmutableOptionalTypes : Decodable {
 
-    static func create(myDate: NSDate?)(myFloat: Float?)(myBinary: NSData?)(myDouble: Double?)(myString: String?)(myBoolean: Bool?)(myDecimal: NSDecimalNumber?)(myInt: Int?) -> TestImmutableOptionalTypes  {
-        return TestImmutableOptionalTypes(myDate: myDate, myFloat: myFloat, myBinary: myBinary, myDouble: myDouble, myString: myString, myBoolean: myBoolean, myDecimal: myDecimal, myInt: myInt)
-    }
-
     public init?(var decoder: Decoder) {
+        decoder = TestImmutableOptionalTypes.performMigrationIfNeeded(decoder)
 
-    decoder = TestImmutableOptionalTypes.performMigrationIfNeeded(decoder)
+        let myDate: NSDate? = decoder.decode("myDate")
+        let myFloat: Float? = decoder.decode("myFloat")
+        let myBinary: NSData? = decoder.decode("myBinary")
+        let myDouble: Double? = decoder.decode("myDouble")
+        let myString: String? = decoder.decode("myString")
+        let myBoolean: Bool? = decoder.decode("myBoolean")
+        let myDecimal: NSDecimalNumber? = decoder.decode("myDecimal")
+        let myInt: Int? = decoder.decode("myInt")
 
-        let instance: TestImmutableOptionalTypes? = TestImmutableOptionalTypes.create
-        <^> decoder.decode("myDate") >>> asOptional
-        <*> decoder.decode("myFloat") >>> asOptional
-        <*> decoder.decode("myBinary") >>> asOptional
-        <*> decoder.decode("myDouble") >>> asOptional
-        <*> decoder.decode("myString") >>> asOptional
-        <*> decoder.decode("myBoolean") >>> asOptional
-        <*> decoder.decode("myDecimal") >>> asOptional
-        <*> decoder.decode("myInt") >>> asOptional
-
-        if let i = instance {
-            i.didFinishDecodingWithDecoder(decoder)
-            self = i
-        } else { return nil }
+        self.myDate = myDate
+        self.myFloat = myFloat
+        self.myBinary = myBinary
+        self.myDouble = myDouble
+        self.myString = myString
+        self.myBoolean = myBoolean
+        self.myDecimal = myDecimal
+        self.myInt = myInt
+        didFinishDecodingWithDecoder(decoder)
     }
 }
 

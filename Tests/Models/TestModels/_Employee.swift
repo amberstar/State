@@ -10,32 +10,22 @@ public struct Employee : Model {
     public var name: String
     public var title: String?
 
-public init(name: String, title: String?) {
-
-    self.name = name
-    self.title = title
-
-    }
 }
 
 extension Employee : Decodable {
 
-    static func create(name: String)(title: String?) -> Employee  {
-        return Employee(name: name, title: title)
-    }
-
     public init?(var decoder: Decoder) {
+        decoder = Employee.performMigrationIfNeeded(decoder)
 
-    decoder = Employee.performMigrationIfNeeded(decoder)
+        guard
+            let name: String = decoder.decode("name")
+        else { return  nil }
 
-        let instance: Employee? = Employee.create
-        <^> decoder.decode("name")
-        <*> decoder.decode("title") >>> asOptional
+        let title: String? = decoder.decode("title")
 
-        if let i = instance {
-            i.didFinishDecodingWithDecoder(decoder)
-            self = i
-        } else { return nil }
+        self.name = name
+        self.title = title
+        didFinishDecodingWithDecoder(decoder)
     }
 }
 

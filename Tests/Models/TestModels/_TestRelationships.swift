@@ -11,34 +11,21 @@ public struct TestRelationships : Model {
     public var myGrandChildren: [Grandchild]?
     public var myOneChild: TestChild?
 
-public init(myChildren: [TestChild]?, myGrandChildren: [Grandchild]?, myOneChild: TestChild?) {
-
-    self.myChildren = myChildren
-    self.myGrandChildren = myGrandChildren
-    self.myOneChild = myOneChild
-
-    }
 }
 
 extension TestRelationships : Decodable {
 
-    static func create(myChildren: [TestChild]?)(myGrandChildren: [Grandchild]?)(myOneChild: TestChild?) -> TestRelationships  {
-        return TestRelationships(myChildren: myChildren, myGrandChildren: myGrandChildren, myOneChild: myOneChild)
-    }
-
     public init?(var decoder: Decoder) {
+        decoder = TestRelationships.performMigrationIfNeeded(decoder)
 
-    decoder = TestRelationships.performMigrationIfNeeded(decoder)
+        let myChildren: [TestChild]? = decoder.decodeModelArray("myChildren")
+        let myGrandChildren: [Grandchild]? = decoder.decodeModelArray("myGrandChildren")
+        let myOneChild: TestChild? = decoder.decodeModel("myOneChild")
 
-        let instance: TestRelationships? = TestRelationships.create
-        <^> decoder.decodeModelArray("myChildren") >>> asOptional
-        <*> decoder.decodeModelArray("myGrandChildren") >>> asOptional
-        <*> decoder.decodeModel("myOneChild") >>> asOptional
-
-        if let i = instance {
-            i.didFinishDecodingWithDecoder(decoder)
-            self = i
-        } else { return nil }
+        self.myChildren = myChildren
+        self.myGrandChildren = myGrandChildren
+        self.myOneChild = myOneChild
+        didFinishDecodingWithDecoder(decoder)
     }
 }
 
