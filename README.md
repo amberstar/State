@@ -32,7 +32,6 @@ extension MyModel : Decodable {
             let myArrayOfStrings = decoder.decode("myArrayOfStrings"),
             let myOtherModel: MyOtherModel = decoder.decodeModel("myOtherModel"),
             let myOtherModelCollection: [MyOtherModel] = decoder.decodeModelArray("myOtherModelCollection"),
-            let myOtherModelDictionary: [String : MyOtherModel] = decoder.decodeModelDictionary("myOtherModelDictionary")
         else { return  nil }
         let myBinary: NSData = decoder.decode("myBinary")
 
