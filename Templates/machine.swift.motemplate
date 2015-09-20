@@ -126,14 +126,9 @@ extension <$typeName$> : Encodable {
 
 <$procedure writeAttributeDecodeBasicSwitchCaseForEnum Attribute$>self = <$typeName$>.<$Attribute.name.initialCapitalString$><$endprocedure$>
 
-<$procedure writeAttributeDecodeRawSwitchCaseForEnum Attribute$>if let value: <$userInfo.State.Type$> = decoder.decode("value"),
-                        instance = <$typeName$>(rawValue: value) {
-                        instance.didFinishDecodingWithDecoder(decoder)
-                        self = instance
-                    } else { return nil }<$endprocedure$>
 
 <$procedure writeAttributeDecodeSwitchCaseForEnumCase Attribute$>case "<$Attribute.name.initialCapitalString$>":
-                    <$if userInfo.State.Type$><$call writeAttributeDecodeRawSwitchCaseForEnum Attribute$><$elseif Attribute.userInfo.State.Type$><$call writeAttributeDecodeAssociatedSwitchCaseForEnum Attribute$><$else$><$call writeAttributeDecodeBasicSwitchCaseForEnum Attribute$><$endif$><$endprocedure$>
+                   <$if Attribute.userInfo.State.Type$><$call writeAttributeDecodeAssociatedSwitchCaseForEnum Attribute$><$else$><$call writeAttributeDecodeBasicSwitchCaseForEnum Attribute$><$endif$><$endprocedure$>
 
 <$procedure writeRelationshipDecodeAssociatedSwitchCaseForEnum Relationship$>if let value: <$if Relationship.isToMany$>[<$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> = decoder.decodeModel<$if Relationship.isToMany$>Array<$endif$>("value") <$if Relationship.isOptional$>>>> asOptional<$endif$>{
                         self = <$typeName$>.<$Relationship.name.initialCapitalString$>(value)
@@ -153,15 +148,11 @@ extension <$typeName$> : Encodable {
 <$procedure writeAttributeEncodeBasicSwitchCaseForEnum Attribute$>case .<$Attribute.name.initialCapitalString$>:
                 encoder.encode("<$Attribute.name.initialCapitalString$>", "type")<$endprocedure$>
 
-<$procedure writeAttributeEncodeRawSwitchCaseForEnum Attribute$>case  .<$Attribute.name.initialCapitalString$>:
-                encoder.encode("<$Attribute.name.initialCapitalString$>", "type")
-                encoder.encode(self.rawValue, "value")<$endprocedure$>
-
 <$procedure writeAttributeEncodeAssociatedSwitchCaseForEnum Attribute$>case let .<$Attribute.name.initialCapitalString$>(value):
                 encoder.encode("<$Attribute.name.initialCapitalString$>", "type")
                 encoder.encode(value<$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.transform<$endif$>, "value")<$endprocedure$>
 
-<$procedure writeAttributeEncodeSwitchCaseForEnumCase Attribute$><$if userInfo.State.Type$><$call writeAttributeEncodeRawSwitchCaseForEnum Attribute$><$elseif Attribute.userInfo.State.Type$><$call writeAttributeEncodeAssociatedSwitchCaseForEnum Attribute$><$else$><$call writeAttributeEncodeBasicSwitchCaseForEnum Attribute$><$endif$><$endprocedure$>
+<$procedure writeAttributeEncodeSwitchCaseForEnumCase Attribute$><$if Attribute.userInfo.State.Type$><$call writeAttributeEncodeAssociatedSwitchCaseForEnum Attribute$><$else$><$call writeAttributeEncodeBasicSwitchCaseForEnum Attribute$><$endif$><$endprocedure$>
 
 <$procedure writeRelationshipEncodeBasicSwitchCaseForEnum Relationship$>case .<$Relationship.name.initialCapitalString$>:
                 encoder.encode("<$Relationship.name.initialCapitalString$>", "type")<$endprocedure$>
@@ -189,33 +180,31 @@ public enum <$typeName$> <$if userInfo.State.Type$> : <$userInfo.State.Type$>, M
 extension <$typeName$>: Decodable {
 
     public init?(var decoder: Decoder) {
-
         <$call writeDecodingMigrationBlock$>
-
-        if let type: String = decoder.decode("type") {
-
-            switch type {
+<$if ! userInfo.State.Type$>
+        guard let type: String = decoder.decode("type") else { return nil }
+        switch type {
                 <$foreach Attribute noninheritedAttributes do$><$call writeAttributeDecodeSwitchCaseForEnumCase Attribute$>
                 <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$call writeRelationshipDecodeSwitchCaseForEnumCase Relationship$>
                 <$endforeach do$>
                 default:
                     return nil
-            }
-        } else { return nil }
+        }
+<$else$>        guard let value: <$userInfo.State.Type$> = <$if userInfo.State.Transformable$><$userInfo.State.Transformable$>.reverseTransform(<$endif$>decoder.decode<$if userInfo.State.Model$><$userInfo.State.Model$><$endif$>("value")<$if userInfo.State.Transformable$>)<$endif$> else { return nil }
+        self.init(rawValue: value)<$endif$>
     }
 }
 
 extension <$typeName$>: Encodable {
 
     public func encode(encoder: Encoder) {
-
+<$if ! userInfo.State.Type$>
         switch self {
             <$foreach Attribute noninheritedAttributes do$><$call writeAttributeEncodeSwitchCaseForEnumCase Attribute$>
             <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$call writeRelationshipEncodeSwitchCaseForEnumCase Relationship$>
             <$endforeach do$>
         }
-        <$call writeEncodingVersioningBlock$>
-         self.willFinishEncodingWithEncoder(encoder)
+<$else$>        encoder.encode(<$if userInfo.State.Transformable$><$userInfo.State.Transformable$>.transform(<$endif$>self.rawValue<$if userInfo.State.Transformable$>)<$endif$>, "value")<$endif$><$call writeEncodingVersioningBlock$>self.willFinishEncodingWithEncoder(encoder)
     }
 }
 

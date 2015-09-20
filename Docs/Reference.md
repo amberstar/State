@@ -7,6 +7,8 @@
 | `State.Enum` | Specify entity is an enum. All attributes are considered cases of the enum. Specify raw value type with `State.Type` . *required for enums. | `YES`, `NO` |
 | `State.Protocol` | Specify entity is a protocol. (**note:** you can also check the abstract checkbox) | `YES`, `NO` |
 | `State.Type`       | Used in combination with the enum option, declares the enum as a raw value enum, and specifies it's raw value type.  |The exact type  |
+| `State.Model`       | Used for raw value enums, and specifies it's raw value type as a model type.  |`Model`, `ModelArray`, `ModelDictionary`  |
+| `State.Transformable`       | Used for raw value enums, and specifies it's raw value type as transformable.  |the exact name of the transform type to use. |
 
 ## Attribute Key-Value Reference
 **Note:** You enter the keys and values below into the user-info section of the data modeler inspector window when you want to use the options.
@@ -37,7 +39,7 @@ There is preliminary support for transient properties. Mark the attribute as tra
 ## Transforms:
 Set the attribute type as transformable in the data modeler attribute type selector in the inspector window and enter a value transformer name in the name field. The value transformer name entered must be of a type that implements the [ValueTransform] (https://github.com/amberstar/State/blob/master/State/Transforms/ValueTransform.swift) protocol. Your model will automatically use the transform type to transform the attribute when encoding and decoding the element. Add a State.Type to indicate the non-transformed type. For example: for an URLTransform, enter State.Type and NSURL to indicate the type.
 
-To learn more about Transforms see [Transforms](Transforms.md)
+To learn more about Transforms see [Transforms](Transformables.md)
 
 ## Optionals:
 Select the optional check box for an attribute in the data modeler inspector window and the property will be implemented as an optional type.
@@ -51,10 +53,11 @@ You can specify a default value in the inspector window, or use `State.Value` in
 ## Versioning:
 You can add a versionHashModifier to each entity in your model design. This value along with the versionHash are imported in to the code generated and used in the migration scheme of state. For more information see [Versioning and Migration](vVersioning.md)
 
-## Data Modeler Notes:
+## Data Modeler Notes/ Gotchas:
 
 - You must enter a class name for entities or no code will be generated 
 - Int16, Int32 or Int64 are all implemented as Int.
 - If you enter a custom type using `State.Type` key, it will override the type in the attribute type option list.
-- No need to link the .xcdatamodel file to your target.
+- Do not link the .xcdatamodel file to your target.
 - Recursive type references are not supported  with swift structs without boxing, therefore be sure not to generate circular dependancies in the modeler.
+- Even if you specify a type with `State.Type` you have to still choose a type in the type selction box. (it will be ignored) If you don't, the projest will not build.

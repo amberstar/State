@@ -16,21 +16,19 @@ public enum TestRegEnum  : Model {
 extension TestRegEnum: Decodable {
 
     public init?(var decoder: Decoder) {
-
         decoder = TestRegEnum.performMigrationIfNeeded(decoder)
 
-        if let type: String = decoder.decode("type") {
-
-            switch type {
+        guard let type: String = decoder.decode("type") else { return nil }
+        switch type {
                 case "Cold":
-                    self = TestRegEnum.Cold
+                   self = TestRegEnum.Cold
                 case "Hot":
-                    self = TestRegEnum.Hot
+                   self = TestRegEnum.Hot
 
                 default:
                     return nil
-            }
-        } else { return nil }
+        }
+
     }
 }
 
@@ -47,8 +45,7 @@ extension TestRegEnum: Encodable {
         }
 
         TestRegEnum.encodeVersionIfNeeded(encoder)
-
-         self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncodingWithEncoder(encoder)
     }
 }
 

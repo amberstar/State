@@ -16,49 +16,18 @@ public enum Gender  : String, Model {
 extension Gender: Decodable {
 
     public init?(var decoder: Decoder) {
-
         decoder = Gender.performMigrationIfNeeded(decoder)
-
-        if let type: String = decoder.decode("type") {
-
-            switch type {
-                case "Female":
-                    if let value: String = decoder.decode("value"),
-                        instance = Gender(rawValue: value) {
-                        instance.didFinishDecodingWithDecoder(decoder)
-                        self = instance
-                    } else { return nil }
-                case "Male":
-                    if let value: String = decoder.decode("value"),
-                        instance = Gender(rawValue: value) {
-                        instance.didFinishDecodingWithDecoder(decoder)
-                        self = instance
-                    } else { return nil }
-
-                default:
-                    return nil
-            }
-        } else { return nil }
+        guard let value: String = decoder.decode("value") else { return nil }
+        self.init(rawValue: value)
     }
 }
 
 extension Gender: Encodable {
 
     public func encode(encoder: Encoder) {
-
-        switch self {
-            case  .Female:
-                encoder.encode("Female", "type")
-                encoder.encode(self.rawValue, "value")
-            case  .Male:
-                encoder.encode("Male", "type")
-                encoder.encode(self.rawValue, "value")
-
-        }
-
+        encoder.encode(self.rawValue, "value")
         Gender.encodeVersionIfNeeded(encoder)
-
-         self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncodingWithEncoder(encoder)
     }
 }
 

@@ -101,34 +101,6 @@ Drag the model code files in to your project to add them.
 If you would like to make changes to your model as you are working and automate updating the code
 see [How to set up a target to automatically generate model code every time you build.] (Setup.md)
 
-
-##Serialization
-Serialization of Models is easy with State:
-
-
-#### Read and write models to JSON or PLISTS :
-
-
-```swift
-// Encode model and write out to a JSON file
-issues.save(.JSON, path: "issues.json")
-
-// Encode model and write out to a binary Plist file
-issues.save(.Binary, path: "issues.plist")
-
-// Encode model and write out to a XML Plist file
-issues.save(.Plist, path: "issues.plist")
-```
-
-```swift
-// Read JSON and decode model
-let loadedIssues =  Issues(.JSON, path: "issues.json")
-
-// Read binary Plist and decode model
-let loadedIssues = Issues(.Binary, path: "issues.plist")
-
-// Read XML Plist and decode model
-let loadedIssues = Issues(.Plist, path: "issues.plist")
 ```
 
 Have a question? Please [open an issue](https://github.com/STLabs/State/issues/new)
