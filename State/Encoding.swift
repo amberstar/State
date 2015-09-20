@@ -30,10 +30,6 @@ public final class Encoder {
         value.apply { self.data[key] = $0.map { $0.encode() } }
     }
     
-    public func encode<T: ModelProtocol>(value: [String : T]?, _ key: String) {
-        value.apply { self.data[key] = $0.map { $0.encode() } }
-    }
-    
     public func encode<V>(value: V?, _ key: String) {
         value.apply{ self.data[key] = $0 as? AnyObject }
     }

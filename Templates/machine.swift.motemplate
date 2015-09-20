@@ -229,7 +229,7 @@ extension <$typeName$>: Encodable {
 
 <$procedure Protocol$>
 <$setmerge typeName = <$managedObjectClassName$>$>
-public protocol <$typeName$><$if hasSuperentity$> : <$superentity.managedObjectClassName$><$else$> : ModelProtocol<$endif$> {
+public protocol <$typeName$><$if hasSuperentity$> : <$superentity.managedObjectClassName$><$else$> : Model<$endif$> {
 
 <$foreach Attribute noninheritedAttributes do$><$if Attribute.userInfo.State.ProtocolRequirementType != func$><$call writeAttributeProtocolPropertyRequirement Attribute$>
 <$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$call writeRelationshipProtocolRequirement Relationship$><$endforeach do$>

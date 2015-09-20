@@ -110,9 +110,10 @@ Other design points:
 
 * extremely light weight code base
 * low dependency surface area
+* zero magic with custom operators
 
 
-The encoding and decoding process is also decoupled from the data conversion format. All models are encoded and decoded to an intermediate Key-Value dictionary. The Key-Value data is then either decoded into a model, or converted to a target format (bin, plist, json).
+The encoding and decoding process is also decoupled from the data conversion format. All models are encoded and decoded to an intermediate Key-Value dictionary. From there the Key-Value data is then either decoded into a model, or converted to a target format (bin, plist, json).
 ![<Protocol Oriented>](Docs/Resources/diag1.png)
 
 ![<Protocol Oriented>](Docs/Resources/diag4.png)
