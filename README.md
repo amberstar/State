@@ -10,8 +10,6 @@ A Swift model framework that supports `structs`, `enums` and `protocols` in the 
 - Model versioning and migration management (optional)
 - Design models  in the Xcode model designer and code is generated automatically (optional)
 
-Think of State as NSCoding for Structs, Enums, and Protocols, but with migration support and automatic code generation if you want it.
-
 
 For more information on the benefits of State read [About State](Docs/About.md)
 
@@ -60,22 +58,25 @@ extension MyModel : Encodable {
 
 #### Basic API
 
-**Encoding**
 ```swift
+// encoding
+
 encode<T: Encodable>(value: T?, _ key: String)
-```
 
-**Decoding**
 
-```swift
+// decoding
+
 decode<T>(key: String) -> T?
 decodeModel<T:Decodable>(key: String) -> T?
 decodeModelArray<T:Decodable>(key: String) -> [T]?
 decodeModelDictionary<T:Decodeable>(key: String) ->[String : T]?
+
+
+// loading and saving models
+
+init?(_ format: Format, path: String)
+func save(format: Format, path: String) -> Bool
 ```
-
-
-
 
 ## Protocol Oriented
 State has a protocol oriented design with extension points to extend all of your models.
