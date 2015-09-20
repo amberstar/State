@@ -26,46 +26,44 @@ public enum TestAssociatedEnum  : Model {
 extension TestAssociatedEnum: Decodable {
 
     public init?(var decoder: Decoder) {
-
         decoder = TestAssociatedEnum.performMigrationIfNeeded(decoder)
 
-        if let type: String = decoder.decode("type") {
-
-            switch type {
+        guard let type: String = decoder.decode("type") else { return nil }
+        switch type {
                 case "BinaryType":
-                    if let value: NSData = decoder.decode("value") {
+                   if let value: NSData = decoder.decode("value") {
                         self = TestAssociatedEnum.BinaryType(value)
                     } else { return nil }
                 case "BooleanType":
-                    if let value: Bool = decoder.decode("value") {
+                   if let value: Bool = decoder.decode("value") {
                         self = TestAssociatedEnum.BooleanType(value)
                     } else { return nil }
                 case "DateType":
-                    if let value: NSDate = decoder.decode("value") {
+                   if let value: NSDate = decoder.decode("value") {
                         self = TestAssociatedEnum.DateType(value)
                     } else { return nil }
                 case "DecimalType":
-                    if let value: NSDecimalNumber = decoder.decode("value") {
+                   if let value: NSDecimalNumber = decoder.decode("value") {
                         self = TestAssociatedEnum.DecimalType(value)
                     } else { return nil }
                 case "DoubleType":
-                    if let value: Double = decoder.decode("value") {
+                   if let value: Double = decoder.decode("value") {
                         self = TestAssociatedEnum.DoubleType(value)
                     } else { return nil }
                 case "FloatType":
-                    if let value: Float = decoder.decode("value") {
+                   if let value: Float = decoder.decode("value") {
                         self = TestAssociatedEnum.FloatType(value)
                     } else { return nil }
                 case "IntType":
-                    if let value: Int = decoder.decode("value") {
+                   if let value: Int = decoder.decode("value") {
                         self = TestAssociatedEnum.IntType(value)
                     } else { return nil }
                 case "StringType":
-                    if let value: String = decoder.decode("value") {
+                   if let value: String = decoder.decode("value") {
                         self = TestAssociatedEnum.StringType(value)
                     } else { return nil }
                 case "TransformableColorType":
-                    if let value: UIColor = decoder.decode("value") >>> UIColorTransform.reverseTransform {
+                   if let value: UIColor = decoder.decode("value") >>> UIColorTransform.reverseTransform {
                         self = TestAssociatedEnum.TransformableColorType(value)
                     } else { return nil }
                 case "DecodableToManyType":
@@ -79,8 +77,8 @@ extension TestAssociatedEnum: Decodable {
 
                 default:
                     return nil
-            }
-        } else { return nil }
+        }
+
     }
 }
 
@@ -126,8 +124,7 @@ extension TestAssociatedEnum: Encodable {
         }
 
         TestAssociatedEnum.encodeVersionIfNeeded(encoder)
-
-         self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncodingWithEncoder(encoder)
     }
 }
 

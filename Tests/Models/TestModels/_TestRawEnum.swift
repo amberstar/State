@@ -17,58 +17,18 @@ public enum TestRawEnum  : String, Model {
 extension TestRawEnum: Decodable {
 
     public init?(var decoder: Decoder) {
-
         decoder = TestRawEnum.performMigrationIfNeeded(decoder)
-
-        if let type: String = decoder.decode("type") {
-
-            switch type {
-                case "Aim":
-                    if let value: String = decoder.decode("value"),
-                        instance = TestRawEnum(rawValue: value) {
-                        instance.didFinishDecodingWithDecoder(decoder)
-                        self = instance
-                    } else { return nil }
-                case "Fire":
-                    if let value: String = decoder.decode("value"),
-                        instance = TestRawEnum(rawValue: value) {
-                        instance.didFinishDecodingWithDecoder(decoder)
-                        self = instance
-                    } else { return nil }
-                case "Ready":
-                    if let value: String = decoder.decode("value"),
-                        instance = TestRawEnum(rawValue: value) {
-                        instance.didFinishDecodingWithDecoder(decoder)
-                        self = instance
-                    } else { return nil }
-
-                default:
-                    return nil
-            }
-        } else { return nil }
+        guard let value: String = decoder.decode("value") else { return nil }
+        self.init(rawValue: value)
     }
 }
 
 extension TestRawEnum: Encodable {
 
     public func encode(encoder: Encoder) {
-
-        switch self {
-            case  .Aim:
-                encoder.encode("Aim", "type")
-                encoder.encode(self.rawValue, "value")
-            case  .Fire:
-                encoder.encode("Fire", "type")
-                encoder.encode(self.rawValue, "value")
-            case  .Ready:
-                encoder.encode("Ready", "type")
-                encoder.encode(self.rawValue, "value")
-
-        }
-
+        encoder.encode(self.rawValue, "value")
         TestRawEnum.encodeVersionIfNeeded(encoder)
-
-         self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncodingWithEncoder(encoder)
     }
 }
 

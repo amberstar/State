@@ -11,11 +11,11 @@ A Swift model framework for using `structs`, `enums` and `protocols` as models. 
 - design models in the Xcode model designer and code is generated automatically (optional)
 
 
-#### Article links:
+#### Articles:
 
-*[Creating Enum Models With State Model Framework](http://www.amberstar.org/creating-enum-models-with-state-model-framework/)
+[Creating Enum Models With State Model Framework](http://www.amberstar.org/creating-enum-models-with-state-model-framework/)
 
-*[Using Protocols With State Model Framework](http://www.amberstar.org/state-model-framework-protocols/)
+[Using Protocols With State Model Framework](http://www.amberstar.org/state-model-framework-protocols/)
 
 #### Example:
 It is easy to define models with State. This example shows you can have constants, optionals, and composition of other models.

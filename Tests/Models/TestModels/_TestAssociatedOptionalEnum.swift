@@ -26,46 +26,44 @@ public enum TestAssociatedOptionalEnum  : Model {
 extension TestAssociatedOptionalEnum: Decodable {
 
     public init?(var decoder: Decoder) {
-
         decoder = TestAssociatedOptionalEnum.performMigrationIfNeeded(decoder)
 
-        if let type: String = decoder.decode("type") {
-
-            switch type {
+        guard let type: String = decoder.decode("type") else { return nil }
+        switch type {
                 case "BinaryType":
-                    if let value: NSData? = decoder.decode("value") >>> asOptional {
+                   if let value: NSData? = decoder.decode("value") >>> asOptional {
                         self = TestAssociatedOptionalEnum.BinaryType(value)
                     } else { return nil }
                 case "BooleanType":
-                    if let value: Bool? = decoder.decode("value") >>> asOptional {
+                   if let value: Bool? = decoder.decode("value") >>> asOptional {
                         self = TestAssociatedOptionalEnum.BooleanType(value)
                     } else { return nil }
                 case "DateType":
-                    if let value: NSDate? = decoder.decode("value") >>> asOptional {
+                   if let value: NSDate? = decoder.decode("value") >>> asOptional {
                         self = TestAssociatedOptionalEnum.DateType(value)
                     } else { return nil }
                 case "DecimalType":
-                    if let value: NSDecimalNumber? = decoder.decode("value") >>> asOptional {
+                   if let value: NSDecimalNumber? = decoder.decode("value") >>> asOptional {
                         self = TestAssociatedOptionalEnum.DecimalType(value)
                     } else { return nil }
                 case "DoubleType":
-                    if let value: Double? = decoder.decode("value") >>> asOptional {
+                   if let value: Double? = decoder.decode("value") >>> asOptional {
                         self = TestAssociatedOptionalEnum.DoubleType(value)
                     } else { return nil }
                 case "FloatType":
-                    if let value: Float? = decoder.decode("value") >>> asOptional {
+                   if let value: Float? = decoder.decode("value") >>> asOptional {
                         self = TestAssociatedOptionalEnum.FloatType(value)
                     } else { return nil }
                 case "IntType":
-                    if let value: Int? = decoder.decode("value") >>> asOptional {
+                   if let value: Int? = decoder.decode("value") >>> asOptional {
                         self = TestAssociatedOptionalEnum.IntType(value)
                     } else { return nil }
                 case "StringType":
-                    if let value: String? = decoder.decode("value") >>> asOptional {
+                   if let value: String? = decoder.decode("value") >>> asOptional {
                         self = TestAssociatedOptionalEnum.StringType(value)
                     } else { return nil }
                 case "TransformableColorType":
-                    if let value: UIColor? = decoder.decode("value") >>> UIColorTransform.reverseTransform >>> asOptional {
+                   if let value: UIColor? = decoder.decode("value") >>> UIColorTransform.reverseTransform >>> asOptional {
                         self = TestAssociatedOptionalEnum.TransformableColorType(value)
                     } else { return nil }
                 case "DecodableToManyType":
@@ -79,8 +77,8 @@ extension TestAssociatedOptionalEnum: Decodable {
 
                 default:
                     return nil
-            }
-        } else { return nil }
+        }
+
     }
 }
 
@@ -126,8 +124,7 @@ extension TestAssociatedOptionalEnum: Encodable {
         }
 
         TestAssociatedOptionalEnum.encodeVersionIfNeeded(encoder)
-
-         self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncodingWithEncoder(encoder)
     }
 }
 
