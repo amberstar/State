@@ -8,7 +8,7 @@
 | `State.Protocol` | Specify entity is a protocol. (**note:** you can also check the abstract checkbox) | `YES`, `NO` |
 | `State.Type`       | Used in combination with the enum option, declares the enum as a raw value enum, and specifies it's raw value type.  |The exact type  |
 | `State.Model`       | Used for raw value enums, and specifies it's raw value type as a model type.  |`Model`, `ModelArray`, `ModelDictionary`  |
-| `State.Transformable`       | Used for raw value enums, and specifies it's raw value type as transformable.  |the exact name of the transform type to use. |
+| `State.Transformable`       | Used for raw value enums, and specifies it's raw value type as transformable.  |The exact name of the transform type to use. |
 
 ## Attribute Key-Value Reference
 **Note:** You enter the keys and values below into the user-info section of the data modeler inspector window when you want to use the options.
@@ -53,7 +53,7 @@ You can specify a default value in the inspector window, or use `State.Value` in
 ## Versioning:
 You can add a versionHashModifier to each entity in your model design. This value along with the versionHash are imported in to the code generated and used in the migration scheme of state. For more information see [Versioning and Migration](vVersioning.md)
 
-## Data Modeler Notes/ Gotchas:
+## Data Modeler Notes / Gotchas:
 
 - You must enter a class name for entities or no code will be generated 
 - Int16, Int32 or Int64 are all implemented as Int.

@@ -1,5 +1,5 @@
 #About State
-[State](https://github.com/STLabs/State) is a swift model framework. It allows you to optionally design models just like you do with Core Data. (with the data modeler inside of Xcode) State  uses `structs`,  `enums`, and `protocols` . Serialization is really simple with API for plists, JSON, and Binary files.
+[State](https://github.com/STLabs/State) is a Swift model framework. State  is for using `structs`,  `enums`, and `protocols` as models  and has serialization with API for plists, JSON, and Binary formats.
 
 **Q.** What is a model?
 
@@ -7,7 +7,7 @@
 
 **Q.** What is a model framework?
 
-**A.** A model framework is a framework focused on providing the API to convert your applications model items to and from a universal data format, and reading and writing that data, typically using files. (but can be NSData, or String)
+**A.** A model framework is a framework focused on providing the API to convert your applications model items to and from a universal data format, and reading and writing that data, typically using a database or files. 
 
 **Q.** What is a model layer?
 
@@ -15,25 +15,23 @@
 
 **Q.** What is State? 
 
-**A.** State is a light weight model framework written in Swift. It provides the API to save and load models to binary, plist, and JSON files, NSData, or Strings. It allows you define one model, or an entire model layer. You can define your models by hand coding them, or by designing them in the Xcode data model designer, and generate the code automatically. State supports Structs, Enums, and Protocols. Models can be composed together in a one-to-one or one-to-many relationship.
+**A.** State is a light weight model framework written in Swift. It provides the API to save and load models to binary, plist, and JSON files. It allows you define one model, or an entire model layer. You can code your models by hand, or by designing them in the Xcode data model designer, and generate the code automatically. State supports Structs, Enums, and Protocols. Models can be composed together in a one-to-one or one-to-many relationship.
 
-**Q.** What do you mean when you say State supports something.
-
-**A.** When I say State supports something I mean it can be part of the model layer and be persisted using the API.
+State is not a database. Any add/delete/update functionality you need for your models themselves is up to you. State is focused on model composition and persistence. 
 
 **Q.** What are the benefits of State
 
-**A.** State is designed for the application that has one, or a hundred model items where you want to use lightweight plist, or JSON formats to store models, and you want to take advantage of Swift's structs, enums, and protocols.
+**A.** State is designed for the application that have one, or hundreds model items where you want to use lightweight plist, or JSON formats to store models, and you want to take advantage of Swift's structs, enums, and protocols.
+
 
 Benefits Include:
 
 * extremely light weight code base
 * low dependency surface area
-* No subclassing of a base class
 * support for struct, enum, and protocol model items
 * models can have optional, non-optional, constant and transient properties.
 * models can be composed together
-* optional migration/version management if you need it
+* optional migration/version management if and when you need it
 
 
-There is one more huge benefit if you want it. Automatic code generation. Separate from the framework itself, State comes with a set of custom Mogenerator templates that allow you to design your model layer in the Xcode Designer. With a little bit of set-up you can get up and running, and be able to define models graphically and have all the code written for you. This allows you to define, and modify, and grow your model layer very quickly.
+There is one more huge benefit if you want it. Automatic code generation. State comes with a set of custom Mogenerator templates that allow you to design your model layer in the Xcode Designer. With a little bit of set-up you can get up and running, and be able to define models graphically and have all the code generated for you. This allows you to define, and modify, and grow your model layer very quickly.
