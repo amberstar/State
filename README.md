@@ -13,6 +13,7 @@ A Swift model framework for using `structs`, `enums` and `protocols` as models. 
 
 #### Article links:
 [Creating Enum Models With State Model Framework](http://www.amberstar.org/creating-enum-models-with-state-model-framework/)
+
 [Using Protocols With State Model Framework](http://www.amberstar.org/state-model-framework-protocols/)
 
 #### Example:
