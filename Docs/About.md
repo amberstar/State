@@ -35,6 +35,5 @@ Benefits Include:
 * models can be composed together
 * optional migration/version management if you need it
 
-Most frameworks require all optionals, or all vars. I see that as a compromise.
 
 There is one more huge benefit if you want it. Automatic code generation. Separate from the framework itself, State comes with a set of custom Mogenerator templates that allow you to design your model layer in the Xcode Designer. With a little bit of set-up you can get up and running, and be able to define models graphically and have all the code written for you. This allows you to define, and modify, and grow your model layer very quickly.

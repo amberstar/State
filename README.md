@@ -1,6 +1,6 @@
 #State
 
-A Swift model framework for using `structs`, `enums` and `protocols` as models. Model code can written manually or be generated automatically using [Mogenerator](https://github.com/rentzsch/mogenerator). The framework provides serialization to and from Plists, JSON, or Binary.
+A Swift model framework for using `structs`, `enums` and `protocols` as models. Model code can written manually or be generated automatically using [Mogenerator](https://github.com/rentzsch/mogenerator). The framework provides API for serialization to and from Plists, JSON, or Binary.
                                                                                                                                                                                                                                                    
 ####Features: 
 
@@ -10,6 +10,10 @@ A Swift model framework for using `structs`, `enums` and `protocols` as models. 
 - versioning and migration (optional)
 - design models in the Xcode model designer and code is generated automatically (optional)
 
+
+#### Article links:
+[Creating Enum Models With State Model Framework](http://www.amberstar.org/creating-enum-models-with-state-model-framework/)
+[Using Protocols With State Model Framework](http://www.amberstar.org/state-model-framework-protocols/)
 
 #### Example:
 It is easy to define models with State. This example shows you can have constants, optionals, and composition of other models.
@@ -113,14 +117,12 @@ The encoding and decoding process is decoupled from the data conversion format. 
 ## Using Xcode Data Model Designer, and Automatic Code Generation (optional)
 State also comes with full support to design models in the Xcode data model designer just like you do with Core Data. It comes with custom Mogenerator templates, and instructions on how to use them. Writing model code that reads and writes models to JSON or Plists, is a tedius uncessary task. Being able to make changes quickly to your model layer and have your models generated automaticly, with consistent clean code, when you build your project is a powerful way to save you hours of writing tedius code. This is especially useful now, beacuse as the Swift language changes, you can easily update all of your model code by just updating to the latest version of State.
 
-**Q.** If I use code generation, how can I still add code manually to my models?
+**Q.** If I use code generation, can I still add code manually to my models?
 
 **A.** Yes. When you use code generation, two files are created for each model. An automatic file and a manual file. The manual files is only created the first time you generate the code, so it is never overwritten again. The automatic file is regenerated every time you generate code. The manual file has an extension where you can extend your model.
 ![<Generated Files>](Docs/Resources/diag5.png)
 
-Note: I highly reccomend taking the time to set up your project to generate your models.
-
-
+## Documentation
 # [ Read the Documentation to Get Started](Docs/)
 
 ##System Requirements
