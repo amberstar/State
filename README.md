@@ -104,13 +104,16 @@ let model = ModelType(.Plist, path: "model.plist")
 ## General Design Philosophy 
 State is designed to be simple, lightweight, and fast. It's for the application that has only one, or a hundred model items where you want to use lightweight plist, or JSON formats to store models, and you want to take advantage of Swift's structs, enums, and protocols.
 
-It was designed with the following in mind:
+A key design point of State is that the encoding and decoding of models are not coupled to the models themselves, instead it is provided through a protocol similar to NSCoding.
+
+Other design points:
 
 * extremely light weight code base
 * low dependency surface area
+* zero magic with custom operators
 
 
-The encoding and decoding process is decoupled from the data conversion format. All models are encoded and decoded to an intermediate Key-Value dictionary. The Key-Value data is then either decoded into a model, or converted to a target format (bin, plist, json).
+The encoding and decoding process is also decoupled from the data conversion format. All models are encoded and decoded to an intermediate Key-Value dictionary. From there the Key-Value data is then either decoded into a model, or converted to a target format (bin, plist, json).
 ![<Protocol Oriented>](Docs/Resources/diag1.png)
 
 ![<Protocol Oriented>](Docs/Resources/diag4.png)

@@ -23,9 +23,6 @@ public extension Model {
     }
 }
 
-public protocol ModelProtocol: Model {
-    func encode(encoder: Encoder)
-}
 
 /// Key used to code protocol type
 public let model_type_key = "model_type"

@@ -6,7 +6,7 @@
 import Foundation
 import State
 
-public protocol TestParentProtocol : ModelProtocol {
+public protocol TestParentProtocol : Model {
 
    var ss_number : String { get set }
 
