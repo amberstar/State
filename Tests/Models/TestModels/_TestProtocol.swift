@@ -13,8 +13,8 @@ public protocol TestProtocol : TestParentProtocol {
    var children : [TestChild] { get set }
    var grandchild : Grandchild { get }
 
-   func calculateAge() -> Int
-   func getFullName() -> String
+ func calculateAge() -> Int
+ func getFullName() -> String
 
 }
 

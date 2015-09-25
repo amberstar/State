@@ -211,7 +211,7 @@ extension <$typeName$>: Encodable {
 <$call writeVersionHashExtension $>
 <$endprocedure$>
 
-<$procedure writeAttributeProtocolFunctionRequirement Attribute$>   func <$Attribute.userInfo.State.Func$><$endprocedure$>
+<$procedure writeAttributeProtocolFunctionRequirement Attribute$><$if Attribute.userInfo.State.Mutating == YES$>mutating<$endif$> func <$Attribute.userInfo.State.Func$><$endprocedure$>
 
 <$procedure writeAttributeProtocolPropertyRequirement Attribute$>   var <$Attribute.name$> : <$call getTypeForAttribute Attribute$> { get <$if Attribute.userInfo.State.Immutable == YES$>}<$else$>set }<$endif$><$endprocedure$>
 
