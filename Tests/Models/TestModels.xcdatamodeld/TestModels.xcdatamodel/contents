@@ -338,13 +338,13 @@
         </attribute>
         <attribute name="name" attributeType="String" syncable="YES">
             <userInfo>
-                <entry key="State.Immutable" value="YES"/>
+                <entry key="State.ProtocolRequirementType" value="get"/>
             </userInfo>
         </attribute>
         <relationship name="children" toMany="YES" deletionRule="Nullify" destinationEntity="TestChild" syncable="YES"/>
         <relationship name="grandchild" maxCount="1" deletionRule="Nullify" destinationEntity="Grandchild" syncable="YES">
             <userInfo>
-                <entry key="State.Immutable" value="YES"/>
+                <entry key="State.ProtocolRequirementType" value="get"/>
             </userInfo>
         </relationship>
         <userInfo>

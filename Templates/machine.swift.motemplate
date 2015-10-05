@@ -57,8 +57,8 @@ extension <$typeName$> {
 <$setmerge superTypeName = <$if hasSuperentity$><$superentity.managedObjectClassName$><$else$>Model<$endif$>$>
 
 public struct <$typeName$> : <$superTypeName$> {
-    <$foreach Attribute attributesByName do$><$if Attribute.userInfo.State.ProtocolRequirementType != func$><$call getPropertyDeclarationForAttribute Attribute$>
-    <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$call getPropertyDeclarationForRelationship Relationship$>
+    <$foreach Attribute attributesByName do$><$if Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$><$call getPropertyDeclarationForAttribute Attribute$>
+    <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if Relationship.userInfo.State.ProtocolRequirementType != get$><$call getPropertyDeclarationForRelationship Relationship$><$endif$>
     <$endforeach do$>
 }
 
@@ -68,23 +68,23 @@ extension <$typeName$> : Decodable {
         <$call writeDecodingMigrationBlock$>
 
 <$setlocal hasNonOptionals = 0 $>
-<$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func$><$if !Attribute.isOptional$><$setlocal hasNonOptionals = 1$><$endif$><$endif$><$endforeach do$>
-<$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient$><$if !Relationship.isOptional$><$setlocal hasNonOptionals = 1$><$endif$><$endif$><$endforeach do$>
+<$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$><$if !Attribute.isOptional$><$setlocal hasNonOptionals = 1$><$endif$><$endif$><$endforeach do$>
+<$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient && Relationship.userInfo.State.ProtocolRequirementType != get$><$if !Relationship.isOptional$><$setlocal hasNonOptionals = 1$><$endif$><$endif$><$endforeach do$>
 
 <$if hasNonOptionals == 1$>
         guard
-            <$setlocal prop = 0$><$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func$><$if !Attribute.isOptional$><$if prop > 0$>,
-            <$endif$><$setlocal prop = prop + 1$>let <$Attribute.name$>: <$call getTypeForAttribute$> = <$if Attribute.attributeType == 1800$><$Attribute.valueTransformerName$>.reverseTransform(<$endif$>decoder.decode("<$Attribute.name$>")<$if Attribute.attributeType == 1800$>)<$endif$><$endif$><$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient$><$if !Relationship.isOptional$><$if prop > 0$>,
+            <$setlocal prop = 0$><$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$><$if !Attribute.isOptional$><$if prop > 0$>,
+            <$endif$><$setlocal prop = prop + 1$>let <$Attribute.name$>: <$call getTypeForAttribute$> = <$if Attribute.attributeType == 1800$><$Attribute.valueTransformerName$>.reverseTransform(<$endif$>decoder.decode("<$Attribute.name$>")<$if Attribute.attributeType == 1800$>)<$endif$><$endif$><$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient &&  Relationship.userInfo.State.ProtocolRequirementType != get$><$if !Relationship.isOptional$><$if prop > 0$>,
             <$endif$><$setlocal prop = prop + 1$>let <$Relationship.name$>: <$if  Relationship.isToMany$>[<$endif$><$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if  Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> = decoder.decode<$if Relationship.destinationEntity.isAbstract || Relationship.destinationEntity.userInfo.State.Protocol == YES$><$Relationship.destinationEntity.managedObjectClassName$><$else$>Model<$endif$><$if Relationship.isToMany$><$if Relationship.userInfo.State.CompositionType == Dictionary$>Dictionary<$else$>Array<$endif$><$endif$>("<$Relationship.name$>")<$endif$><$endif$><$endforeach do$>
         else { return  nil }
 <$endif$>
 
-        <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func$><$if Attribute.isOptional$>let <$Attribute.name$>: <$call getTypeForAttribute$> = <$if Attribute.attributeType == 1800$><$Attribute.valueTransformerName$>.reverseTransform(<$endif$>decoder.decode("<$Attribute.name$>")<$if Attribute.attributeType == 1800$>)<$endif$><$endif$>
-        <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient$><$if Relationship.isOptional$>let <$Relationship.name$>: <$if  Relationship.isToMany$>[<$endif$><$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if  Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> = decoder.decode<$if Relationship.destinationEntity.isAbstract || Relationship.destinationEntity.userInfo.State.Protocol == YES$><$Relationship.destinationEntity.managedObjectClassName$><$else$>Model<$endif$><$if Relationship.isToMany$><$if Relationship.userInfo.State.CompositionType == Dictionary$>Dictionary<$else$>Array<$endif$><$endif$>("<$Relationship.name$>")<$endif$>
+        <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$><$if Attribute.isOptional$>let <$Attribute.name$>: <$call getTypeForAttribute$> = <$if Attribute.attributeType == 1800$><$Attribute.valueTransformerName$>.reverseTransform(<$endif$>decoder.decode("<$Attribute.name$>")<$if Attribute.attributeType == 1800$>)<$endif$><$endif$>
+        <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient && Relationship.userInfo.State.ProtocolRequirementType != get$><$if Relationship.isOptional$>let <$Relationship.name$>: <$if  Relationship.isToMany$>[<$endif$><$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if  Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> = decoder.decode<$if Relationship.destinationEntity.isAbstract || Relationship.destinationEntity.userInfo.State.Protocol == YES$><$Relationship.destinationEntity.managedObjectClassName$><$else$>Model<$endif$><$if Relationship.isToMany$><$if Relationship.userInfo.State.CompositionType == Dictionary$>Dictionary<$else$>Array<$endif$><$endif$>("<$Relationship.name$>")<$endif$>
         <$endif$><$endforeach do$>
 
-        <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func$>self.<$Attribute.name$> = <$Attribute.name$>
-        <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient$>self.<$Relationship.name$> = <$Relationship.name$>
+        <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$>self.<$Attribute.name$> = <$Attribute.name$>
+        <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient && Relationship.userInfo.State.ProtocolRequirementType != get$>self.<$Relationship.name$> = <$Relationship.name$>
         <$endif$><$endforeach do$>didFinishDecodingWithDecoder(decoder)
     }
 }
@@ -92,8 +92,8 @@ extension <$typeName$> : Decodable {
 extension <$typeName$> : Encodable {
 
     public func encode(encoder: Encoder) {
-        <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func$>encoder.encode(<$Attribute.name$><$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.transform<$endif$>, "<$Attribute.name$>")
-        <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient$>encoder.encode(<$Relationship.name$>, "<$Relationship.name$>")
+        <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$>encoder.encode(<$Attribute.name$><$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.transform<$endif$>, "<$Attribute.name$>")
+        <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient && Relationship.userInfo.State.ProtocolRequirementType != get$>encoder.encode(<$Relationship.name$>, "<$Relationship.name$>")
         <$endif$><$endforeach do$>
         <$if hasSuperentity$>encoder.encode("<$typeName$>", model_type_key)<$endif$>
         <$call writeEncodingVersioningBlock$>
@@ -211,11 +211,12 @@ extension <$typeName$>: Encodable {
 <$call writeVersionHashExtension $>
 <$endprocedure$>
 
-<$procedure writeAttributeProtocolFunctionRequirement Attribute$><$if Attribute.userInfo.State.Mutating == YES$>mutating<$endif$> func <$Attribute.userInfo.State.Func$><$endprocedure$>
+<$procedure writeAttributeProtocolFunctionRequirement Attribute$>   <$if Attribute.userInfo.State.Mutating == YES$>mutating <$endif$>func <$Attribute.userInfo.State.Func$><$endprocedure$>
 
-<$procedure writeAttributeProtocolPropertyRequirement Attribute$>   var <$Attribute.name$> : <$call getTypeForAttribute Attribute$> { get <$if Attribute.userInfo.State.Immutable == YES$>}<$else$>set }<$endif$><$endprocedure$>
 
-<$procedure writeRelationshipProtocolRequirement Relationship$>   var <$Relationship.name$> : <$if Relationship.isToMany$>[<$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> { get <$if Relationship.userInfo.State.Immutable == YES$>}<$else$>set }<$endif$>
+<$procedure writeAttributeProtocolPropertyRequirement Attribute$>   var <$Attribute.name$> : <$call getTypeForAttribute Attribute$> { get <$if Attribute.userInfo.State.ProtocolRequirementType == get$>}<$else$>set }<$endif$><$endprocedure$>
+
+<$procedure writeRelationshipProtocolRequirement Relationship$>   var <$Relationship.name$> : <$if Relationship.isToMany$>[<$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> { get <$if Relationship.userInfo.State.ProtocolRequirementType == get$>}<$else$>set }<$endif$>
 <$endprocedure$>
 
 <$procedure writeCasesForTypes Subtypes$>

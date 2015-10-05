@@ -6,6 +6,13 @@ You  create protocols by specifying the `State.Protocol` key or checking the abs
 
 ### Function requirements
 You can specify function requirements on protocols using the `State.ProtocolRequirementType` and the `State.Func` key on the protocol entities attributes. 
+**Note:** an empty implementation is added to the **manual** file only the first time it is generated. If you already generated code before adding this requirement
+you may have to manually add it to the manual file.
+
+### Get only variable requirements
+You can specify a variable requirement as get only using the `State.ProtocolRequirementType` with a value of `get` on protocol attributes and relashionships.
+**Note:** an empty implementation is added to the **manual** file only the first time it is generated. If you already generated code before adding this requirement
+you may have to manually add it to the manual file.
 
 ##Conforming to protocol
 To specify a model item has conformance to a protocol, set the protocol as the parent entity of a model item. 

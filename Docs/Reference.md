@@ -18,8 +18,8 @@
 | `State.Immutable`    | Specify an attribute is immutable (code will use `let` instead of `var` for the property) | `YES`, `NO` |
 | `State.Type`       | Specify a type for the attribute. For example, `[String : Int]` would specify to use a Dictionary of String, Ints for this property **-or-** Specifies the associated value type for enum cases.| The exact type  |
 | `State.Func`       | Used on `State.Protocol` entities with a requirement type of `func` specifies the function signature for the requirement| The exact signature of the function requirement  |
-| `State.Mutating`       | Used on `State.Protocol` entities with a requirement type of `func` specifies the function is `mutating` | `YES`, `NO`  |
-| `State.ProtocolRequirementType`       | Used on State.Protocol entities. Specifies attribute requirment type for the protocol. **note: if not specified `var` is assumed| `func`, `var`  |
+| `State.Mutating`       | Used on `State.Protocol` entities with a requirement type of `func`  specifies the function is `mutating` | `YES`, `NO`  |
+| `State.ProtocolRequirementType`       | Used on State.Protocol entities. Specifies attribute requirment type for the protocol. **note: if not specified `var` is assumed, use `get` to generate a get only variable requirement| `func`, `var`, `get`  |
 | `State.Value`	| Specify a default value for a property. (only supported for non-optional properties) **-or-** The raw value of an enum case. | The exact value
 | `State.Import`	| Useful when you need to import a module in the generated source for the particular attribute type  | The exact module name 
 | `State.CompositionType`       | Used with one-to-many relationships. Type of collection to use for a one to many compositions.|Dictionary, Array  |

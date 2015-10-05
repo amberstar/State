@@ -10,9 +10,8 @@ public struct TestProtocolConformer : TestProtocol {
     public var age: Int?
     public var ss_number: String
     public var isReady: Bool?
-    public let name: String
     public var employee: Employee
-    public let grandchild: Grandchild
+
     public var children: [TestChild]
 
 }
@@ -24,9 +23,7 @@ extension TestProtocolConformer : Decodable {
 
         guard
             let ss_number: String = decoder.decode("ss_number"),
-            let name: String = decoder.decode("name"),
             let employee: Employee = decoder.decodeModel("employee"),
-            let grandchild: Grandchild = decoder.decodeModel("grandchild"),
             let children: [TestChild] = decoder.decodeModelArray("children")
         else { return  nil }
 
@@ -37,9 +34,7 @@ extension TestProtocolConformer : Decodable {
         self.age = age
         self.ss_number = ss_number
         self.isReady = isReady
-        self.name = name
         self.employee = employee
-        self.grandchild = grandchild
         self.children = children
         didFinishDecodingWithDecoder(decoder)
     }
@@ -51,9 +46,7 @@ extension TestProtocolConformer : Encodable {
         encoder.encode(age, "age")
         encoder.encode(ss_number, "ss_number")
         encoder.encode(isReady, "isReady")
-        encoder.encode(name, "name")
         encoder.encode(employee, "employee")
-        encoder.encode(grandchild, "grandchild")
         encoder.encode(children, "children")
 
         encoder.encode("TestProtocolConformer", model_type_key)

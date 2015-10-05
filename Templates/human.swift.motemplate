@@ -6,9 +6,18 @@
 import State
 <$setmerge typeName = <$managedObjectClassName$>$>
 
+<$procedure getTypeForAttribute Attribute$><$if Attribute.userInfo.State.Type$><$Attribute.userInfo.State.Type$><$elseif Attribute.hasScalarAttributeType$><$if Attribute.scalarAttributeType == Int16 || Attribute.scalarAttributeType == Int32 || Attribute.scalarAttributeType == Int64$>Int<$else$><$Attribute.scalarAttributeType$><$endif$><$else$><$Attribute.objectAttributeType$><$endif$><$if Attribute.isOptional$>?<$endif$><$endprocedure$>
 
 extension <$typeName$> {
+<$foreach Attribute attributesByName do$><$if Attribute.userInfo.State.ProtocolRequirementType == get$>    public var <$Attribute.name$> : <$call getTypeForAttribute Attribute$> {
+        get { // you must return a value here }
 
+    }
+<$endif$><$endforeach do$>
+<$foreach Relationship relationshipsByName do$><$if Relationship.userInfo.State.ProtocolRequirementType == get$>   public var <$Relationship.name$>: <$if  Relationship.isToMany$>[<$endif$><$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if  Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> {
+        get { // you must return a value here }
+    }
+<$endif$><$endforeach do$>
 <$foreach Attribute attributesByName do$><$if Attribute.userInfo.State.ProtocolRequirementType == func$>   public func <$Attribute.userInfo.State.Func$> {
         // implement protocol requirement here
     }
