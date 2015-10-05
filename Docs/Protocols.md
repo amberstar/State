@@ -22,11 +22,11 @@ There are two ways you can specify a protocol inherits from other protocols.
 to also inherit from `CustomStringConvertible` and `CustomDebugStringConvertible` you would enter `CustomStringConvertible, CustomStringConvertible` as the value for 
 `State.Type` on the protocol entity.
 
-**note:** you can use these two methods in combonation if needed
+**Ntote:** you can use these two methods in combination if needed
 ##Conforming to protocol
 To specify a model item has conformance to a protocol, set the protocol as the parent entity of a model item. 
 
-**Note:** You do not need to re-specify the protocols requirements in your conforming entity, they will be inherited and implemented automatically.
+**Note:** Only structs can conform at this time. You do not need to re-specify the protocols requirements in your conforming entity, they will be inherited and implemented automatically.
 
 ## Using protocols
 
@@ -42,6 +42,5 @@ You can add any of the conforming types to the assets of `AssetGroup`. When Asse
 ![<Protocol Example>](Resources/protocol_1.png)
 
 Notes:
-* Only Strucs and other Protocols are valid conformers at this time. (not enums)
 * Protocol requirements can include other model items
 * Model items can have relationships to protocol types.
