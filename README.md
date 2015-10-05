@@ -120,7 +120,7 @@ The encoding and decoding process is also decoupled from the data conversion for
 
 
 ## Using Xcode Data Model Designer, and Automatic Code Generation (optional)
-State also comes with full support to design models in the Xcode data model designer just like you do with Core Data. It comes with custom Mogenerator templates, and instructions on how to use them. Writing model code that reads and writes models to JSON or Plists, is a tedius uncessary task. Being able to make changes quickly to your model layer and have your models generated automaticly, with consistent clean code, when you build your project is a powerful way to save you hours of writing tedius code. This is especially useful now, beacuse as the Swift language changes, you can easily update all of your model code by just updating to the latest version of State.
+State also comes with full support to design models in the Xcode data model designer just like you do with Core Data. It comes with custom Mogenerator templates, and instructions on how to use them. Writing model code that reads and writes models to JSON or Plists, is a tedious unnecessary task. Being able to make changes quickly to your model layer and have your models generated automatically, with consistent clean code, when you build your project is a powerful way to save you hours of writing tedious code. This is especially useful now, because as the Swift language changes, you can easily update all of your model code by just updating to the latest version of State.
 
 **Q.** If I use code generation, can I still add code manually to my models?
 

@@ -52,7 +52,7 @@ You can specify a default value in the inspector window, or use `State.Value` in
 
 
 ## Versioning:
-You can add a versionHashModifier to each entity in your model design. This value along with the versionHash are imported in to the code generated and used in the migration scheme of state. For more information see [Versioning and Migration](vVersioning.md)
+You can add a versionHashModifier to each entity in your model design. This value along with the versionHash are imported in to the code generated and used in the migration scheme of state. For more information see [Versioning and Migration](Versioning.md)
 
 ## Data Modeler Notes / Gotchas:
 
@@ -61,4 +61,4 @@ You can add a versionHashModifier to each entity in your model design. This valu
 - If you enter a custom type using `State.Type` key, it will override the type in the attribute type option list.
 - Do not link the .xcdatamodel file to your target.
 - Recursive type references are not supported  with swift structs without boxing, therefore be sure not to generate circular dependancies in the modeler.
-- Even if you specify a type with `State.Type` you have to still choose a type in the type selction box. (it will be ignored) If you don't, the projest will not build.
+- Even if you specify a type with `State.Type` you have to still choose a type in the type section box. (it will be ignored) If you don't, the project will not build.

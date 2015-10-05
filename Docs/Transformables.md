@@ -49,7 +49,7 @@ public final class UIColorTransform: ValueTransform {
 
 ```
 
-### The folowing ValueTransforms are included with State
+### The following ValueTransforms are included with State
 * UIColorTransform
 * UInt64Transform
 * URLTransform
