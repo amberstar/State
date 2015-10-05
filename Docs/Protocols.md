@@ -14,6 +14,13 @@ You can specify a variable requirement as get only using the `State.ProtocolRequ
 **Note:** an empty implementation is added to the **manual** file only the first time it is generated. If you already generated code before adding this requirement
 you may have to manually add it to the manual file.
 
+##Inherit from other protocols 
+There are two ways you can specify a protocol inherits from other protocols. 
+1. Set one protocol entity as the parent of another protocol entity
+2. Use the `State.Type` key on a protocol entity to specify additional protocols. These are entered as a comma seperated list. For example if you want your protocol
+to also inherit from `CustomStringConvertible` and `CustomDebugStringConvertible` you would enter `CustomStringConvertible, CustomStringConvertible` as the value for 
+`State.Type` on the protocol entity.
+
 ##Conforming to protocol
 To specify a model item has conformance to a protocol, set the protocol as the parent entity of a model item. 
 
