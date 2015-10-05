@@ -6,8 +6,7 @@
 | -------------------------------- | -------------------------- | :----------------:|
 | `State.Enum` | Specify entity is an enum. All attributes are considered cases of the enum. Specify raw value type with `State.Type` . *required for enums. | `YES`, `NO` |
 | `State.Protocol` | Specify entity is a protocol. (**note:** you can also check the abstract checkbox) | `YES`, `NO` |
-| `State.Type`       | When used on `Enum` entities, declares the enum as a raw value enum, and specifies it's raw value type. When used on `Protocol` entities specifies protocol inheritance.  |**For Enums:** The exact type for `Enum` **-or** 
-**For Protocols:**comma seperated list of protocols to inherit  |
+| `State.Type`       | When used on `Enum` entities, declares the enum as a raw value enum, and specifies it's raw value type. When used on `Protocol` entities specifies protocol inheritance.  |**For Enums:** The exact type for `Enum` **-or**  **For Protocols:** comma seperated list of protocols to inherit  |
 | `State.Model`       | Used for raw value enums, and specifies it's raw value type as a model type.  |`Model`, `ModelArray`, `ModelDictionary`  |
 | `State.Transformable`       | Used for raw value enums, and specifies it's raw value type as transformable.  |The exact name of the transform type to use. |
 
