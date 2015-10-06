@@ -4,9 +4,9 @@
 
  ************************************************/
 import Foundation
-import State
+import STState
 
-public protocol TestProtocol : TestParentProtocol {
+public protocol TestProtocol : TestParentProtocol  {
 
    var age : Int? { get set }
    var name : String { get }

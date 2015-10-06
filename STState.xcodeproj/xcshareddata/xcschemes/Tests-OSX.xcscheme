@@ -9,29 +9,15 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "047B22C91AF3DAAF003B7F39"
-               BuildableName = "State.framework"
-               BlueprintName = "State-OSX"
-               ReferencedContainer = "container:State.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "047B22D31AF3DAAF003B7F39"
-               BuildableName = "StateTests.xctest"
+               BuildableName = "STStateTests.xctest"
                BlueprintName = "Tests-OSX"
-               ReferencedContainer = "container:State.xcodeproj">
+               ReferencedContainer = "container:STState.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -42,14 +28,24 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "047B22D31AF3DAAF003B7F39"
+               BuildableName = "STStateTests.xctest"
+               BlueprintName = "Tests-OSX"
+               ReferencedContainer = "container:STState.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "047B22C91AF3DAAF003B7F39"
-            BuildableName = "State.framework"
-            BlueprintName = "State-OSX"
-            ReferencedContainer = "container:State.xcodeproj">
+            BlueprintIdentifier = "047B22D31AF3DAAF003B7F39"
+            BuildableName = "STStateTests.xctest"
+            BlueprintName = "Tests-OSX"
+            ReferencedContainer = "container:STState.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -61,17 +57,17 @@
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
-      ignoresPersistentStateOnLaunch = "NO"
+      ignoresPersistentSTStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "047B22C91AF3DAAF003B7F39"
-            BuildableName = "State.framework"
-            BlueprintName = "State-OSX"
-            ReferencedContainer = "container:State.xcodeproj">
+            BlueprintIdentifier = "047B22D31AF3DAAF003B7F39"
+            BuildableName = "STStateTests.xctest"
+            BlueprintName = "Tests-OSX"
+            ReferencedContainer = "container:STState.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -86,10 +82,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "047B22C91AF3DAAF003B7F39"
-            BuildableName = "State.framework"
-            BlueprintName = "State-OSX"
-            ReferencedContainer = "container:State.xcodeproj">
+            BlueprintIdentifier = "047B22D31AF3DAAF003B7F39"
+            BuildableName = "STStateTests.xctest"
+            BlueprintName = "Tests-OSX"
+            ReferencedContainer = "container:STState.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

@@ -4,7 +4,7 @@
 
  ************************************************/
 import Foundation
-import State
+import STState
 
 public struct TestTransient2 : Model {
     public var transient2: Int?

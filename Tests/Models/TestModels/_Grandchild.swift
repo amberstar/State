@@ -4,7 +4,7 @@
 
  ************************************************/
 import Foundation
-import State
+import STState
 
 public struct Grandchild : Model {
     public var age: Int?

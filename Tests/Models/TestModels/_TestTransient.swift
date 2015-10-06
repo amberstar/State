@@ -4,7 +4,7 @@
 
  ************************************************/
 import Foundation
-import State
+import STState
 
 public struct TestTransient : Model {
     public var myNonTransient: String

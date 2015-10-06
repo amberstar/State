@@ -4,7 +4,7 @@
 
  ************************************************/
 import Foundation
-import State
+import STState
 
 public struct TestCollections : Model {
     public var arrayOfStrings: [String]

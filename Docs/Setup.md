@@ -1,6 +1,6 @@
 #How to set up a target to automatically generate model code every time you build your project.
 
-If you do not have State framework, or mogenerator installed do that first. 
+If you do not have STState framework, or mogenerator installed do that first. 
  
 1. In your Xcode project, select `file > new > target`, and under OS X select other. Choose "External Build System" and click next.
 
@@ -18,7 +18,7 @@ If you do not have State framework, or mogenerator installed do that first.
 	--model `<path to your .xcdatamodeld file>` --swift --template-path `<path to states template folder>` --output-dir `<path to save model code files>`
 
 	#####example: 
-If state is installed in a subdirectory of your project, and you had a models folder for your models, it would look something like this: --model $(SRCROOT)/ProjectName/Models/Model.xcdatamodeld --swift --template-path $(SRCROOT)/../State/Templates --output-dir $(SRCROOT)/ProjectName/Models/
+If state is installed in a subdirectory of your project, and you had a models folder for your models, it would look something like this: --model $(SRCROOT)/ProjectName/Models/Model.xcdatamodeld --swift --template-path $(SRCROOT)/../STState/Templates --output-dir $(SRCROOT)/ProjectName/Models/
 
 5. Select the target that you want to use the model entities in, and select `Build Phases` and twist open the `Target Dependencies` section at the top. 
 

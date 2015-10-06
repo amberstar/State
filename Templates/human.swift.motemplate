@@ -3,22 +3,22 @@
         WARNING: HUMAN GENERATED FILE
 
 ************************************************/
-import State
+import STState
 <$setmerge typeName = <$managedObjectClassName$>$>
 
-<$procedure getTypeForAttribute Attribute$><$if Attribute.userInfo.State.Type$><$Attribute.userInfo.State.Type$><$elseif Attribute.hasScalarAttributeType$><$if Attribute.scalarAttributeType == Int16 || Attribute.scalarAttributeType == Int32 || Attribute.scalarAttributeType == Int64$>Int<$else$><$Attribute.scalarAttributeType$><$endif$><$else$><$Attribute.objectAttributeType$><$endif$><$if Attribute.isOptional$>?<$endif$><$endprocedure$>
+<$procedure getTypeForAttribute Attribute$><$if Attribute.userInfo.STState.Type$><$Attribute.userInfo.STState.Type$><$elseif Attribute.hasScalarAttributeType$><$if Attribute.scalarAttributeType == Int16 || Attribute.scalarAttributeType == Int32 || Attribute.scalarAttributeType == Int64$>Int<$else$><$Attribute.scalarAttributeType$><$endif$><$else$><$Attribute.objectAttributeType$><$endif$><$if Attribute.isOptional$>?<$endif$><$endprocedure$>
 
 extension <$typeName$> {
-<$foreach Attribute attributesByName do$><$if Attribute.userInfo.State.ProtocolRequirementType == get$>    public var <$Attribute.name$> : <$call getTypeForAttribute Attribute$> {
+<$foreach Attribute attributesByName do$><$if Attribute.userInfo.STState.ProtocolRequirementType == get$>    public var <$Attribute.name$> : <$call getTypeForAttribute Attribute$> {
         get { // you must return a value here }
 
     }
 <$endif$><$endforeach do$>
-<$foreach Relationship relationshipsByName do$><$if Relationship.userInfo.State.ProtocolRequirementType == get$>   public var <$Relationship.name$>: <$if  Relationship.isToMany$>[<$endif$><$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if  Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> {
+<$foreach Relationship relationshipsByName do$><$if Relationship.userInfo.STState.ProtocolRequirementType == get$>   public var <$Relationship.name$>: <$if  Relationship.isToMany$>[<$endif$><$if Relationship.userInfo.STState.CompositionType == Dictionary$>String : <$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if  Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> {
         get { // you must return a value here }
     }
 <$endif$><$endforeach do$>
-<$foreach Attribute attributesByName do$><$if Attribute.userInfo.State.ProtocolRequirementType == func$>   public func <$Attribute.userInfo.State.Func$> {
+<$foreach Attribute attributesByName do$><$if Attribute.userInfo.STState.ProtocolRequirementType == func$>   public func <$Attribute.userInfo.STState.Func$> {
         // implement protocol requirement here
     }
 <$endif$><$endforeach do$>
@@ -57,10 +57,10 @@ extension <$typeName$> {
 // MARK: Migration
 extension <$typeName$> {
 
-    // implement migration here. See: https://github.com/STLabs/State/blob/feat/swift2.0/Docs/Migration.md
+    // implement migration here. See: https://github.com/STLabs/STState/blob/feat/swift2.0/Docs/Migration.md
 }
 <$endprocedure$>
 
 
-<$if isAbstract || userInfo.State.Protocol == YES$><$next$>
+<$if isAbstract || userInfo.STState.Protocol == YES$><$next$>
 <$else$><$call coding$>

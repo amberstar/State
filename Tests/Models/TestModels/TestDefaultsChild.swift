@@ -3,7 +3,7 @@
         HUMAN GENERATED FILE
 
 ************************************************/
-import State
+import STState
 
 public extension TestDefaultsChild {
 

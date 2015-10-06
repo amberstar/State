@@ -1,4 +1,4 @@
-#State
+#STState
 
 A Swift model framework for using `structs`, `enums` and `protocols` as models. Model code can written manually or be generated automatically using [Mogenerator](https://github.com/rentzsch/mogenerator). The framework provides API for serialization to and from Plists, JSON, or Binary.
                                                                                                                                                                                                                                                    
@@ -13,12 +13,12 @@ A Swift model framework for using `structs`, `enums` and `protocols` as models. 
 
 #### Articles:
 
-[Creating Enum Models With State Model Framework](http://www.amberstar.org/creating-enum-models-with-state-model-framework/)
+[Creating Enum Models With STState Model Framework](http://www.amberstar.org/creating-enum-models-with-state-model-framework/)
 
-[Using Protocols With State Model Framework](http://www.amberstar.org/state-model-framework-protocols/)
+[Using Protocols With STState Model Framework](http://www.amberstar.org/state-model-framework-protocols/)
 
 #### Example:
-It is easy to define models with State. This example shows you can have constants, optionals, and composition of other models.
+It is easy to define models with STState. This example shows you can have constants, optionals, and composition of other models.
 
 ```swift
 public struct MyModel : Model {
@@ -78,12 +78,12 @@ func save(format: Format, path: String) -> Bool
 ```
 
 ## Protocol Oriented
-State has a protocol oriented design with extension points to extend all of your models.
+STState has a protocol oriented design with extension points to extend all of your models.
 Model items can compose with protocol types with full serialization support.
 
 ![<Protocol Oriented>](Docs/Resources/diag2.png)
 
-Not only can you extend each individual model type with an extension, you can also add API to all of your model elements by extending the Model protocol with your own protocol extension. In-fact, this is exactly how State provides a save function to every model.
+Not only can you extend each individual model type with an extension, you can also add API to all of your model elements by extending the Model protocol with your own protocol extension. In-fact, this is exactly how STState provides a save function to every model.
 
 
 ## Serialization
@@ -102,9 +102,9 @@ let model = ModelType(.Plist, path: "model.plist")
 ```
 
 ## General Design Philosophy 
-State is designed to be simple, lightweight, and fast. It's for the application that has only one, or a hundred model items where you want to use lightweight plist, or JSON formats to store models, and you want to take advantage of Swift's structs, enums, and protocols.
+STState is designed to be simple, lightweight, and fast. It's for the application that has only one, or a hundred model items where you want to use lightweight plist, or JSON formats to store models, and you want to take advantage of Swift's structs, enums, and protocols.
 
-A key design point of State is that the encoding and decoding of models are not coupled to the models themselves, instead it is provided through a protocol similar to NSCoding.
+A key design point of STState is that the encoding and decoding of models are not coupled to the models themselves, instead it is provided through a protocol similar to NSCoding.
 
 Other design points:
 
@@ -120,7 +120,7 @@ The encoding and decoding process is also decoupled from the data conversion for
 
 
 ## Using Xcode Data Model Designer, and Automatic Code Generation (optional)
-State also comes with full support to design models in the Xcode data model designer just like you do with Core Data. It comes with custom Mogenerator templates, and instructions on how to use them. Writing model code that reads and writes models to JSON or Plists, is a tedious unnecessary task. Being able to make changes quickly to your model layer and have your models generated automatically, with consistent clean code, when you build your project is a powerful way to save you hours of writing tedious code. This is especially useful now, because as the Swift language changes, you can easily update all of your model code by just updating to the latest version of State.
+STState also comes with full support to design models in the Xcode data model designer just like you do with Core Data. It comes with custom Mogenerator templates, and instructions on how to use them. Writing model code that reads and writes models to JSON or Plists, is a tedious unnecessary task. Being able to make changes quickly to your model layer and have your models generated automatically, with consistent clean code, when you build your project is a powerful way to save you hours of writing tedious code. This is especially useful now, because as the Swift language changes, you can easily update all of your model code by just updating to the latest version of STState.
 
 **Q.** If I use code generation, can I still add code manually to my models?
 
@@ -138,5 +138,5 @@ State also comes with full support to design models in the Xcode data model desi
 
 ## License
 
-State is released under the MIT license. See
-[LICENSE.md](https://github.com/STLabs/State/blob/master/LICENSE).
+STState is released under the MIT license. See
+[LICENSE.md](https://github.com/STLabs/STState/blob/master/LICENSE).

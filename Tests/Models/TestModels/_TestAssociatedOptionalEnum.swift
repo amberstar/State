@@ -4,7 +4,7 @@
 
  ************************************************/
 import Foundation
-import State
+import STState
 import UIKit
 
 public enum TestAssociatedOptionalEnum  : Model {

@@ -1,5 +1,5 @@
 import XCTest
-import State
+import STState
 import Foundation
 
 class ConverterTests: Test {

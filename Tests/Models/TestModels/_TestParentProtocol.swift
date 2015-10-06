@@ -4,9 +4,9 @@
 
  ************************************************/
 import Foundation
-import State
+import STState
 
-public protocol TestParentProtocol : Model {
+public protocol TestParentProtocol : Model  {
 
    var ss_number : String { get set }
 

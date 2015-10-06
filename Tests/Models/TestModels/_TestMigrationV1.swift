@@ -4,7 +4,7 @@
 
  ************************************************/
 import Foundation
-import State
+import STState
 
 public struct TestMigrationV1: Model, Migratable {
     public var name: String

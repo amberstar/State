@@ -1,5 +1,5 @@
 import XCTest
-import State
+import STState
 #if os(iOS)
 import UIKit
 #endif

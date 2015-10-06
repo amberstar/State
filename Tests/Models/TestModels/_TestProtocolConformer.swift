@@ -4,7 +4,7 @@
 
  ************************************************/
 import Foundation
-import State
+import STState
 
 public struct TestProtocolConformer : TestProtocol {
     public var age: Int?

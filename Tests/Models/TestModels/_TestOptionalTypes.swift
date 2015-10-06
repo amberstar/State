@@ -4,7 +4,7 @@
 
  ************************************************/
 import Foundation
-import State
+import STState
 
 public struct TestOptionalTypes : Model {
     public var myDate: NSDate?

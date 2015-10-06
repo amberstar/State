@@ -4,7 +4,7 @@ If you want to take advantage of automatic code generation, the process of creat
 
 1.  Design the models in Xcode's data model tool
 2.  Run the model design file through mogenerator using the state templates
-3.  Add the State framework and the model files to the project
+3.  Add the STState framework and the model files to the project
 
 ![diagram1](https://cloud.githubusercontent.com/assets/84623/7788560/f75d1d42-020d-11e5-9243-1be48e959cee.png)
   
@@ -32,10 +32,10 @@ See the [Data Model Design Reference](Reference.md) for more information.
 
 ####Install Mogenerator
 
-Mogenerator is used to generate the model code with the State templates. You can download Mogenerator [here](http://rentzsch.github.io/mogenerator/), or to install using [homebrew](http://mxcl.github.com/homebrew)  type `$ brew install mogenerator ` into the terminal.
+Mogenerator is used to generate the model code with the STState templates. You can download Mogenerator [here](http://rentzsch.github.io/mogenerator/), or to install using [homebrew](http://mxcl.github.com/homebrew)  type `$ brew install mogenerator ` into the terminal.
 
-####Get the State template files
-If you downloaded the State project the templates are located in the [Templates](https://github.com/STLabs/State/tree/master/Templates) directory.
+####Get the STState template files
+If you downloaded the STState project the templates are located in the [Templates](https://github.com/STLabs/STState/tree/master/Templates) directory.
 
 ####Run Mogenerator on the model design using the templates
 Type the following in to terminal to generate the model code files.
@@ -58,9 +58,9 @@ The manual file serves the following purposes:
 - hook in to the encoding and decoding process, so you can read and write additional data during decoding and encoding if needed.
 - manage the versioning and migration of the models if and when needed.
 
-##Adding the code files and State framework to your project.
+##Adding the code files and STState framework to your project.
 
-####Adding the State  framework to your project
+####Adding the STState  framework to your project
 
 ####Using Carthage
 
@@ -69,7 +69,7 @@ The manual file serves the following purposes:
 Add the following to your project's Cartfile:
 
 ```
-github "STLabs/State" ~> 0.1
+github "STLabs/STState" ~> 0.1
 ```
 
 Then run `carthage update`.
@@ -78,17 +78,17 @@ Follow the current instructions in [Carthage's README][carthage-installation]
 for up to date installation instructions.
 
 ####As a Submodule
-1. Add State as a submodule by going to your project directory and enter the following:
-	`git submodule add https://github.com/STLabs/State.git`
-2. Open the State folder and drag and drop the State.xcodeproj into the file navigator of your workspace.
+1. Add STState as a submodule by going to your project directory and enter the following:
+	`git submodule add https://github.com/STLabs/STState.git`
+2. Open the STState folder and drag and drop the STState.xcodeproj into the file navigator of your workspace.
 
-3. In Xcode, select the project icon to open the target window and select your host target that will use State.
+3. In Xcode, select the project icon to open the target window and select your host target that will use STState.
 
 4. Select the "Build Phases" tab in the target configuration window.
 
-5. Add State as a target dependency to the host target
+5. Add STState as a target dependency to the host target
 
-6. Click on the + button at the top left and select "New Copy Files Phase". Rename this new phase to "Copy Frameworks", set the "Destination" to "Frameworks", and add State.framework.
+6. Click on the + button at the top left and select "New Copy Files Phase". Rename this new phase to "Copy Frameworks", set the "Destination" to "Frameworks", and add STState.framework.
 
 [carthage-installation]: https://github.com/Carthage/Carthage#adding-frameworks-to-an-application
 
@@ -103,7 +103,7 @@ see [How to set up a target to automatically generate model code every time you 
 
 ```
 
-Have a question? Please [open an issue](https://github.com/STLabs/State/issues/new)
+Have a question? Please [open an issue](https://github.com/STLabs/STState/issues/new)
 
 
 

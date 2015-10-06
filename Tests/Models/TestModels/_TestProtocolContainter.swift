@@ -4,7 +4,7 @@
 
  ************************************************/
 import Foundation
-import State
+import STState
 
 public struct TestProtocolContainter : Model {
     public var testProtocols: TestProtocol?

@@ -1,5 +1,5 @@
 import XCTest
-import State
+import STState
 
 class RecursiveTests: Test {
     

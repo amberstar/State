@@ -1,7 +1,7 @@
-#State Model Framework Documentation:
+#STState Model Framework Documentation:
 
 ###Topics:
-- [About State] (About.md)
+- [About STState] (About.md)
 - [Getting Started With Xcode data model designer] (GetStarted.md)
 - [Model Design Reference](Reference.md)
 - [Enum Design Guide](Enums.md)
@@ -10,4 +10,4 @@
 - [Version and Migration Management](Versioning.md)
 - [Transforms](Transformables.md)
 
-Have a question? Please [open an issue](https://github.com/STLabs/State/issues/new)
+Have a question? Please [open an issue](https://github.com/STLabs/STState/issues/new)

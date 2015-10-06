@@ -4,7 +4,7 @@
 
  ************************************************/
 import Foundation
-import State
+import STState
 
 public struct TestImmutableTypes : Model {
     public let myDate: NSDate
