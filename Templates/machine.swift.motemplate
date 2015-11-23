@@ -263,7 +263,7 @@ public extension Decoder {
     }
 
     private func _decode<$typeName$>(data: [String : AnyObject]) -> <$typeName$>? {
-        guard let dataTypeKey = data["<$superentity.managedObjectClassName$>"] as? String else { return nil }
+        guard let dataTypeKey = data["<$typeName$>"] as? String else { return nil }
         if let t = <$typeName$>TypeForKey(dataTypeKey) {
             return t.init(decoder: Decoder(data: data))
         }
