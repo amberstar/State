@@ -22,7 +22,3 @@ public extension Model {
         print(JSON.inspect(self.encode()))
     }
 }
-
-
-/// Key used to code protocol type
-public let model_type_key = "model_type"

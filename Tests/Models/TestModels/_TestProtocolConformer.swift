@@ -49,7 +49,7 @@ extension TestProtocolConformer : Encodable {
         encoder.encode(employee, "employee")
         encoder.encode(children, "children")
 
-        encoder.encode("TestProtocolConformer", model_type_key)
+        encoder.encode("TestProtocolConformer", "TestProtocol")
 
         TestProtocolConformer.encodeVersionIfNeeded(encoder)
 

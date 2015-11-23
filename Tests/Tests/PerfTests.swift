@@ -62,21 +62,21 @@ class PerfTests: Test {
     func testTimeWritingJSON() {
         let data = JSON.read(self.bundlePathFor("Big_data", ofType: "json")!)
         measureBlock {
-            JSON.write(data, path: tempPathFor("Big_data.json"))
+            JSON.write(data, path: self.tempPathFor("Big_data.json"))
         }
     }
     
     func testTimeWritingPlist() {
          let data = Plist.read(self.bundlePathFor("Big_data", ofType: "plist")!)
         measureBlock {
-            Plist.write(data, path: tempPathFor("Big_data.plist"))
+            Plist.write(data, path: self.tempPathFor("Big_data.plist"))
         }
     }
     
     func testTimeWritingBinaryPlist() {
         let data = Binary.read(self.bundlePathFor("Big_data-bin", ofType: "plist")!)
         measureBlock {
-            Binary.write(data, path: tempPathFor("Big_data-bin.plist"))
+            Binary.write(data, path: self.tempPathFor("Big_data-bin.plist"))
         }
     }
 }
