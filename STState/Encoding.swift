@@ -1,5 +1,6 @@
 public protocol Encodable {
     func encode(encoder: Encoder)
+    func willFinishEncodingWithEncoder(encoder: Encoder)
 }
 
 public extension Encodable {
@@ -13,6 +14,18 @@ public extension Encodable {
     func encodeToFile(converter: KeyedConverter.Type, path: String) {
         converter.write(self.encode(), path: path)
     }
+    
+    /**
+     encoding will finish on the receiver
+     - parameter encoder: the encoder used for encoding
+     
+     :Discussion: This method is called right before encoding finishes.
+     It provides a chance to encode any further data with the encoder.
+     */
+    func willFinishEncodingWithEncoder(encoder: Encoder) {
+        
+    }
+
 }
 
 public final class Encoder {

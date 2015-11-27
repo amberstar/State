@@ -1,6 +1,7 @@
 
 public protocol Decodable {
     init?(decoder: Decoder)
+    func didFinishDecodingWithDecoder(decoder: Decoder)
 }
 
 public extension Decodable {
@@ -18,6 +19,18 @@ public extension Decodable {
     
     public static func decodeFromFile(converter: KeyedConverter.Type, path: String) -> Self? {
         return decode(converter.read(path))
+    }
+    
+    /**
+     decoding is finished on the receiver
+     - parameter decoder: the decoder used for decoding
+     
+     :Discussion: This method is called after decoding takes place.
+     It provides a way to decode any further data with the decoder
+     or to do any initialization needed after decoding.
+     */
+    func didFinishDecodingWithDecoder(decoder: Decoder) {
+        
     }
 }
 
@@ -55,6 +68,7 @@ public final class Decoder {
         return d.flatMap { sequence($0.map(_decodeDecodable)) }
     }
     
+    
     /// decode a value element V
     /// - parameter key: a dictionary to use for decoding
     /// - returns: return an element V or nil if decoding failed
@@ -69,4 +83,5 @@ public final class Decoder {
     private func _decodeDecodable<T: Decodable>(data: [String : AnyObject]) -> T? {
         return T(decoder: Decoder(data: data))
     }
+    
 }

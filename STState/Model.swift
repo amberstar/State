@@ -21,4 +21,8 @@ public extension Model {
     func printJSON() {
         print(JSON.inspect(self.encode()))
     }
+    
+    var JSONDescription : String? {
+        return JSON.write(self.encode())
+    }
 }
