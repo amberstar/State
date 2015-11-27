@@ -1,8 +1,3 @@
-/************************************************
-
-        WARNING: HUMAN GENERATED FILE
-
-************************************************/
 import STState
 <$setmerge typeName = <$managedObjectClassName$>$>
 
