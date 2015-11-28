@@ -53,3 +53,4 @@ public final class UIColorTransform: ValueTransform {
 * UIColorTransform
 * UInt64Transform
 * URLTransform
+* DessolverTransform

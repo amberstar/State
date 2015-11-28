@@ -23,6 +23,7 @@
 | `STState.Value`	| Specify a default value for a property. (only supported for non-optional properties) **-or-** The raw value of an enum case. | The exact value
 | `STState.Import`	| Useful when you need to import a module in the generated source for the particular attribute type  | The exact module name 
 | `STState.CompositionType`       | Used with one-to-many relationships. Type of collection to use for a one to many compositions.|Dictionary, Array  |
+| `STState.Transformable`       | Used on relationships, Specify a relationship to a model item uses a transform  |The exact name of the transform type to use. |
 
 
 ## Compose models with relationships between model items
@@ -38,7 +39,14 @@ See the [Enum Design Guide](Enums.md)
 There is preliminary support for transient properties. Mark the attribute as transient in the inspector. Transients MUST be optional OR have a default value.
 
 ## Transforms:
+
+### For attributes: 
 Set the attribute type as transformable in the data modeler attribute type selector in the inspector window and enter a value transformer name in the name field. The value transformer name entered must be of a type that implements the [ValueTransform] (https://github.com/amberstar/STState/blob/master/STState/Transforms/ValueTransform.swift) protocol. Your model will automatically use the transform type to transform the attribute when encoding and decoding the element. Add a STState.Type to indicate the non-transformed type. For example: for an URLTransform, enter STState.Type and NSURL to indicate the type.
+
+### For relashionships to other model items:
+Mostly useful for using transforms that modify model items during encoding. To specify a model item relationship as Transformable use the STState.Transformable key 
+in the user info section on the relationship. 
+
 
 To learn more about Transforms see [Transforms](Transformables.md)
 
