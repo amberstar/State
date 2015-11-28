@@ -28,7 +28,7 @@ extension TestAssociatedEnum: Decodable {
     public init?(var decoder: Decoder) {
         decoder = TestAssociatedEnum.performMigrationIfNeeded(decoder)
 
-        guard let type: String = decoder.decode("type") else { return nil }
+        guard let type: String = decoder.decode("TestAssociatedEnum") else { return nil }
         switch type {
                 case "BinaryType":
                    if let value: NSData = decoder.decode("value") {
@@ -88,37 +88,37 @@ extension TestAssociatedEnum: Encodable {
 
         switch self {
             case let .BinaryType(value):
-                encoder.encode("BinaryType", "type")
+                encoder.encode("BinaryType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
             case let .BooleanType(value):
-                encoder.encode("BooleanType", "type")
+                encoder.encode("BooleanType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
             case let .DateType(value):
-                encoder.encode("DateType", "type")
+                encoder.encode("DateType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
             case let .DecimalType(value):
-                encoder.encode("DecimalType", "type")
+                encoder.encode("DecimalType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
             case let .DoubleType(value):
-                encoder.encode("DoubleType", "type")
+                encoder.encode("DoubleType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
             case let .FloatType(value):
-                encoder.encode("FloatType", "type")
+                encoder.encode("FloatType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
             case let .IntType(value):
-                encoder.encode("IntType", "type")
+                encoder.encode("IntType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
             case let .StringType(value):
-                encoder.encode("StringType", "type")
+                encoder.encode("StringType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
             case let .TransformableColorType(value):
-                encoder.encode("TransformableColorType", "type")
+                encoder.encode("TransformableColorType", "TestAssociatedEnum")
                 encoder.encode(value >>> UIColorTransform.transform, "value")
             case let .DecodableToManyType(value):
-                encoder.encode("DecodableToManyType", "type")
+                encoder.encode("DecodableToManyType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
             case let .DecodableToOneType(value):
-                encoder.encode("DecodableToOneType", "type")
+                encoder.encode("DecodableToOneType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
 
         }

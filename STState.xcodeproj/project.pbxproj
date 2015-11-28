@@ -167,6 +167,7 @@
 		960072E91BA859C700AFD3C5 /* TestProtocolContainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8602F1B4B304A006A5ABE /* TestProtocolContainter.swift */; };
 		960072EA1BA859C700AFD3C5 /* _TestProtocolContainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8602C1B4B3040006A5ABE /* _TestProtocolContainter.swift */; };
 		960072EB1BA859C700AFD3C5 /* TestProtocolContainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8602F1B4B304A006A5ABE /* TestProtocolContainter.swift */; };
+		9626494C1C09E20C005C5627 /* DissolverTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9626494B1C09E20C005C5627 /* DissolverTransform.swift */; };
 		9676A5D71BAD96E0005B0C3D /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C5C3781B3C293F009121A1 /* Array.swift */; };
 		9676A5D81BAD96E0005B0C3D /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C5C37A1B3C293F009121A1 /* Optional.swift */; };
 		9676A5D91BAD96E0005B0C3D /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C5C3791B3C293F009121A1 /* Operators.swift */; };
@@ -330,6 +331,7 @@
 		04C3C6DE1AFA77E300C95039 /* TestTransient2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestTransient2.swift; path = Tests/Models/TestModels/TestTransient2.swift; sourceTree = "<group>"; };
 		04C3C6E31AFA7E2400C95039 /* _TestTransient3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestTransient3.swift; path = Tests/Models/TestModels/_TestTransient3.swift; sourceTree = "<group>"; };
 		04C3C6E41AFA7E2400C95039 /* TestTransient3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestTransient3.swift; path = Tests/Models/TestModels/TestTransient3.swift; sourceTree = "<group>"; };
+		9626494B1C09E20C005C5627 /* DissolverTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DissolverTransform.swift; path = STState/Transforms/DissolverTransform.swift; sourceTree = SOURCE_ROOT; };
 		96A5435D1B63C6C8009A2B2D /* _TestDictionaryComposition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestDictionaryComposition.swift; path = Tests/Models/TestModels/_TestDictionaryComposition.swift; sourceTree = "<group>"; };
 		96A5435E1B63C6C8009A2B2D /* TestDictionaryComposition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDictionaryComposition.swift; path = Tests/Models/TestModels/TestDictionaryComposition.swift; sourceTree = "<group>"; };
 		96A85FD41B4AD38E006A5ABE /* _TestParentProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestParentProtocol.swift; path = Tests/Models/TestModels/_TestParentProtocol.swift; sourceTree = "<group>"; };
@@ -478,6 +480,7 @@
 		04012AB41AE130C2006DAC19 /* Transforms */ = {
 			isa = PBXGroup;
 			children = (
+				9626494B1C09E20C005C5627 /* DissolverTransform.swift */,
 				0493E7531B12430C00CD93E2 /* UIColorTransform.swift */,
 				0493E7541B12430C00CD93E2 /* UInt64Transform.swift */,
 				0493E7551B12430C00CD93E2 /* URLTransform.swift */,
@@ -818,6 +821,7 @@
 				0493E75B1B12430C00CD93E2 /* URLTransform.swift in Sources */,
 				96CE6B7D1B3C232300D632BF /* Migration.swift in Sources */,
 				9676A5D91BAD96E0005B0C3D /* Operators.swift in Sources */,
+				9626494C1C09E20C005C5627 /* DissolverTransform.swift in Sources */,
 				9676A5D71BAD96E0005B0C3D /* Array.swift in Sources */,
 				96C5C3A41B3D591E009121A1 /* Binary.swift in Sources */,
 				9676A5D81BAD96E0005B0C3D /* Optional.swift in Sources */,

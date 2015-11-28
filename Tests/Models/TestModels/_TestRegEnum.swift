@@ -18,7 +18,7 @@ extension TestRegEnum: Decodable {
     public init?(var decoder: Decoder) {
         decoder = TestRegEnum.performMigrationIfNeeded(decoder)
 
-        guard let type: String = decoder.decode("type") else { return nil }
+        guard let type: String = decoder.decode("TestRegEnum") else { return nil }
         switch type {
                 case "Cold":
                    self = TestRegEnum.Cold
@@ -38,9 +38,9 @@ extension TestRegEnum: Encodable {
 
         switch self {
             case .Cold:
-                encoder.encode("Cold", "type")
+                encoder.encode("Cold", "TestRegEnum")
             case .Hot:
-                encoder.encode("Hot", "type")
+                encoder.encode("Hot", "TestRegEnum")
 
         }
 

@@ -40,3 +40,39 @@ public func >>><T,U>(a: T, f: T -> U? ) -> U? {
 public func curry<A, B, C>(f: (A, B) -> C) -> A -> B -> C {
     return { a in { b in f(a, b) }}
 }
+
+
+public protocol Semigroup {
+    /// An associative binary operator.
+    func op(other : Self) -> Self
+}
+
+extension Array : Semigroup {
+    public func op(other : [Element]) -> [Element] {
+        return self + other
+    }
+}
+
+extension Dictionary : Semigroup {
+    public func op(other: [Key : Value]) -> [Key : Value] {
+        var source = self
+        for (k, v) in other {
+            source.updateValue(v, forKey: k)
+        }
+        return source
+    }
+}
+
+public protocol Monoid : Semigroup {
+    static var mempty : Self { get }
+}
+
+extension Array : Monoid {
+    public static var mempty : [Element] { return [] }
+}
+
+extension Dictionary : Monoid {
+    
+    public static var mempty : [Key : Value] { return [:]
+    }
+}
