@@ -6,11 +6,3 @@ The dissolver will convert any empty collection to nil when encoding so that it 
 You use the `DissolverTransform` just like any other transform, but in particular, if you are using it with a model type relationship, you must use the STState.Transformable key on the relationship. ( this is because there is no transformable option in the inspector window as there is with Attributes.)
 
 - Add the key STState.Transformable to the relationship, and specify `DissolverTransform` as the value.
-
-
-
-### The following ValueTransforms are included with STState
-* UIColorTransform
-* UInt64Transform
-* URLTransform
-* DessolverTransform

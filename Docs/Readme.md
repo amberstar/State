@@ -9,5 +9,6 @@
 - [How to Setup a target in your project to automatically generate your models](Setup.md)
 - [Version and Migration Management](Versioning.md)
 - [Transforms](Transformables.md)
+- [DissolverTransform](DissolverTransform.md)
 
 Have a question? Please [open an issue](https://github.com/STLabs/STState/issues/new)
