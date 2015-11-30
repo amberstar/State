@@ -17,6 +17,8 @@ A Swift model framework for using `structs`, `enums` and `protocols` as models. 
 
 [Using Protocols With STState Model Framework](http://www.amberstar.org/state-model-framework-protocols/)
 
+[Using a Dissolver with STState Model Framework](http://www.amberstar.org/using-dissolvers-with-ststate-model-framework/)
+
 #### Example:
 It is easy to define models with STState. This example shows you can have constants, optionals, and composition of other models.
 

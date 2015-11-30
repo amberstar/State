@@ -9,6 +9,10 @@ You can specify function requirements on protocols using the `STState.ProtocolRe
 **Note:** an empty implementation is added to the **manual** file only the first time it is generated. If you already generated code before adding this requirement
 you may have to manually add it to the manual file.
 
+On the protocol requiment attribute:
+- Set STState.ProtocolRequirementType to Func
+- Set STState.Func to the exact function signature of the requirement
+
 ### Get only variable requirements
 You can specify a variable requirement as get only using the `STState.ProtocolRequirementType` with a value of `get` on protocol attributes and relationships.
 **Note:** an empty implementation is added to the **manual** file only the first time it is generated. If you already generated code before adding this requirement

@@ -63,7 +63,7 @@ extension TestAssociatedEnum: Decodable {
                         self = TestAssociatedEnum.StringType(value)
                     } else { return nil }
                 case "TransformableColorType":
-                   if let value: UIColor = decoder.decode("value") >>> UIColorTransform.reverseTransform {
+                   if let value: UIColor = decoder.decode("value") >>> UIColorTransform.reverse {
                         self = TestAssociatedEnum.TransformableColorType(value)
                     } else { return nil }
                 case "DecodableToManyType":
@@ -113,7 +113,7 @@ extension TestAssociatedEnum: Encodable {
                 encoder.encode(value, "value")
             case let .TransformableColorType(value):
                 encoder.encode("TransformableColorType", "TestAssociatedEnum")
-                encoder.encode(value >>> UIColorTransform.transform, "value")
+                encoder.encode(value >>> UIColorTransform.apply, "value")
             case let .DecodableToManyType(value):
                 encoder.encode("DecodableToManyType", "TestAssociatedEnum")
                 encoder.encode(value, "value")

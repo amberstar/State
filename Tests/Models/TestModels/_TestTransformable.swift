@@ -20,12 +20,12 @@ extension TestTransformable : Decodable {
         decoder = TestTransformable.performMigrationIfNeeded(decoder)
 
         guard
-            let myTransformable: NSURL = URLTransform.reverseTransform(decoder.decode("myTransformable")),
-            let myTransformableImmutable: NSURL = URLTransform.reverseTransform(decoder.decode("myTransformableImmutable"))
+            let myTransformable: NSURL = URLTransform.reverse(decoder.decode("myTransformable")),
+            let myTransformableImmutable: NSURL = URLTransform.reverse(decoder.decode("myTransformableImmutable"))
         else { return  nil }
 
-        let myTransformableImmutableOptional: NSURL? = URLTransform.reverseTransform(decoder.decode("myTransformableImmutableOptional"))
-        let myTransformableOptional: NSURL? = URLTransform.reverseTransform(decoder.decode("myTransformableOptional"))
+        let myTransformableImmutableOptional: NSURL? = URLTransform.reverse(decoder.decode("myTransformableImmutableOptional"))
+        let myTransformableOptional: NSURL? = URLTransform.reverse(decoder.decode("myTransformableOptional"))
 
         self.myTransformable = myTransformable
         self.myTransformableImmutable = myTransformableImmutable
@@ -38,10 +38,10 @@ extension TestTransformable : Decodable {
 extension TestTransformable : Encodable {
 
     public func encode(encoder: Encoder) {
-        encoder.encode(myTransformable >>> URLTransform.transform, "myTransformable")
-        encoder.encode(myTransformableImmutable >>> URLTransform.transform, "myTransformableImmutable")
-        encoder.encode(myTransformableImmutableOptional >>> URLTransform.transform, "myTransformableImmutableOptional")
-        encoder.encode(myTransformableOptional >>> URLTransform.transform, "myTransformableOptional")
+        encoder.encode(myTransformable >>> URLTransform.apply, "myTransformable")
+        encoder.encode(myTransformableImmutable >>> URLTransform.apply, "myTransformableImmutable")
+        encoder.encode(myTransformableImmutableOptional >>> URLTransform.apply, "myTransformableImmutableOptional")
+        encoder.encode(myTransformableOptional >>> URLTransform.apply, "myTransformableOptional")
 
         TestTransformable.encodeVersionIfNeeded(encoder)
 

@@ -3,6 +3,6 @@ public protocol ValueTransform {
     typealias TransformedType
     typealias DecodedType
     
-    static  func transform(value: ValueType?) -> TransformedType?
-    static  func reverseTransform(value: DecodedType?) -> ValueType?
+    static  func apply(value: ValueType?) -> TransformedType?
+    static  func reverse(value: DecodedType?) -> ValueType?
 }

@@ -4,7 +4,7 @@ public final class UIColorTransform: ValueTransform {
     public typealias ValueType = UIColor
     public typealias TransformedType = [String : CGFloat]
     
-    public static func  transform(value: ValueType?) -> TransformedType? {
+    public static func  apply(value: ValueType?) -> TransformedType? {
         if let color = value {
             var colorValues = [String : CGFloat]()
             var red, green, blue, alpha  : CGFloat
@@ -19,7 +19,7 @@ public final class UIColorTransform: ValueTransform {
         return nil
     }
     
-    public static func reverseTransform(value: AnyObject?) -> ValueType? {
+    public static func reverse(value: AnyObject?) -> ValueType? {
         if let colorValues = value as? [String : CGFloat],
         red = colorValues["red"], green = colorValues["green"], blue = colorValues["blue"], alpha = colorValues["alpha"]{
             return UIColor(red: red, green: green, blue: blue, alpha: alpha)
