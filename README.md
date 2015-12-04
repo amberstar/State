@@ -2,15 +2,12 @@
 
 A Swift model framework. Encoding / Decoding to JSON, plists, binary, or any custom format.
                                                                                                                                                                                                                                                    
-####Features: 
-
 - struct, enum, and protocol model types
 - immutable, optional, non-optional, and transient properties
 - JSON, Plists, and Binary serialization
 - versioning/migration 
 - Use Xcode model designer and code generator (optional)
 
-#### Articles:
 
 - [Creating Enum Models With STState Model Framework](http://www.amberstar.org/creating-enum-models-with-state-model-framework/)
 - [Using Protocols With STState Model Framework](http://www.amberstar.org/state-model-framework-protocols/)
@@ -30,7 +27,7 @@ let model = ModelType(.Plist, path: "model.plist")
 
 
 
-#### Sample Model (Code generated automaticly):
+#### Sample Model (this code was generated automatically):
 This example shows you can have constants, optionals, and composition of other models.
 
 ```swift
@@ -73,7 +70,7 @@ extension MyModel : Encodable {
 
 ```
 
-## General Design  
+## Design  
 
 STState has a protocol oriented design
 
