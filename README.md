@@ -1,26 +1,23 @@
 #STState
 
-A Swift model framework for using `structs`, `enums` and `protocols` as models. Model code can written manually or be generated automatically using [Mogenerator](https://github.com/rentzsch/mogenerator). The framework provides API for serialization to and from Plists, JSON, or Binary.
+A Swift model framework. Encoding / Decoding to JSON, plists, binary, or any custom format.
                                                                                                                                                                                                                                                    
 ####Features: 
 
-- struct, enum (including associated and raw values), and protocol model types
+- struct, enum, and protocol model types
 - immutable, optional, non-optional, and transient properties
-- JSON, Plists, and Binary formats
-- versioning and migration (optional)
-- design models in the Xcode model designer and code is generated automatically (optional)
-
+- JSON, Plists, and Binary serialization
+- versioning/migration 
+- Use Xcode model designer and code generator (optional)
 
 #### Articles:
 
-[Creating Enum Models With STState Model Framework](http://www.amberstar.org/creating-enum-models-with-state-model-framework/)
-
-[Using Protocols With STState Model Framework](http://www.amberstar.org/state-model-framework-protocols/)
-
-[Using a Dissolver with STState Model Framework](http://www.amberstar.org/using-dissolvers-with-ststate-model-framework/)
+- [Creating Enum Models With STState Model Framework](http://www.amberstar.org/creating-enum-models-with-state-model-framework/)
+- [Using Protocols With STState Model Framework](http://www.amberstar.org/state-model-framework-protocols/)
+- [Using a Dissolver with STState Model Framework](http://www.amberstar.org/using-dissolvers-with-ststate-model-framework/)
 
 #### Example:
-It is easy to define models with STState. This example shows you can have constants, optionals, and composition of other models.
+This example shows you can have constants, optionals, and composition of other models.
 
 ```swift
 public struct MyModel : Model {
@@ -61,7 +58,6 @@ extension MyModel : Encodable {
 }
 
 ```
-
 #### Basic API
 
 ```swift
@@ -80,12 +76,9 @@ func save(format: Format, path: String) -> Bool
 ```
 
 ## Protocol Oriented
-STState has a protocol oriented design with extension points to extend all of your models.
-Model items can compose with protocol types with full serialization support.
+STState has a protocol oriented design
 
 ![<Protocol Oriented>](Docs/Resources/diag2.png)
-
-Not only can you extend each individual model type with an extension, you can also add API to all of your model elements by extending the Model protocol with your own protocol extension. In-fact, this is exactly how STState provides a save function to every model.
 
 
 ## Serialization
@@ -104,25 +97,19 @@ let model = ModelType(.Plist, path: "model.plist")
 ```
 
 ## General Design Philosophy 
-STState is designed to be simple, lightweight, and fast. It's for the application that has only one, or a hundred model items where you want to use lightweight plist, or JSON formats to store models, and you want to take advantage of Swift's structs, enums, and protocols.
+STState is designed for the application that has only one, or a hundred model items where you want to use lightweight plist, or JSON formats to store models, and you want to take advantage of Swift's structs, enums, and protocols.
 
-A key design point of STState is that the encoding and decoding of models are not coupled to the models themselves, instead it is provided through a protocol similar to NSCoding.
-
-Other design points:
-
-* extremely light weight code base
+* coding is provided through a protocol similar to NSCoding.
+* light weight code base
 * low dependency surface area
-* zero magic with custom operators
 
-
-The encoding and decoding process is also decoupled from the data conversion format. All models are encoded and decoded to an intermediate Key-Value dictionary. From there the Key-Value data is then either decoded into a model, or converted to a target format (bin, plist, json).
-![<Protocol Oriented>](Docs/Resources/diag1.png)
+The coding process is decoupled from the data conversion format. All models are encoded and decoded to an intermediate Key-Value dictionary. From there the Key-Value data is then either decoded into a model, or converted to a target format (bin, plist, json).
 
 ![<Protocol Oriented>](Docs/Resources/diag4.png)
 
 
 ## Using Xcode Data Model Designer, and Automatic Code Generation (optional)
-STState also comes with full support to design models in the Xcode data model designer just like you do with Core Data. It comes with custom Mogenerator templates, and instructions on how to use them. Writing model code that reads and writes models to JSON or Plists, is a tedious unnecessary task. Being able to make changes quickly to your model layer and have your models generated automatically, with consistent clean code, when you build your project is a powerful way to save you hours of writing tedious code. This is especially useful now, because as the Swift language changes, you can easily update all of your model code by just updating to the latest version of STState.
+STState  comes with mogenerator templates so you can design models in the Xcode data model designer.  Writing model code that reads and writes models to JSON or Plists, is a tedious unnecessary task. Being able to make changes quickly to your model layer and have your models generated automatically, with consistent clean code, when you build your project is a powerful way to save you hours of writing tedious code. This is especially useful now, because as the Swift language changes, you can easily update all of your model code by just updating to the latest version of STState.
 
 **Q.** If I use code generation, can I still add code manually to my models?
 
