@@ -2,8 +2,6 @@
 
 STState uses a Key-Value coding process. This means all types must be codeable to key-value dictionaries. A transformable is a type that can be transformed to and from a codeable type before and after decoding using a `ValueTransform`. By implementing a `ValueTransform` for a type it allows non-model complex types to participate in serialization. 
 
-
-
 ```swift
 public protocol ValueTransform {
     typealias ValueType
@@ -14,7 +12,6 @@ public protocol ValueTransform {
 }
 
 ```
-
 ###Example
 For example, how would a UIColor be represented as Key-Value data? Here we have ValueTransform for UIColor that converts it to a dictionary of String : CGFloat Key-Value data, so that it can be serialized. 
 
