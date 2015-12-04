@@ -1,6 +1,6 @@
 #STState
 
-A Swift model framework. Encoding / Decoding to JSON, plists, binary, or any custom format.
+A Swift model framework.
 
 STState is designed for the application that has one or many model items where you want to use lightweight plist, or JSON formats to store models, and you want to take advantage of Swift's structs, enums, and protocols.
       
@@ -19,12 +19,6 @@ STState is built on three protocols, `Encodeable`, `Decodable` and `Migratable`.
  The coding process is decoupled from the data conversion format. All models are encoded and decoded to intermediate key-value data. The KV data is then converted to a target format (bin, plist, json).
 
 ![<Protocol Oriented>](Docs/Resources/diag4.png)
-
-
-
-
-
-
 
 #### Creating a model
 
@@ -69,7 +63,7 @@ let person = Person(.JSON, path: "person.json")
 
 ```
 
-## Xcode Data Model Designer, and Automatic Code Generation
+#### Xcode Data Model Designer, and Automatic Code Generation
 STState comes with mogenerator templates so you can design models in the Xcode data model designer.  Writing model code that reads and writes models to JSON or Plists, is a tedious unnecessary task. Being able to make changes quickly to your model layer and have your models generated automatically, with consistent clean code, when you build your project is a powerful way to save you hours of writing tedious code. This is especially useful now, because as the Swift language changes, you can easily update all of your model code by just updating to the latest version of STState.
 
 **Q.** If I use code generation, can I still add code manually to my models?
