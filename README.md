@@ -1,4 +1,4 @@
-#State
+#Component.State
 
 A Swift model framework.
 
