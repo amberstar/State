@@ -4,7 +4,7 @@
 
  ************************************************/
 import Foundation
-import STState
+import State
 
 public struct TestDefaultsChild : Model {
     public var name = "New Child"

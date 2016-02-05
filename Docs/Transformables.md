@@ -1,6 +1,6 @@
 #Transformables
 
-STState uses a Key-Value coding process. This means all types must be codeable to key-value dictionaries. A transformable is a type that can be transformed to and from a codeable type before and after decoding using a `ValueTransform`. By implementing a `ValueTransform` for a type it allows non-model complex types to participate in serialization. 
+State uses a Key-Value coding process. This means all types must be codeable to key-value dictionaries. A transformable is a type that can be transformed to and from a codeable type before and after decoding using a `ValueTransform`. By implementing a `ValueTransform` for a type it allows non-model complex types to participate in serialization. 
 
 ```swift
 public protocol ValueTransform {
@@ -46,7 +46,7 @@ public final class UIColorTransform: ValueTransform {
 
 ```
 
-### The following ValueTransforms are included with STState
+### The following ValueTransforms are included with State
 * UIColorTransform
 * UInt64Transform
 * URLTransform

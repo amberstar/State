@@ -4,7 +4,7 @@
 
  ************************************************/
 import Foundation
-import STState
+import State
 
 public struct TestChild : Model {
     public var age: Int?

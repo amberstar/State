@@ -4,7 +4,7 @@
 
  ************************************************/
 import Foundation
-import STState
+import State
 
 public enum TestRawEnum  : String, Model {
 

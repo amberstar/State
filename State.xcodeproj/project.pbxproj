@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		041817671B124A15002CA532 /* STState.h in Headers */ = {isa = PBXBuildFile; fileRef = 041817661B124A15002CA532 /* STState.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		041817681B124A15002CA532 /* STState.h in Headers */ = {isa = PBXBuildFile; fileRef = 041817661B124A15002CA532 /* STState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		041817671B124A15002CA532 /* State.h in Headers */ = {isa = PBXBuildFile; fileRef = 041817661B124A15002CA532 /* State.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		041817681B124A15002CA532 /* State.h in Headers */ = {isa = PBXBuildFile; fileRef = 041817661B124A15002CA532 /* State.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		041817861B124AB4002CA532 /* BaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817781B124AB4002CA532 /* BaseTest.swift */; };
 		041817871B124AB4002CA532 /* BaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817781B124AB4002CA532 /* BaseTest.swift */; };
 		041817881B124AB4002CA532 /* ConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817791B124AB4002CA532 /* ConverterTests.swift */; };
@@ -28,7 +28,7 @@
 		0418179F1B124AB4002CA532 /* TemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817841B124AB4002CA532 /* TemplateTests.swift */; };
 		041817A01B124AB4002CA532 /* TransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817851B124AB4002CA532 /* TransformTests.swift */; };
 		041817A11B124AB4002CA532 /* TransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817851B124AB4002CA532 /* TransformTests.swift */; };
-		0443C9CF1AE7A8B8008299E5 /* STState.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 04012A751AE12FA6006DAC19 /* STState.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0443C9CF1AE7A8B8008299E5 /* State.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 04012A751AE12FA6006DAC19 /* State.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		044F88121AE5D02900FAB475 /* ObjectModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AC61AE132AE006DAC19 /* ObjectModels.swift */; };
 		044F88131AE5D02900FAB475 /* RecursiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AC71AE132AE006DAC19 /* RecursiveModel.swift */; };
 		044F88961AE69BD900FAB475 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88881AE69BD900FAB475 /* Company.swift */; };
@@ -230,7 +230,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0443C9CF1AE7A8B8008299E5 /* STState.framework in Copy Frameworks */,
+				0443C9CF1AE7A8B8008299E5 /* State.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -238,15 +238,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		04012A751AE12FA6006DAC19 /* STState.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STState.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		04012A801AE12FA6006DAC19 /* STStateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = STStateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		04012A751AE12FA6006DAC19 /* State.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = State.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		04012A801AE12FA6006DAC19 /* StateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04012A861AE12FA6006DAC19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = Tests/Info.plist; sourceTree = "<group>"; };
 		04012AC51AE132AE006DAC19 /* BasicModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicModels.swift; path = Tests/Models/BasicModels.swift; sourceTree = "<group>"; };
 		04012AC61AE132AE006DAC19 /* ObjectModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ObjectModels.swift; path = Tests/Models/ObjectModels.swift; sourceTree = "<group>"; };
 		04012AC71AE132AE006DAC19 /* RecursiveModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecursiveModel.swift; path = Tests/Models/RecursiveModel.swift; sourceTree = "<group>"; };
 		041817621B1239C4002CA532 /* TestModels.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestModels.xcdatamodel; sourceTree = "<group>"; };
-		041817641B12415D002CA532 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = STState/Info.plist; sourceTree = SOURCE_ROOT; };
-		041817661B124A15002CA532 /* STState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STState.h; path = STState/STState.h; sourceTree = SOURCE_ROOT; };
+		041817641B12415D002CA532 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = State/Info.plist; sourceTree = SOURCE_ROOT; };
+		041817661B124A15002CA532 /* State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = State.h; path = State/State.h; sourceTree = SOURCE_ROOT; };
 		041817781B124AB4002CA532 /* BaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseTest.swift; path = Tests/Tests/BaseTest.swift; sourceTree = SOURCE_ROOT; };
 		041817791B124AB4002CA532 /* ConverterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConverterTests.swift; path = Tests/Tests/ConverterTests.swift; sourceTree = SOURCE_ROOT; };
 		0418177A1B124AB4002CA532 /* DecodableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DecodableTests.swift; path = Tests/Tests/DecodableTests.swift; sourceTree = SOURCE_ROOT; };
@@ -276,8 +276,8 @@
 		044F88931AE69BD900FAB475 /* TestRelationships.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestRelationships.swift; path = Tests/Models/TestModels/TestRelationships.swift; sourceTree = "<group>"; };
 		044F88941AE69BD900FAB475 /* TestTransformable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestTransformable.swift; path = Tests/Models/TestModels/TestTransformable.swift; sourceTree = "<group>"; };
 		044F88951AE69BD900FAB475 /* TestTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestTypes.swift; path = Tests/Models/TestModels/TestTypes.swift; sourceTree = "<group>"; };
-		047B22CA1AF3DAAF003B7F39 /* STState.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STState.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		047B22D41AF3DAAF003B7F39 /* STStateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = STStateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		047B22CA1AF3DAAF003B7F39 /* State.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = State.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		047B22D41AF3DAAF003B7F39 /* StateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0485AA171AFE9B83008E89D6 /* _TestMigrationV1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestMigrationV1.swift; path = Tests/Models/TestModels/_TestMigrationV1.swift; sourceTree = "<group>"; };
 		0485AA181AFE9B83008E89D6 /* TestMigrationV1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestMigrationV1.swift; path = Tests/Models/TestModels/TestMigrationV1.swift; sourceTree = "<group>"; };
 		0485AA1E1AFE9BDE008E89D6 /* TestMigrationV2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestMigrationV2.swift; path = Tests/Models/TestModels/TestMigrationV2.swift; sourceTree = "<group>"; };
@@ -285,10 +285,10 @@
 		04925EBF1AE9967500BF1D88 /* TestDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDefaults.swift; path = Tests/Models/TestModels/TestDefaults.swift; sourceTree = "<group>"; };
 		04925EC11AE9967B00BF1D88 /* _TestDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestDefaults.swift; path = Tests/Models/TestModels/_TestDefaults.swift; sourceTree = "<group>"; };
 		0493E73B1B12330B00CD93E2 /* TestModels */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TestModels; path = Tests/Models/TestModels; sourceTree = SOURCE_ROOT; };
-		0493E7531B12430C00CD93E2 /* UIColorTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIColorTransform.swift; path = STState/Transforms/UIColorTransform.swift; sourceTree = SOURCE_ROOT; };
-		0493E7541B12430C00CD93E2 /* UInt64Transform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UInt64Transform.swift; path = STState/Transforms/UInt64Transform.swift; sourceTree = SOURCE_ROOT; };
-		0493E7551B12430C00CD93E2 /* URLTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLTransform.swift; path = STState/Transforms/URLTransform.swift; sourceTree = SOURCE_ROOT; };
-		0493E7561B12430C00CD93E2 /* ValueTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValueTransform.swift; path = STState/Transforms/ValueTransform.swift; sourceTree = SOURCE_ROOT; };
+		0493E7531B12430C00CD93E2 /* UIColorTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIColorTransform.swift; path = State/Transforms/UIColorTransform.swift; sourceTree = SOURCE_ROOT; };
+		0493E7541B12430C00CD93E2 /* UInt64Transform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UInt64Transform.swift; path = State/Transforms/UInt64Transform.swift; sourceTree = SOURCE_ROOT; };
+		0493E7551B12430C00CD93E2 /* URLTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLTransform.swift; path = State/Transforms/URLTransform.swift; sourceTree = SOURCE_ROOT; };
+		0493E7561B12430C00CD93E2 /* ValueTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValueTransform.swift; path = State/Transforms/ValueTransform.swift; sourceTree = SOURCE_ROOT; };
 		04BD1ACD1AE9A6E4008F576C /* _TestDefaultsChild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestDefaultsChild.swift; path = Tests/Models/TestModels/_TestDefaultsChild.swift; sourceTree = "<group>"; };
 		04BD1ACE1AE9A6E4008F576C /* TestDefaultsChild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDefaultsChild.swift; path = Tests/Models/TestModels/TestDefaultsChild.swift; sourceTree = "<group>"; };
 		04BD1AED1AEACF75008F576C /* _TestRegEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestRegEnum.swift; path = Tests/Models/TestModels/_TestRegEnum.swift; sourceTree = "<group>"; };
@@ -320,14 +320,14 @@
 		04C3C6DE1AFA77E300C95039 /* TestTransient2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestTransient2.swift; path = Tests/Models/TestModels/TestTransient2.swift; sourceTree = "<group>"; };
 		04C3C6E31AFA7E2400C95039 /* _TestTransient3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestTransient3.swift; path = Tests/Models/TestModels/_TestTransient3.swift; sourceTree = "<group>"; };
 		04C3C6E41AFA7E2400C95039 /* TestTransient3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestTransient3.swift; path = Tests/Models/TestModels/TestTransient3.swift; sourceTree = "<group>"; };
-		961D13E91C11AE1F00F0EE1F /* Coding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Coding.swift; path = STState/Coding.swift; sourceTree = SOURCE_ROOT; };
+		961D13E91C11AE1F00F0EE1F /* Coding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Coding.swift; path = State/Coding.swift; sourceTree = SOURCE_ROOT; };
 		961D13EB1C11AE5A00F0EE1F /* Big_data-bin.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = "Big_data-bin.plist"; path = "Tests/Inputs/Big_data-bin.plist"; sourceTree = SOURCE_ROOT; };
 		961D13EC1C11AE5A00F0EE1F /* Big_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Big_data.json; path = Tests/Inputs/Big_data.json; sourceTree = SOURCE_ROOT; };
 		961D13ED1C11AE5A00F0EE1F /* Big_data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Big_data.plist; path = Tests/Inputs/Big_data.plist; sourceTree = SOURCE_ROOT; };
 		961D13EE1C11AE5A00F0EE1F /* Data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Data.json; path = Tests/Inputs/Data.json; sourceTree = SOURCE_ROOT; };
 		961D13EF1C11AE5A00F0EE1F /* Data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Data.plist; path = Tests/Inputs/Data.plist; sourceTree = SOURCE_ROOT; };
-		961D13FA1C11AF6C00F0EE1F /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Library.swift; path = STState/Library.swift; sourceTree = SOURCE_ROOT; };
-		9626494B1C09E20C005C5627 /* DissolverTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DissolverTransform.swift; path = STState/Transforms/DissolverTransform.swift; sourceTree = SOURCE_ROOT; };
+		961D13FA1C11AF6C00F0EE1F /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Library.swift; path = State/Library.swift; sourceTree = SOURCE_ROOT; };
+		9626494B1C09E20C005C5627 /* DissolverTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DissolverTransform.swift; path = State/Transforms/DissolverTransform.swift; sourceTree = SOURCE_ROOT; };
 		96A5435D1B63C6C8009A2B2D /* _TestDictionaryComposition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestDictionaryComposition.swift; path = Tests/Models/TestModels/_TestDictionaryComposition.swift; sourceTree = "<group>"; };
 		96A5435E1B63C6C8009A2B2D /* TestDictionaryComposition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDictionaryComposition.swift; path = Tests/Models/TestModels/TestDictionaryComposition.swift; sourceTree = "<group>"; };
 		96A85FD41B4AD38E006A5ABE /* _TestParentProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestParentProtocol.swift; path = Tests/Models/TestModels/_TestParentProtocol.swift; sourceTree = "<group>"; };
@@ -340,14 +340,14 @@
 		96C5C3781B3C293F009121A1 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Array.swift; path = Carthage/Checkouts/Runes/Source/Array.swift; sourceTree = SOURCE_ROOT; };
 		96C5C3791B3C293F009121A1 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Carthage/Checkouts/Runes/Source/Operators.swift; sourceTree = SOURCE_ROOT; };
 		96C5C37A1B3C293F009121A1 /* Optional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Optional.swift; path = Carthage/Checkouts/Runes/Source/Optional.swift; sourceTree = SOURCE_ROOT; };
-		96C5C3861B3C3AE8009121A1 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Model.swift; path = STState/Model.swift; sourceTree = SOURCE_ROOT; };
+		96C5C3861B3C3AE8009121A1 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Model.swift; path = State/Model.swift; sourceTree = SOURCE_ROOT; };
 		96C5C3A01B3D591E009121A1 /* Binary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Binary.swift; sourceTree = "<group>"; };
 		96C5C3A11B3D591E009121A1 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		96C5C3A21B3D591E009121A1 /* KeyedConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyedConverter.swift; sourceTree = "<group>"; };
 		96C5C3A31B3D591E009121A1 /* Plist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plist.swift; sourceTree = "<group>"; };
 		96C86BFB1BC2E7F500D6F0F3 /* TestProtocolConformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocolConformer.swift; path = Tests/Models/TestModels/TestProtocolConformer.swift; sourceTree = "<group>"; };
 		96CE6B7B1B3BFDEC00D632BF /* Docs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Docs; sourceTree = "<group>"; };
-		96CE6B7C1B3C232300D632BF /* Migration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Migration.swift; path = STState/Migration.swift; sourceTree = SOURCE_ROOT; };
+		96CE6B7C1B3C232300D632BF /* Migration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Migration.swift; path = State/Migration.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -388,7 +388,7 @@
 				04C1B93E1AE93DA100A85730 /* LICENSE */,
 				04C1B93D1AE93D9800A85730 /* README.md */,
 				96CE6B7B1B3BFDEC00D632BF /* Docs */,
-				04012A771AE12FA6006DAC19 /* STState */,
+				04012A771AE12FA6006DAC19 /* State */,
 				04012A841AE12FA6006DAC19 /* Tests */,
 				04012A761AE12FA6006DAC19 /* Products */,
 			);
@@ -397,15 +397,15 @@
 		04012A761AE12FA6006DAC19 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				04012A751AE12FA6006DAC19 /* STState.framework */,
-				04012A801AE12FA6006DAC19 /* STStateTests.xctest */,
-				047B22CA1AF3DAAF003B7F39 /* STState.framework */,
-				047B22D41AF3DAAF003B7F39 /* STStateTests.xctest */,
+				04012A751AE12FA6006DAC19 /* State.framework */,
+				04012A801AE12FA6006DAC19 /* StateTests.xctest */,
+				047B22CA1AF3DAAF003B7F39 /* State.framework */,
+				047B22D41AF3DAAF003B7F39 /* StateTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		04012A771AE12FA6006DAC19 /* STState */ = {
+		04012A771AE12FA6006DAC19 /* State */ = {
 			isa = PBXGroup;
 			children = (
 				96C5C3841B3C2C3D009121A1 /* Runes */,
@@ -418,14 +418,14 @@
 				04012AAF1AE130B7006DAC19 /* Templates */,
 				04012A781AE12FA6006DAC19 /* Supporting Files */,
 			);
-			name = STState;
+			name = State;
 			path = Spot;
 			sourceTree = "<group>";
 		};
 		04012A781AE12FA6006DAC19 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				041817661B124A15002CA532 /* STState.h */,
+				041817661B124A15002CA532 /* State.h */,
 				041817641B12415D002CA532 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -575,7 +575,7 @@
 				96C5C3791B3C293F009121A1 /* Operators.swift */,
 			);
 			name = Runes;
-			path = ../STState/Library;
+			path = ../State/Library;
 			sourceTree = "<group>";
 		};
 		96C5C39F1B3D591E009121A1 /* Converters */ = {
@@ -587,7 +587,7 @@
 				96C5C3A31B3D591E009121A1 /* Plist.swift */,
 			);
 			name = Converters;
-			path = STState/Converters;
+			path = State/Converters;
 			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
@@ -597,7 +597,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				041817671B124A15002CA532 /* STState.h in Headers */,
+				041817671B124A15002CA532 /* State.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,7 +605,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				041817681B124A15002CA532 /* STState.h in Headers */,
+				041817681B124A15002CA532 /* State.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,9 +629,9 @@
 /* End PBXLegacyTarget section */
 
 /* Begin PBXNativeTarget section */
-		04012A741AE12FA6006DAC19 /* STState-iOS */ = {
+		04012A741AE12FA6006DAC19 /* State-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 04012A8B1AE12FA6006DAC19 /* Build configuration list for PBXNativeTarget "STState-iOS" */;
+			buildConfigurationList = 04012A8B1AE12FA6006DAC19 /* Build configuration list for PBXNativeTarget "State-iOS" */;
 			buildPhases = (
 				04012A701AE12FA6006DAC19 /* Sources */,
 				04012A711AE12FA6006DAC19 /* Frameworks */,
@@ -642,9 +642,9 @@
 			);
 			dependencies = (
 			);
-			name = "STState-iOS";
+			name = "State-iOS";
 			productName = Spot;
-			productReference = 04012A751AE12FA6006DAC19 /* STState.framework */;
+			productReference = 04012A751AE12FA6006DAC19 /* State.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		04012A7F1AE12FA6006DAC19 /* Tests-iOS */ = {
@@ -664,12 +664,12 @@
 			);
 			name = "Tests-iOS";
 			productName = SpotTests;
-			productReference = 04012A801AE12FA6006DAC19 /* STStateTests.xctest */;
+			productReference = 04012A801AE12FA6006DAC19 /* StateTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		047B22C91AF3DAAF003B7F39 /* STState-OSX */ = {
+		047B22C91AF3DAAF003B7F39 /* State-OSX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 047B22DD1AF3DAB0003B7F39 /* Build configuration list for PBXNativeTarget "STState-OSX" */;
+			buildConfigurationList = 047B22DD1AF3DAB0003B7F39 /* Build configuration list for PBXNativeTarget "State-OSX" */;
 			buildPhases = (
 				047B22C51AF3DAAF003B7F39 /* Sources */,
 				047B22C61AF3DAAF003B7F39 /* Frameworks */,
@@ -680,9 +680,9 @@
 			);
 			dependencies = (
 			);
-			name = "STState-OSX";
+			name = "State-OSX";
 			productName = "Spot-OSX";
-			productReference = 047B22CA1AF3DAAF003B7F39 /* STState.framework */;
+			productReference = 047B22CA1AF3DAAF003B7F39 /* State.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		047B22D31AF3DAAF003B7F39 /* Tests-OSX */ = {
@@ -701,7 +701,7 @@
 			);
 			name = "Tests-OSX";
 			productName = "Spot-OSXTests";
-			productReference = 047B22D41AF3DAAF003B7F39 /* STStateTests.xctest */;
+			productReference = 047B22D41AF3DAAF003B7F39 /* StateTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -731,7 +731,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 04012A6F1AE12FA6006DAC19 /* Build configuration list for PBXProject "STState" */;
+			buildConfigurationList = 04012A6F1AE12FA6006DAC19 /* Build configuration list for PBXProject "State" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -743,8 +743,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				04012A741AE12FA6006DAC19 /* STState-iOS */,
-				047B22C91AF3DAAF003B7F39 /* STState-OSX */,
+				04012A741AE12FA6006DAC19 /* State-iOS */,
+				047B22C91AF3DAAF003B7F39 /* State-OSX */,
 				04012A7F1AE12FA6006DAC19 /* Tests-iOS */,
 				047B22D31AF3DAAF003B7F39 /* Tests-OSX */,
 				04012AE31AE13A90006DAC19 /* TestModels */,
@@ -997,12 +997,12 @@
 /* Begin PBXTargetDependency section */
 		04012A831AE12FA6006DAC19 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 04012A741AE12FA6006DAC19 /* STState-iOS */;
+			target = 04012A741AE12FA6006DAC19 /* State-iOS */;
 			targetProxy = 04012A821AE12FA6006DAC19 /* PBXContainerItemProxy */;
 		};
 		047B22D71AF3DAB0003B7F39 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 047B22C91AF3DAAF003B7F39 /* STState-OSX */;
+			target = 047B22C91AF3DAAF003B7F39 /* State-OSX */;
 			targetProxy = 047B22D61AF3DAB0003B7F39 /* PBXContainerItemProxy */;
 		};
 		047B22F41AF3E5C4003B7F39 /* PBXTargetDependency */ = {
@@ -1115,7 +1115,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = STState/Info.plist;
+				INFOPLIST_FILE = State/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1132,7 +1132,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = STState/Info.plist;
+				INFOPLIST_FILE = State/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1215,7 +1215,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = STState/Info.plist;
+				INFOPLIST_FILE = State/Info.plist;
 				INSTALL_PATH = "@rpath";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1236,7 +1236,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = STState/Info.plist;
+				INFOPLIST_FILE = State/Info.plist;
 				INSTALL_PATH = "@rpath";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1289,7 +1289,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		04012A6F1AE12FA6006DAC19 /* Build configuration list for PBXProject "STState" */ = {
+		04012A6F1AE12FA6006DAC19 /* Build configuration list for PBXProject "State" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				04012A891AE12FA6006DAC19 /* Debug */,
@@ -1298,7 +1298,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		04012A8B1AE12FA6006DAC19 /* Build configuration list for PBXNativeTarget "STState-iOS" */ = {
+		04012A8B1AE12FA6006DAC19 /* Build configuration list for PBXNativeTarget "State-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				04012A8C1AE12FA6006DAC19 /* Debug */,
@@ -1325,7 +1325,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		047B22DD1AF3DAB0003B7F39 /* Build configuration list for PBXNativeTarget "STState-OSX" */ = {
+		047B22DD1AF3DAB0003B7F39 /* Build configuration list for PBXNativeTarget "State-OSX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				047B22DE1AF3DAB0003B7F39 /* Debug */,

@@ -4,7 +4,7 @@
 
  ************************************************/
 import Foundation
-import STState
+import State
 
 public struct TestRelationships : Model {
     public var myChildren: [TestChild]?

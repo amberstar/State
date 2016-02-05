@@ -8,7 +8,7 @@ You can design the following types of enums in the Xcode data modeler:
 ## Enums:
 To create an enum in the modeler:
 
-1. Add the key `STState.Enum` and the value `YES` to an entity in the user info area of the inspector to specify an entity as an enum.
+1. Add the key `State.Enum` and the value `YES` to an entity in the user info area of the inspector to specify an entity as an enum.
  
 2. Add attributes to create cases for the enum. The name of the attribute becomes the name of the case.(but will be capitalized)
 
@@ -17,7 +17,7 @@ To create an enum in the modeler:
 ## Associated values for enum cases:
 Enum cases can have an associated type. To specify the associated value type of an enum case:
 
-* Add the key `STState.Type` to the user info section of the inspector for the attribute and specify the 
+* Add the key `State.Type` to the user info section of the inspector for the attribute and specify the 
 type in the value field.
 
 *-or-*
@@ -27,7 +27,7 @@ type in the value field.
 #### Transformable values
 If a value type you are specifying is a transformable value type:
 
-1. Specify the type with the `STState.Type` key in the user info area of the inspector
+1. Specify the type with the `State.Type` key in the user info area of the inspector
 
 2. select Transformable in the Attribute Type selection in the inspector
 
@@ -38,13 +38,13 @@ Raw value enums are enums that have a type, and each case has a value called the
 
 1. Specify an entity as an enum as described in the enum section
 
-2. Add the `STState.Type` key  to **Entity** in the user-info part of the inspector 
+2. Add the `State.Type` key  to **Entity** in the user-info part of the inspector 
 
-3. Specify a type in the value field of the `STState.Type`. 
+3. Specify a type in the value field of the `State.Type`. 
 
 4. Add attributes to create cases for the enum. The name of the attribute becomes the name of the case. 
 
-5. Add the `STState.Value` key and a value to each **Attribute** in  the user info inspector to specify the raw value of each enum case.
+5. Add the `State.Value` key and a value to each **Attribute** in  the user info inspector to specify the raw value of each enum case.
 
 Notes:
 * Raw values enum types can be any type including other model entities

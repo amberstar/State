@@ -1,5 +1,5 @@
 import XCTest
-import STState
+import State
 
 class EncodingTests: Test {
         func testEncodingBools() {

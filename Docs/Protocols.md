@@ -2,19 +2,19 @@
 
 ## Creating protocols
 You can create protocols in the data model designer.
-You  create protocols by specifying the `STState.Protocol` key or checking the abstract checkbox in the inspector for the entity to be a protocol. 
+You  create protocols by specifying the `State.Protocol` key or checking the abstract checkbox in the inspector for the entity to be a protocol. 
 
 ### Function requirements
-You can specify function requirements on protocols using the `STState.ProtocolRequirementType` and the `STState.Func` key on the protocol entities attributes. 
+You can specify function requirements on protocols using the `State.ProtocolRequirementType` and the `State.Func` key on the protocol entities attributes. 
 **Note:** an empty implementation is added to the **manual** file only the first time it is generated. If you already generated code before adding this requirement
 you may have to manually add it to the manual file.
 
 On the protocol requiment attribute:
-- Set STState.ProtocolRequirementType to Func
-- Set STState.Func to the exact function signature of the requirement
+- Set State.ProtocolRequirementType to Func
+- Set State.Func to the exact function signature of the requirement
 
 ### Get only variable requirements
-You can specify a variable requirement as get only using the `STState.ProtocolRequirementType` with a value of `get` on protocol attributes and relationships.
+You can specify a variable requirement as get only using the `State.ProtocolRequirementType` with a value of `get` on protocol attributes and relationships.
 **Note:** an empty implementation is added to the **manual** file only the first time it is generated. If you already generated code before adding this requirement
 you may have to manually add it to the manual file.
 
@@ -22,9 +22,9 @@ you may have to manually add it to the manual file.
 There are two ways you can specify a protocol inherits from other protocols. 
 
 1. Set one protocol entity as the parent of another protocol entity
-2. Use the `STState.Type` key on a protocol entity to specify additional protocols. These are entered as a comma separated list. For example if you want your protocol
+2. Use the `State.Type` key on a protocol entity to specify additional protocols. These are entered as a comma separated list. For example if you want your protocol
 to also inherit from `CustomStringConvertible` and `CustomDebugStringConvertible` you would enter `CustomStringConvertible, CustomStringConvertible` as the value for 
-`STState.Type` on the protocol entity.
+`State.Type` on the protocol entity.
 
 **Note:** you can use these two methods in combination if needed
 ##Conforming to protocol

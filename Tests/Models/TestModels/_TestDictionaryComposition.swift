@@ -4,7 +4,7 @@
 
  ************************************************/
 import Foundation
-import STState
+import State
 
 public struct TestDictionaryComposition : Model {
     public var employees: [String : Employee]

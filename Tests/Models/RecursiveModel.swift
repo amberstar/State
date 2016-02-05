@@ -1,5 +1,5 @@
 import Foundation
-import STState
+import State
 
 /*
 Player:

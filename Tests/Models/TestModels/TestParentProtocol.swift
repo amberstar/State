@@ -3,7 +3,7 @@
         WARNING: HUMAN GENERATED FILE
 
 ************************************************/
-import STState
+import State
 
 extension TestParentProtocol {
 

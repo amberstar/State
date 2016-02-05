@@ -4,7 +4,7 @@
 
  ************************************************/
 import Foundation
-import STState
+import State
 
 public struct TestOverrideType : Model {
     public var myURL: NSURL?

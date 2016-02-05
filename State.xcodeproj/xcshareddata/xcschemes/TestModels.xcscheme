@@ -9,15 +9,15 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "04012A7F1AE12FA6006DAC19"
-               BuildableName = "STStateTests.xctest"
-               BlueprintName = "Tests-iOS"
-               ReferencedContainer = "container:STState.xcodeproj">
+               BlueprintIdentifier = "04012AE31AE13A90006DAC19"
+               BuildableName = "TestModels"
+               BlueprintName = "TestModels"
+               ReferencedContainer = "container:State.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,31 +28,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "04012A7F1AE12FA6006DAC19"
-               BuildableName = "STStateTests.xctest"
-               BlueprintName = "Tests-iOS"
-               ReferencedContainer = "container:STState.xcodeproj">
-            </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "PerfTests">
-               </Test>
-            </SkippedTests>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "04012A7F1AE12FA6006DAC19"
-            BuildableName = "STStateTests.xctest"
-            BlueprintName = "Tests-iOS"
-            ReferencedContainer = "container:STState.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -62,17 +38,17 @@
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
-      ignoresPersistentSTStateOnLaunch = "NO"
+      ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "04012A7F1AE12FA6006DAC19"
-            BuildableName = "STStateTests.xctest"
-            BlueprintName = "Tests-iOS"
-            ReferencedContainer = "container:STState.xcodeproj">
+            BlueprintIdentifier = "04012AE31AE13A90006DAC19"
+            BuildableName = "TestModels"
+            BlueprintName = "TestModels"
+            ReferencedContainer = "container:State.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -87,10 +63,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "04012A7F1AE12FA6006DAC19"
-            BuildableName = "STStateTests.xctest"
-            BlueprintName = "Tests-iOS"
-            ReferencedContainer = "container:STState.xcodeproj">
+            BlueprintIdentifier = "04012AE31AE13A90006DAC19"
+            BuildableName = "TestModels"
+            BlueprintName = "TestModels"
+            ReferencedContainer = "container:State.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

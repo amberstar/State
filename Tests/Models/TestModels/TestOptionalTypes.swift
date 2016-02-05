@@ -3,7 +3,7 @@
         HUMAN GENERATED FILE
 
 ************************************************/
-import STState
+import State
 import Foundation
 
 extension TestOptionalTypes {

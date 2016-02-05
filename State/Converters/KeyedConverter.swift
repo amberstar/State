@@ -8,11 +8,11 @@ public enum Format {
     public var converter: KeyedConverter.Type {
         switch self {
         case JSON:
-            return STState.JSON.self
+            return State.JSON.self
         case Plist:
-            return STState.Plist.self
+            return State.Plist.self
         case Binary:
-            return STState.Binary.self
+            return State.Binary.self
         }
     }
 }

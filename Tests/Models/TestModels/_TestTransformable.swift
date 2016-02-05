@@ -4,7 +4,7 @@
 
  ************************************************/
 import Foundation
-import STState
+import State
 
 public struct TestTransformable : Model {
     public var myTransformable: NSURL

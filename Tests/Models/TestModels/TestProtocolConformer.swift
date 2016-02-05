@@ -3,7 +3,7 @@
         WARNING: HUMAN GENERATED FILE
 
 ************************************************/
-import STState
+import State
 
 extension TestProtocolConformer {
     public var name : String {
@@ -36,5 +36,5 @@ extension TestProtocolConformer {
 // MARK: Migration
 extension TestProtocolConformer {
 
-    // implement migration here. See: https://github.com/STLabs/STState/blob/feat/swift2.0/Docs/Migration.md
+    // implement migration here. See: https://github.com/STLabs/State/blob/feat/swift2.0/Docs/Migration.md
 }
