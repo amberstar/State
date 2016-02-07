@@ -22,7 +22,7 @@ It turns out this is a common situation. So common that I decided to build this 
 
 Let's look at another example. Here is an example model design of an Asset Library. `Asset` is a protocol.  `FileAsset` is a protocol that inherits from `Asset`. AssetGroup has a one-to-many relationship to the `Asset` protocol. `ColorAsset`, `ImageAsset`, and `SoundAsset` are all conforming to the `Asset` protocol.
 
-![](/resources/images/protocol.png)
+![](/resources/protocol_2.png)
 
 Any one of the conforming types can be added to the `AssetGroup`'s assets collection. When you serialize the model out, and back, each type is restored. 
 ```swift
