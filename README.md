@@ -1,7 +1,7 @@
-#State - Swift Model Framework
+#State Model Framework
 
 State is designed for the application that has one or many model items where you want to use lightweight plist, or JSON formats to store models, and you want to take advantage of Swift's structs, enums, and protocols.
-      
+
 - model versioning, and migration
 - design model layer in Xcode model designer and generate model code
 - models can be implemented as `struct`, `enum`, and `protocol` types.
@@ -25,28 +25,28 @@ To create a model you conform to the Model protocol.
 ```swift
     public struct Person : Model {
         public let name : String
-        public let age: Int 
+        public let age: Int
     }
-    
+
    extension Person : Decodable {
         public init?(decoder: Decoder) {
-            gaurd 
+            gaurd
                 let name: String = decoder.decode("name"),
                 let age: Int = decoder.decode("age")
             else { return nil }
-            
+
             self.name = name
-            self.age = age 
+            self.age = age
         }
    }
-   
+
    extension Person : Encodable {
         public func encode(encoder: Endcoder) {
             encoder.encode("name" : name)
             encoder.encode("age" : age)
         }
    }
-    
+
 ```
 
 #### Saving and loading models to a file
