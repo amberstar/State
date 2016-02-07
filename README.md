@@ -1,6 +1,5 @@
-#Component.State
-
-A Swift model framework.
+#State
+##Swift Model Framework
 
 State is designed for the application that has one or many model items where you want to use lightweight plist, or JSON formats to store models, and you want to take advantage of Swift's structs, enums, and protocols.
       
