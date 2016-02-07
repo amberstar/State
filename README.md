@@ -1,5 +1,4 @@
-#State
-##Swift Model Framework
+#State - Swift Model Framework
 
 State is designed for the application that has one or many model items where you want to use lightweight plist, or JSON formats to store models, and you want to take advantage of Swift's structs, enums, and protocols.
       
@@ -71,9 +70,6 @@ State comes with mogenerator templates so you can design models in the Xcode dat
 
 ## Documentation
 - [ State docs](Docs/)
-- [Creating Enum Models With State Model Framework](http://www.amberstar.org/creating-enum-models-with-state-model-framework/)
-- [Using Protocols Models With State Model Framework](http://www.amberstar.org/state-model-framework-protocols/)
-- [Using a Dissolver with State Model Framework](http://www.amberstar.org/using-dissolvers-with-ststate-model-framework/)
 
 ##System Requirements
 - Swift 2.0
