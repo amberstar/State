@@ -30,10 +30,25 @@ struct Player: Model {
         self.age = age
     }
     
-    init(id: Int, name: String,  email: String?, age: Int, height: Float?, weight: Double?, MVP: Bool, teamates: [Player], fillins: [Player]?, teamatesByName: [String : Player]?, awards:[AnyObject]?) {
+    
+    init?(decoder: Decoder) {
+        
+        guard let id: Int  = decoder.decode("id"),
+            name: String = decoder.decode("name"),
+            age: Int = decoder.decode("age"),
+            MVP: Bool = decoder.decode("mvp"),
+            teamates: [Player] = decoder.decodeModelArray("teamates")
+        else { return nil }
+        
+        let email : String? = decoder.decode("email")
+        let height : Float? = decoder.decode("height")
+        let weight: Double? = decoder.decode("weight")
+        let fillins: [Player]? = decoder.decodeModelArray("fillins")
+        let teamatesByName: [String : Player]? = decoder.decodeModelDictionary("teamatesByName")
+        let awards: [AnyObject]? = decoder.decode("awards")
+        
         self.id = id
         self.name = name
-
         self.email = email
         self.age = age
         self.height = height
@@ -43,33 +58,10 @@ struct Player: Model {
         self.fillins = fillins
         self.teamatesByName = teamatesByName
         self.awards = awards
-    }
-    
-    init?(decoder: Decoder) {
-        let instance: Player? = Player.create
-            <^> decoder.decode("id")
-            <*> decoder.decode("name")
-            <*> Optional(decoder.decode("email"))
-            <*> decoder.decode("age")
-            <*> Optional(decoder.decode("height"))
-            <*> Optional(decoder.decode("weight"))
-            <*> decoder.decode("mvp")
-            <*> Optional(decoder.decodeModel("partner"))
-            <*> decoder.decodeModelArray("teamates")
-            <*> Optional(decoder.decodeModelArray("fillins"))
-            <*> Optional(decoder.decodeModelDictionary("teamatesByName"))
-            <*> Optional(decoder.decode("awards"))
         
-        if let i = instance { self = i } else { return nil }
-    }
+        }
 }
 
-extension Player: Decodable {
-    
-    static func create(id: Int)(name: String)(email: String?)(age: Int)(height: Float?)(weight: Double?)(MVP: Bool)(partner: Player?)(teamates: [Player])(fillins: [Player]?)(teamatesByName: [String : Player]?)(awards: [AnyObject]?) -> Player {
-        return Player(id: id, name: name, email: email, age: age, height: height, weight: weight, MVP: MVP, teamates: teamates, fillins: fillins, teamatesByName: teamatesByName, awards: awards )
-    }
-}
 
 extension Player: Encodable {
     func encode(encoder: Encoder) {

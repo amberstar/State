@@ -19,7 +19,23 @@ struct BasicTypes<T> {
     let tDicOpt: [String : T]?
     let tDictImp: [String : T]!
     
-    init(t: T, tOpt: T?, tImp: T!, tArr: [T], tArrOpt: [T]?, tArrImp: [T]!, tDic: [String : T], tDicOpt: [String : T]?, tDicImp: [String : T]!) {
+}
+
+extension BasicTypes : Decodable {
+    
+    
+    init?(decoder: Decoder) {
+        guard let t: T = decoder.decode("t"),
+        tArr : [T] = decoder.decode("t_arr"),
+        tDic : [String : T] = decoder.decode("t_dic") else { return nil }
+        
+        let tOpt: T?  = decoder.decode("t_opt")
+        let tImp : T! = decoder.decode("t_imp")
+        let tArrOpt : [T]? = decoder.decode("t_arr_opt")
+        let tArrImp : [T]! = decoder.decode("t_arr_imp")
+        let tDicOpt : [String : T]? = decoder.decode("t_dic_opt")
+        let tDictImp : [String : T]! = decoder.decode("t_dic_imp")
+        
         self.t = t
         self.tOpt = tOpt
         self.tImp = tImp
@@ -28,29 +44,7 @@ struct BasicTypes<T> {
         self.tArrImp = tArrImp
         self.tDic = tDic
         self.tDicOpt = tDicOpt
-        self.tDictImp = tDicImp
-    } 
-}
-
-extension BasicTypes : Decodable {
-    
-    static func create(t: T )(tOpt: T?)(tImp: T?)(tArr: [T])(tArrOpt: [T]?)(tArrImp: [T]?)(tDic: [String : T])(tDicOpt: [String : T]?)(tDicImp: [String : T]?) -> BasicTypes<T>  {
-        return BasicTypes<T>(t: t, tOpt: tOpt, tImp: tImp, tArr: tArr, tArrOpt: tArrOpt, tArrImp: tArrImp, tDic: tDic, tDicOpt: tDicOpt, tDicImp: tDicImp)
-    }
-    
-    init?(decoder: Decoder) {
-        let instance: BasicTypes? = BasicTypes.create
-            <^> decoder.decode("t")
-            <*> decoder.decode("t_opt") >>> asOptional
-            <*> decoder.decode("t_imp") >>> asOptional
-            <*> decoder.decode("t_arr")
-            <*> decoder.decode("t_arr_opt") >>> asOptional
-            <*> decoder.decode("t_arr_imp") >>> asOptional
-            <*> decoder.decode("t_dic")
-            <*> decoder.decode("t_dic_opt") >>> asOptional
-            <*> decoder.decode("t_dic_imp") >>> asOptional
-        
-        if let i = instance { self = i } else { return nil }
+        self.tDictImp = tDictImp
     }
 }
 
@@ -88,7 +82,23 @@ struct StringTypes {
     let tDicOpt: [String : String]?
     let tDictImp: [String : String]!
     
-    init(t: String, tOpt: String?, tImp: String!, tArr: [String], tArrOpt: [String]?, tArrImp: [String]!, tDic: [String : String], tDicOpt: [String : String]?, tDicImp: [String : String]!) {
+}
+
+extension StringTypes : Decodable {
+    
+    
+    init?(decoder: Decoder) {
+        guard let t: String = decoder.decode("t"),
+            tArr : [String] = decoder.decode("t_arr"),
+            tDic : [String : String] = decoder.decode("t_dic") else { return nil }
+        
+        let tOpt: String?  = decoder.decode("t_opt")
+        let tImp : String! = decoder.decode("t_imp")
+        let tArrOpt : [String]? = decoder.decode("t_arr_opt")
+        let tArrImp : [String]! = decoder.decode("t_arr_imp")
+        let tDicOpt : [String : String]? = decoder.decode("t_dic_opt")
+        let tDictImp : [String : String]! = decoder.decode("t_dic_imp")
+        
         self.t = t
         self.tOpt = tOpt
         self.tImp = tImp
@@ -97,31 +107,7 @@ struct StringTypes {
         self.tArrImp = tArrImp
         self.tDic = tDic
         self.tDicOpt = tDicOpt
-        self.tDictImp = tDicImp
-    }
-}
-
-extension StringTypes : Decodable {
-    
-    static func create(t: String )(tOpt: String?)(tImp: String?)(tArr: [String])(tArrOpt: [String]?)(tArrImp: [String]?)(tDic: [String : String])(tDicOpt: [String : String]?)(tDicImp: [String : String]?) -> StringTypes  {
-        return StringTypes(t: t, tOpt: tOpt, tImp: tImp, tArr: tArr, tArrOpt: tArrOpt, tArrImp: tArrImp, tDic: tDic, tDicOpt: tDicOpt, tDicImp: tDicImp)
-    }
-    
-    init?(decoder: Decoder) {
-        if let instance = StringTypes.create
-            <^> decoder.decode("t")
-            <*> decoder.decode("t_opt") >>> asOptional
-            <*> decoder.decode("t_imp") >>> asOptional
-            <*> decoder.decode("t_arr")
-            <*> decoder.decode("t_arr_opt") >>> asOptional
-            <*> decoder.decode("t_arr_imp") >>> asOptional
-            <*> decoder.decode("t_dic")
-            <*> decoder.decode("t_dic_opt") >>> asOptional
-            <*> decoder.decode("t_dic_imp") >>> asOptional {
-            self = instance
-        } else {
-            return nil
-        }
+        self.tDictImp = tDictImp
     }
 }
 
@@ -158,8 +144,23 @@ struct AnyObjectTypes {
     let tDic: [String : AnyObject]
     let tDicOpt: [String : AnyObject]?
     let tDictImp: [String : AnyObject]!
+
+}
+
+extension AnyObjectTypes : Decodable {
     
-    init(t: AnyObject, tOpt: AnyObject?, tImp: AnyObject!, tArr: [AnyObject], tArrOpt: [AnyObject]?, tArrImp: [AnyObject]!, tDic: [String : AnyObject], tDicOpt: [String : AnyObject]?, tDicImp: [String : AnyObject]!) {
+       init?(decoder: Decoder) {
+        guard let t: AnyObject = decoder.decode("t"),
+            tArr : [AnyObject] = decoder.decode("t_arr"),
+            tDic : [String : AnyObject] = decoder.decode("t_dic") else { return nil }
+        
+        let tOpt: AnyObject?  = decoder.decode("t_opt")
+        let tImp : AnyObject! = decoder.decode("t_imp")
+        let tArrOpt : [AnyObject]? = decoder.decode("t_arr_opt")
+        let tArrImp : [AnyObject]! = decoder.decode("t_arr_imp")
+        let tDicOpt : [String : AnyObject]? = decoder.decode("t_dic_opt")
+        let tDictImp : [String : AnyObject]! = decoder.decode("t_dic_imp")
+        
         self.t = t
         self.tOpt = tOpt
         self.tImp = tImp
@@ -168,31 +169,7 @@ struct AnyObjectTypes {
         self.tArrImp = tArrImp
         self.tDic = tDic
         self.tDicOpt = tDicOpt
-        self.tDictImp = tDicImp
-    }
-}
-
-extension AnyObjectTypes : Decodable {
-    
-    static func create(t: AnyObject )(tOpt: AnyObject?)(tImp: AnyObject?)(tArr: [AnyObject])(tArrOpt: [AnyObject]?)(tArrImp: [AnyObject]?)(tDic: [String : AnyObject])(tDicOpt: [String : AnyObject]?)(tDicImp: [String : AnyObject]?) -> AnyObjectTypes  {
-        return AnyObjectTypes(t: t, tOpt: tOpt, tImp: tImp, tArr: tArr, tArrOpt: tArrOpt, tArrImp: tArrImp, tDic: tDic, tDicOpt: tDicOpt, tDicImp: tDicImp)
-    }
-    
-    init?(decoder: Decoder) {
-        if let instance = AnyObjectTypes.create
-            <^> decoder.decode("t")
-            <*> decoder.decode("t_opt") >>> asOptional
-            <*> decoder.decode("t_imp") >>> asOptional
-            <*> decoder.decode("t_arr")
-            <*> decoder.decode("t_arr_opt") >>> asOptional
-            <*> decoder.decode("t_arr_imp") >>> asOptional
-            <*> decoder.decode("t_dic")
-            <*> decoder.decode("t_dic_opt") >>> asOptional
-            <*> decoder.decode("t_dic_imp") >>> asOptional {
-            self = instance
-        } else {
-            return nil
-        }
+        self.tDictImp = tDictImp
     }
 }
 

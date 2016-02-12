@@ -8,6 +8,19 @@ import State
 extension TestMigrationV1 {
 
     // Extend your model entity here.
+    
+    
+    /**
+     encoding will finish on the receiver
+     - parameter encoder: the encoder used for encoding
+     
+     :Discussion: This method is called right before encoding finishes.
+     It provides a chance to encode any further data with the encoder.
+     */
+    public func willFinishEncodingWithEncoder(encoder: Encoder) {
+        encoder.encode("Hello World", "migration_test")
+    }
+
 }
 
 

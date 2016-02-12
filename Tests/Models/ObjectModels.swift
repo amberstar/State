@@ -18,8 +18,23 @@ struct UserTypes: Model {
     let tDic: [String : User]
     let tDicOpt: [String : User]?
     let tDictImp: [String : User]!
+}
+
+extension UserTypes : Decodable {
     
-    init(t: User, tOpt: User?, tImp: User!, tArr: [User], tArrOpt: [User]?, tArrImp: [User]!, tDic: [String : User], tDicOpt: [String : User]?, tDicImp: [String : User]!) {
+    
+    init?(decoder: Decoder) {
+    
+        guard let t : User = decoder.decodeModel("t") else { return nil }
+        guard let tArr : [User] = decoder.decodeModelArray("t_arr") else { return nil }
+        guard let tDic : [String : User] = decoder.decodeModelDictionary("t_dic") else { return nil }
+        let tOpt : User? = decoder.decodeModel("t_opt")
+        let tImp : User! = decoder.decodeModel("t_imp")
+        let tArrOpt : [User]? = decoder.decodeModelArray("t_arr_opt")
+        let tArrImp : [User]! = decoder.decodeModelArray("t_arr_imp")
+        let tDicOpt : [String : User]? = decoder.decodeModelDictionary("t_dic_opt")
+        let tDictImp : [String : User]! = decoder.decodeModelDictionary("t_dic_imp")
+            
         self.t = t
         self.tOpt = tOpt
         self.tImp = tImp
@@ -28,29 +43,7 @@ struct UserTypes: Model {
         self.tArrImp = tArrImp
         self.tDic = tDic
         self.tDicOpt = tDicOpt
-        self.tDictImp = tDicImp
-    }
-}
-
-extension UserTypes : Decodable {
-    
-    static func create(t: User )(tOpt: User?)(tImp: User?)(tArr: [User])(tArrOpt: [User]?)(tArrImp: [User]?)(tDic: [String : User])(tDicOpt: [String : User]?)(tDicImp: [String : User]?) -> UserTypes  {
-        return UserTypes(t: t, tOpt: tOpt, tImp: tImp, tArr: tArr, tArrOpt: tArrOpt, tArrImp: tArrImp, tDic: tDic, tDicOpt: tDicOpt, tDicImp: tDicImp)
-    }
-    
-    init?(decoder: Decoder) {
-        let instance: UserTypes? = UserTypes.create
-            <^> decoder.decodeModel("t")
-            <*> decoder.decodeModel("t_opt") >>> asOptional
-            <*> decoder.decodeModel("t_imp") >>> asOptional
-            <*> decoder.decodeModelArray("t_arr")
-            <*> decoder.decodeModelArray("t_arr_opt") >>> asOptional
-            <*> decoder.decodeModelArray("t_arr_imp") >>> asOptional
-            <*> decoder.decodeModelDictionary("t_dic")
-            <*> decoder.decodeModelDictionary("t_dic_opt") >>> asOptional
-            <*> decoder.decodeModelDictionary("t_dic_imp") >>> asOptional
-        
-        if let i = instance { self = i } else { return nil }
+        self.tDictImp = tDictImp
     }
 }
 
@@ -84,20 +77,16 @@ struct User {
 }
 
 extension User: Decodable, Encodable{
-    static func create(id: Int)(name: String)(email: String?) -> User {
-        return User(id: id, name: name, email: email)
-    }
-
+  
         init? (decoder: Decoder) {
-           if  let instance = User.create
-            <^> decoder.decode("id")
-            <*> decoder.decode("name")
-            <*> decoder.decode("email") >>> asOptional {
-            self = instance
-           } else {
-            return nil
-            }
-        }
+            guard let id : Int = decoder.decode("id") else { return nil }
+            guard let name : String = decoder.decode("name") else { return nil }
+            let email : String? = decoder.decode("email")
+            
+            self.id = id
+            self.name = name
+            self.email = email
+    }
 
     func encode(encoder: Encoder) {
         encoder.encode(id, "id")
