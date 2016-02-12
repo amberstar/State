@@ -1,6 +1,6 @@
 #State Model Framework
 
-State is model Framework using structs, enums, and protocols as models and provides plist, binary, or JSON formats to store model.
+State is model Framework using structs, enums, and protocols as models and provides plist, binary, or JSON formats to store models.
 
 - model versioning, and migration
 - design model layer in Xcode model designer and generate model code
