@@ -16,7 +16,8 @@ public struct Company : Model {
 
 extension Company : Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         decoder = Company.performMigrationIfNeeded(decoder)
 
         guard

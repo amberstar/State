@@ -20,7 +20,8 @@ public struct TestTypes : Model {
 
 extension TestTypes : Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         decoder = TestTypes.performMigrationIfNeeded(decoder)
 
         guard

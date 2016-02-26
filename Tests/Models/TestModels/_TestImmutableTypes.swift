@@ -20,7 +20,8 @@ public struct TestImmutableTypes : Model {
 
 extension TestImmutableTypes : Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         decoder = TestImmutableTypes.performMigrationIfNeeded(decoder)
 
         guard

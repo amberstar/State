@@ -13,7 +13,8 @@ public struct TestDictionaryComposition : Model {
 
 extension TestDictionaryComposition : Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         decoder = TestDictionaryComposition.performMigrationIfNeeded(decoder)
 
         guard

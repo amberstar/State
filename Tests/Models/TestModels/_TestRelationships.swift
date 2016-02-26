@@ -15,7 +15,8 @@ public struct TestRelationships : Model {
 
 extension TestRelationships : Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         decoder = TestRelationships.performMigrationIfNeeded(decoder)
 
         let myChildren: [TestChild]? = decoder.decodeModelArray("myChildren")

@@ -14,7 +14,8 @@ public struct TestMigrationV2 : Model {
 
 extension TestMigrationV2 : Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         decoder = TestMigrationV2.performMigrationIfNeeded(decoder)
 
         guard

@@ -20,7 +20,8 @@ public struct TestImmutableOptionalTypes : Model {
 
 extension TestImmutableOptionalTypes : Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         decoder = TestImmutableOptionalTypes.performMigrationIfNeeded(decoder)
 
         let myDate: NSDate? = decoder.decode("myDate")

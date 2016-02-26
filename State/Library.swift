@@ -1,7 +1,9 @@
 
-public func +<T, V>(var lhs: [T: V], rhs: [T: V]) -> [T: V] {
+public func +<T, V>(lhs: [T: V], rhs: [T: V]) -> [T: V] {
+    var l = lhs
+
     for (key, val) in rhs {
-        lhs[key] = val
+        l[key] = val
     }
     return lhs
 }

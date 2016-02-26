@@ -16,7 +16,8 @@ public struct TestTransformable : Model {
 
 extension TestTransformable : Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         decoder = TestTransformable.performMigrationIfNeeded(decoder)
 
         guard

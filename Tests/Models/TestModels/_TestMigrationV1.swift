@@ -22,8 +22,8 @@ extension TestMigrationV1 : Decodable {
         return TestMigrationV1(name: name)
     }
 
-    public init?(var decoder: Decoder) {
-
+    public init?(decoder d: Decoder) {
+         var decoder = d
          decoder = TestMigrationV1.performMigrationIfNeeded(decoder)
         
         let instance: TestMigrationV1? = TestMigrationV1.create

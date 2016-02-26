@@ -14,7 +14,8 @@ public struct TestOverrideType : Model {
 
 extension TestOverrideType : Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         decoder = TestOverrideType.performMigrationIfNeeded(decoder)
 
         let myURL: NSURL? = decoder.decode("myURL")

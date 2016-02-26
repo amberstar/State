@@ -13,7 +13,8 @@ public struct TestDefaultsChild : Model {
 
 extension TestDefaultsChild : Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         decoder = TestDefaultsChild.performMigrationIfNeeded(decoder)
 
         guard

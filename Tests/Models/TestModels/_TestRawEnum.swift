@@ -16,7 +16,8 @@ public enum TestRawEnum  : String, Model {
 
 extension TestRawEnum: Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         decoder = TestRawEnum.performMigrationIfNeeded(decoder)
         guard let value: String = decoder.decode("value") else { return nil }
         self.init(rawValue: value)

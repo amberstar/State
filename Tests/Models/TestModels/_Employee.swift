@@ -14,7 +14,8 @@ public struct Employee : Model {
 
 extension Employee : Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         decoder = Employee.performMigrationIfNeeded(decoder)
 
         guard

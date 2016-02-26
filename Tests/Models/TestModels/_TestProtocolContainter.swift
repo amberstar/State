@@ -13,7 +13,8 @@ public struct TestProtocolContainter : Model {
 
 extension TestProtocolContainter : Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         decoder = TestProtocolContainter.performMigrationIfNeeded(decoder)
 
         let testProtocols: TestProtocol? = decoder.decodeTestProtocol("testProtocols")

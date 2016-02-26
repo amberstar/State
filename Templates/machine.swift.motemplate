@@ -64,7 +64,8 @@ public struct <$typeName$> : <$superTypeName$> {
 
 extension <$typeName$> : Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         <$call writeDecodingMigrationBlock$>
 
 <$setlocal hasNonOptionals = 0 $>
@@ -179,7 +180,8 @@ public enum <$typeName$> <$if userInfo.State.Type$> : <$userInfo.State.Type$>, M
 
 extension <$typeName$>: Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         <$call writeDecodingMigrationBlock$>
 <$if ! userInfo.State.Type$>
         guard let type: String = decoder.decode("<$typeName$>") else { return nil }

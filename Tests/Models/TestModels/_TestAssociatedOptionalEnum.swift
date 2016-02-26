@@ -25,7 +25,8 @@ public enum TestAssociatedOptionalEnum  : Model {
 
 extension TestAssociatedOptionalEnum: Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         decoder = TestAssociatedOptionalEnum.performMigrationIfNeeded(decoder)
 
         guard let type: String = decoder.decode("TestAssociatedOptionalEnum") else { return nil }

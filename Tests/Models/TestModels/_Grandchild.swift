@@ -15,7 +15,8 @@ public struct Grandchild : Model {
 
 extension Grandchild : Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         decoder = Grandchild.performMigrationIfNeeded(decoder)
 
         let age: Int? = decoder.decode("age")

@@ -15,7 +15,8 @@ public struct TestTransient2 : Model {
 
 extension TestTransient2 : Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         decoder = TestTransient2.performMigrationIfNeeded(decoder)
 
         let myNonTransient: Gender? = decoder.decodeModel("myNonTransient")

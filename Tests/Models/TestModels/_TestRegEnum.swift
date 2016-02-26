@@ -15,7 +15,8 @@ public enum TestRegEnum  : Model {
 
 extension TestRegEnum: Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         decoder = TestRegEnum.performMigrationIfNeeded(decoder)
 
         guard let type: String = decoder.decode("TestRegEnum") else { return nil }

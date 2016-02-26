@@ -15,7 +15,8 @@ public enum Gender  : String, Model {
 
 extension Gender: Decodable {
 
-    public init?(var decoder: Decoder) {
+    public init?(decoder d: Decoder) {
+        var decoder = d
         decoder = Gender.performMigrationIfNeeded(decoder)
         guard let value: String = decoder.decode("value") else { return nil }
         self.init(rawValue: value)
