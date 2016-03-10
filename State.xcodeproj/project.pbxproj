@@ -13,11 +13,9 @@
 		0418178F1B124AB4002CA532 /* DefaultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418177C1B124AB4002CA532 /* DefaultTests.swift */; };
 		041817911B124AB4002CA532 /* EncodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418177D1B124AB4002CA532 /* EncodableTests.swift */; };
 		041817951B124AB4002CA532 /* EnumTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418177F1B124AB4002CA532 /* EnumTests.swift */; };
-		041817991B124AB4002CA532 /* PerfTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817811B124AB4002CA532 /* PerfTests.swift */; };
 		0418179B1B124AB4002CA532 /* RecursiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817821B124AB4002CA532 /* RecursiveTests.swift */; };
 		0418179F1B124AB4002CA532 /* TemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817841B124AB4002CA532 /* TemplateTests.swift */; };
 		041817A11B124AB4002CA532 /* TransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817851B124AB4002CA532 /* TransformTests.swift */; };
-		0443C9CF1AE7A8B8008299E5 /* State.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 04012A751AE12FA6006DAC19 /* State.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		044F88121AE5D02900FAB475 /* ObjectModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AC61AE132AE006DAC19 /* ObjectModels.swift */; };
 		044F88131AE5D02900FAB475 /* RecursiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AC71AE132AE006DAC19 /* RecursiveModel.swift */; };
 		044F88961AE69BD900FAB475 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88881AE69BD900FAB475 /* Company.swift */; };
@@ -101,12 +99,13 @@
 		96960A621C90F00B00D4E6D0 /* URLTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A531C90F00B00D4E6D0 /* URLTransform.swift */; };
 		96960A631C90F00B00D4E6D0 /* ValueTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A541C90F00B00D4E6D0 /* ValueTransform.swift */; };
 		96960A681C90F07700D4E6D0 /* State.h in Headers */ = {isa = PBXBuildFile; fileRef = 96960A651C90F07700D4E6D0 /* State.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		96960A691C90F07700D4E6D0 /* StateInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96960A661C90F07700D4E6D0 /* StateInfo.plist */; };
-		96960A6A1C90F07700D4E6D0 /* StateTestsInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96960A671C90F07700D4E6D0 /* StateTestsInfo.plist */; };
 		96A5435F1B63C6C8009A2B2D /* _TestDictionaryComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A5435D1B63C6C8009A2B2D /* _TestDictionaryComposition.swift */; };
 		96A543611B63C6C8009A2B2D /* TestDictionaryComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A5435E1B63C6C8009A2B2D /* TestDictionaryComposition.swift */; };
 		96C5C3891B3C6988009121A1 /* MigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817801B124AB4002CA532 /* MigrationTests.swift */; };
 		96C86BFD1BC2E81800D6F0F3 /* TestProtocolConformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C86BFB1BC2E7F500D6F0F3 /* TestProtocolConformer.swift */; };
+		96EB24C61C91F5DA00CEE56D /* PerfTests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EB24C51C91F5DA00CEE56D /* PerfTests_iOS.swift */; };
+		96EB24C81C91F5DA00CEE56D /* State.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04012A751AE12FA6006DAC19 /* State.framework */; };
+		96EB24CE1C91F61C00CEE56D /* PerfTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817811B124AB4002CA532 /* PerfTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +123,13 @@
 			remoteGlobalIDString = 04012AE31AE13A90006DAC19;
 			remoteInfo = TestModels;
 		};
+		96EB24C91C91F5DA00CEE56D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04012A6C1AE12FA6006DAC19 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 04012A741AE12FA6006DAC19;
+			remoteInfo = "State-iOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -133,7 +139,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0443C9CF1AE7A8B8008299E5 /* State.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -250,6 +255,9 @@
 		96C5C37A1B3C293F009121A1 /* Optional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Optional.swift; path = Carthage/Checkouts/Runes/Source/Optional.swift; sourceTree = SOURCE_ROOT; };
 		96C86BFB1BC2E7F500D6F0F3 /* TestProtocolConformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocolConformer.swift; path = Tests/Models/TestModels/TestProtocolConformer.swift; sourceTree = "<group>"; };
 		96CE6B7B1B3BFDEC00D632BF /* Docs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Docs; sourceTree = "<group>"; };
+		96EB24C31C91F5DA00CEE56D /* PerfTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PerfTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		96EB24C51C91F5DA00CEE56D /* PerfTests_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfTests_iOS.swift; sourceTree = "<group>"; };
+		96EB24C71C91F5DA00CEE56D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,6 +275,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		96EB24C01C91F5DA00CEE56D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96EB24C81C91F5DA00CEE56D /* State.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -279,6 +295,7 @@
 				04012A841AE12FA6006DAC19 /* Tests */,
 				04012AAF1AE130B7006DAC19 /* Templates */,
 				96960A641C90F07700D4E6D0 /* Support */,
+				96EB24C41C91F5DA00CEE56D /* PerfTests-iOS */,
 				04012A761AE12FA6006DAC19 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -288,6 +305,7 @@
 			children = (
 				04012A751AE12FA6006DAC19 /* State.framework */,
 				04012A801AE12FA6006DAC19 /* StateTests.xctest */,
+				96EB24C31C91F5DA00CEE56D /* PerfTests-iOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -476,6 +494,15 @@
 			path = ../State/Library;
 			sourceTree = "<group>";
 		};
+		96EB24C41C91F5DA00CEE56D /* PerfTests-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				96EB24C51C91F5DA00CEE56D /* PerfTests_iOS.swift */,
+				96EB24C71C91F5DA00CEE56D /* Info.plist */,
+			);
+			path = "PerfTests-iOS";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -545,13 +572,31 @@
 			productReference = 04012A801AE12FA6006DAC19 /* StateTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		96EB24C21C91F5DA00CEE56D /* PerfTests-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96EB24CD1C91F5DA00CEE56D /* Build configuration list for PBXNativeTarget "PerfTests-iOS" */;
+			buildPhases = (
+				96EB24BF1C91F5DA00CEE56D /* Sources */,
+				96EB24C01C91F5DA00CEE56D /* Frameworks */,
+				96EB24C11C91F5DA00CEE56D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				96EB24CA1C91F5DA00CEE56D /* PBXTargetDependency */,
+			);
+			name = "PerfTests-iOS";
+			productName = "PerfTests-iOS";
+			productReference = 96EB24C31C91F5DA00CEE56D /* PerfTests-iOS.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		04012A6C1AE12FA6006DAC19 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Amber Star";
 				TargetAttributes = {
@@ -563,6 +608,9 @@
 					};
 					04012AE31AE13A90006DAC19 = {
 						CreatedOnToolsVersion = 6.3;
+					};
+					96EB24C21C91F5DA00CEE56D = {
+						CreatedOnToolsVersion = 7.3;
 					};
 				};
 			};
@@ -580,6 +628,7 @@
 			targets = (
 				04012A741AE12FA6006DAC19 /* State-iOS */,
 				04012A7F1AE12FA6006DAC19 /* Tests-iOS */,
+				96EB24C21C91F5DA00CEE56D /* PerfTests-iOS */,
 				04012AE31AE13A90006DAC19 /* TestModels */,
 			);
 		};
@@ -590,8 +639,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96960A6A1C90F07700D4E6D0 /* StateTestsInfo.plist in Resources */,
-				96960A691C90F07700D4E6D0 /* StateInfo.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -604,6 +651,13 @@
 				961D13F01C11AE5A00F0EE1F /* Big_data-bin.plist in Resources */,
 				961D13F41C11AE5A00F0EE1F /* Big_data.plist in Resources */,
 				961D13F61C11AE5A00F0EE1F /* Data.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96EB24C11C91F5DA00CEE56D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,7 +697,6 @@
 				04C3C6E21AFA77E300C95039 /* TestTransient2.swift in Sources */,
 				04925EC01AE9967500BF1D88 /* TestDefaults.swift in Sources */,
 				041817891B124AB4002CA532 /* ConverterTests.swift in Sources */,
-				041817991B124AB4002CA532 /* PerfTests.swift in Sources */,
 				0418178F1B124AB4002CA532 /* DefaultTests.swift in Sources */,
 				04BD1AFF1AEBA549008F576C /* _TestAssociatedOptionalEnum.swift in Sources */,
 				04C1B93C1AE9219900A85730 /* _TestTypes.swift in Sources */,
@@ -715,6 +768,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		96EB24BF1C91F5DA00CEE56D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96EB24CE1C91F61C00CEE56D /* PerfTests.swift in Sources */,
+				96EB24C61C91F5DA00CEE56D /* PerfTests_iOS.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -727,6 +789,11 @@
 			isa = PBXTargetDependency;
 			target = 04012AE31AE13A90006DAC19 /* TestModels */;
 			targetProxy = 04BD1AF91AEAD867008F576C /* PBXContainerItemProxy */;
+		};
+		96EB24CA1C91F5DA00CEE56D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 04012A741AE12FA6006DAC19 /* State-iOS */;
+			targetProxy = 96EB24C91C91F5DA00CEE56D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -914,6 +981,31 @@
 			};
 			name = Release;
 		};
+		96EB24CB1C91F5DA00CEE56D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = "PerfTests-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ST.PerfTests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		96EB24CC1C91F5DA00CEE56D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				INFOPLIST_FILE = "PerfTests-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ST.PerfTests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -952,6 +1044,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		96EB24CD1C91F5DA00CEE56D /* Build configuration list for PBXNativeTarget "PerfTests-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96EB24CB1C91F5DA00CEE56D /* Debug */,
+				96EB24CC1C91F5DA00CEE56D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 
