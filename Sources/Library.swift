@@ -5,12 +5,13 @@ public func +<T, V>(lhs: [T: V], rhs: [T: V]) -> [T: V] {
     for (key, val) in rhs {
         l[key] = val
     }
-    return lhs
+    return l
 }
 
 public extension Dictionary {
     func map<A>(f: Value -> A) -> [Key: A] {
-        return self.reduce([:]) { $0 + [$1.0: f($1.1)] }
+        let result  = self.reduce([:]) { $0 + [$1.0: f($1.1)] }
+        return result
     }
 }
 
