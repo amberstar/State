@@ -27,9 +27,11 @@ public extension Encodable {
     }
 }
 
-public final class Encoder {
-    public var data = [String : AnyObject]()
-    
+public protocol KVEncoder {
+    var data : [String : AnyObject] { get nonmutating set }
+}
+
+extension KVEncoder {
     public func encode<T: Encodable>(value: T?, _ key: String) {
         value.apply { self.data[key] = $0.encode() }
     }
@@ -45,6 +47,10 @@ public final class Encoder {
     public func encode<V>(value: V?, _ key: String) {
         value.apply{ self.data[key] = $0 as? AnyObject }
     }
+}
+
+public final class Encoder : KVEncoder {
+    public var data = [String : AnyObject]()
 }
 
 public protocol Decodable {
@@ -82,16 +88,12 @@ public extension Decodable {
     }
 }
 
-public final class Decoder {
-    private var data = [String : AnyObject]()
-    
-    /// initialize a new decoder with data
-    /// - parameter data: a dictionary to use for decoding
-    /// - returns: returns a decoder
-    public init(data: [String : AnyObject]) {
-        self.data = data
-    }
+public protocol KVDecoder {
+    var data :[String : AnyObject] { get set }
+}
 
+extension KVDecoder {
+    
     /// decode a decodable element
     /// - parameter key: a dictionary to use for decoding
     /// - returns: return element of type T or nil if decoding failed
@@ -130,5 +132,17 @@ public final class Decoder {
     
     private func _decodeDecodable<T: Decodable>(data: [String : AnyObject]) -> T? {
         return T(decoder: Decoder(data: data))
-    }   
+    }
+}
+
+public final class Decoder : KVDecoder {
+     public var data = [String : AnyObject]()
+    
+    /// initialize a new decoder with data
+    /// - parameter data: a dictionary to use for decoding
+    /// - returns: returns a decoder
+    public init(data: [String : AnyObject]) {
+        self.data = data
+    }
+
 }
