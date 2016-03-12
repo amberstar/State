@@ -45,6 +45,9 @@ public extension Decoder {
     private func TestParentProtocolTypeForKey(key: String) -> TestParentProtocol.Type? {
         switch key {
 
+        case "TestProtocolConformer2":
+            return TestProtocolConformer2.self
+
         case "TestProtocolConformer":
             return TestProtocolConformer.self
 

@@ -85,6 +85,9 @@
 		9676A5D71BAD96E0005B0C3D /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C5C3781B3C293F009121A1 /* Array.swift */; };
 		9676A5D81BAD96E0005B0C3D /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C5C37A1B3C293F009121A1 /* Optional.swift */; };
 		9676A5D91BAD96E0005B0C3D /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C5C3791B3C293F009121A1 /* Operators.swift */; };
+		9690A0641C942C9100924F4C /* _TestProtocolConformer2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0621C942C9100924F4C /* _TestProtocolConformer2.swift */; };
+		9690A0651C942C9100924F4C /* TestProtocolConformer2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0631C942C9100924F4C /* TestProtocolConformer2.swift */; };
+		9690A0661C942CAF00924F4C /* ProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0601C9429A300924F4C /* ProtocolTests.swift */; };
 		96960A551C90F00B00D4E6D0 /* Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A441C90F00B00D4E6D0 /* Coding.swift */; };
 		96960A561C90F00B00D4E6D0 /* Binary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A461C90F00B00D4E6D0 /* Binary.swift */; };
 		96960A571C90F00B00D4E6D0 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A471C90F00B00D4E6D0 /* JSON.swift */; };
@@ -225,6 +228,9 @@
 		961D13ED1C11AE5A00F0EE1F /* Big_data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Big_data.plist; path = Tests/Inputs/Big_data.plist; sourceTree = SOURCE_ROOT; };
 		961D13EE1C11AE5A00F0EE1F /* Data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Data.json; path = Tests/Inputs/Data.json; sourceTree = SOURCE_ROOT; };
 		961D13EF1C11AE5A00F0EE1F /* Data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Data.plist; path = Tests/Inputs/Data.plist; sourceTree = SOURCE_ROOT; };
+		9690A0601C9429A300924F4C /* ProtocolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProtocolTests.swift; path = Tests/Tests/ProtocolTests.swift; sourceTree = "<group>"; };
+		9690A0621C942C9100924F4C /* _TestProtocolConformer2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestProtocolConformer2.swift; path = Tests/Models/TestModels/_TestProtocolConformer2.swift; sourceTree = "<group>"; };
+		9690A0631C942C9100924F4C /* TestProtocolConformer2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocolConformer2.swift; path = Tests/Models/TestModels/TestProtocolConformer2.swift; sourceTree = "<group>"; };
 		96960A441C90F00B00D4E6D0 /* Coding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coding.swift; sourceTree = "<group>"; };
 		96960A461C90F00B00D4E6D0 /* Binary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Binary.swift; sourceTree = "<group>"; };
 		96960A471C90F00B00D4E6D0 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
@@ -328,6 +334,7 @@
 				041817831B124AB4002CA532 /* RelationshipTests.swift */,
 				041817841B124AB4002CA532 /* TemplateTests.swift */,
 				041817851B124AB4002CA532 /* TransformTests.swift */,
+				9690A0601C9429A300924F4C /* ProtocolTests.swift */,
 				04012AC41AE13290006DAC19 /* Models */,
 				04012A851AE12FA6006DAC19 /* Supporting Files */,
 			);
@@ -420,6 +427,8 @@
 				96A85FD51B4AD38E006A5ABE /* _TestProtocol.swift */,
 				96C86BFB1BC2E7F500D6F0F3 /* TestProtocolConformer.swift */,
 				96A85FE31B4ADCF8006A5ABE /* _TestProtocolConformer.swift */,
+				9690A0621C942C9100924F4C /* _TestProtocolConformer2.swift */,
+				9690A0631C942C9100924F4C /* TestProtocolConformer2.swift */,
 				96A860291B4B2D5E006A5ABE /* TestParentProtocol.swift */,
 				96A8602C1B4B3040006A5ABE /* _TestProtocolContainter.swift */,
 				96A8602F1B4B304A006A5ABE /* TestProtocolContainter.swift */,
@@ -691,6 +700,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9690A0661C942CAF00924F4C /* ProtocolTests.swift in Sources */,
 				041817871B124AB4002CA532 /* BaseTest.swift in Sources */,
 				044F88971AE69BD900FAB475 /* Employee.swift in Sources */,
 				04B46BE41B2EF89400ED20BF /* RelationshipTests.swift in Sources */,
@@ -716,6 +726,7 @@
 				044F88981AE69BD900FAB475 /* Gender.swift in Sources */,
 				0485AA221AFE9BDE008E89D6 /* TestMigrationV2.swift in Sources */,
 				0485AA251AFE9C43008E89D6 /* _TestMigrationV2.swift in Sources */,
+				9690A0641C942C9100924F4C /* _TestProtocolConformer2.swift in Sources */,
 				044F88121AE5D02900FAB475 /* ObjectModels.swift in Sources */,
 				04925EC21AE9967B00BF1D88 /* _TestDefaults.swift in Sources */,
 				04C3C6DA1AFA73E600C95039 /* _TestTransient.swift in Sources */,
@@ -744,6 +755,7 @@
 				0485AA1C1AFE9B83008E89D6 /* TestMigrationV1.swift in Sources */,
 				041817911B124AB4002CA532 /* EncodableTests.swift in Sources */,
 				04BD1AD01AE9A6E4008F576C /* TestDefaultsChild.swift in Sources */,
+				9690A0651C942C9100924F4C /* TestProtocolConformer2.swift in Sources */,
 				04C3C6E61AFA7E2400C95039 /* _TestTransient3.swift in Sources */,
 				96C5C3891B3C6988009121A1 /* MigrationTests.swift in Sources */,
 				044F88131AE5D02900FAB475 /* RecursiveModel.swift in Sources */,
@@ -1052,6 +1064,7 @@
 				96EB24CC1C91F5DA00CEE56D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

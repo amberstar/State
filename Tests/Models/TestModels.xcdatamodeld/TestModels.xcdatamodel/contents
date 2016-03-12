@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Xcode 4.3">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10169.1" systemVersion="15D21" minimumToolsVersion="Xcode 4.3">
     <entity name="Company" representedClassName="Company" syncable="YES">
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
@@ -359,8 +359,17 @@
         <attribute name="isReady" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="employee" maxCount="1" deletionRule="Nullify" destinationEntity="Employee" syncable="YES"/>
     </entity>
+    <entity name="TestProtocolConformer2" representedClassName="TestProtocolConformer2" parentEntity="TestParentProtocol" syncable="YES">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="TestProtocolContainter" representedClassName="TestProtocolContainter" syncable="YES">
-        <relationship name="testProtocols" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TestProtocol" syncable="YES"/>
+        <relationship name="testProtocol" maxCount="1" deletionRule="Nullify" destinationEntity="TestProtocol" syncable="YES"/>
+        <relationship name="testProtocols" toMany="YES" deletionRule="Nullify" destinationEntity="TestParentProtocol" syncable="YES"/>
+        <relationship name="testProtocolsDict" toMany="YES" deletionRule="Nullify" destinationEntity="TestParentProtocol" syncable="YES">
+            <userInfo>
+                <entry key="State.CompositionType" value="Dictionary"/>
+            </userInfo>
+        </relationship>
     </entity>
     <entity name="TestRawEnum" representedClassName="TestRawEnum" syncable="YES">
         <attribute name="aim" optional="YES" attributeType="String" syncable="YES">
@@ -471,7 +480,7 @@
         <element name="TestParentProtocol" positionX="-19710" positionY="-11403" width="128" height="58"/>
         <element name="TestProtocol" positionX="-19710" positionY="-11259" width="137" height="133"/>
         <element name="TestProtocolConformer" positionX="-19710" positionY="-10981" width="135" height="73"/>
-        <element name="TestProtocolContainter" positionX="-19485" positionY="-11295" width="171" height="58"/>
+        <element name="TestProtocolContainter" positionX="-19467" positionY="-11322" width="171" height="88"/>
         <element name="TestRawEnum" positionX="-20423" positionY="-10645" width="128" height="88"/>
         <element name="TestRegEnum" positionX="-20250" positionY="-10638" width="128" height="73"/>
         <element name="TestRelationships" positionX="-20268" positionY="-11374" width="128" height="88"/>
@@ -480,5 +489,6 @@
         <element name="TestTransient2" positionX="-20502" positionY="-11034" width="128" height="88"/>
         <element name="TestTransient3" positionX="-20936" positionY="-11088" width="128" height="88"/>
         <element name="TestTypes" positionX="-20927" positionY="-10684" width="128" height="163"/>
+        <element name="TestProtocolConformer2" positionX="-19550" positionY="-11070" width="218" height="58"/>
     </elements>
 </model>

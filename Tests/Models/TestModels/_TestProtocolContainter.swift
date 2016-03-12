@@ -7,7 +7,9 @@ import Foundation
 import State
 
 public struct TestProtocolContainter : Model {
-    public var testProtocols: TestProtocol?
+    public var testProtocol: TestProtocol
+    public var testProtocols: [TestParentProtocol]
+    public var testProtocolsDict: [String : TestParentProtocol]
 
 }
 
@@ -17,9 +19,15 @@ extension TestProtocolContainter : Decodable {
         var decoder = d
         decoder = TestProtocolContainter.performMigrationIfNeeded(decoder)
 
-        let testProtocols: TestProtocol? = decoder.decodeTestProtocol("testProtocols")
+        guard
+            let testProtocol: TestProtocol = decoder.decodeTestProtocol("testProtocol"),
+            let testProtocols: [TestParentProtocol] = decoder.decodeTestParentProtocolArray("testProtocols"),
+            let testProtocolsDict: [String : TestParentProtocol] = decoder.decodeTestParentProtocolDictionary("testProtocolsDict")
+        else { return  nil }
 
+        self.testProtocol = testProtocol
         self.testProtocols = testProtocols
+        self.testProtocolsDict = testProtocolsDict
         didFinishDecodingWithDecoder(decoder)
     }
 }
@@ -27,7 +35,9 @@ extension TestProtocolContainter : Decodable {
 extension TestProtocolContainter : Encodable {
 
     public func encode(encoder: Encoder) {
+        encoder.encode(testProtocol, "testProtocol")
         encoder.encode(testProtocols, "testProtocols")
+        encoder.encode(testProtocolsDict, "testProtocolsDict")
 
         TestProtocolContainter.encodeVersionIfNeeded(encoder)
 
@@ -41,7 +51,7 @@ extension TestProtocolContainter {
     /// and can be used to determine if the model is
     /// a different version.
     public static func modelVersionHash() -> String {
-        return "<8337fd8b fd2235c6 08073375 65fa17dc b752c0ae e5e7ba56 2c6bf594 61e6f006>"
+        return "<c17d56f9 43a9a5b4 345e3428 ed93f4be ca40e0e9 976d037a 6ad6110c db0ae714>"
     }
 
     public static func modelVersionHashModifier() -> String? {
