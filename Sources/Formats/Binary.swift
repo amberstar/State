@@ -89,7 +89,7 @@ public class Binary: KeyedConverter {
     }
     
     class func dataFromFile(path: String) -> NSData? {
-        return  NSData(contentsOfFile: path)
+        return NSData(contentsOfFile: path)
     }
     
     class func stringFromData(data: NSData) -> String? {

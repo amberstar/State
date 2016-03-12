@@ -8,6 +8,13 @@ import State
 <$foreach Attribute noninheritedAttributes do$><$if Attribute.userInfo.State.Import$>import <$Attribute.userInfo.State.Import$>
 <$endif$><$endforeach$>
 
+<$set rootTypeName = <$managedObjectClassName$>$>
+
+<$procedure setSuperentityType Entity$><$if Entity.hasSuperentity$><$call setSuperentityType Entity.superentity$><$else$><$set rootTypeName = <$Entity.managedObjectClassName$>$><$endif$><$endprocedure$>
+
+<$if hasSuperentity$><$call setSuperentityType superentity$><$endif$>
+
+
 <$set transientAttributeCount = 0$><$foreach Attribute noninheritedAttributes do$><$if Attribute.isTransient$><$set transientAttributeCount = transientAttributeCount + 1$><$endif$><$endforeach do$>
 
 <$set functionRequirementCount = 0$><$foreach Attribute attributesByName do$><$if Attribute.userInfo.State.ProtocolRequirementType == func$><$set functionRequirementCount = functionRequirementCount + 1$><$endif$><$endforeach do$>
@@ -75,12 +82,12 @@ extension <$typeName$> : Decodable {
 <$if hasNonOptionals == 1$>
         guard
             <$setlocal prop = 0$><$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$><$if !Attribute.isOptional$><$if prop > 0$>,
-            <$endif$><$setlocal prop = prop + 1$>let <$Attribute.name$>: <$call getTypeForAttribute$> = <$if Attribute.attributeType == 1800$><$Attribute.valueTransformerName$>.reverse(<$endif$>decoder.decode("<$Attribute.name$>")<$if Attribute.attributeType == 1800$>)<$endif$><$endif$><$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient &&  Relationship.userInfo.State.ProtocolRequirementType != get$><$if !Relationship.isOptional$><$if prop > 0$>,
+            <$endif$><$setlocal prop = prop + 1$>let <$Attribute.name$>: <$call getTypeForAttribute Attribute$> = <$if Attribute.attributeType == 1800$><$Attribute.valueTransformerName$>.reverse(<$endif$>decoder.decode("<$Attribute.name$>")<$if Attribute.attributeType == 1800$>)<$endif$><$endif$><$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient &&  Relationship.userInfo.State.ProtocolRequirementType != get$><$if !Relationship.isOptional$><$if prop > 0$>,
             <$endif$><$setlocal prop = prop + 1$>let <$Relationship.name$>: <$if  Relationship.isToMany$>[<$endif$><$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if  Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> = <$if Relationship.userInfo.State.Transformable$><$Relationship.userInfo.State.Transformable$>.reverse(<$endif$>decoder.decode<$if Relationship.destinationEntity.isAbstract || Relationship.destinationEntity.userInfo.State.Protocol == YES$><$Relationship.destinationEntity.managedObjectClassName$><$else$>Model<$endif$><$if Relationship.isToMany$><$if Relationship.userInfo.State.CompositionType == Dictionary$>Dictionary<$else$>Array<$endif$><$endif$>("<$Relationship.name$>")<$if Relationship.userInfo.State.Transformable$>)<$endif$><$endif$><$endif$><$endforeach do$>
         else { return  nil }
 <$endif$>
 
-        <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$><$if Attribute.isOptional$>let <$Attribute.name$>: <$call getTypeForAttribute$> = <$if Attribute.attributeType == 1800$><$Attribute.valueTransformerName$>.reverse(<$endif$>decoder.decode("<$Attribute.name$>")<$if Attribute.attributeType == 1800$>)<$endif$><$endif$>
+        <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$><$if Attribute.isOptional$>let <$Attribute.name$>: <$call getTypeForAttribute Attribute$> = <$if Attribute.attributeType == 1800$><$Attribute.valueTransformerName$>.reverse(<$endif$>decoder.decode("<$Attribute.name$>")<$if Attribute.attributeType == 1800$>)<$endif$><$endif$>
         <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient && Relationship.userInfo.State.ProtocolRequirementType != get$><$if Relationship.isOptional$>let <$Relationship.name$>: <$if  Relationship.isToMany$>[<$endif$><$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if  Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> = <$if Relationship.userInfo.State.Transformable$><$Relationship.userInfo.State.Transformable$>.reverse(<$endif$>decoder.decode<$if Relationship.destinationEntity.isAbstract || Relationship.destinationEntity.userInfo.State.Protocol == YES$><$Relationship.destinationEntity.managedObjectClassName$><$else$>Model<$endif$><$if Relationship.isToMany$><$if Relationship.userInfo.State.CompositionType == Dictionary$>Dictionary<$else$>Array<$endif$><$endif$>("<$Relationship.name$>")<$if Relationship.userInfo.State.Transformable$>)<$endif$><$endif$>
         <$endif$><$endforeach do$>
 
@@ -96,7 +103,7 @@ extension <$typeName$> : Encodable {
         <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$>encoder.encode(<$Attribute.name$><$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.apply<$endif$>, "<$Attribute.name$>")
         <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient && Relationship.userInfo.State.ProtocolRequirementType != get$>encoder.encode(<$Relationship.name$><$if Relationship.userInfo.State.Transformable$> >>> <$Relationship.userInfo.State.Transformable$>.apply<$endif$>, "<$Relationship.name$>")
         <$endif$><$endforeach do$>
-        <$if hasSuperentity$>encoder.encode("<$typeName$>", "<$superentity.managedObjectClassName$>")<$endif$>
+        <$if hasSuperentity$>encoder.encode("<$typeName$>", "<$rootTypeName$>")<$endif$>
         <$call writeEncodingVersioningBlock$>
         self.willFinishEncodingWithEncoder(encoder)
     }
@@ -265,7 +272,7 @@ public extension Decoder {
     }
 
     private func _decode<$typeName$>(data: [String : AnyObject]) -> <$typeName$>? {
-        guard let dataTypeKey = data["<$typeName$>"] as? String else { return nil }
+        guard let dataTypeKey = data["<$rootTypeName$>"] as? String else { return nil }
         if let t = <$typeName$>TypeForKey(dataTypeKey) {
             return t.init(decoder: Decoder(data: data))
         }

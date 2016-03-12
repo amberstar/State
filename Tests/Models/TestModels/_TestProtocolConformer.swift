@@ -50,7 +50,7 @@ extension TestProtocolConformer : Encodable {
         encoder.encode(employee, "employee")
         encoder.encode(children, "children")
 
-        encoder.encode("TestProtocolConformer", "TestProtocol")
+        encoder.encode("TestProtocolConformer", "TestParentProtocol")
 
         TestProtocolConformer.encodeVersionIfNeeded(encoder)
 
