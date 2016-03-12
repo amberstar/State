@@ -49,7 +49,8 @@ extension TestTypes : Decodable {
 
 extension TestTypes : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(e: Encoder) {
+        var encoder = e
         encoder.encode(myDate, "myDate")
         encoder.encode(myFloat, "myFloat")
         encoder.encode(myBinary, "myBinary")

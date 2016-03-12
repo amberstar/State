@@ -38,7 +38,8 @@ extension Company : Decodable {
 
 extension Company : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(e: Encoder) {
+        var encoder = e
         encoder.encode(name, "name")
         encoder.encode(yearFounded, "yearFounded")
         encoder.encode(phoneNumber, "phoneNumber")

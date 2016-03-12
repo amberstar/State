@@ -26,7 +26,8 @@ extension TestRawEnum: Decodable {
 
 extension TestRawEnum: Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(e: Encoder) {
+        var encoder = e
         encoder.encode(self.rawValue, "value")
         TestRawEnum.encodeVersionIfNeeded(encoder)
         self.willFinishEncodingWithEncoder(encoder)

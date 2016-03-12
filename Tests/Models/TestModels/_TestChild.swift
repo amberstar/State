@@ -35,7 +35,8 @@ extension TestChild : Decodable {
 
 extension TestChild : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(e: Encoder) {
+        var encoder = e
         encoder.encode(age, "age")
         encoder.encode(name, "name")
         encoder.encode(myChildren, "myChildren")

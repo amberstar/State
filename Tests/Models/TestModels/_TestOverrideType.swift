@@ -29,7 +29,8 @@ extension TestOverrideType : Decodable {
 
 extension TestOverrideType : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(e: Encoder) {
+        var encoder = e
         encoder.encode(myURL, "myURL")
         encoder.encode(myArrayOfString, "myArrayOfString")
 

@@ -99,7 +99,8 @@ extension <$typeName$> : Decodable {
 
 extension <$typeName$> : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(e: Encoder) {
+        var encoder = e
         <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$>encoder.encode(<$Attribute.name$><$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.apply<$endif$>, "<$Attribute.name$>")
         <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient && Relationship.userInfo.State.ProtocolRequirementType != get$>encoder.encode(<$Relationship.name$><$if Relationship.userInfo.State.Transformable$> >>> <$Relationship.userInfo.State.Transformable$>.apply<$endif$>, "<$Relationship.name$>")
         <$endif$><$endforeach do$>
@@ -206,7 +207,8 @@ extension <$typeName$>: Decodable {
 
 extension <$typeName$>: Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(e: Encoder) {
+        var encoder = e
 <$if ! userInfo.State.Type$>
         switch self {
             <$foreach Attribute noninheritedAttributes do$><$call writeAttributeEncodeSwitchCaseForEnumCase Attribute$>

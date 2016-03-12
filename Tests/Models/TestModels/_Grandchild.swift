@@ -32,7 +32,8 @@ extension Grandchild : Decodable {
 
 extension Grandchild : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(e: Encoder) {
+        var encoder = e
         encoder.encode(age, "age")
         encoder.encode(name, "name")
         encoder.encode(gender, "gender")

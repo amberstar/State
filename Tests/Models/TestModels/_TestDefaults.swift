@@ -61,7 +61,8 @@ extension TestDefaults : Decodable {
 
 extension TestDefaults : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(e: Encoder) {
+        var encoder = e
         encoder.encode(defaultManualString, "defaultManualString")
         encoder.encode(defaultArray, "defaultArray")
         encoder.encode(defaultString, "defaultString")

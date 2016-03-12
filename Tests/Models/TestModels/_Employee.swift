@@ -32,7 +32,8 @@ extension Employee : Decodable {
 
 extension Employee : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(e: Encoder) {
+        var encoder = e
         encoder.encode(name, "name")
         encoder.encode(title, "title")
 

@@ -18,7 +18,8 @@ extension TestMigrationV1 {
      It provides a chance to encode any further data with the encoder.
      */
     public func willFinishEncodingWithEncoder(encoder: Encoder) {
-        encoder.encode("Hello World", "migration_test")
+        var e = encoder
+        e.encode("Hello World", "migration_test")
     }
 
 }

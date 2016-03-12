@@ -85,7 +85,8 @@ extension TestAssociatedEnum: Decodable {
 
 extension TestAssociatedEnum: Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(e: Encoder) {
+        var encoder = e
 
         switch self {
             case let .BinaryType(value):

@@ -38,7 +38,8 @@ extension TestMigrationV1 : Decodable {
 
 extension TestMigrationV1 : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(e: Encoder) {
+        var encoder = e
         encoder.encode(name, "name")
 
         TestMigrationV1.encodeVersionIfNeeded(encoder)

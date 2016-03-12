@@ -49,7 +49,8 @@ extension UserTypes : Decodable {
 
 extension UserTypes : Encodable {
     
-    func encode(encoder: Encoder){
+    func encode(e: Encoder){
+        var encoder = e
         encoder.encode(t, "t")
         encoder.encode(tOpt, "t_opt")
         encoder.encode(tImp, "t_imp")
@@ -88,7 +89,8 @@ extension User: Decodable, Encodable{
             self.email = email
     }
 
-    func encode(encoder: Encoder) {
+    func encode(e: Encoder) {
+        var encoder = e
         encoder.encode(id, "id")
         encoder.encode(name, "name")
         encoder.encode(email, "email")

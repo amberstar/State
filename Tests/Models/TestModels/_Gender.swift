@@ -25,7 +25,8 @@ extension Gender: Decodable {
 
 extension Gender: Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(e: Encoder) {
+        var encoder = e
         encoder.encode(self.rawValue, "value")
         Gender.encodeVersionIfNeeded(encoder)
         self.willFinishEncodingWithEncoder(encoder)

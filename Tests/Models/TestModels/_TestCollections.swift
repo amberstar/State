@@ -34,7 +34,8 @@ extension TestCollections : Decodable {
 
 extension TestCollections : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(e: Encoder) {
+        var encoder = e
         encoder.encode(arrayOfStrings, "arrayOfStrings")
         encoder.encode(dicOfInts, "dicOfInts")
         encoder.encode(setOfStrings, "setOfStrings")

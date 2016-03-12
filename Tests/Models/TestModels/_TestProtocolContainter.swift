@@ -34,7 +34,8 @@ extension TestProtocolContainter : Decodable {
 
 extension TestProtocolContainter : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(e: Encoder) {
+        let encoder = e
         encoder.encode(testProtocol, "testProtocol")
         encoder.encode(testProtocols, "testProtocols")
         encoder.encode(testProtocolsDict, "testProtocolsDict")

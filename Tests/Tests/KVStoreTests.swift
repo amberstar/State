@@ -9,7 +9,7 @@ class KVStoreTests: Test {
     }
     
     func createTestStore() -> KVStore {
-        let store = KVStore()
+        var store = KVStore()
         let model = Employee(name: "Test Employee", title: "Manager")
         
         store.set(false, "TestBool")

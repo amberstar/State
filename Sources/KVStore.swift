@@ -1,6 +1,6 @@
 
 /// A KVStore is a general purpose store for models and values
-public final class KVStore : KVEncoder, KVDecoder {
+public struct KVStore : KVEncoder, KVDecoder {
     
     /// The key value data of the store
     public var data = [String : AnyObject]()
@@ -44,22 +44,22 @@ public final class KVStore : KVEncoder, KVDecoder {
     }
     
     /// Set or update the value at key
-    public func set<T>(value: T, _ key: String) {
+    public mutating func set<T>(value: T, _ key: String) {
         self.encode(value, key)
     }
     
     /// Set or update the value at key
-    public func set<T where T: Model>(value: T, _ key: String) {
+    public mutating func set<T where T: Model>(value: T, _ key: String) {
         self.encode(value, key)
     }
     
     /// Set or update the value at key
-    public func set<T where T: Model>(value: [T], _ key: String) {
+    public mutating func set<T where T: Model>(value: [T], _ key: String) {
         self.encode(value, key)
     }
     
     /// Set or update the value at key
-    public func set<T where T: Model>(value: [String : T], _ key: String) {
+    public mutating func set<T where T: Model>(value: [String : T], _ key: String) {
         self.encode(value, key)
     }
 }

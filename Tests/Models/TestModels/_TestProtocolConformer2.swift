@@ -31,7 +31,8 @@ extension TestProtocolConformer2 : Decodable {
 
 extension TestProtocolConformer2 : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(e: Encoder) {
+        var encoder = e
         encoder.encode(name, "name")
         encoder.encode(ss_number, "ss_number")
 
