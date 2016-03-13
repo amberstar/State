@@ -32,8 +32,7 @@ extension TestRelationships : Decodable {
 
 extension TestRelationships : Encodable {
 
-    public func encode(e: Encoder) {
-        var encoder = e
+    public func encode(encoder: Encoder) {
         encoder.encode(myChildren, "myChildren")
         encoder.encode(myGrandChildren, "myGrandChildren")
         encoder.encode(myOneChild, "myOneChild")

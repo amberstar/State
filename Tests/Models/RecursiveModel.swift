@@ -63,8 +63,7 @@ struct Player: Model {
 
 
 extension Player: Encodable {
-    func encode(e: Encoder) {
-        var encoder = e
+    func encode(encoder: Encoder) {
         encoder.encode(id, "id")
         encoder.encode(name, "name")
         encoder.encode(email, "email")

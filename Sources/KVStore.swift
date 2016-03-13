@@ -3,10 +3,19 @@ let KVStoreVersion = "1.0"
 let KVStoreVersionKey  = "KVStore.Version"
 
 /// A KVStore is a general purpose store for models and values
-public struct KVStore : KVEncoder, KVDecoder {
+public class KVStoreContainer : KVEncoder, KVDecoder {
+    
+    
+    var path: String?
     
     /// The key value data of the store
-    public var data = [String : AnyObject]()
+    public var data = [String : AnyObject]() {
+        didSet {
+            if let path = self.path {
+                //saveStore(store, path)
+            }
+        }
+    }
     
     /// Initialize a new KVStore with data
     public init(data: [String : AnyObject] =  [:]) {
@@ -68,28 +77,28 @@ public struct KVStore : KVEncoder, KVDecoder {
     }
     
     /// Set or update the value at key
-    public mutating func set<T>(value value: T, forKey key: String) {
+    public func set<T>(value value: T, forKey key: String) {
         self.encode(value, key)
     }
     
     /// Set or update the value at key
-    public mutating func set<T where T: Model>(value value: T , forKey key: String ) {
+    public func set<T where T: Model>(value value: T , forKey key: String ) {
         self.encode(value, key)
     }
     
     /// Set or update the value at key
-    public mutating func set<T where T: Model>(value value: [T], forKey key: String) {
+    public  func set<T where T: Model>(value value: [T], forKey key: String) {
         self.encode(value, key)
     }
     
     /// Set or update the value at key
-    public mutating func set<T where T: Model>(value value: [String : T], forKey key: String) {
+    public func set<T where T: Model>(value value: [String : T], forKey key: String) {
         self.encode(value, key)
     }
     
     /// Merge a store into the receiver store
     /// adding or updating any values
-    public mutating func merge(store: KVStore) {
+    public func merge(store: KVStoreContainer) {
         self.data.merge(store.data)
     }
 }

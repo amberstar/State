@@ -35,8 +35,7 @@ extension TestRegEnum: Decodable {
 
 extension TestRegEnum: Encodable {
 
-    public func encode(e: Encoder) {
-        var encoder = e
+    public func encode(encoder: Encoder) {
 
         switch self {
             case .Cold:

@@ -1,5 +1,5 @@
 public protocol Encodable {
-    func encode(e: Encoder)
+    func encode(encoder: Encoder)
     func willFinishEncodingWithEncoder(encoder: Encoder)
 }
 
@@ -27,24 +27,24 @@ public extension Encodable {
     }
 }
 
-public protocol KVEncoder {
+public protocol KVEncoder : class {
     var data : [String : AnyObject] { get set }
 }
 
-extension KVEncoder {
-    public mutating func encode<T: Encodable>(value: T?, _ key: String) {
+extension KVEncoder  {
+    public func encode<T: Encodable>(value: T?, _ key: String) {
         value.apply { self.data[key] = $0.encode() }
     }
     
-    public  mutating func encode<T: Encodable>(value: [T]?, _ key: String) {
+    public  func encode<T: Encodable>(value: [T]?, _ key: String) {
         value.apply { self.data[key] = $0.map { $0.encode() } }
     }
     
-    public mutating func encode<T: Encodable>(value: [String : T]?, _ key: String) {
+    public func encode<T: Encodable>(value: [String : T]?, _ key: String) {
         value.apply { self.data[key] = $0.map { $0.encode() } }
     }
     
-    public mutating func encode<V>(value: V?, _ key: String) {
+    public func encode<V>(value: V?, _ key: String) {
         value.apply{ self.data[key] = $0 as? AnyObject }
     }
 }

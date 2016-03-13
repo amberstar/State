@@ -8,8 +8,8 @@ class KVStoreTests: Test {
         super.setUp()
     }
     
-    func createTestStore() -> KVStore {
-        var store = KVStore()
+    func createTestStoreContainer() -> KVStoreContainer {
+        let store = KVStoreContainer()
         let model = Employee(name: "Test Employee", title: "Manager")
         
         store.set(value: false, forKey: "TestBool")
@@ -26,11 +26,11 @@ class KVStoreTests: Test {
         return store
     }
     
-    func saveAndLoadStore() -> KVStore? {
-        let baseStore = createTestStore()
+    func saveAndLoadStore() -> KVStoreContainer? {
+        let baseStore = createTestStoreContainer()
         
         baseStore.save(.Plist, path: tempPathFor("TestStore.plist"))
-        let inStore = KVStore(.Plist, path: tempPathFor("TestStore.plist"))
+        let inStore = KVStoreContainer(.Plist, path: tempPathFor("TestStore.plist"))
         return inStore
     }
     

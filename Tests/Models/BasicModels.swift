@@ -50,8 +50,7 @@ extension BasicTypes : Decodable {
 
 extension BasicTypes : Encodable {
     
-    func encode(e: Encoder){
-        var encoder = e
+    func encode(encoder: Encoder){
         encoder.encode(t, "t")
         encoder.encode(tOpt, "t_opt")
         encoder.encode(tImp, "t_imp")
@@ -114,8 +113,7 @@ extension StringTypes : Decodable {
 
 extension StringTypes : Encodable {
     
-    func encode(e: Encoder){
-        var encoder = e
+    func encode(encoder: Encoder){
         encoder.encode(t, "t")
         encoder.encode(tOpt, "t_opt")
         encoder.encode(tImp, "t_imp")
@@ -177,8 +175,7 @@ extension AnyObjectTypes : Decodable {
 
 extension AnyObjectTypes : Encodable {
     
-    func encode(e: Encoder){
-        var encoder = e
+    func encode(encoder: Encoder){
         encoder.encode(t, "t")
         encoder.encode(tOpt, "t_opt")
         encoder.encode(tImp, "t_imp")

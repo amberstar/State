@@ -38,8 +38,7 @@ extension TestTransformable : Decodable {
 
 extension TestTransformable : Encodable {
 
-    public func encode(e: Encoder) {
-        var encoder = e
+    public func encode(encoder: Encoder) {
         encoder.encode(myTransformable >>> URLTransform.apply, "myTransformable")
         encoder.encode(myTransformableImmutable >>> URLTransform.apply, "myTransformableImmutable")
         encoder.encode(myTransformableImmutableOptional >>> URLTransform.apply, "myTransformableImmutableOptional")
