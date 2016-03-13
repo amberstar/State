@@ -12,16 +12,16 @@ class KVStoreTests: Test {
         var store = KVStore()
         let model = Employee(name: "Test Employee", title: "Manager")
         
-        store.set(false, "TestBool")
-        store.set(10, "TestInt")
-        store.set(24.5, "TestFloat")
-        store.set([true, false, true], "TestArrayBool")
-        store.set([10, 11, 12], "TestArrayInt")
-        store.set([22.5, 2, 11.4], "TestArrayFloat")
-        store.set(["Key" : false, "Key1" : true], "TestBoolDictionary")
-        store.set(model, "TestModel")
-        store.set([model, model, model], "TestArrayModel")
-        store.set(["Key" : model, "Key1" : model], "TestDictionaryModel")
+        store.setValue("TestBool", false )
+        store.setValue("TestInt", 10 )
+        store.setValue("TestFloat", 24.5)
+        store.setValue("TestArrayBool", [true, false, true])
+        store.setValue("TestArrayInt", [10, 11, 12])
+        store.setValue("TestArrayFloat", [22.5, 2, 11.4])
+        store.setValue("TestBoolDictionary", ["Key" : false, "Key1" : true])
+        store.setValue("TestModel", model)
+        store.setValue("TestArrayModel", [model, model, model])
+        store.setValue("TestDictionaryModel", ["Key" : model, "Key1" : model])
         
         return store
     }
@@ -42,9 +42,9 @@ class KVStoreTests: Test {
     func testGettingValuesFromStore() {
         guard let store = saveAndLoadStore() else { XCTFail() ; return }
         
-        XCTAssertNotNil(store.get("TestBool"))
+        XCTAssertNotNil(store.value("TestBool"))
         
-        let employees : [Employee]? = store.get("TestArrayModel")
+        let employees : [Employee]? = store.value("TestArrayModel")
         XCTAssertNotNil(employees)
         XCTAssert(employees?[2].name == "Test Employee")
     }

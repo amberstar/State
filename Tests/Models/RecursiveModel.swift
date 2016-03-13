@@ -30,7 +30,6 @@ struct Player: Model {
         self.age = age
     }
     
-    
     init?(decoder: Decoder) {
         
         guard let id: Int  = decoder.decode("id"),
