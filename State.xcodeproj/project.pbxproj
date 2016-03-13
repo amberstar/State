@@ -452,12 +452,12 @@
 		96960A431C90F00B00D4E6D0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				96960A4B1C90F00B00D4E6D0 /* Library.swift */,
 				9690A0AC1C946E1B00924F4C /* KVStore.swift */,
 				96C5C3841B3C2C3D009121A1 /* Runes */,
 				96960A451C90F00B00D4E6D0 /* Formats */,
 				96960A4F1C90F00B00D4E6D0 /* Transforms */,
 				96960A441C90F00B00D4E6D0 /* Coding.swift */,
-				96960A4B1C90F00B00D4E6D0 /* Library.swift */,
 				96960A4C1C90F00B00D4E6D0 /* Migration.swift */,
 				96960A4D1C90F00B00D4E6D0 /* Model.swift */,
 			);

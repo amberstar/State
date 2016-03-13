@@ -8,13 +8,6 @@ public func +<T, V>(lhs: [T: V], rhs: [T: V]) -> [T: V] {
     return l
 }
 
-public extension Dictionary {
-    func map<A>(f: Value -> A) -> [Key: A] {
-        let result  = self.reduce([:]) { $0 + [$1.0: f($1.1)] }
-        return result
-    }
-}
-
 public func sequence<T>(xs: [T?]) -> [T]? {
     return xs.reduce([T]()) { accum, elem in
         return curry(+) <^> accum <*> (pure <^> elem)
@@ -44,19 +37,28 @@ public func curry<A, B, C>(f: (A, B) -> C) -> A -> B -> C {
     return { a in { b in f(a, b) }}
 }
 
-
 public protocol Semigroup {
     /// An associative binary operator.
     func op(other : Self) -> Self
 }
 
-extension Array : Semigroup {
+public protocol Monoid : Semigroup {
+    
+    static var mempty : Self { get }
+}
+
+extension Array : Semigroup, Monoid {
+    
     public func op(other : [Element]) -> [Element] {
         return self + other
     }
+    public static var mempty : [Element] { return [] }
 }
 
-extension Dictionary : Semigroup {
+extension Dictionary : Semigroup, Monoid {
+    
+    public static var mempty : [Key : Value] { return [:] }
+    
     public func op(other: [Key : Value]) -> [Key : Value] {
         var source = self
         for (k, v) in other {
@@ -64,9 +66,7 @@ extension Dictionary : Semigroup {
         }
         return source
     }
-}
 
-extension Dictionary {
     /// Merges the dictionary with dictionaries passed. The latter dictionaries will override
     /// values of the keys that are already set
     ///
@@ -78,18 +78,10 @@ extension Dictionary {
             }
         }
     }
-}
-
-public protocol Monoid : Semigroup {
-    static var mempty : Self { get }
-}
-
-extension Array : Monoid {
-    public static var mempty : [Element] { return [] }
-}
-
-extension Dictionary : Monoid {
     
-    public static var mempty : [Key : Value] { return [:]
+    func map<A>(f: Value -> A) -> [Key: A] {
+        let result  = self.reduce([:]) { $0 + [$1.0: f($1.1)] }
+        return result
     }
 }
+
