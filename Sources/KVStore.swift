@@ -11,7 +11,7 @@ public struct KVStore : KVEncoder, KVDecoder {
     /// Initialize a new KVStore with data
     public init(data: [String : AnyObject] =  [:]) {
         self.data = data
-        setValue(KVStoreVersionKey, KVStoreVersion)
+        set(value: KVStoreVersionKey, forKey: KVStoreVersion)
     }
     
     /// Initialize a new store from a file
@@ -27,63 +27,63 @@ public struct KVStore : KVEncoder, KVDecoder {
         return format.converter.write(self.data, path: path)
     }
     
-    public func boolValue(key: String) -> Bool? {
-        return value(key)
+    public func getBool(forKey key: String) -> Bool? {
+        return getValue(forKey: key)
     }
     
-    public func intValue(key: String) -> Int? {
-        return value(key)
+    public func getInt(forKey key: String) -> Int? {
+        return getValue(forKey: key)
     }
     
-    public func doubleValue(key: String) -> Double? {
-        return value(key)
+    public func getDouble(forKey key: String) -> Double? {
+         return getValue(forKey: key)
     }
     
-    public func floatValue(key: String) -> Float? {
-        return value(key)
+    public func getFloat(forKey key: String) -> Float? {
+         return getValue(forKey: key)
     }
     
-    public func stringValue(key: String) -> String? {
-        return value(key)
+    public func getString(forKey key: String) -> String? {
+         return getValue(forKey: key)
     }
     
     /// Returns a value at key or nil
-    public func value<T where T: Model>(key: String) -> T? {
+    public func getValue<T where T: Model>(forKey key: String) -> T? {
         return self.decodeModel(key)
     }
     
     /// Returns a value at key or nil
-    public func value<T where T: Model>(key: String) -> [T]? {
+    public func getValue<T where T: Model>(forKey key: String) -> [T]? {
         return self.decodeModelArray(key)
     }
     
     /// Returns a value at key or nil
-    public func value<T where T: Model>(key: String) -> [String : T]? {
+    public func getValue<T where T: Model>(forKey key: String) -> [String : T]? {
         return self.decodeModelDictionary(key)
     }
     
     /// Returns a value at key or nil
-    public func value<T>(key: String) -> T? {
+    public func getValue<T>(forKey key: String) -> T? {
         return self.decode(key)
     }
     
     /// Set or update the value at key
-    public mutating func setValue<T>(key: String, _ value: T) {
+    public mutating func set<T>(value value: T, forKey key: String) {
         self.encode(value, key)
     }
     
     /// Set or update the value at key
-    public mutating func setValue<T where T: Model>(key: String, _ value: T ) {
+    public mutating func set<T where T: Model>(value value: T , forKey key: String ) {
         self.encode(value, key)
     }
     
     /// Set or update the value at key
-    public mutating func setValue<T where T: Model>(key: String, _ value: [T]) {
+    public mutating func set<T where T: Model>(value value: [T], forKey key: String) {
         self.encode(value, key)
     }
     
     /// Set or update the value at key
-    public mutating func setValue<T where T: Model>(key: String, _ value: [String : T]) {
+    public mutating func set<T where T: Model>(value value: [String : T], forKey key: String) {
         self.encode(value, key)
     }
     

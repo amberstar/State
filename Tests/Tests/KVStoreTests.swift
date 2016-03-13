@@ -12,16 +12,16 @@ class KVStoreTests: Test {
         var store = KVStore()
         let model = Employee(name: "Test Employee", title: "Manager")
         
-        store.setValue("TestBool", false )
-        store.setValue("TestInt", 10 )
-        store.setValue("TestFloat", 24.5)
-        store.setValue("TestArrayBool", [true, false, true])
-        store.setValue("TestArrayInt", [10, 11, 12])
-        store.setValue("TestArrayFloat", [22.5, 2, 11.4])
-        store.setValue("TestBoolDictionary", ["Key" : false, "Key1" : true])
-        store.setValue("TestModel", model)
-        store.setValue("TestArrayModel", [model, model, model])
-        store.setValue("TestDictionaryModel", ["Key" : model, "Key1" : model])
+        store.set(value: false, forKey: "TestBool")
+        store.set(value: 10, forKey: "TestInt")
+        store.set(value: 24.5, forKey: "TestFloat")
+        store.set(value: [true, false, true], forKey: "TestArrayBool")
+        store.set(value: [10, 11, 12], forKey: "TestArrayInt")
+        store.set(value: [22.5, 2, 11.4], forKey: "TestArrayFloat")
+        store.set(value: ["Key" : false, "Key1" : true], forKey: "TestBoolDictionary")
+        store.set(value: model, forKey: "TestModel")
+        store.set(value: [model, model, model], forKey: "TestArrayModel")
+        store.set(value: ["Key" : model, "Key1" : model], forKey: "TestDictionaryModel")
         
         return store
     }
@@ -42,9 +42,9 @@ class KVStoreTests: Test {
     func testGettingValuesFromStore() {
         guard let store = saveAndLoadStore() else { XCTFail() ; return }
         
-        XCTAssertNotNil(store.value("TestBool"))
+        XCTAssertNotNil(store.getValue(forKey: "TestBool"))
         
-        let employees : [Employee]? = store.value("TestArrayModel")
+        let employees : [Employee]? = store.getValue(forKey: "TestArrayModel")
         XCTAssertNotNil(employees)
         XCTAssert(employees?[2].name == "Test Employee")
     }

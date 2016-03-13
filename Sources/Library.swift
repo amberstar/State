@@ -79,7 +79,7 @@ extension Dictionary : Semigroup, Monoid {
         }
     }
     
-    func map<A>(f: Value -> A) -> [Key: A] {
+    public func map<A>(f: Value -> A) -> [Key: A] {
         let result  = self.reduce([:]) { $0 + [$1.0: f($1.1)] }
         return result
     }
