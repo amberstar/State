@@ -1,6 +1,7 @@
 
 let KVStoreVersion = "1.0"
 let KVStoreVersionKey  = "KVStore.Version"
+let KeyPathSeperator : Character = "."
 
 public enum KVStoreError : ErrorType {
     case SaveError(KVStoreContainer)
@@ -23,6 +24,9 @@ func bg_save(container container: KVStoreContainer, path: String) {
     })
 }
 
+
+
+
 // domain/container/value
 
 
@@ -42,11 +46,13 @@ func bg_save(container container: KVStoreContainer, path: String) {
 public class KVStore {
     public var domains: [String : KVStoreDomain] = [:]
     
+    
     public subscript(key: String) -> KVStoreDomain? {
         return domain(forKey: key)
     }
     
     public func addDomain(key: String, domain: KVStoreDomain = KVStoreDomain()) -> KVStoreDomain {
+        precondition(!domains.keys.contains(key), "Domain already exsists: \(key)")
         self.domains[key] = domain
         return domain
     }
@@ -61,6 +67,8 @@ public class KVStore {
 
 public class KVStoreDomain {
     
+    public var domains: [String : KVStoreDomain] = [:]
+    
     /// The store containers contained in the domain
     public var containers : [String : KVStoreContainer] = [:]
     
@@ -69,19 +77,91 @@ public class KVStoreDomain {
         return container(forKey: key)
     }
     
+    public func container(forKeyPath keyPath: String) -> KVStoreContainer? {
+        let components = keyPath.characters.split(KeyPathSeperator).map(String.init)
+        return container(forKeys: components)
+    }
+    
+    func container(forKeys keys: [String]) -> KVStoreContainer? {
+        var keys = keys
+        guard let key = keys.first else { return nil }
+        guard keys.count > 1 else { return container(forKey: key) }
+        return domains[keys.removeFirst()]?.container(forKeys: keys)
+    }
+    
     /// Returns the container for the key for nil if not found
     public func container(forKey key: String) -> KVStoreContainer? {
         return containers[key]
     }
     
+    public func addContainer(forKeyPath keyPath: String, container: KVStoreContainer = KVStoreContainer()) -> KVStoreContainer {
+        let components = keyPath.characters.split(KeyPathSeperator).map(String.init)
+        return addContainer(components, container: container )
+    }
+    
+    func addContainer(keys: [String], container: KVStoreContainer = KVStoreContainer()) -> KVStoreContainer {
+        var keys = keys
+        let key = keys.removeLast()
+        guard keys.count > 1 else { return addContainer(key, container: container) }
+        return materializeDomain(forKeys: keys).addContainer(key, container: container)
+    }
+
     /// Add a container to the reciever
     public func addContainer(key: String, container: KVStoreContainer = KVStoreContainer()) -> KVStoreContainer {
-        //TODO: must not exist
+        precondition(!containers.keys.contains(key), "Container already exsists: \(key)")
         containers[key] = container
         return container
     }
     
+    /// Remove a container from the reciever and remove it
+    public func removeContainer(key: String) -> KVStoreContainer? {
+        return containers.removeValueForKey(key)
+    }
+    
+    public func domain(forKeyPath keyPath: String) -> KVStoreDomain? {
+        let components = keyPath.characters.split(KeyPathSeperator).map(String.init)
+        return domain(forKeys: components)
+    }
+    
+    func domain(forKeys keys: [String]) -> KVStoreDomain? {
+        var keys = keys
+        guard let key = keys.first else { return nil }
+        guard keys.count > 1 else { return domain(forKey: key) }
+        return domains[keys.removeFirst()]?.domain(forKeys: keys)
+    }
+    
+    public func domain(forKey key: String) -> KVStoreDomain? {
+        guard let domain = domains[key] else { return nil }
+        return domain
+    }
+    
+    public func addDomain(forKeyPath keyPath: String, domain: KVStoreDomain = KVStoreDomain()) -> KVStoreDomain {
+        let components = keyPath.characters.split(KeyPathSeperator).map(String.init)
+        return addDomain(components, domain: domain )
+    }
+    
+    func addDomain(keys: [String], domain: KVStoreDomain = KVStoreDomain()) -> KVStoreDomain {
+        var keys = keys
+        guard let key = keys.first else { preconditionFailure() }
+        guard keys.count > 1 else { return addDomain(key, domain: domain) }
+        let targetKey = keys.removeFirst()
+        let target = domains[targetKey] ?? addDomain(targetKey)
+        return target.addDomain(keys)
+    }
+    
+    public func addDomain(key: String, domain: KVStoreDomain = KVStoreDomain()) -> KVStoreDomain {
+        precondition(!domains.keys.contains(key), "Domain already exsists: \(key)")
+        self.domains[key] = domain
+        return domain
+    }
+    
+    func materializeDomain(forKeys keys: [String]) -> KVStoreDomain {
+        return domain(forKeys: keys) ?? addDomain(keys)
+    }
+    
     public init() {}
+    
+
 }
 
 public class KVStoreContainer : KVEncoder, KVDecoder {
@@ -182,7 +262,7 @@ public class KVStoreContainer : KVEncoder, KVDecoder {
         self.encode(value, key)
     }
     
-    /// Merge a store into the receiver store
+    /// Merge a containers data into the receiver
     /// adding or updating any values
     public func merge(store: KVStoreContainer) {
         self.data.merge(store.data)
