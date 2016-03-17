@@ -28,13 +28,13 @@ public extension Decoder {
         return d.flatMap(_decodeTestProtocol)
     }
 
-    public func decodeTestProtocolArray(key: String) -> [TestProtocol]? {
+    public func decodeTestProtocol(key: String) -> [TestProtocol]? {
         let data = self.extractData()
         let d = data[key] as? [[String : AnyObject]]
         return d.flatMap { sequence($0.map(_decodeTestProtocol)) }
     }
 
-    public func decodeTestProtocolDictionary(key: String) -> [String : TestProtocol]? {
+    public func decodeTestProtocol(key: String) -> [String : TestProtocol]? {
         let data = self.extractData()
         let d = data[key] as? [String : [String : AnyObject]]
         return d.flatMap { sequence($0.map(_decodeTestProtocol)) }

@@ -68,11 +68,11 @@ extension TestAssociatedEnum: Decodable {
                         self = TestAssociatedEnum.TransformableColorType(value)
                     } else { return nil }
                 case "DecodableToManyType":
-                    if let value: [Employee] = decoder.decodeModelArray("value") {
+                    if let value: [Employee] = decoder.decode("value") {
                         self = TestAssociatedEnum.DecodableToManyType(value)
                     } else { return nil }
                 case "DecodableToOneType":
-                    if let value: Employee = decoder.decodeModel("value") {
+                    if let value: Employee = decoder.decode("value") {
                         self = TestAssociatedEnum.DecodableToOneType(value)
                     } else { return nil }
 

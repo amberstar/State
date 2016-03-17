@@ -19,9 +19,9 @@ extension TestRelationships : Decodable {
         var decoder = d
         decoder = TestRelationships.performMigrationIfNeeded(decoder)
 
-        let myChildren: [TestChild]? = decoder.decodeModelArray("myChildren")
-        let myGrandChildren: [Grandchild]? = decoder.decodeModelArray("myGrandChildren")
-        let myOneChild: TestChild? = decoder.decodeModel("myOneChild")
+        let myChildren: [TestChild]? = decoder.decode("myChildren")
+        let myGrandChildren: [Grandchild]? = decoder.decode("myGrandChildren")
+        let myOneChild: TestChild? = decoder.decode("myOneChild")
 
         self.myChildren = myChildren
         self.myGrandChildren = myGrandChildren

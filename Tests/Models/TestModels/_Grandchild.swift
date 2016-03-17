@@ -21,7 +21,7 @@ extension Grandchild : Decodable {
 
         let age: Int? = decoder.decode("age")
         let name: String? = decoder.decode("name")
-        let gender: Gender? = decoder.decodeModel("gender")
+        let gender: Gender? = decoder.decode("gender")
 
         self.age = age
         self.name = name
