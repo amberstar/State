@@ -85,10 +85,7 @@
 		9676A5D91BAD96E0005B0C3D /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C5C3791B3C293F009121A1 /* Operators.swift */; };
 		9690A0641C942C9100924F4C /* _TestProtocolConformer2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0621C942C9100924F4C /* _TestProtocolConformer2.swift */; };
 		9690A0651C942C9100924F4C /* TestProtocolConformer2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0631C942C9100924F4C /* TestProtocolConformer2.swift */; };
-
 		96960A551C90F00B00D4E6D0 /* Endcoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A441C90F00B00D4E6D0 /* Endcoding.swift */; };
-		9690A0661C942CAF00924F4C /* ProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0601C9429A300924F4C /* ProtocolTests.swift */; };
-		9690A0AD1C946E1B00924F4C /* KVStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0AC1C946E1B00924F4C /* KVStore.swift */; };
 		96960A561C90F00B00D4E6D0 /* Binary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A461C90F00B00D4E6D0 /* Binary.swift */; };
 		96960A571C90F00B00D4E6D0 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A471C90F00B00D4E6D0 /* JSON.swift */; };
 		96960A581C90F00B00D4E6D0 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A481C90F00B00D4E6D0 /* Converter.swift */; };
@@ -235,7 +232,6 @@
 		9690A0601C9429A300924F4C /* ProtocolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProtocolTests.swift; path = Tests/Tests/ProtocolTests.swift; sourceTree = "<group>"; };
 		9690A0621C942C9100924F4C /* _TestProtocolConformer2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestProtocolConformer2.swift; path = Tests/Models/TestModels/_TestProtocolConformer2.swift; sourceTree = "<group>"; };
 		9690A0631C942C9100924F4C /* TestProtocolConformer2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocolConformer2.swift; path = Tests/Models/TestModels/TestProtocolConformer2.swift; sourceTree = "<group>"; };
-		9690A0AC1C946E1B00924F4C /* KVStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVStore.swift; sourceTree = "<group>"; };
 		9690A0BC1C947DA300924F4C /* KVStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KVStoreTests.swift; path = Tests/Tests/KVStoreTests.swift; sourceTree = "<group>"; };
 		96960A441C90F00B00D4E6D0 /* Endcoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endcoding.swift; sourceTree = "<group>"; };
 		96960A461C90F00B00D4E6D0 /* Binary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Binary.swift; sourceTree = "<group>"; };
@@ -263,6 +259,8 @@
 		96A8602F1B4B304A006A5ABE /* TestProtocolContainter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocolContainter.swift; path = Tests/Models/TestModels/TestProtocolContainter.swift; sourceTree = "<group>"; };
 		96A860321B4B35A8006A5ABE /* TestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocol.swift; path = Tests/Models/TestModels/TestProtocol.swift; sourceTree = "<group>"; };
 		96B8A8F81C9AD3CC0086619F /* Decoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Decoding.swift; path = Sources/Decoding.swift; sourceTree = SOURCE_ROOT; };
+		96B8A8FF1C9AF9080086619F /* KVStore-Inernals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KVStore-Inernals.swift"; path = "KVStore/KVStore-Inernals.swift"; sourceTree = "<group>"; };
+		96B8A9001C9AF9080086619F /* KVStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KVStore.swift; path = KVStore/KVStore.swift; sourceTree = "<group>"; };
 		96C5C3781B3C293F009121A1 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Array.swift; path = Carthage/Checkouts/Runes/Source/Array.swift; sourceTree = SOURCE_ROOT; };
 		96C5C3791B3C293F009121A1 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Carthage/Checkouts/Runes/Source/Operators.swift; sourceTree = SOURCE_ROOT; };
 		96C5C37A1B3C293F009121A1 /* Optional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Optional.swift; path = Carthage/Checkouts/Runes/Source/Optional.swift; sourceTree = SOURCE_ROOT; };
@@ -455,8 +453,8 @@
 		96960A431C90F00B00D4E6D0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				96960A4B1C90F00B00D4E6D0 /* Library.swift */,
-				9690A0AC1C946E1B00924F4C /* KVStore.swift */,
+				96B8A8FF1C9AF9080086619F /* KVStore-Inernals.swift */,
+				96B8A9001C9AF9080086619F /* KVStore.swift */,
 				96C5C3841B3C2C3D009121A1 /* Runes */,
 				96960A451C90F00B00D4E6D0 /* Formats */,
 				96960A4F1C90F00B00D4E6D0 /* Transforms */,
