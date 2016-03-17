@@ -32,8 +32,7 @@ guard
 
 extension Employee : Encodable {
 
-    public func encode(e: Encoder) {
-        var encoder = e
+    public func encode(encoder: Encoder) {
         encoder.encode(name, "name")
         encoder.encode(title, "title")
 

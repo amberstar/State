@@ -28,8 +28,7 @@ extension TestTransient2 : Decodable {
 
 extension TestTransient2 : Encodable {
 
-    public func encode(e: Encoder) {
-        var encoder = e
+    public func encode(encoder: Encoder) {
         encoder.encode(myNonTransient, "myNonTransient")
 
         TestTransient2.encodeVersionIfNeeded(encoder)

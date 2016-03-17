@@ -28,8 +28,7 @@ guard
 
 extension TestDefaultsChild : Encodable {
 
-    public func encode(e: Encoder) {
-        var encoder = e
+    public func encode(encoder: Encoder) {
         encoder.encode(name, "name")
 
         TestDefaultsChild.encodeVersionIfNeeded(encoder)

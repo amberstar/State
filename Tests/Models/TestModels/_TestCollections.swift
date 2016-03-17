@@ -34,8 +34,7 @@ guard
 
 extension TestCollections : Encodable {
 
-    public func encode(e: Encoder) {
-        var encoder = e
+    public func encode(encoder: Encoder) {
         encoder.encode(arrayOfStrings, "arrayOfStrings")
         encoder.encode(dicOfInts, "dicOfInts")
         encoder.encode(setOfStrings, "setOfStrings")

@@ -110,8 +110,7 @@ public extension Migratable where Self: Decodable {
 }
 
 public extension Migratable where Self: Encodable {
-    static func encodeVersionIfNeeded(e: Encoder) {
-        var encoder = e
+    static func encodeVersionIfNeeded(encoder: Encoder) {
         guard Self.shouldEncodeVersion() else { return  }
         encoder.encode(Self.version(Self.modelVersionHash(), modelVersionHashModifier: Self.modelVersionHashModifier()), Self.versionKey())
     }

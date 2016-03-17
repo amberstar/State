@@ -34,8 +34,7 @@ guard
 
 extension TestProtocolContainter : Encodable {
 
-    public func encode(e: Encoder) {
-        var encoder = e
+    public func encode(encoder: Encoder) {
         encoder.encode(testProtocol, "testProtocol")
         encoder.encode(testProtocols, "testProtocols")
         encoder.encode(testProtocolsDict, "testProtocolsDict")

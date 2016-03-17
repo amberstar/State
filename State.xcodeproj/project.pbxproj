@@ -85,7 +85,10 @@
 		9676A5D91BAD96E0005B0C3D /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C5C3791B3C293F009121A1 /* Operators.swift */; };
 		9690A0641C942C9100924F4C /* _TestProtocolConformer2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0621C942C9100924F4C /* _TestProtocolConformer2.swift */; };
 		9690A0651C942C9100924F4C /* TestProtocolConformer2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0631C942C9100924F4C /* TestProtocolConformer2.swift */; };
+
 		96960A551C90F00B00D4E6D0 /* Endcoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A441C90F00B00D4E6D0 /* Endcoding.swift */; };
+		9690A0661C942CAF00924F4C /* ProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0601C9429A300924F4C /* ProtocolTests.swift */; };
+		9690A0AD1C946E1B00924F4C /* KVStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0AC1C946E1B00924F4C /* KVStore.swift */; };
 		96960A561C90F00B00D4E6D0 /* Binary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A461C90F00B00D4E6D0 /* Binary.swift */; };
 		96960A571C90F00B00D4E6D0 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A471C90F00B00D4E6D0 /* JSON.swift */; };
 		96960A581C90F00B00D4E6D0 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A481C90F00B00D4E6D0 /* Converter.swift */; };
@@ -452,6 +455,7 @@
 		96960A431C90F00B00D4E6D0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				96960A4B1C90F00B00D4E6D0 /* Library.swift */,
 				9690A0AC1C946E1B00924F4C /* KVStore.swift */,
 				96C5C3841B3C2C3D009121A1 /* Runes */,
 				96960A451C90F00B00D4E6D0 /* Formats */,

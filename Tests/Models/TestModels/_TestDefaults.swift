@@ -61,8 +61,7 @@ guard
 
 extension TestDefaults : Encodable {
 
-    public func encode(e: Encoder) {
-        var encoder = e
+    public func encode(encoder: Encoder) {
         encoder.encode(defaultManualString, "defaultManualString")
         encoder.encode(defaultArray, "defaultArray")
         encoder.encode(defaultString, "defaultString")

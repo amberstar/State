@@ -49,8 +49,7 @@ guard
 
 extension TestTypes : Encodable {
 
-    public func encode(e: Encoder) {
-        var encoder = e
+    public func encode(encoder: Encoder) {
         encoder.encode(myDate, "myDate")
         encoder.encode(myFloat, "myFloat")
         encoder.encode(myBinary, "myBinary")
