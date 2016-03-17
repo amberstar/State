@@ -19,7 +19,7 @@ public extension Decodable {
       return nil
    }
    
-   public static func decodeFromFile(converter: KeyedConverter.Type, path: String) -> Self? {
+   public static func decodeFromFile(converter: Converter.Type, path: String) -> Self? {
       return decode(converter.read(path))
    }
    
@@ -39,7 +39,7 @@ public protocol KVDecoder {
 }
 
 extension KVDecoder {
-      
+   
    /// decode a decodable element
    /// - parameter key: a dictionary to use for decoding
    /// - returns: return element of type T or nil if decoding failed
@@ -70,11 +70,7 @@ extension KVDecoder {
    public func decode<V>(key: String) -> V? {
       return data[key] as? V
    }
-   
-   public func extractData() -> [String : AnyObject] {
-      return self.data
-   }
-   
+
    private func _decodeDecodable<T: Decodable>(data: [String : AnyObject]) -> T? {
       return T(decoder: Decoder(data: data))
    }

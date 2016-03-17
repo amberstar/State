@@ -2,7 +2,7 @@ import Foundation
 
 /// binary Plist data format
 /// base class for all data services. (see JSON, and Plist)
-public class Binary: KeyedConverter {
+public class Binary: Converter {
     
     /// write data to a file
     /// - returns: true if succeeded, false if failed

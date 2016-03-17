@@ -17,19 +17,19 @@ public protocol TestParentProtocol : Model  {
 public extension Decoder {
 
     public func decodeTestParentProtocol(key: String) -> TestParentProtocol? {
-        let data = self.extractData()
+        let data = self.data
         let d = data[key] as? [String : AnyObject]
         return d.flatMap(_decodeTestParentProtocol)
     }
 
     public func decodeTestParentProtocol(key: String) -> [TestParentProtocol]? {
-        let data = self.extractData()
+        let data = self.data
         let d = data[key] as? [[String : AnyObject]]
         return d.flatMap { sequence($0.map(_decodeTestParentProtocol)) }
     }
 
     public func decodeTestParentProtocol(key: String) -> [String : TestParentProtocol]? {
-        let data = self.extractData()
+        let data = self.data
         let d = data[key] as? [String : [String : AnyObject]]
         return d.flatMap { sequence($0.map(_decodeTestParentProtocol)) }
     }

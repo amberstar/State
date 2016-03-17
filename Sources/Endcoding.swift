@@ -11,7 +11,7 @@ public extension Encodable {
         return coder.data
     }
     
-    func encodeToFile(converter: KeyedConverter.Type, path: String) {
+    func encodeToFile(converter: Converter.Type, path: String) {
         converter.write(self.encode(), path: path)
     }
     

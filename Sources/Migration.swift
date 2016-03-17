@@ -102,7 +102,7 @@ public extension Migratable where Self: Decodable {
         guard Self.shouldMigrateIfNeeded() else { return decoder }
         
         if let dataVersion: AnyObject = decoder.decode(Self.versionKey()) where Self.needsMigration(dataVersion) {
-            let migratedData = Self.migrateDataForDecoding(decoder.extractData(), dataVersion: dataVersion)
+            let migratedData = Self.migrateDataForDecoding(decoder.data, dataVersion: dataVersion)
             return Decoder(data: migratedData)
         }
         return decoder

@@ -270,19 +270,19 @@ public protocol <$typeName$><$if hasSuperentity$> : <$superentity.managedObjectC
 public extension Decoder {
 
     public func decode<$typeName$>(key: String) -> <$typeName$>? {
-        let data = self.extractData()
+        let data = self.data
         let d = data[key] as? [String : AnyObject]
         return d.flatMap(_decode<$typeName$>)
     }
 
     public func decode<$typeName$>(key: String) -> [<$typeName$>]? {
-        let data = self.extractData()
+        let data = self.data
         let d = data[key] as? [[String : AnyObject]]
         return d.flatMap { sequence($0.map(_decode<$typeName$>)) }
     }
 
     public func decode<$typeName$>(key: String) -> [String : <$typeName$>]? {
-        let data = self.extractData()
+        let data = self.data
         let d = data[key] as? [String : [String : AnyObject]]
         return d.flatMap { sequence($0.map(_decode<$typeName$>)) }
     }

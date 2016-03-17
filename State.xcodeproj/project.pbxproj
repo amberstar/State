@@ -88,7 +88,7 @@
 		96960A551C90F00B00D4E6D0 /* Endcoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A441C90F00B00D4E6D0 /* Endcoding.swift */; };
 		96960A561C90F00B00D4E6D0 /* Binary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A461C90F00B00D4E6D0 /* Binary.swift */; };
 		96960A571C90F00B00D4E6D0 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A471C90F00B00D4E6D0 /* JSON.swift */; };
-		96960A581C90F00B00D4E6D0 /* KeyedConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A481C90F00B00D4E6D0 /* KeyedConverter.swift */; };
+		96960A581C90F00B00D4E6D0 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A481C90F00B00D4E6D0 /* Converter.swift */; };
 		96960A591C90F00B00D4E6D0 /* Plist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A491C90F00B00D4E6D0 /* Plist.swift */; };
 		96960A5B1C90F00B00D4E6D0 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A4B1C90F00B00D4E6D0 /* Library.swift */; };
 		96960A5C1C90F00B00D4E6D0 /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A4C1C90F00B00D4E6D0 /* Migration.swift */; };
@@ -237,7 +237,7 @@
 		96960A441C90F00B00D4E6D0 /* Endcoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endcoding.swift; sourceTree = "<group>"; };
 		96960A461C90F00B00D4E6D0 /* Binary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Binary.swift; sourceTree = "<group>"; };
 		96960A471C90F00B00D4E6D0 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
-		96960A481C90F00B00D4E6D0 /* KeyedConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyedConverter.swift; sourceTree = "<group>"; };
+		96960A481C90F00B00D4E6D0 /* Converter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
 		96960A491C90F00B00D4E6D0 /* Plist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plist.swift; sourceTree = "<group>"; };
 		96960A4B1C90F00B00D4E6D0 /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		96960A4C1C90F00B00D4E6D0 /* Migration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migration.swift; sourceTree = "<group>"; };
@@ -470,7 +470,7 @@
 			children = (
 				96960A461C90F00B00D4E6D0 /* Binary.swift */,
 				96960A471C90F00B00D4E6D0 /* JSON.swift */,
-				96960A481C90F00B00D4E6D0 /* KeyedConverter.swift */,
+				96960A481C90F00B00D4E6D0 /* Converter.swift */,
 				96960A491C90F00B00D4E6D0 /* Plist.swift */,
 			);
 			path = Formats;
@@ -687,7 +687,7 @@
 				96B8A8F91C9AD3CC0086619F /* Decoding.swift in Sources */,
 				96960A631C90F00B00D4E6D0 /* ValueTransform.swift in Sources */,
 				96960A5B1C90F00B00D4E6D0 /* Library.swift in Sources */,
-				96960A581C90F00B00D4E6D0 /* KeyedConverter.swift in Sources */,
+				96960A581C90F00B00D4E6D0 /* Converter.swift in Sources */,
 				96960A591C90F00B00D4E6D0 /* Plist.swift in Sources */,
 				96960A571C90F00B00D4E6D0 /* JSON.swift in Sources */,
 				96960A601C90F00B00D4E6D0 /* UIColorTransform.swift in Sources */,

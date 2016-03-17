@@ -5,7 +5,7 @@ public enum Format {
     case Plist
     case Binary
     
-    public var converter: KeyedConverter.Type {
+    public var converter: Converter.Type {
         switch self {
         case JSON:
             return State.JSON.self
@@ -18,7 +18,7 @@ public enum Format {
 }
 
 /// Serialization format
-public protocol KeyedConverter {
+public protocol Converter {
     static func write(data: [String : AnyObject]?, path: String) -> Bool
     static func write(data: [String : AnyObject]) -> NSData?
     static func write(data: [String : AnyObject]) -> String?
@@ -28,7 +28,7 @@ public protocol KeyedConverter {
     static func readString(string: String) -> [String : AnyObject]?
 }
 
-extension KeyedConverter {
+extension Converter {
     /// print data to standard output
     static func inspect(data: [String : AnyObject]) {
         if let string: String? = write(data) {
