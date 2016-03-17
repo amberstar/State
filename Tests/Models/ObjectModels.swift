@@ -25,15 +25,15 @@ extension UserTypes : Decodable {
     
     init?(decoder: Decoder) {
     
-        guard let t : User = decoder.decodeModel("t") else { return nil }
-        guard let tArr : [User] = decoder.decodeModelArray("t_arr") else { return nil }
-        guard let tDic : [String : User] = decoder.decodeModelDictionary("t_dic") else { return nil }
-        let tOpt : User? = decoder.decodeModel("t_opt")
-        let tImp : User! = decoder.decodeModel("t_imp")
-        let tArrOpt : [User]? = decoder.decodeModelArray("t_arr_opt")
-        let tArrImp : [User]! = decoder.decodeModelArray("t_arr_imp")
-        let tDicOpt : [String : User]? = decoder.decodeModelDictionary("t_dic_opt")
-        let tDictImp : [String : User]! = decoder.decodeModelDictionary("t_dic_imp")
+        guard let t : User = decoder.decode("t") else { return nil }
+        guard let tArr : [User] = decoder.decode("t_arr") else { return nil }
+        guard let tDic : [String : User] = decoder.decode("t_dic") else { return nil }
+        let tOpt : User? = decoder.decode("t_opt")
+        let tImp : User! = decoder.decode("t_imp")
+        let tArrOpt : [User]? = decoder.decode("t_arr_opt")
+        let tArrImp : [User]! = decoder.decode("t_arr_imp")
+        let tDicOpt : [String : User]? = decoder.decode("t_dic_opt")
+        let tDictImp : [String : User]! = decoder.decode("t_dic_imp")
             
         self.t = t
         self.tOpt = tOpt

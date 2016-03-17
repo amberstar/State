@@ -27,22 +27,22 @@ extension TestDefaults : Decodable {
         var decoder = d
         decoder = TestDefaults.performMigrationIfNeeded(decoder)
 
-        guard
-            let defaultManualString: String = decoder.decode("defaultManualString"),
-            let defaultArray: [String] = decoder.decode("defaultArray"),
-            let defaultString: String = decoder.decode("defaultString"),
-            let defaultInt: Int = decoder.decode("defaultInt"),
-            let defaultEmptyArray: [String] = decoder.decode("defaultEmptyArray"),
-            let defaultChildren: [TestDefaultsChild] = decoder.decodeModelArray("defaultChildren"),
-            let defaultChild: TestDefaultsChild = decoder.decodeModel("defaultChild")
-        else { return  nil }
+guard
+   let defaultManualString: String = decoder.decode("defaultManualString"),
+   let defaultArray: [String] = decoder.decode("defaultArray"),
+   let defaultString: String = decoder.decode("defaultString"),
+   let defaultInt: Int = decoder.decode("defaultInt"),
+   let defaultEmptyArray: [String] = decoder.decode("defaultEmptyArray"),
+   let defaultChildren: [TestDefaultsChild] = decoder.decode("defaultChildren"),
+   let defaultChild: TestDefaultsChild = decoder.decode("defaultChild")
+   else { return  nil }
 
         let noDefaultInt: Int? = decoder.decode("noDefaultInt")
 
         let noDefaultString: String? = decoder.decode("noDefaultString")
 
-        let noDefaultChild: TestDefaultsChild? = decoder.decodeModel("noDefaultChild")
-        let noDefaultChildren: TestDefaultsChild? = decoder.decodeModel("noDefaultChildren")
+        let noDefaultChild: TestDefaultsChild? = decoder.decode("noDefaultChild")
+        let noDefaultChildren: TestDefaultsChild? = decoder.decode("noDefaultChildren")
 
         self.defaultManualString = defaultManualString
         self.defaultArray = defaultArray

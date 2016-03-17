@@ -36,14 +36,14 @@ struct Player: Model {
             name: String = decoder.decode("name"),
             age: Int = decoder.decode("age"),
             MVP: Bool = decoder.decode("mvp"),
-            teamates: [Player] = decoder.decodeModelArray("teamates")
+            teamates: [Player] = decoder.decode("teamates")
         else { return nil }
         
         let email : String? = decoder.decode("email")
         let height : Float? = decoder.decode("height")
         let weight: Double? = decoder.decode("weight")
-        let fillins: [Player]? = decoder.decodeModelArray("fillins")
-        let teamatesByName: [String : Player]? = decoder.decodeModelDictionary("teamatesByName")
+        let fillins: [Player]? = decoder.decode("fillins")
+        let teamatesByName: [String : Player]? = decoder.decode("teamatesByName")
         let awards: [AnyObject]? = decoder.decode("awards")
         
         self.id = id

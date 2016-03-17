@@ -17,9 +17,9 @@ extension TestDictionaryComposition : Decodable {
         var decoder = d
         decoder = TestDictionaryComposition.performMigrationIfNeeded(decoder)
 
-        guard
-            let employees: [String : Employee] = decoder.decodeModelDictionary("employees")
-        else { return  nil }
+guard
+   let employees: [String : Employee] = decoder.decode("employees")
+   else { return  nil }
 
         self.employees = employees
         didFinishDecodingWithDecoder(decoder)

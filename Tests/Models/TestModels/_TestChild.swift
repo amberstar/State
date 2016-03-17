@@ -22,8 +22,8 @@ extension TestChild : Decodable {
 
         let age: Int? = decoder.decode("age")
         let name: String? = decoder.decode("name")
-        let myChildren: [Grandchild]? = decoder.decodeModelArray("myChildren")
-        let gender: Gender? = decoder.decodeModel("gender")
+        let myChildren: [Grandchild]? = decoder.decode("myChildren")
+        let gender: Gender? = decoder.decode("gender")
 
         self.age = age
         self.name = name
