@@ -27,14 +27,6 @@ public func sequence<T>(xs: [String: T?]) -> [String: T]? {
     }
 }
 
-public func asOptional<T>(value: T?) -> Optional<Optional<T>> {
-    if let v = value {
-        return Optional.Some(v)
-    } else {
-        return Optional.Some(nil)
-    }
-}
-
 infix operator >>> { associativity left precedence 150 }
 public func >>><T,U>(a: T, f: T -> U? ) -> U? {
     return f(a)

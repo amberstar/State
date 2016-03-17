@@ -32,49 +32,48 @@ extension TestAssociatedOptionalEnum: Decodable {
         guard let type: String = decoder.decode("TestAssociatedOptionalEnum") else { return nil }
         switch type {
                 case "BinaryType":
-                   if let value: NSData? = decoder.decode("value") >>> asOptional {
-                        self = TestAssociatedOptionalEnum.BinaryType(value)
-                    } else { return nil }
+                   let value: NSData? = decoder.decode("value")
+self = TestAssociatedOptionalEnum.BinaryType(value)
+
                 case "BooleanType":
-                   if let value: Bool? = decoder.decode("value") >>> asOptional {
-                        self = TestAssociatedOptionalEnum.BooleanType(value)
-                    } else { return nil }
+                   let value: Bool? = decoder.decode("value")
+self = TestAssociatedOptionalEnum.BooleanType(value)
+
                 case "DateType":
-                   if let value: NSDate? = decoder.decode("value") >>> asOptional {
-                        self = TestAssociatedOptionalEnum.DateType(value)
-                    } else { return nil }
+                   let value: NSDate? = decoder.decode("value")
+self = TestAssociatedOptionalEnum.DateType(value)
+
                 case "DecimalType":
-                   if let value: NSDecimalNumber? = decoder.decode("value") >>> asOptional {
-                        self = TestAssociatedOptionalEnum.DecimalType(value)
-                    } else { return nil }
+                   let value: NSDecimalNumber? = decoder.decode("value")
+self = TestAssociatedOptionalEnum.DecimalType(value)
+
                 case "DoubleType":
-                   if let value: Double? = decoder.decode("value") >>> asOptional {
-                        self = TestAssociatedOptionalEnum.DoubleType(value)
-                    } else { return nil }
+                   let value: Double? = decoder.decode("value")
+self = TestAssociatedOptionalEnum.DoubleType(value)
+
                 case "FloatType":
-                   if let value: Float? = decoder.decode("value") >>> asOptional {
-                        self = TestAssociatedOptionalEnum.FloatType(value)
-                    } else { return nil }
+                   let value: Float? = decoder.decode("value")
+self = TestAssociatedOptionalEnum.FloatType(value)
+
                 case "IntType":
-                   if let value: Int? = decoder.decode("value") >>> asOptional {
-                        self = TestAssociatedOptionalEnum.IntType(value)
-                    } else { return nil }
+                   let value: Int? = decoder.decode("value")
+self = TestAssociatedOptionalEnum.IntType(value)
+
                 case "StringType":
-                   if let value: String? = decoder.decode("value") >>> asOptional {
-                        self = TestAssociatedOptionalEnum.StringType(value)
-                    } else { return nil }
+                   let value: String? = decoder.decode("value")
+self = TestAssociatedOptionalEnum.StringType(value)
+
                 case "TransformableColorType":
-                   if let value: UIColor? = decoder.decode("value") >>> UIColorTransform.reverse >>> asOptional {
-                        self = TestAssociatedOptionalEnum.TransformableColorType(value)
-                    } else { return nil }
+                   let value: UIColor? = decoder.decode("value") >>> UIColorTransform.reverse
+self = TestAssociatedOptionalEnum.TransformableColorType(value)
+
                 case "DecodableToManyType":
-                    if let value: [Employee]? = decoder.decode("value") >>> asOptional{
-                        self = TestAssociatedOptionalEnum.DecodableToManyType(value)
-                    } else { return nil }
+                    let value: [Employee]? = decoder.decode("value")
+self = TestAssociatedOptionalEnum.DecodableToManyType(value)
+
                 case "DecodableToOneType":
-                    if let value: Employee? = decoder.decode("value") >>> asOptional{
-                        self = TestAssociatedOptionalEnum.DecodableToOneType(value)
-                    } else { return nil }
+                    let value: Employee? = decoder.decode("value")
+self = TestAssociatedOptionalEnum.DecodableToOneType(value)
 
                 default:
                     return nil

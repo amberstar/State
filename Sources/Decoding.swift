@@ -6,6 +6,7 @@ public protocol Decodable {
 }
 
 public extension Decodable {
+   
    public static func decode(data: [String : AnyObject]) -> Self? {
       let decoder = Decoder(data: data)
       return Self.init(decoder: decoder)
@@ -22,14 +23,12 @@ public extension Decodable {
       return decode(converter.read(path))
    }
    
-   /**
-    decoding is finished on the receiver
-    - parameter decoder: the decoder used for decoding
+    /// decoding is finished on the receiver
+    /// - parameter decoder: the decoder used for decoding
     
-    :Discussion: This method is called after decoding takes place.
-    It provides a way to decode any further data with the decoder
-    or to do any initialization needed after decoding.
-    */
+   /// - note: This method is called after decoding takes place.
+   /// It provides a way to decode any further data with the decoder
+   /// or to do any initialization needed after decoding.
    func didFinishDecodingWithDecoder(decoder: Decoder) {
       
    }
@@ -40,6 +39,15 @@ public protocol KVDecoder {
 }
 
 extension KVDecoder {
+   
+   public func decode<T: NilLiteralConvertible>(key: String) -> T?? {
+      print("**************************************************************************BAM")
+      if let result : T? = decode(key) {
+         return result
+      } else {
+         return Optional<T>.None
+      }
+   }
    
    /// decode a decodable element
    /// - parameter key: a dictionary to use for decoding

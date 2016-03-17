@@ -128,10 +128,17 @@ extension <$typeName$> : Encodable {
 
 <$procedure writeEnumCaseForRelationship Relationship$>case <$Relationship.name.initialCapitalString$> <$if userInfo.State.Type$><$call writeRawValueCaseForRelationship Relationship$><$else$><$call writeAssociatedValueCaseForRelationship Relationship$><$endif$><$endprocedure$>
 
+<$procedure writeAttributeDecodeAssociatedSwitchCaseForEnumOptional Attribute$>let value: <$Attribute.userInfo.State.Type$>? = decoder.decode("value")<$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.reverse<$endif$>
+self = <$typeName$>.<$Attribute.name.initialCapitalString$>(value)
+<$endprocedure$>
 
-<$procedure writeAttributeDecodeAssociatedSwitchCaseForEnum Attribute$>if let value: <$Attribute.userInfo.State.Type$><$if Attribute.isOptional$>?<$endif$> = decoder.decode("value")<$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.reverse<$endif$><$if Attribute.isOptional$> >>> asOptional<$endif$> {
-                        self = <$typeName$>.<$Attribute.name.initialCapitalString$>(value)
-                    } else { return nil }<$endprocedure$>
+<$procedure writeAttributeDecodeAssociatedSwitchCaseForEnumNonOptional Attribute$>if let value: <$Attribute.userInfo.State.Type$> = decoder.decode("value")<$if Attribute.attributeType == 1800$> >>> <$Attribute.valueTransformerName$>.reverse<$endif$> {
+self = <$typeName$>.<$Attribute.name.initialCapitalString$>(value)
+} else { return nil }<$endprocedure$>
+
+
+<$procedure writeAttributeDecodeAssociatedSwitchCaseForEnum Attribute$><$if Attribute.isOptional$><$call writeAttributeDecodeAssociatedSwitchCaseForEnumOptional Attribute$><$else$><$call writeAttributeDecodeAssociatedSwitchCaseForEnumNonOptional Attribute$><$endif$>
+<$endprocedure$>
 
 <$procedure writeAttributeDecodeBasicSwitchCaseForEnum Attribute$>self = <$typeName$>.<$Attribute.name.initialCapitalString$><$endprocedure$>
 
@@ -139,9 +146,16 @@ extension <$typeName$> : Encodable {
 <$procedure writeAttributeDecodeSwitchCaseForEnumCase Attribute$>case "<$Attribute.name.initialCapitalString$>":
                    <$if Attribute.userInfo.State.Type$><$call writeAttributeDecodeAssociatedSwitchCaseForEnum Attribute$><$else$><$call writeAttributeDecodeBasicSwitchCaseForEnum Attribute$><$endif$><$endprocedure$>
 
-<$procedure writeRelationshipDecodeAssociatedSwitchCaseForEnum Relationship$>if let value: <$if Relationship.isToMany$>[<$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> = decoder.decode("value") <$if Relationship.isOptional$>>>> asOptional<$endif$>{
-                        self = <$typeName$>.<$Relationship.name.initialCapitalString$>(value)
-                    } else { return nil }<$endprocedure$>
+<$procedure writeRelationshipDecodeAssociatedSwitchCaseForEnumOptional Relationship$>let value: <$if Relationship.isToMany$>[<$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$>? = decoder.decode("value")
+self = <$typeName$>.<$Relationship.name.initialCapitalString$>(value)
+<$endprocedure$>
+
+<$procedure writeRelationshipDecodeAssociatedSwitchCaseForEnumNonOptional Relationship$>if let value: <$if Relationship.isToMany$>[<$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$> = decoder.decode("value") {
+self = <$typeName$>.<$Relationship.name.initialCapitalString$>(value)
+} else { return nil }<$endprocedure$>
+
+
+<$procedure writeRelationshipDecodeAssociatedSwitchCaseForEnum Relationship$><$if Relationship.isOptional$><$call writeRelationshipDecodeAssociatedSwitchCaseForEnumOptional Relationship$><$else$><$call writeRelationshipDecodeAssociatedSwitchCaseForEnumNonOptional Relationship$> <$endif$><$endprocedure$>
 
 <$procedure writeRelationshipDecodeBasicSwitchCaseForEnum Relationship$>self = <$typeName$>.<$Relationship.name.initialCapitalString$><$endprocedure$>
 
