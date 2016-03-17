@@ -39,16 +39,7 @@ public protocol KVDecoder {
 }
 
 extension KVDecoder {
-   
-   public func decode<T: NilLiteralConvertible>(key: String) -> T?? {
-      print("**************************************************************************BAM")
-      if let result : T? = decode(key) {
-         return result
-      } else {
-         return Optional<T>.None
-      }
-   }
-   
+      
    /// decode a decodable element
    /// - parameter key: a dictionary to use for decoding
    /// - returns: return element of type T or nil if decoding failed
