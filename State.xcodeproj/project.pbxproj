@@ -89,7 +89,6 @@
 		9690A0651C942C9100924F4C /* TestProtocolConformer2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0631C942C9100924F4C /* TestProtocolConformer2.swift */; };
 		9690A0661C942CAF00924F4C /* ProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0601C9429A300924F4C /* ProtocolTests.swift */; };
 		9690A0AD1C946E1B00924F4C /* KVStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0AC1C946E1B00924F4C /* KVStore.swift */; };
-		9690A0BE1C9482D800924F4C /* KVStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0BC1C947DA300924F4C /* KVStoreTests.swift */; };
 		96960A551C90F00B00D4E6D0 /* Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A441C90F00B00D4E6D0 /* Coding.swift */; };
 		96960A561C90F00B00D4E6D0 /* Binary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A461C90F00B00D4E6D0 /* Binary.swift */; };
 		96960A571C90F00B00D4E6D0 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A471C90F00B00D4E6D0 /* JSON.swift */; };
@@ -727,7 +726,6 @@
 				04C1B9361AE9219900A85730 /* _TestImmutableOptionalTypes.swift in Sources */,
 				044F889B1AE69BD900FAB475 /* TestCollections.swift in Sources */,
 				04C1B9301AE9219900A85730 /* _Employee.swift in Sources */,
-				9690A0BE1C9482D800924F4C /* KVStoreTests.swift in Sources */,
 				044F88A31AE69BD900FAB475 /* TestTypes.swift in Sources */,
 				96A543611B63C6C8009A2B2D /* TestDictionaryComposition.swift in Sources */,
 				044F88A11AE69BD900FAB475 /* TestRelationships.swift in Sources */,
