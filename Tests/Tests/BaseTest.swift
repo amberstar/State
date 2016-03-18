@@ -1,5 +1,12 @@
 import XCTest
 
+public extension Optional {
+   
+   public func apply<U>(f: (Wrapped -> U)?) -> U? {
+      return f.flatMap { self.map($0) }
+   }
+}
+
 class Test : XCTestCase {
     let plistFile: AnyObject? = Test.plist(fromFile: "Data")
     var  plistData : [String : AnyObject] = [:]

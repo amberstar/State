@@ -2,6 +2,26 @@ import XCTest
 import State
 import Foundation
 
+infix operator >>- { associativity left precedence 100 }
+infix operator -<< { associativity right precedence 100 }
+
+/**
+ flatMap a function over an optional value (left associative)
+ 
+ - If the value is .None, the function will not be evaluated and this will return .None
+ - If the value is .Some, the function will be applied to the unwrapped value
+ 
+ - parameter f: A transformation function from type T to type Optional<U>
+ - parameter a: A value of type Optional<T>
+ 
+ - returns: A value of type Optional<U>
+ */
+func >>-<T, U>(a: T?, @noescape f: T -> U?) -> U? {
+   return a.flatMap(f)
+}
+
+
+
 class ConverterTests: Test {
     var testPlist : [String : AnyObject]?
     var testJSON  : [String : AnyObject]?
@@ -10,9 +30,9 @@ class ConverterTests: Test {
     override func setUp() {
         super.setUp()
        
-        bundlePathFor("Data", ofType: "plist") >>- { self.testPlist = Plist.read($0) }
-        bundlePathFor("Data", ofType: "plist") >>- { self.testData = Plist.read($0) }
-        bundlePathFor("Data", ofType: "json") >>- { self.testJSON = JSON.read($0) }
+        bundlePathFor("Data", ofType: "plist").apply{ self.testPlist = Plist.read($0) }
+        bundlePathFor("Data", ofType: "plist").apply { self.testData = Plist.read($0) }
+        bundlePathFor("Data", ofType: "json").apply{ self.testJSON = JSON.read($0) }
     }
     
     func testPlistWasReadCorrectly() {

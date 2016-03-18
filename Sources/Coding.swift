@@ -39,19 +39,23 @@ public protocol EncoderType : class {
 
 extension EncoderType {
    public func encode<T: Encodable>(value: T?, _ key: String) {
-      value.apply { self.data[key] = $0.encode() }
+      guard let value = value else { return }
+      data[key] = value.encode()
    }
    
    public func encode<T: Encodable>(value: [T]?, _ key: String) {
-      value.apply { self.data[key] = $0.map { $0.encode() } }
+      guard let value = value else { return }
+      data[key] = value.map { $0.encode() }
    }
    
    public func encode<T: Encodable>(value: [String : T]?, _ key: String) {
-      value.apply { self.data[key] = $0.map { $0.encode() } }
+      guard let value = value else { return }
+      data[key] = value.map { $0.encode() }
    }
    
    public func encode<V>(value: V?, _ key: String) {
-      value.apply{ self.data[key] = $0 as? AnyObject }
+      guard let value = value else { return }
+      self.data[key] = value as? AnyObject
    }
 }
 
@@ -158,5 +162,39 @@ public final class Decoder : DecoderType {
    /// - returns: returns a decoder
    public init(data: [String : AnyObject]) {
       self.data = data
+   }
+}
+
+
+//===----------------------------------------------------------------------===//
+//                              Lib functions
+//===----------------------------------------------------------------------===//
+
+
+public func sequence<T>(xs: [T?]) -> [T]? {
+   return  xs.reduce(.Some([])) { accum, elem in
+      guard let accum = accum, elem = elem else { return nil }
+      return accum + [elem]
+   }
+}
+
+public func sequence<T>(xs: [String: T?]) -> [String: T]? {
+   return xs.reduce(.Some([:])) { accum, elem in
+      guard let accum = accum, value = elem.1 else { return nil }
+      var result = accum
+      result[elem.0] = value
+      return result
+   }
+}
+
+extension Dictionary {
+   
+   public func map<A>(f: Value -> A) -> [Key: A] {
+      return self.reduce([:]) { accum, elem in
+         var r = accum
+         r[elem.0] = f(elem.1)
+         return r
+      }
+      
    }
 }

@@ -81,7 +81,6 @@
 		961D13F81C11AE5A00F0EE1F /* Data.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961D13EF1C11AE5A00F0EE1F /* Data.plist */; };
 		9690A0641C942C9100924F4C /* _TestProtocolConformer2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0621C942C9100924F4C /* _TestProtocolConformer2.swift */; };
 		9690A0651C942C9100924F4C /* TestProtocolConformer2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0631C942C9100924F4C /* TestProtocolConformer2.swift */; };
-		96960A5B1C90F00B00D4E6D0 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A4B1C90F00B00D4E6D0 /* Library.swift */; };
 		96960A5C1C90F00B00D4E6D0 /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A4C1C90F00B00D4E6D0 /* Migration.swift */; };
 		96960A5D1C90F00B00D4E6D0 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A4D1C90F00B00D4E6D0 /* Model.swift */; };
 		96960A681C90F07700D4E6D0 /* State.h in Headers */ = {isa = PBXBuildFile; fileRef = 96960A651C90F07700D4E6D0 /* State.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -209,7 +208,6 @@
 		9690A0601C9429A300924F4C /* ProtocolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProtocolTests.swift; path = Tests/Tests/ProtocolTests.swift; sourceTree = "<group>"; };
 		9690A0621C942C9100924F4C /* _TestProtocolConformer2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestProtocolConformer2.swift; path = Tests/Models/TestModels/_TestProtocolConformer2.swift; sourceTree = "<group>"; };
 		9690A0631C942C9100924F4C /* TestProtocolConformer2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocolConformer2.swift; path = Tests/Models/TestModels/TestProtocolConformer2.swift; sourceTree = "<group>"; };
-		96960A4B1C90F00B00D4E6D0 /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		96960A4C1C90F00B00D4E6D0 /* Migration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migration.swift; sourceTree = "<group>"; };
 		96960A4D1C90F00B00D4E6D0 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		96960A651C90F07700D4E6D0 /* State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; };
@@ -407,7 +405,6 @@
 			isa = PBXGroup;
 			children = (
 				96B8A9421C9BEB380086619F /* KVStore */,
-				96960A4B1C90F00B00D4E6D0 /* Library.swift */,
 				96B8A8F81C9AD3CC0086619F /* Coding.swift */,
 				96B8A9101C9B6FD10086619F /* Conversion.swift */,
 				96960A4C1C90F00B00D4E6D0 /* Migration.swift */,
@@ -576,7 +573,6 @@
 			files = (
 				96B8A8F91C9AD3CC0086619F /* Coding.swift in Sources */,
 				96B8A9491C9BEB870086619F /* Conversion.swift in Sources */,
-				96960A5B1C90F00B00D4E6D0 /* Library.swift in Sources */,
 				96960A5C1C90F00B00D4E6D0 /* Migration.swift in Sources */,
 				96960A5D1C90F00B00D4E6D0 /* Model.swift in Sources */,
 			);
