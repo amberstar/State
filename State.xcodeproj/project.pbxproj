@@ -92,6 +92,7 @@
 		96B8A8FE1C9ADFDB0086619F /* TestProtocolContainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8602F1B4B304A006A5ABE /* TestProtocolContainter.swift */; };
 		96B8A9091C9AFA390086619F /* (null) in Sources */ = {isa = PBXBuildFile; };
 		96B8A9491C9BEB870086619F /* Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B8A9101C9B6FD10086619F /* Conversion.swift */; };
+		96B8A94B1C9C37C20086619F /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B8A9441C9BEB380086619F /* Store.swift */; };
 		96C5C3891B3C6988009121A1 /* MigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817801B124AB4002CA532 /* MigrationTests.swift */; };
 		96C86BFD1BC2E81800D6F0F3 /* TestProtocolConformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C86BFB1BC2E7F500D6F0F3 /* TestProtocolConformer.swift */; };
 /* End PBXBuildFile section */
@@ -226,9 +227,9 @@
 		96B8A90C1C9B6CA60086619F /* NSURL+Coding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+Coding.swift"; sourceTree = "<group>"; };
 		96B8A90D1C9B6CA60086619F /* UIColor+Coding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Coding.swift"; sourceTree = "<group>"; };
 		96B8A9101C9B6FD10086619F /* Conversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversion.swift; sourceTree = "<group>"; };
-		96B8A9431C9BEB380086619F /* KVStore-Inernals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KVStore-Inernals.swift"; sourceTree = "<group>"; };
-		96B8A9441C9BEB380086619F /* KVStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVStore.swift; sourceTree = "<group>"; };
+		96B8A9441C9BEB380086619F /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Store.swift; path = KVStore/Store.swift; sourceTree = "<group>"; };
 		96B8A9471C9BEB4F0086619F /* KVStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KVStoreTests.swift; path = Tests/Tests/KVStoreTests.swift; sourceTree = "<group>"; };
+		96B8A94E1C9C5BA00086619F /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		96C86BFB1BC2E7F500D6F0F3 /* TestProtocolConformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocolConformer.swift; path = Tests/Models/TestModels/TestProtocolConformer.swift; sourceTree = "<group>"; };
 		96CE6B7B1B3BFDEC00D632BF /* Docs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Docs; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -255,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				04C1B93D1AE93D9800A85730 /* README.md */,
+				96B8A94E1C9C5BA00086619F /* MyPlayground.playground */,
 				96CE6B7B1B3BFDEC00D632BF /* Docs */,
 				96960A431C90F00B00D4E6D0 /* Sources */,
 				04012A841AE12FA6006DAC19 /* Tests */,
@@ -404,7 +406,7 @@
 		96960A431C90F00B00D4E6D0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				96B8A9421C9BEB380086619F /* KVStore */,
+				96B8A9441C9BEB380086619F /* Store.swift */,
 				96B8A8F81C9AD3CC0086619F /* Coding.swift */,
 				96B8A9101C9B6FD10086619F /* Conversion.swift */,
 				96960A4C1C90F00B00D4E6D0 /* Migration.swift */,
@@ -424,15 +426,6 @@
 				96960A671C90F07700D4E6D0 /* StateTestsInfo.plist */,
 			);
 			path = Support;
-			sourceTree = "<group>";
-		};
-		96B8A9421C9BEB380086619F /* KVStore */ = {
-			isa = PBXGroup;
-			children = (
-				96B8A9431C9BEB380086619F /* KVStore-Inernals.swift */,
-				96B8A9441C9BEB380086619F /* KVStore.swift */,
-			);
-			path = KVStore;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -575,6 +568,7 @@
 				96B8A9491C9BEB870086619F /* Conversion.swift in Sources */,
 				96960A5C1C90F00B00D4E6D0 /* Migration.swift in Sources */,
 				96960A5D1C90F00B00D4E6D0 /* Model.swift in Sources */,
+				96B8A94B1C9C37C20086619F /* Store.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

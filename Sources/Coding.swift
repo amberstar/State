@@ -23,7 +23,7 @@ public protocol Encodable {
 
 public extension Encodable {
    
-   func encode() -> [String : AnyObject] {
+   public func encode() -> [String : AnyObject] {
       let coder = Encoder()
       self.encode(coder)
       return coder.data
@@ -39,6 +39,22 @@ public extension Encodable {
    /// - note: This method is called right before encoding finishes.
    /// It provides a chance to encode any further data with the encoder.
    func willFinishEncodingWithEncoder(encoder: Encoder) { }
+   
+   
+   /// Save a model to a specified format
+   public func save(format: Format, path: String) -> Bool {
+      return format.converter.write(self.encode(), path: path)
+   }
+   
+   /// Print the models JSON representation to the standard output
+   func printJSON() {
+      print(JSON.inspect(self.encode()))
+   }
+   
+   var JSONDescription : String? {
+      return JSON.write(self.encode())
+   }
+
 }
 
 //****************************************************************************//
@@ -92,7 +108,7 @@ public extension Decodable {
       return Self.decode(decoder)
    }
 
-   public static func decode(data: AnyObject?) -> Self? {
+   static func decode(data: AnyObject?) -> Self? {
       
       if let data = data as? [String : AnyObject] {
          return Self.decode(data)
@@ -100,10 +116,18 @@ public extension Decodable {
       return nil
    }
    
-   public static func decodeFromFile(
+   static func decodeFromFile(
       converter: Converter.Type,
       path: String) -> Self? {
       return decode(converter.read(path))
+   }
+   
+   /// Initialize a model with a specified format from a file
+   /// note this is a failable init
+   public init?(_ format: Format, path: String) {
+      if let i =  Self.decodeFromFile(format.converter, path: path) {
+         self = i
+      } else { return nil }
    }
    
    /// decoding is finished on the receiver
