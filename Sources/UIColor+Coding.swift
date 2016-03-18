@@ -32,7 +32,6 @@ extension UIColor : Encodable, Decodable {
    }
    
    public func encode(encoder: Encoder) {
-      
       var red, green, blue, alpha  : CGFloat
       red = 0; green = 0; blue = 0; alpha = 0
       self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
@@ -42,4 +41,17 @@ extension UIColor : Encodable, Decodable {
       encoder.encode(blue, "blue")
       encoder.encode(alpha, "alpha")
    }
+}
+
+extension Store {
+   
+   /// Returns a Bool at key or nil
+   public func getColor(keypath: String) -> UIColor? {
+      return getModel(keypath)
+   }
+   
+   public func getColor(keypath: String, defaultValue: UIColor, add: Bool = true) -> UIColor {
+      return materializeValue(keypath, value: getModel(keypath), defaultValue: defaultValue, add: add)
+   }
+
 }

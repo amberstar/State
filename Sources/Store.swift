@@ -13,7 +13,7 @@ public enum StoreError : ErrorType {
 /// Store can have child stores.
 public final class Store: EncoderType, DecoderType, Encodable, Decodable {
    
-   /// The store containers contained in the domain
+   /// The child stores contained in the store
    public var stores : [String : Store] = [:]
    
    var path: String?
@@ -120,19 +120,19 @@ public final class Store: EncoderType, DecoderType, Encodable, Decodable {
    // MARK: Setters
    //****************************************************************************//
    
-   public func set<T: Model>(keypath: String, model: T, add: Bool = true) {
+   public func set<T: Encodable>(keypath: String, _ model: T, add: Bool = true) {
       set(keypath, value: model, add: add) { store,  key,  model in
          store.encode(model, key)
       }
    }
    
-   public func set<T: Model>(keypath: String, models: [T], add: Bool = true) {
+   public func set<T: Encodable>(keypath: String, _ models: [T], add: Bool = true) {
       set(keypath, value: models, add: add) { store,  key,  model in
          store.encode(models, key)
       }
    }
    
-   public func set<T: Model>(keypath: String, models: [String : T], add: Bool = true) {
+   public func set<T: Encodable>(keypath: String, _ models: [String : T], add: Bool = true) {
       set(keypath, value: models, add: add) { store,  key,  model in
          store.encode(models, key)
       }
@@ -148,19 +148,19 @@ public final class Store: EncoderType, DecoderType, Encodable, Decodable {
    // MARK: Model Getters
    //****************************************************************************//
    
-   public func getModel<T: Model>(keypath: String) -> T? {
+   public func getModel<T: Decodable>(keypath: String) -> T? {
       return getValue(keypath) { store, key in
          return store.decode(key)
       }
    }
    
-   public func getModels<T: Model>(keypath: String) -> [T]? {
+   public func getModels<T: Decodable>(keypath: String) -> [T]? {
       return getValue(keypath) { store, key in
          return store.decode(key)
       }
    }
    
-   public func getModels<T: Model>(keypath: String) -> [String : T]? {
+   public func getModels<T: Decodable>(keypath: String) -> [String : T]? {
       return getValue(keypath) { store, key in
          return store.decode(key)
       }
@@ -225,23 +225,23 @@ public final class Store: EncoderType, DecoderType, Encodable, Decodable {
       return _getValue(keypath, defaultValue: defaultValue, add: add)
    }
    
-   public func getModel<T: Model>(keypath: String, defaultValue: T, add: Bool = true) -> T {
-      return _materializeValue(keypath, value: getModel(keypath), defaultValue: defaultValue, add: add)
+   public func getModel<T: Decodable>(keypath: String, defaultValue: T, add: Bool = true) -> T {
+      return materializeValue(keypath, value: getModel(keypath), defaultValue: defaultValue, add: add)
    }
    
-   public func getModels<T: Model>(keypath: String, defaultValue: [T], add: Bool = true) -> [T] {
-      return _materializeValue(keypath, value: getModels(keypath), defaultValue: defaultValue, add: add)
+   public func getModels<T: Decodable>(keypath: String, defaultValue: [T], add: Bool = true) -> [T] {
+      return materializeValue(keypath, value: getModels(keypath), defaultValue: defaultValue, add: add)
    }
    
-   public func getModels<T: Model>(keypath: String, defaultValue: [String : T], add: Bool = true) -> [String : T] {
-      return _materializeValue(keypath, value: getModels(keypath), defaultValue: defaultValue, add: add)
+   public func getModels<T: Decodable>(keypath: String, defaultValue: [String : T], add: Bool = true) -> [String : T] {
+      return materializeValue(keypath, value: getModels(keypath), defaultValue: defaultValue, add: add)
    }
    
    private func _getValue<T>(keypath: String, defaultValue: T, add: Bool = true) -> T {
-      return _materializeValue(keypath, value: _getValue(keypath: keypath), defaultValue: defaultValue, add: add)
+      return materializeValue(keypath, value: _getValue(keypath: keypath), defaultValue: defaultValue, add: add)
    }
    
-   private func _materializeValue<T>(keypath: String, value: T?, defaultValue: T, add: Bool = true) -> T {
+   public func materializeValue<T>(keypath: String, value: T?, defaultValue: T, add: Bool = true) -> T {
       if let value = value { return value }
       
       if add {

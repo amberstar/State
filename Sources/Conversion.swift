@@ -178,7 +178,9 @@ public final class JSON: Binary {
    override class func dataFromObject(object: [String : AnyObject],
                                       prettyPrint: Bool) -> NSData?  {
       
-      guard NSJSONSerialization.isValidJSONObject(object) else { return nil }
+      guard NSJSONSerialization.isValidJSONObject(object) else {
+         return nil
+      }
       
       let options: NSJSONWritingOptions = prettyPrint ? .PrettyPrinted : []
       let data: NSData?
