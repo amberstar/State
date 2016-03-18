@@ -24,10 +24,10 @@ extension TestTransformable : Decodable {
         var decoder = d
         decoder = TestTransformable.performMigrationIfNeeded(decoder)
 
-guard
-   let myTransformable: NSURL = decoder.decode("myTransformable"),
-   let myTransformableImmutable: NSURL = decoder.decode("myTransformableImmutable")
-   else { return  nil }
+         guard
+            let myTransformable: NSURL = decoder.decode("myTransformable"),
+            let myTransformableImmutable: NSURL = decoder.decode("myTransformableImmutable")
+         else { return  nil }
 
         let myTransformableImmutableOptional: NSURL? = decoder.decode("myTransformableImmutableOptional")
         let myTransformableOptional: NSURL? = decoder.decode("myTransformableOptional")

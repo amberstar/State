@@ -23,11 +23,11 @@ extension TestCollections : Decodable {
         var decoder = d
         decoder = TestCollections.performMigrationIfNeeded(decoder)
 
-guard
-   let arrayOfStrings: [String] = decoder.decode("arrayOfStrings"),
-   let dicOfInts: [String : Int] = decoder.decode("dicOfInts"),
-   let setOfStrings: Set<String> = decoder.decode("setOfStrings")
-   else { return  nil }
+         guard
+            let arrayOfStrings: [String] = decoder.decode("arrayOfStrings"),
+            let dicOfInts: [String : Int] = decoder.decode("dicOfInts"),
+            let setOfStrings: Set<String> = decoder.decode("setOfStrings")
+         else { return  nil }
 
         self.arrayOfStrings = arrayOfStrings
         self.dicOfInts = dicOfInts

@@ -31,15 +31,15 @@ extension TestDefaults : Decodable {
         var decoder = d
         decoder = TestDefaults.performMigrationIfNeeded(decoder)
 
-guard
-   let defaultManualString: String = decoder.decode("defaultManualString"),
-   let defaultArray: [String] = decoder.decode("defaultArray"),
-   let defaultString: String = decoder.decode("defaultString"),
-   let defaultInt: Int = decoder.decode("defaultInt"),
-   let defaultEmptyArray: [String] = decoder.decode("defaultEmptyArray"),
-   let defaultChildren: [TestDefaultsChild] = decoder.decode("defaultChildren"),
-   let defaultChild: TestDefaultsChild = decoder.decode("defaultChild")
-   else { return  nil }
+         guard
+            let defaultManualString: String = decoder.decode("defaultManualString"),
+            let defaultArray: [String] = decoder.decode("defaultArray"),
+            let defaultString: String = decoder.decode("defaultString"),
+            let defaultInt: Int = decoder.decode("defaultInt"),
+            let defaultEmptyArray: [String] = decoder.decode("defaultEmptyArray"),
+            let defaultChildren: [TestDefaultsChild] = decoder.decode("defaultChildren"),
+            let defaultChild: TestDefaultsChild = decoder.decode("defaultChild")
+         else { return  nil }
 
         let noDefaultInt: Int? = decoder.decode("noDefaultInt")
 

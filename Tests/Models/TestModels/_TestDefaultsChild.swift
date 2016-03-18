@@ -21,9 +21,9 @@ extension TestDefaultsChild : Decodable {
         var decoder = d
         decoder = TestDefaultsChild.performMigrationIfNeeded(decoder)
 
-guard
-   let name: String = decoder.decode("name")
-   else { return  nil }
+         guard
+            let name: String = decoder.decode("name")
+         else { return  nil }
 
         self.name = name
         didFinishDecodingWithDecoder(decoder)

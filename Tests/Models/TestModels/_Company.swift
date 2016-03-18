@@ -24,10 +24,10 @@ extension Company : Decodable {
         var decoder = d
         decoder = Company.performMigrationIfNeeded(decoder)
 
-guard
-   let name: String = decoder.decode("name"),
-   let yearFounded: Double = decoder.decode("yearFounded")
-   else { return  nil }
+         guard
+            let name: String = decoder.decode("name"),
+            let yearFounded: Double = decoder.decode("yearFounded")
+         else { return  nil }
 
         let phoneNumber: String? = decoder.decode("phoneNumber")
         let employees: [Employee]? = decoder.decode("employees")

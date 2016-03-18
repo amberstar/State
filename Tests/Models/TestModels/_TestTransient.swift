@@ -23,9 +23,9 @@ extension TestTransient : Decodable {
         var decoder = d
         decoder = TestTransient.performMigrationIfNeeded(decoder)
 
-guard
-   let myNonTransient: String = decoder.decode("myNonTransient")
-   else { return  nil }
+         guard
+            let myNonTransient: String = decoder.decode("myNonTransient")
+         else { return  nil }
 
         self.myNonTransient = myNonTransient
         didFinishDecodingWithDecoder(decoder)

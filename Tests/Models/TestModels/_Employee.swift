@@ -22,9 +22,9 @@ extension Employee : Decodable {
         var decoder = d
         decoder = Employee.performMigrationIfNeeded(decoder)
 
-guard
-   let name: String = decoder.decode("name")
-   else { return  nil }
+         guard
+            let name: String = decoder.decode("name")
+         else { return  nil }
 
         let title: String? = decoder.decode("title")
 

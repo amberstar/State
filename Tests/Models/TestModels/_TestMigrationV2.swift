@@ -22,9 +22,9 @@ extension TestMigrationV2 : Decodable {
         var decoder = d
         decoder = TestMigrationV2.performMigrationIfNeeded(decoder)
 
-guard
-   let name: String = decoder.decode("name")
-   else { return  nil }
+         guard
+            let name: String = decoder.decode("name")
+         else { return  nil }
 
         let age: Int? = decoder.decode("age")
 

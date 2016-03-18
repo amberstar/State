@@ -403,9 +403,9 @@
 		96960A431C90F00B00D4E6D0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				96960A4B1C90F00B00D4E6D0 /* Library.swift */,
 				96B8A8F81C9AD3CC0086619F /* Coding.swift */,
 				96B8A9101C9B6FD10086619F /* Conversion.swift */,
-				96960A4B1C90F00B00D4E6D0 /* Library.swift */,
 				96960A4C1C90F00B00D4E6D0 /* Migration.swift */,
 				96960A4D1C90F00B00D4E6D0 /* Model.swift */,
 				96B8A90C1C9B6CA60086619F /* NSURL+Coding.swift */,

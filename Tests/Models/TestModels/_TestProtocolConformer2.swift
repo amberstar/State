@@ -22,10 +22,10 @@ extension TestProtocolConformer2 : Decodable {
         var decoder = d
         decoder = TestProtocolConformer2.performMigrationIfNeeded(decoder)
 
-guard
-   let name: String = decoder.decode("name"),
-   let ss_number: String = decoder.decode("ss_number")
-   else { return  nil }
+         guard
+            let name: String = decoder.decode("name"),
+            let ss_number: String = decoder.decode("ss_number")
+         else { return  nil }
 
         self.name = name
         self.ss_number = ss_number
