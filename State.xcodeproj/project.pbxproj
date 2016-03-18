@@ -91,15 +91,8 @@
 		96B8A8FC1C9ADFCF0086619F /* ProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0601C9429A300924F4C /* ProtocolTests.swift */; };
 		96B8A8FD1C9ADFDB0086619F /* _TestProtocolContainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8602C1B4B3040006A5ABE /* _TestProtocolContainter.swift */; };
 		96B8A8FE1C9ADFDB0086619F /* TestProtocolContainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8602F1B4B304A006A5ABE /* TestProtocolContainter.swift */; };
-<<<<<<< HEAD
-		96B8A9031C9AFA020086619F /* KVStore-Inernals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B8A9011C9AFA020086619F /* KVStore-Inernals.swift */; };
-		96B8A9041C9AFA020086619F /* KVStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B8A9021C9AFA020086619F /* KVStore.swift */; };
-		96B8A9091C9AFA390086619F /* KVStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B8A9081C9AFA390086619F /* KVStoreTests.swift */; };
-=======
-		96B8A90E1C9B6CA60086619F /* NSURL+Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B8A90C1C9B6CA60086619F /* NSURL+Coding.swift */; };
-		96B8A90F1C9B6CA60086619F /* UIColor+Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B8A90D1C9B6CA60086619F /* UIColor+Coding.swift */; };
-		96B8A9111C9B6FD10086619F /* Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B8A9101C9B6FD10086619F /* Conversion.swift */; };
->>>>>>> master
+		96B8A9091C9AFA390086619F /* (null) in Sources */ = {isa = PBXBuildFile; };
+		96B8A9491C9BEB870086619F /* Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B8A9101C9B6FD10086619F /* Conversion.swift */; };
 		96C5C3891B3C6988009121A1 /* MigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817801B124AB4002CA532 /* MigrationTests.swift */; };
 		96C86BFD1BC2E81800D6F0F3 /* TestProtocolConformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C86BFB1BC2E7F500D6F0F3 /* TestProtocolConformer.swift */; };
 /* End PBXBuildFile section */
@@ -231,20 +224,13 @@
 		96A8602C1B4B3040006A5ABE /* _TestProtocolContainter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestProtocolContainter.swift; path = Tests/Models/TestModels/_TestProtocolContainter.swift; sourceTree = "<group>"; };
 		96A8602F1B4B304A006A5ABE /* TestProtocolContainter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocolContainter.swift; path = Tests/Models/TestModels/TestProtocolContainter.swift; sourceTree = "<group>"; };
 		96A860321B4B35A8006A5ABE /* TestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocol.swift; path = Tests/Models/TestModels/TestProtocol.swift; sourceTree = "<group>"; };
-<<<<<<< HEAD
-		96B8A8F81C9AD3CC0086619F /* Decoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Decoding.swift; path = Sources/Decoding.swift; sourceTree = SOURCE_ROOT; };
-		96B8A9011C9AFA020086619F /* KVStore-Inernals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KVStore-Inernals.swift"; path = "KVStore/KVStore-Inernals.swift"; sourceTree = "<group>"; };
-		96B8A9021C9AFA020086619F /* KVStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KVStore.swift; path = KVStore/KVStore.swift; sourceTree = "<group>"; };
-		96B8A9081C9AFA390086619F /* KVStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KVStoreTests.swift; path = Tests/Tests/KVStoreTests.swift; sourceTree = "<group>"; };
-		96C5C3781B3C293F009121A1 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Array.swift; path = Carthage/Checkouts/Runes/Source/Array.swift; sourceTree = SOURCE_ROOT; };
-		96C5C3791B3C293F009121A1 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Carthage/Checkouts/Runes/Source/Operators.swift; sourceTree = SOURCE_ROOT; };
-		96C5C37A1B3C293F009121A1 /* Optional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Optional.swift; path = Carthage/Checkouts/Runes/Source/Optional.swift; sourceTree = SOURCE_ROOT; };
-=======
 		96B8A8F81C9AD3CC0086619F /* Coding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Coding.swift; path = Sources/Coding.swift; sourceTree = SOURCE_ROOT; };
 		96B8A90C1C9B6CA60086619F /* NSURL+Coding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+Coding.swift"; sourceTree = "<group>"; };
 		96B8A90D1C9B6CA60086619F /* UIColor+Coding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Coding.swift"; sourceTree = "<group>"; };
 		96B8A9101C9B6FD10086619F /* Conversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversion.swift; sourceTree = "<group>"; };
->>>>>>> master
+		96B8A9431C9BEB380086619F /* KVStore-Inernals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KVStore-Inernals.swift"; sourceTree = "<group>"; };
+		96B8A9441C9BEB380086619F /* KVStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVStore.swift; sourceTree = "<group>"; };
+		96B8A9471C9BEB4F0086619F /* KVStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KVStoreTests.swift; path = Tests/Tests/KVStoreTests.swift; sourceTree = "<group>"; };
 		96C86BFB1BC2E7F500D6F0F3 /* TestProtocolConformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocolConformer.swift; path = Tests/Models/TestModels/TestProtocolConformer.swift; sourceTree = "<group>"; };
 		96CE6B7B1B3BFDEC00D632BF /* Docs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Docs; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -294,7 +280,7 @@
 			children = (
 				04012AB91AE13274006DAC19 /* Inputs */,
 				041817781B124AB4002CA532 /* BaseTest.swift */,
-				96B8A9081C9AFA390086619F /* KVStoreTests.swift */,
+				96B8A9471C9BEB4F0086619F /* KVStoreTests.swift */,
 				041817791B124AB4002CA532 /* ConverterTests.swift */,
 				0418177A1B124AB4002CA532 /* DecodableTests.swift */,
 				0418177B1B124AB4002CA532 /* DecodingTests.swift */,
@@ -420,15 +406,7 @@
 		96960A431C90F00B00D4E6D0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
-				96B8A9051C9AFA060086619F /* KVStore */,
-				96C5C3841B3C2C3D009121A1 /* Runes */,
-				96960A451C90F00B00D4E6D0 /* Formats */,
-				96960A4F1C90F00B00D4E6D0 /* Transforms */,
-				96960A441C90F00B00D4E6D0 /* Endcoding.swift */,
-				96B8A8F81C9AD3CC0086619F /* Decoding.swift */,
-=======
->>>>>>> master
+				96B8A9421C9BEB380086619F /* KVStore */,
 				96960A4B1C90F00B00D4E6D0 /* Library.swift */,
 				96B8A8F81C9AD3CC0086619F /* Coding.swift */,
 				96B8A9101C9B6FD10086619F /* Conversion.swift */,
@@ -451,38 +429,15 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
-		96B8A9051C9AFA060086619F /* KVStore */ = {
+		96B8A9421C9BEB380086619F /* KVStore */ = {
 			isa = PBXGroup;
 			children = (
-				96B8A9011C9AFA020086619F /* KVStore-Inernals.swift */,
-				96B8A9021C9AFA020086619F /* KVStore.swift */,
+				96B8A9431C9BEB380086619F /* KVStore-Inernals.swift */,
+				96B8A9441C9BEB380086619F /* KVStore.swift */,
 			);
-			name = KVStore;
+			path = KVStore;
 			sourceTree = "<group>";
 		};
-		96C5C3841B3C2C3D009121A1 /* Runes */ = {
-			isa = PBXGroup;
-			children = (
-				96C5C3781B3C293F009121A1 /* Array.swift */,
-				96C5C37A1B3C293F009121A1 /* Optional.swift */,
-				96C5C3791B3C293F009121A1 /* Operators.swift */,
-			);
-			name = Runes;
-			path = ../State/Library;
-			sourceTree = "<group>";
-		};
-		96EB24C41C91F5DA00CEE56D /* PerfTests-iOS */ = {
-			isa = PBXGroup;
-			children = (
-				96EB24C51C91F5DA00CEE56D /* PerfTests_iOS.swift */,
-				96EB24C71C91F5DA00CEE56D /* Info.plist */,
-			);
-			path = "PerfTests-iOS";
-			sourceTree = "<group>";
-		};
-=======
->>>>>>> master
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -620,22 +575,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				96B8A8F91C9AD3CC0086619F /* Coding.swift in Sources */,
-				96B8A9111C9B6FD10086619F /* Conversion.swift in Sources */,
-				96B8A90E1C9B6CA60086619F /* NSURL+Coding.swift in Sources */,
+				96B8A9491C9BEB870086619F /* Conversion.swift in Sources */,
 				96960A5B1C90F00B00D4E6D0 /* Library.swift in Sources */,
-<<<<<<< HEAD
-				96960A581C90F00B00D4E6D0 /* Converter.swift in Sources */,
-				96960A591C90F00B00D4E6D0 /* Plist.swift in Sources */,
-				96960A571C90F00B00D4E6D0 /* JSON.swift in Sources */,
-				96B8A9031C9AFA020086619F /* KVStore-Inernals.swift in Sources */,
-				96960A601C90F00B00D4E6D0 /* UIColorTransform.swift in Sources */,
-				96960A621C90F00B00D4E6D0 /* URLTransform.swift in Sources */,
-				96B8A9041C9AFA020086619F /* KVStore.swift in Sources */,
-				96960A5F1C90F00B00D4E6D0 /* DissolverTransform.swift in Sources */,
-				96960A551C90F00B00D4E6D0 /* Endcoding.swift in Sources */,
-=======
-				96B8A90F1C9B6CA60086619F /* UIColor+Coding.swift in Sources */,
->>>>>>> master
 				96960A5C1C90F00B00D4E6D0 /* Migration.swift in Sources */,
 				96960A5D1C90F00B00D4E6D0 /* Model.swift in Sources */,
 			);
@@ -665,7 +606,7 @@
 				044F889B1AE69BD900FAB475 /* TestCollections.swift in Sources */,
 				04C1B9301AE9219900A85730 /* _Employee.swift in Sources */,
 				044F88A31AE69BD900FAB475 /* TestTypes.swift in Sources */,
-				96B8A9091C9AFA390086619F /* KVStoreTests.swift in Sources */,
+				96B8A9091C9AFA390086619F /* (null) in Sources */,
 				96A543611B63C6C8009A2B2D /* TestDictionaryComposition.swift in Sources */,
 				044F88A11AE69BD900FAB475 /* TestRelationships.swift in Sources */,
 				044F88981AE69BD900FAB475 /* Gender.swift in Sources */,
