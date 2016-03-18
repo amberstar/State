@@ -1,8 +1,20 @@
 import Foundation
 
-//===----------------------------------------------------------------------===//
+public enum DecodingError : ErrorType {
+   case KeyNotFound(String)
+   
+   public init(key: String) {
+      self = .KeyNotFound(errorMessage("Decoding Error, Key Not Found: \(key)"))
+   }
+}
+
+func errorMessage(reason: String, function: String = #function ,file: String = #file, line: Int = #line) -> String {
+        return "reason: \(reason) function: \(function) file: \((file as NSString).lastPathComponent) line: \(line)"
+}
+
+//****************************************************************************//
 //                               Encodable
-//===----------------------------------------------------------------------===//
+//****************************************************************************//
 
 public protocol Encodable {
    func encode(encoder: Encoder)
@@ -29,9 +41,9 @@ public extension Encodable {
    func willFinishEncodingWithEncoder(encoder: Encoder) { }
 }
 
-//===----------------------------------------------------------------------===//
+//****************************************************************************//
 //                               Encoder
-//===----------------------------------------------------------------------===//
+//****************************************************************************//
 
 public protocol EncoderType : class {
    var data : [String : AnyObject] { get set }
@@ -64,9 +76,9 @@ public final class Encoder : EncoderType {
 }
 
 
-//===----------------------------------------------------------------------===//
+//****************************************************************************//
 //                               Decodable
-//===----------------------------------------------------------------------===//
+//****************************************************************************//
 
 public protocol Decodable {
    static func decode(decoder: Decoder) -> Self?
@@ -105,9 +117,9 @@ public extension Decodable {
    }
 }
 
-//===----------------------------------------------------------------------===//
+//****************************************************************************//
 //                               Decoder
-//===----------------------------------------------------------------------===//
+//****************************************************************************//
 
 public protocol DecoderType {
    var data :[String : AnyObject] { get set }
@@ -165,21 +177,19 @@ public final class Decoder : DecoderType {
    }
 }
 
+//****************************************************************************//
+//                            functions
+//****************************************************************************//
 
-//===----------------------------------------------------------------------===//
-//                              Lib functions
-//===----------------------------------------------------------------------===//
-
-
-public func sequence<T>(xs: [T?]) -> [T]? {
-   return  xs.reduce(.Some([])) { accum, elem in
+public func sequence<T>(array: [T?]) -> [T]? {
+   return  array.reduce(.Some([])) { accum, elem in
       guard let accum = accum, elem = elem else { return nil }
       return accum + [elem]
    }
 }
 
-public func sequence<T>(xs: [String: T?]) -> [String: T]? {
-   return xs.reduce(.Some([:])) { accum, elem in
+public func sequence<T>(dictionary: [String: T?]) -> [String: T]? {
+   return dictionary.reduce(.Some([:])) { accum, elem in
       guard let accum = accum, value = elem.1 else { return nil }
       var result = accum
       result[elem.0] = value
@@ -189,11 +199,11 @@ public func sequence<T>(xs: [String: T?]) -> [String: T]? {
 
 extension Dictionary {
    
-   public func map<A>(f: Value -> A) -> [Key: A] {
+   public func map<A>(transform: Value -> A) -> [Key: A] {
       return self.reduce([:]) { accum, elem in
-         var r = accum
-         r[elem.0] = f(elem.1)
-         return r
+         var result = accum
+         result[elem.0] = transform(elem.1)
+         return result
       }
       
    }
