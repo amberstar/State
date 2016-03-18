@@ -22,7 +22,10 @@ struct BasicTypes<T> {
 }
 
 extension BasicTypes : Decodable {
-    
+   
+   static func decode(decoder: Decoder) -> BasicTypes? {
+      return self.init(decoder: decoder)
+   }
     
     init?(decoder: Decoder) {
         guard let t: T = decoder.decode("t"),
@@ -85,7 +88,10 @@ struct StringTypes {
 }
 
 extension StringTypes : Decodable {
-    
+   
+   static func decode(decoder: Decoder) -> StringTypes? {
+      return self.init(decoder: decoder)
+   }
     
     init?(decoder: Decoder) {
         guard let t: String = decoder.decode("t"),
@@ -148,33 +154,37 @@ struct AnyObjectTypes {
 }
 
 extension AnyObjectTypes : Decodable {
-    
-       init?(decoder: Decoder) {
-        guard let t: AnyObject = decoder.decode("t"),
-            tArr : [AnyObject] = decoder.decode("t_arr"),
-            tDic : [String : AnyObject] = decoder.decode("t_dic") else { return nil }
-        
-        let tOpt: AnyObject?  = decoder.decode("t_opt")
-        let tImp : AnyObject! = decoder.decode("t_imp")
-        let tArrOpt : [AnyObject]? = decoder.decode("t_arr_opt")
-        let tArrImp : [AnyObject]! = decoder.decode("t_arr_imp")
-        let tDicOpt : [String : AnyObject]? = decoder.decode("t_dic_opt")
-        let tDictImp : [String : AnyObject]! = decoder.decode("t_dic_imp")
-        
-        self.t = t
-        self.tOpt = tOpt
-        self.tImp = tImp
-        self.tArr = tArr
-        self.tArrOpt = tArrOpt
-        self.tArrImp = tArrImp
-        self.tDic = tDic
-        self.tDicOpt = tDicOpt
-        self.tDictImp = tDictImp
-    }
+   
+   static func decode(decoder: Decoder) -> AnyObjectTypes? {
+      return self.init(decoder: decoder)
+   }
+   
+   init?(decoder: Decoder) {
+      guard let t: AnyObject = decoder.decode("t"),
+         tArr : [AnyObject] = decoder.decode("t_arr"),
+         tDic : [String : AnyObject] = decoder.decode("t_dic") else { return nil }
+      
+      let tOpt: AnyObject?  = decoder.decode("t_opt")
+      let tImp : AnyObject! = decoder.decode("t_imp")
+      let tArrOpt : [AnyObject]? = decoder.decode("t_arr_opt")
+      let tArrImp : [AnyObject]! = decoder.decode("t_arr_imp")
+      let tDicOpt : [String : AnyObject]? = decoder.decode("t_dic_opt")
+      let tDictImp : [String : AnyObject]! = decoder.decode("t_dic_imp")
+      
+      self.t = t
+      self.tOpt = tOpt
+      self.tImp = tImp
+      self.tArr = tArr
+      self.tArrOpt = tArrOpt
+      self.tArrImp = tArrImp
+      self.tDic = tDic
+      self.tDicOpt = tDicOpt
+      self.tDictImp = tDictImp
+   }
 }
 
 extension AnyObjectTypes : Encodable {
-    
+   
     func encode(encoder: Encoder){
         encoder.encode(t, "t")
         encoder.encode(tOpt, "t_opt")

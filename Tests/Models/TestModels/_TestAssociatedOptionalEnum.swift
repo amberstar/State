@@ -25,6 +25,10 @@ public enum TestAssociatedOptionalEnum  : Model {
 
 extension TestAssociatedOptionalEnum: Decodable {
 
+   public static func decode(decoder: Decoder) -> TestAssociatedOptionalEnum? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = TestAssociatedOptionalEnum.performMigrationIfNeeded(decoder)
@@ -64,7 +68,7 @@ self = TestAssociatedOptionalEnum.IntType(value)
 self = TestAssociatedOptionalEnum.StringType(value)
 
                 case "TransformableColorType":
-                   let value: UIColor? = decoder.decode("value") >>> UIColorTransform.reverse
+                   let value: UIColor? = decoder.decode("value")
 self = TestAssociatedOptionalEnum.TransformableColorType(value)
 
                 case "DecodableToManyType":
@@ -113,7 +117,7 @@ extension TestAssociatedOptionalEnum: Encodable {
                 encoder.encode(value, "value")
             case let .TransformableColorType(value):
                 encoder.encode("TransformableColorType", "TestAssociatedOptionalEnum")
-                encoder.encode(value >>> UIColorTransform.apply, "value")
+                encoder.encode(value, "value")
             case let .DecodableToManyType(value):
                 encoder.encode("DecodableToManyType", "TestAssociatedOptionalEnum")
                 encoder.encode(value, "value")

@@ -15,15 +15,19 @@ public struct TestProtocolContainter : Model {
 
 extension TestProtocolContainter : Decodable {
 
+   public static func decode(decoder: Decoder) -> TestProtocolContainter? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = TestProtocolContainter.performMigrationIfNeeded(decoder)
 
-guard
-   let testProtocol: TestProtocol = decoder.decodeTestProtocol("testProtocol"),
-   let testProtocols: [TestParentProtocol] = decoder.decodeTestParentProtocol("testProtocols"),
-   let testProtocolsDict: [String : TestParentProtocol] = decoder.decodeTestParentProtocol("testProtocolsDict")
-   else { return  nil }
+         guard
+            let testProtocol: TestProtocol = decoder.decodeTestProtocol("testProtocol"),
+            let testProtocols: [TestParentProtocol] = decoder.decodeTestParentProtocol("testProtocols"),
+            let testProtocolsDict: [String : TestParentProtocol] = decoder.decodeTestParentProtocol("testProtocolsDict")
+         else { return  nil }
 
         self.testProtocol = testProtocol
         self.testProtocols = testProtocols

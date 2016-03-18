@@ -12,53 +12,57 @@ NOTE: recursion only supported for classes
 
 ///MARK: - Player
 struct Player: Model {
-    let id: Int
-    let name: String
-    var email: String?
-    var age: Int
-    var height: Float?
-    var weight: Double?
-    var MVP: Bool = false
-    var teamates: [Player] = []
-    var fillins: [Player]? = []
-    var teamatesByName: [String : Player]? = [:]
-    var awards: [AnyObject]? = []
-    
-    init(id: Int, name: String, age: Int) {
-        self.id = id
-        self.name = name
-        self.age = age
-    }
-    
-    init?(decoder: Decoder) {
-        
-        guard let id: Int  = decoder.decode("id"),
-            name: String = decoder.decode("name"),
-            age: Int = decoder.decode("age"),
-            MVP: Bool = decoder.decode("mvp"),
-            teamates: [Player] = decoder.decode("teamates")
-        else { return nil }
-        
-        let email : String? = decoder.decode("email")
-        let height : Float? = decoder.decode("height")
-        let weight: Double? = decoder.decode("weight")
-        let fillins: [Player]? = decoder.decode("fillins")
-        let teamatesByName: [String : Player]? = decoder.decode("teamatesByName")
-        let awards: [AnyObject]? = decoder.decode("awards")
-        
-        self.id = id
-        self.name = name
-        self.email = email
-        self.age = age
-        self.height = height
-        self.weight = weight
-        self.MVP = MVP
-        self.teamates = teamates
-        self.fillins = fillins
-        self.teamatesByName = teamatesByName
-        self.awards = awards
-        
-        }
+   let id: Int
+   let name: String
+   var email: String?
+   var age: Int
+   var height: Float?
+   var weight: Double?
+   var MVP: Bool = false
+   var teamates: [Player] = []
+   var fillins: [Player]? = []
+   var teamatesByName: [String : Player]? = [:]
+   var awards: [AnyObject]? = []
+   
+   init(id: Int, name: String, age: Int) {
+      self.id = id
+      self.name = name
+      self.age = age
+   }
+   
+   static func decode(decoder: Decoder) -> Player? {
+      return self.init(decoder: decoder)
+   }
+   
+   init?(decoder: Decoder) {
+      
+      guard let id: Int  = decoder.decode("id"),
+         name: String = decoder.decode("name"),
+         age: Int = decoder.decode("age"),
+         MVP: Bool = decoder.decode("mvp"),
+         teamates: [Player] = decoder.decode("teamates")
+         else { return nil }
+      
+      let email : String? = decoder.decode("email")
+      let height : Float? = decoder.decode("height")
+      let weight: Double? = decoder.decode("weight")
+      let fillins: [Player]? = decoder.decode("fillins")
+      let teamatesByName: [String : Player]? = decoder.decode("teamatesByName")
+      let awards: [AnyObject]? = decoder.decode("awards")
+      
+      self.id = id
+      self.name = name
+      self.email = email
+      self.age = age
+      self.height = height
+      self.weight = weight
+      self.MVP = MVP
+      self.teamates = teamates
+      self.fillins = fillins
+      self.teamatesByName = teamatesByName
+      self.awards = awards
+      
+   }
 }
 
 

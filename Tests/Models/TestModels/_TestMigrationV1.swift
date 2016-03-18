@@ -17,23 +17,27 @@ public struct TestMigrationV1: Model, Migratable {
 }
 
 extension TestMigrationV1 : Decodable {
-
-    static func create(name: String) -> TestMigrationV1  {
-        return TestMigrationV1(name: name)
-    }
-
-    public init?(decoder d: Decoder) {
-         var decoder = d
-         decoder = TestMigrationV1.performMigrationIfNeeded(decoder)
-        
-        let instance: TestMigrationV1? = TestMigrationV1.create
-        <^> decoder.decode("name")
-
-        if let i = instance {
-            i.didFinishDecodingWithDecoder(decoder)
-            self = i
-        } else { return nil }
-    }
+   
+   static func create(name: String) -> TestMigrationV1  {
+      return TestMigrationV1(name: name)
+   }
+   
+   public static func decode(decoder: Decoder) -> TestMigrationV1? {
+      return self.init(decoder: decoder)
+   }
+   
+   public init?(decoder d: Decoder) {
+      var decoder = d
+      decoder = TestMigrationV1.performMigrationIfNeeded(decoder)
+      
+      let instance: TestMigrationV1? = TestMigrationV1.create
+         <^> decoder.decode("name")
+      
+      if let i = instance {
+         i.didFinishDecodingWithDecoder(decoder)
+         self = i
+      } else { return nil }
+   }
 }
 
 extension TestMigrationV1 : Encodable {

@@ -43,7 +43,7 @@ public extension Decoder {
     private func _decodeTestProtocol(data: [String : AnyObject]) -> TestProtocol? {
         guard let dataTypeKey = data["TestParentProtocol"] as? String else { return nil }
         if let t = TestProtocolTypeForKey(dataTypeKey) {
-            return t.init(decoder: Decoder(data: data))
+            return t.decode(Decoder(data: data))
         }
         return nil
     }

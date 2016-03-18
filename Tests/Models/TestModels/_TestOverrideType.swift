@@ -14,6 +14,10 @@ public struct TestOverrideType : Model {
 
 extension TestOverrideType : Decodable {
 
+   public static func decode(decoder: Decoder) -> TestOverrideType? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = TestOverrideType.performMigrationIfNeeded(decoder)

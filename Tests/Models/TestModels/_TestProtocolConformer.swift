@@ -18,15 +18,19 @@ public struct TestProtocolConformer : TestProtocol {
 
 extension TestProtocolConformer : Decodable {
 
+   public static func decode(decoder: Decoder) -> TestProtocolConformer? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = TestProtocolConformer.performMigrationIfNeeded(decoder)
 
-guard
-   let ss_number: String = decoder.decode("ss_number"),
-   let employee: Employee = decoder.decode("employee"),
-   let children: [TestChild] = decoder.decode("children")
-   else { return  nil }
+         guard
+            let ss_number: String = decoder.decode("ss_number"),
+            let employee: Employee = decoder.decode("employee"),
+            let children: [TestChild] = decoder.decode("children")
+         else { return  nil }
 
         let age: Int? = decoder.decode("age")
 

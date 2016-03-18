@@ -13,13 +13,17 @@ public struct TestDictionaryComposition : Model {
 
 extension TestDictionaryComposition : Decodable {
 
+   public static func decode(decoder: Decoder) -> TestDictionaryComposition? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = TestDictionaryComposition.performMigrationIfNeeded(decoder)
 
-guard
-   let employees: [String : Employee] = decoder.decode("employees")
-   else { return  nil }
+         guard
+            let employees: [String : Employee] = decoder.decode("employees")
+         else { return  nil }
 
         self.employees = employees
         didFinishDecodingWithDecoder(decoder)

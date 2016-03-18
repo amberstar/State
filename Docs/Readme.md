@@ -8,11 +8,8 @@
 - [Protocols](Protocols.md)
 - [How to Setup a target in your project to automatically generate your models](Setup.md)
 - [Version and Migration Management](Versioning.md)
-- [Transforms](Transformables.md)
-- [DissolverTransform](DissolverTransform.md)
 
 ###Articles:
-- [Using A Dissolver](UsingADissolver.md)
 - [Creating Enum Models](CreatingEnumModels.md)
 - [Using Protocols](UsingProtocols.md)
 
