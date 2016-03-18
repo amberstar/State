@@ -20,6 +20,10 @@ public struct TestImmutableTypes : Model {
 
 extension TestImmutableTypes : Decodable {
 
+   public static func decode(decoder: Decoder) -> TestImmutableTypes? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = TestImmutableTypes.performMigrationIfNeeded(decoder)

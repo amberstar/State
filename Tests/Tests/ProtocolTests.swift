@@ -3,7 +3,6 @@ import XCTest
 
 class TestProtocols : Test {
 
-
     func testCodingProtocols() {
         let testEmployee = Employee(name: "Test Employee", title: "Manager")
         let testGrandChild = Grandchild(age: 10, name: "Test Grandchild", gender: .Male)

@@ -15,6 +15,10 @@ public enum Gender  : String, Model {
 
 extension Gender: Decodable {
 
+   public static func decode(decoder: Decoder) -> Gender? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = Gender.performMigrationIfNeeded(decoder)

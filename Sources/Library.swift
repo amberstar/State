@@ -20,10 +20,10 @@ public func sequence<T>(xs: [String: T?]) -> [String: T]? {
     }
 }
 
-infix operator >>> { associativity left precedence 150 }
-public func >>><T,U>(a: T, f: T -> U? ) -> U? {
-    return f(a)
-}
+//infix operator >>> { associativity left precedence 150 }
+//public func >>><T,U>(a: T, f: T -> U? ) -> U? {
+//    return f(a)
+//}
 
 public func curry<A, B, C>(f: (A, B) -> C) -> A -> B -> C {
     return { a in { b in f(a, b) }}

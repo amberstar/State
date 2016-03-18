@@ -15,6 +15,10 @@ public struct TestRelationships : Model {
 
 extension TestRelationships : Decodable {
 
+   public static func decode(decoder: Decoder) -> TestRelationships? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = TestRelationships.performMigrationIfNeeded(decoder)

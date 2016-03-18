@@ -15,6 +15,10 @@ public struct TestCollections : Model {
 
 extension TestCollections : Decodable {
 
+   public static func decode(decoder: Decoder) -> TestCollections? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = TestCollections.performMigrationIfNeeded(decoder)

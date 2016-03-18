@@ -15,6 +15,10 @@ public struct TestTransient : Model {
 
 extension TestTransient : Decodable {
 
+   public static func decode(decoder: Decoder) -> TestTransient? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = TestTransient.performMigrationIfNeeded(decoder)

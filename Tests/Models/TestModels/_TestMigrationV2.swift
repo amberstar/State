@@ -14,6 +14,10 @@ public struct TestMigrationV2 : Model {
 
 extension TestMigrationV2 : Decodable {
 
+   public static func decode(decoder: Decoder) -> TestMigrationV2? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = TestMigrationV2.performMigrationIfNeeded(decoder)

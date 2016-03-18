@@ -16,6 +16,10 @@ public struct TestChild : Model {
 
 extension TestChild : Decodable {
 
+   public static func decode(decoder: Decoder) -> TestChild? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = TestChild.performMigrationIfNeeded(decoder)

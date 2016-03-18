@@ -14,6 +14,10 @@ public struct TestProtocolConformer2 : TestParentProtocol {
 
 extension TestProtocolConformer2 : Decodable {
 
+   public static func decode(decoder: Decoder) -> TestProtocolConformer2? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = TestProtocolConformer2.performMigrationIfNeeded(decoder)

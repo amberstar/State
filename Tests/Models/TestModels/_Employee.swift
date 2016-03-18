@@ -14,6 +14,10 @@ public struct Employee : Model {
 
 extension Employee : Decodable {
 
+   public static func decode(decoder: Decoder) -> Employee? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = Employee.performMigrationIfNeeded(decoder)

@@ -15,6 +15,10 @@ public struct TestProtocolContainter : Model {
 
 extension TestProtocolContainter : Decodable {
 
+   public static func decode(decoder: Decoder) -> TestProtocolContainter? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = TestProtocolContainter.performMigrationIfNeeded(decoder)

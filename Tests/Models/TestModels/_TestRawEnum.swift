@@ -16,6 +16,10 @@ public enum TestRawEnum  : String, Model {
 
 extension TestRawEnum: Decodable {
 
+   public static func decode(decoder: Decoder) -> TestRawEnum? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = TestRawEnum.performMigrationIfNeeded(decoder)
