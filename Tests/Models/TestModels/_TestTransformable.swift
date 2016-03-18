@@ -16,17 +16,21 @@ public struct TestTransformable : Model {
 
 extension TestTransformable : Decodable {
 
+   public static func decode(decoder: Decoder) -> TestTransformable? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = TestTransformable.performMigrationIfNeeded(decoder)
 
-guard
-   let myTransformable: NSURL = URLTransform.reverse(decoder.decode("myTransformable")),
-   let myTransformableImmutable: NSURL = URLTransform.reverse(decoder.decode("myTransformableImmutable"))
-   else { return  nil }
+         guard
+            let myTransformable: NSURL = decoder.decode("myTransformable"),
+            let myTransformableImmutable: NSURL = decoder.decode("myTransformableImmutable")
+         else { return  nil }
 
-        let myTransformableImmutableOptional: NSURL? = URLTransform.reverse(decoder.decode("myTransformableImmutableOptional"))
-        let myTransformableOptional: NSURL? = URLTransform.reverse(decoder.decode("myTransformableOptional"))
+        let myTransformableImmutableOptional: NSURL? = decoder.decode("myTransformableImmutableOptional")
+        let myTransformableOptional: NSURL? = decoder.decode("myTransformableOptional")
 
         self.myTransformable = myTransformable
         self.myTransformableImmutable = myTransformableImmutable
@@ -39,10 +43,10 @@ guard
 extension TestTransformable : Encodable {
 
     public func encode(encoder: Encoder) {
-        encoder.encode(myTransformable >>> URLTransform.apply, "myTransformable")
-        encoder.encode(myTransformableImmutable >>> URLTransform.apply, "myTransformableImmutable")
-        encoder.encode(myTransformableImmutableOptional >>> URLTransform.apply, "myTransformableImmutableOptional")
-        encoder.encode(myTransformableOptional >>> URLTransform.apply, "myTransformableOptional")
+        encoder.encode(myTransformable, "myTransformable")
+        encoder.encode(myTransformableImmutable, "myTransformableImmutable")
+        encoder.encode(myTransformableImmutableOptional, "myTransformableImmutableOptional")
+        encoder.encode(myTransformableOptional, "myTransformableOptional")
 
         TestTransformable.encodeVersionIfNeeded(encoder)
 

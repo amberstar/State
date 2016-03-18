@@ -16,14 +16,18 @@ public struct Company : Model {
 
 extension Company : Decodable {
 
+   public static func decode(decoder: Decoder) -> Company? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = Company.performMigrationIfNeeded(decoder)
 
-guard
-   let name: String = decoder.decode("name"),
-   let yearFounded: Double = decoder.decode("yearFounded")
-   else { return  nil }
+         guard
+            let name: String = decoder.decode("name"),
+            let yearFounded: Double = decoder.decode("yearFounded")
+         else { return  nil }
 
         let phoneNumber: String? = decoder.decode("phoneNumber")
         let employees: [Employee]? = decoder.decode("employees")

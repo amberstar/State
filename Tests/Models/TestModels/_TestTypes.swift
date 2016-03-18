@@ -20,20 +20,24 @@ public struct TestTypes : Model {
 
 extension TestTypes : Decodable {
 
+   public static func decode(decoder: Decoder) -> TestTypes? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = TestTypes.performMigrationIfNeeded(decoder)
 
-guard
-   let myDate: NSDate = decoder.decode("myDate"),
-   let myFloat: Float = decoder.decode("myFloat"),
-   let myBinary: NSData = decoder.decode("myBinary"),
-   let myDouble: Double = decoder.decode("myDouble"),
-   let myString: String = decoder.decode("myString"),
-   let myBoolean: Bool = decoder.decode("myBoolean"),
-   let myDecimal: NSDecimalNumber = decoder.decode("myDecimal"),
-   let myInt: Int = decoder.decode("myInt")
-   else { return  nil }
+         guard
+            let myDate: NSDate = decoder.decode("myDate"),
+            let myFloat: Float = decoder.decode("myFloat"),
+            let myBinary: NSData = decoder.decode("myBinary"),
+            let myDouble: Double = decoder.decode("myDouble"),
+            let myString: String = decoder.decode("myString"),
+            let myBoolean: Bool = decoder.decode("myBoolean"),
+            let myDecimal: NSDecimalNumber = decoder.decode("myDecimal"),
+            let myInt: Int = decoder.decode("myInt")
+         else { return  nil }
 
         self.myDate = myDate
         self.myFloat = myFloat

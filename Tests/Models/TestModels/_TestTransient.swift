@@ -15,13 +15,17 @@ public struct TestTransient : Model {
 
 extension TestTransient : Decodable {
 
+   public static func decode(decoder: Decoder) -> TestTransient? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = TestTransient.performMigrationIfNeeded(decoder)
 
-guard
-   let myNonTransient: String = decoder.decode("myNonTransient")
-   else { return  nil }
+         guard
+            let myNonTransient: String = decoder.decode("myNonTransient")
+         else { return  nil }
 
         self.myNonTransient = myNonTransient
         didFinishDecodingWithDecoder(decoder)

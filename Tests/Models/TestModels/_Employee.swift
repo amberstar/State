@@ -14,13 +14,17 @@ public struct Employee : Model {
 
 extension Employee : Decodable {
 
+   public static func decode(decoder: Decoder) -> Employee? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = Employee.performMigrationIfNeeded(decoder)
 
-guard
-   let name: String = decoder.decode("name")
-   else { return  nil }
+         guard
+            let name: String = decoder.decode("name")
+         else { return  nil }
 
         let title: String? = decoder.decode("title")
 

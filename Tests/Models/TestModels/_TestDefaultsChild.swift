@@ -13,13 +13,17 @@ public struct TestDefaultsChild : Model {
 
 extension TestDefaultsChild : Decodable {
 
+   public static func decode(decoder: Decoder) -> TestDefaultsChild? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = TestDefaultsChild.performMigrationIfNeeded(decoder)
 
-guard
-   let name: String = decoder.decode("name")
-   else { return  nil }
+         guard
+            let name: String = decoder.decode("name")
+         else { return  nil }
 
         self.name = name
         didFinishDecodingWithDecoder(decoder)

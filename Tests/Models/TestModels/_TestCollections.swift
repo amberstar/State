@@ -15,15 +15,19 @@ public struct TestCollections : Model {
 
 extension TestCollections : Decodable {
 
+   public static func decode(decoder: Decoder) -> TestCollections? {
+      return self.init(decoder: decoder)
+   }
+
     public init?(decoder d: Decoder) {
         var decoder = d
         decoder = TestCollections.performMigrationIfNeeded(decoder)
 
-guard
-   let arrayOfStrings: [String] = decoder.decode("arrayOfStrings"),
-   let dicOfInts: [String : Int] = decoder.decode("dicOfInts"),
-   let setOfStrings: Set<String> = decoder.decode("setOfStrings")
-   else { return  nil }
+         guard
+            let arrayOfStrings: [String] = decoder.decode("arrayOfStrings"),
+            let dicOfInts: [String : Int] = decoder.decode("dicOfInts"),
+            let setOfStrings: Set<String> = decoder.decode("setOfStrings")
+         else { return  nil }
 
         self.arrayOfStrings = arrayOfStrings
         self.dicOfInts = dicOfInts
