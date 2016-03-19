@@ -2,37 +2,51 @@ let KeypathSeperator : Character = "."
 let StoreKey = "Keys"
 let DataKey = "Values"
 
-public enum StoreError : ErrorType {
-   case StoreNotFound(String)
+public enum KVStoreError : ErrorType {
+   case KeyNotFound(String)
+   case NoResult
 }
 
-/// A Store is a general purpose key-value store for models and arbitrary
+/// A Store is a general purpose key-value store for models and/or arbitrary
 /// values. It is useful in situations where it makes sense to store a group of
 /// models or collections of models together, but there is not a need to create
 /// a collection model type. Instead conveniently store them in a Store. A
-/// Store can have child stores.
-public final class Store: EncoderType, DecoderType, Encodable, Decodable {
+/// - Store can have child stores.
+/// - When you ask for something from a store, you do so with a `keypath`
+
+public final class KVStore: Encodable, Decodable {
    
-   /// The child stores contained in the store
-   public var stores : [String : Store] = [:]
+   class KVContainer : EncoderType, DecoderType {
+      var data = [String : AnyObject]()
+      var keys : [String : KVStore] = [:]
+      
+      init(data: [String : AnyObject] =  [:], keys: [String : KVStore] = [:]) {
+         self.data = data
+         self.keys = keys
+      }
+   }
    
-   var path: String?
+   let container : KVContainer
    
-   /// The raw key value data of the container
-   public var data = [String : AnyObject]()
+   public var keys : [String : KVStore] {
+      return container.keys
+   }
    
-   /// Initialize a new Store with data
-   public init(data: [String : AnyObject] =  [:], stores: [String : Store] = [:]) {
-      self.data = data
-      self.stores = stores
+   public var values : [String : AnyObject] {
+      return container.data
+   }
+   
+   /// Initialize a new Store with the specified value and key dictionaries
+   public init(values: [String : AnyObject] =  [:], keys: [String : KVStore] = [:]) {
+      container = KVContainer(data: values, keys: keys)
    }
    
    public func save(path: String) {
-      self.save(.Plist, path: path)
+      save(.Plist, path: path)
    }
    
-   public static func load(path: String) -> Store? {
-      return Store.decodeFromFile(Format.Plist.converter, path: path)
+   public static func load(path: String) -> KVStore? {
+      return KVStore.decodeFromFile(Format.Plist.converter, path: path)
    }
    
    //****************************************************************************//
@@ -41,128 +55,226 @@ public final class Store: EncoderType, DecoderType, Encodable, Decodable {
    
    public func encode(encoder: Encoder) {
       
-      if data.count > 0 {
-         encoder.encode(data, DataKey)
+      if container.data.count > 0 {
+         encoder.encode(container.data, DataKey)
       }
       
-      if stores.count > 0 {
-         encoder.encode(stores, StoreKey)
+      if container.keys.count > 0 {
+         encoder.encode(container.keys, StoreKey)
       }
    }
    
    public static func decode(decoder: Decoder) -> Self? {
-      let stores : [String : Store]? = decoder.decode(StoreKey)
+      let stores : [String : KVStore]? = decoder.decode(StoreKey)
       let data : [String : AnyObject]? = decoder.decode(DataKey)
 
-      return self.init(data: data ?? [:], stores: stores ?? [:])
+      return self.init(values: data ?? [:], keys: stores ?? [:])
       
    }
    //****************************************************************************//
-   // MARK: Store
+   // MARK: Stores - Creating, Getting, Updating
    //****************************************************************************//
    
-   /// Return a store at the keypath or nil if not found.
-   ///
-   /// - parameter materialize: if `true` any intermediate stores are created
-   /// - seeAlso: `materializeStore(atKeypath:)`
-   public func getStore(keypath: String, add: Bool = false) -> Store? {
-      let keys = Store.splitKeys(keypath)
+   /// Return the key at the keypath
+   /// or nil if not found
+   public func getKey(keypath: String)  ->  KVStore? {
+      let editor: KVStore -> KVStore = { store in
+         return store
+      }
+      let onMissingKey : (KVStore, String) throws -> KVStore? = { store, key in
+         return nil
+      }
+      
       do {
-         return try getStore(keys, add: add)
+         return try edit(splitKeypath(keypath),  editor: editor, onMissingKey: onMissingKey)
       }
       catch {
-         print(error)
          return nil
       }
    }
    
-   /// Removes the store at `keypath` and returns it or
-   /// nil if not found.
-   public func removeStore(keypath: String) -> Store? {
-      var keys = Store.splitKeys(keypath)
-      let key = keys.removeLast()
-      let editor : Store -> Store? = { store in
-         return store.stores.removeValueForKey(key)
-      }
-      let onMissingKey : (Store, String) throws -> Store? = { store, key in
-         print("Store not found, Invalid Key: \(keypath) Key: \(key)")
-         return nil
-      }
-      let result : Store? =  try! edit(keys, editor: editor, onMissingKey: onMissingKey)
-      return result
-   }
-   
-   public func addStore(keypath: String, store: Store = Store()) -> Store {
-      return setStore(store, keypath: keypath, add: true)
-   }
-   
-   public func updateStore(keypath: String, store: Store) -> Store {
-      return setStore(store, keypath: keypath, add: false)
-   }
-   
-   public func mergeStore(keypath: String, store: Store ) -> Store? {
+   /// Adds or returns an existing key with the specified path to the reciever
+   /// 
+   /// - note: any intermediate keys are created
+   /// - returns: key created or found
+   public func createKey(keypath: String) -> KVStore {
+      var keyNames: [String] = splitKeypath(keypath)
+      let keyName: String = keyNames.removeLast()
       
-      if let targetStore = getStore(keypath) {
-         targetStore.data.merge(store.data)
-         targetStore.stores.merge(store.stores)
-         return targetStore
+      func addNewKeyToKey(key: KVStore, name: String) -> KVStore {
+         let newStore = KVStore()
+         key.container.keys[name] = newStore
+         return newStore
       }
-      else { return nil }
+      
+      // if key already exsists return it
+      if let key = getKey(keypath) {
+         return key
+      }
+      else {
+         let editor: KVStore throws -> KVStore = { key in
+            return addNewKeyToKey(key, name: keyName)
+         }
+         let onMissingKey: (KVStore, String) -> KVStore? = { key, keyName in
+            return addNewKeyToKey(key, name: keyName)
+         }
+         
+         do {
+            return try edit(keyNames, editor: editor, onMissingKey: onMissingKey)
+         }
+         catch {
+            fatalError("Could not create key \(keypath)")
+         }
+      }
+   }
+
+   /// Updates the key at with the specified name, or adds it
+   /// if it doesn't already exsist.
+   ///
+   /// - returns : the key that was replaced or nil if the newKey was added
+   public func updateKey(keypath: String, newKey key: KVStore) -> KVStore? {
+      var keyNames = splitKeypath(keypath)
+      let targetKeyName = keyNames.removeLast()
+      let parent = createKey(joinKeypath(keyNames))
+      return parent.container.keys.updateValue(key, forKey: targetKeyName)
    }
    
-   public func mergeStore(store: Store) -> Store? {
-      self.data.merge(store.data)
-      self.stores.merge(store.stores)
-      return self
+   /// Removes the key at `keypath` and returns it or
+   /// returns nil if not found.
+   public func removeKey(keypath: String) -> KVStore? {
+      var keyNames = splitKeypath(keypath)
+      let keyName = keyNames.removeLast()
+      let editor : KVStore -> KVStore? = { key in
+         return key.container.keys.removeValueForKey(keyName)
+      }
+      let onMissingKey : (KVStore, String) throws -> KVStore? = { store, key in
+         print("Key not found, Invalid Key: \(keypath) Key: \(key)")
+         return nil
+      }
+      
+      do {
+         let result : KVStore? =  try edit(keyNames, editor: editor, onMissingKey: onMissingKey)
+         return result
+
+      }
+      catch {
+         return nil
+      }
    }
    
+   //****************************************************************************//
+   // MARK: Merging Stores
+   //****************************************************************************//
+   
+      /// Merges the sourceKey with the key specified at keypath
+      /// - returns : the mergedKey
+      public func mergeKey(keypath: String, sourceKey: KVStore ) -> KVStore? {
+   
+         if let targetKey = getKey(keypath) {
+               return targetKey.mergeKey(sourceKey)
+         }
+         else {
+            return nil
+         }
+      }
+   
+      /// Deep merges the sourceKey into the reciever
+      public func mergeKey(sourceKey: KVStore) -> KVStore? {
+         self.container.data.merge(sourceKey.container.data)
+         
+         for entry in sourceKey.container.keys {
+            // if we already have this key, merge them
+            if let targetKey = container.keys[entry.0] {
+               targetKey.mergeKey(entry.1)
+            }
+            else {
+               self.container.keys[entry.0] = entry.1
+            }
+         }
+         return self
+      }
+
    //****************************************************************************//
    // MARK: Setters
    //****************************************************************************//
    
-   public func set<T: Encodable>(keypath: String, _ model: T, add: Bool = true) {
-      set(keypath, value: model, add: add) { store,  key,  model in
-         store.encode(model, key)
-      }
+   public func setValue<V: Encodable>(value: V, forKey: String) {
+      let keys = seperateKeypath(forKey)
+      
+      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      targetKey.container.encode(value, keys.valueName)
    }
    
-   public func set<T: Encodable>(keypath: String, _ models: [T], add: Bool = true) {
-      set(keypath, value: models, add: add) { store,  key,  model in
-         store.encode(models, key)
-      }
+   public func setValue<T: Encodable>(value: [T], forKey: String) {
+      let keys = seperateKeypath(forKey)
+      
+      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      targetKey.container.encode(value, keys.valueName)
    }
    
-   public func set<T: Encodable>(keypath: String, _ models: [String : T], add: Bool = true) {
-      set(keypath, value: models, add: add) { store,  key,  model in
-         store.encode(models, key)
-      }
+   public func setValue<T: Encodable>(value: [String : T], forKey: String) {
+      let keys = seperateKeypath(forKey)
+      
+      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      targetKey.container.encode(value, keys.valueName)
    }
    
-   public func set<V>(keypath: String, _ value: V, add: Bool = true) {
-      set(keypath, value: value, add: add) { store,  key,  value in
-         store.encode(value, key)
-      }
+   public func setValue<V>(value: V, forKey: String) {
+      let keys = seperateKeypath(forKey)
+      
+      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      targetKey.container.encode(value, keys.valueName)
    }
    
    //****************************************************************************//
-   // MARK: Model Getters
+   // MARK: Getters
    //****************************************************************************//
    
-   public func getModel<T: Decodable>(keypath: String) -> T? {
-      return getValue(keypath) { store, key in
-         return store.decode(key)
+   public func getValue<T>(key: String) -> T? {
+      let keys = seperateKeypath(key)
+      let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
+      
+      if let targetKey = targetKey {
+         return targetKey.container.decode(keys.valueName)
+      }
+      else {
+         return nil
       }
    }
    
-   public func getModels<T: Decodable>(keypath: String) -> [T]? {
-      return getValue(keypath) { store, key in
-         return store.decode(key)
+   public func getValue<T: Decodable>(key: String) -> T? {
+      let keys = seperateKeypath(key)
+      let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
+      
+      if let targetKey = targetKey {
+         return targetKey.container.decode(keys.valueName)
+      }
+      else {
+         return nil
       }
    }
    
-   public func getModels<T: Decodable>(keypath: String) -> [String : T]? {
-      return getValue(keypath) { store, key in
-         return store.decode(key)
+   public func getValue<T: Decodable>(key: String) -> [T]? {
+      let keys = seperateKeypath(key)
+      let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
+      
+      if let targetKey = targetKey {
+         return targetKey.container.decode(keys.valueName)
+      }
+      else {
+         return nil
+      }
+   }
+   
+   public func getValue<T: Decodable>(key: String) -> [String : T]? {
+      let keys = seperateKeypath(key)
+      let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
+      
+      if let targetKey = targetKey {
+         return targetKey.container.decode(keys.valueName)
+      }
+      else {
+         return nil
       }
    }
    
@@ -171,129 +283,121 @@ public final class Store: EncoderType, DecoderType, Encodable, Decodable {
    //****************************************************************************//
    
    /// Returns a Bool at key or nil
-   public func getBool(keypath: String) -> Bool? {
-      return _getValue(keypath: keypath)
+   public func getBool(key: String) -> Bool? {
+      return getValue(key)
    }
    
    /// Returns a Int at key or nil
-   public func getInt(keypath: String) -> Int? {
-      return _getValue(keypath: keypath)
+   public func getInt(key: String) -> Int? {
+      return getValue(key)
    }
    
    /// Returns a double at key or nil
-   public func getDouble(keypath: String) -> Double? {
-      return _getValue(keypath: keypath)
+   public func getDouble(key: String) -> Double? {
+      return getValue(key)
    }
    
    /// Returns a Float at key or nil
-   public func getFloat(keypath: String) -> Float? {
-      return _getValue(keypath: keypath)
+   public func getFloat(key: String) -> Float? {
+      return getValue(key)
    }
    
    /// Returns a String at key or nil
-   public func getString(keypath: String) -> String? {
-      return _getValue(keypath: keypath)
-   }
-   private func _getValue<T>(keypath keypath: String) -> T? {
-      
-      return getValue(keypath) { store, key in
-         return store.decode(key)
-      }
+   public func getString(key: String) -> String? {
+      return getValue(key)
    }
    
    //****************************************************************************//
    // MARK: Getters with default values
    //****************************************************************************//
    
-   public func getBool(keypath: String, defaultValue: Bool, add: Bool = true) -> Bool {
-      return _getValue(keypath, defaultValue: defaultValue, add: add)
+   public func getBool(key: String , defaultValue: Bool) -> Bool {
+      return getValue(key) ?? defaultValue
    }
    
-   public func getInt(keypath: String, defaultValue: Int, add: Bool = true) -> Int {
-      return _getValue(keypath, defaultValue: defaultValue, add: add)
+   public func getInt(key: String, defaultValue: Int) -> Int {
+      return getValue(key) ?? defaultValue
    }
    
-   public func getDouble(keypath: String, defaultValue: Double, add: Bool = true) -> Double {
-      return _getValue(keypath, defaultValue: defaultValue, add: add)
+   public func getDouble(key: String, defaultValue: Double) -> Double {
+      return getValue(key) ?? defaultValue
    }
    
-   public func getFloat(keypath: String, defaultValue: Float, add: Bool = true) -> Float {
-      return _getValue(keypath, defaultValue: defaultValue, add: add)
+   public func getFloat(key: String,  defaultValue: Float) -> Float {
+      return getValue(key) ?? defaultValue
    }
    
-   public func getString(keypath: String, defaultValue: String, add: Bool = true) -> String {
-      return _getValue(keypath, defaultValue: defaultValue, add: add)
+   public func getString(key: String, defaultValue: String) -> String {
+      return getValue(key) ?? defaultValue
    }
    
-   public func getModel<T: Decodable>(keypath: String, defaultValue: T, add: Bool = true) -> T {
-      return materializeValue(keypath, value: getModel(keypath), defaultValue: defaultValue, add: add)
+   public func getValue<T>(key: String, defaultValue: T) -> T {
+      return getValue(key) ?? defaultValue
    }
    
-   public func getModels<T: Decodable>(keypath: String, defaultValue: [T], add: Bool = true) -> [T] {
-      return materializeValue(keypath, value: getModels(keypath), defaultValue: defaultValue, add: add)
+   public func getValue<T: Decodable>(key: String, defaultValue: T) -> T {
+      return getValue(key) ?? defaultValue
    }
    
-   public func getModels<T: Decodable>(keypath: String, defaultValue: [String : T], add: Bool = true) -> [String : T] {
-      return materializeValue(keypath, value: getModels(keypath), defaultValue: defaultValue, add: add)
+   public func getValue<T: Decodable>(key: String, defaultValue: [T]) -> [T] {
+       return getValue(key) ?? defaultValue
    }
    
-   private func _getValue<T>(keypath: String, defaultValue: T, add: Bool = true) -> T {
-      return materializeValue(keypath, value: _getValue(keypath: keypath), defaultValue: defaultValue, add: add)
-   }
-   
-   public func materializeValue<T>(keypath: String, value: T?, defaultValue: T, add: Bool = true) -> T {
-      if let value = value { return value }
-      
-      if add {
-         set(keypath, value: defaultValue, add: true) { store,  key,  value in
-            store.encode(value, key)
-         }
-      }
-      return defaultValue
+   public func getValue<T: Decodable>(key: String,  defaultValue: [String : T]
+     ) -> [String : T] {
+      return getValue(key) ?? defaultValue
    }
 }
-
-
+   
+////****************************************************************************//
+//// MARK: Removal
+////****************************************************************************//
+//   
+//
+//   /// Removes a value at `keypath
+//   public func removeValue(keypath: String)  {
+//      var keys = KVStore.splitKeys(keypath)
+//      let key = keys.removeLast()
+//      let editor : KVStore -> Void = { store in
+//         store.values.removeValueForKey(key)
+//      }
+//      let onMissingKey : (KVStore, String) throws ->  KVStore? = { store, key in
+//         print("Key not found, Invalid Key: \(keypath) Key: \(key)")
+//         return nil
+//      }
+//      try! edit(keys, editor: editor, onMissingKey: onMissingKey)
+//   }
+//}
+//
 //****************************************************************************//
 // MARK: Implementations
 //****************************************************************************//
 
-extension Store {
+extension KVStore {
    
-   func edit(
-      @noescape descend descend: Store throws -> Store?,
-                        @noescape ascend: (Store, Store)  throws -> Void) rethrows -> Void {
+   func walk(@noescape descend descend: KVStore throws -> KVStore?,
+                               @noescape ascend: (KVStore, KVStore)  throws -> Void) rethrows -> Void {
       
-      guard let child = try descend(self) else { return }
-      try child.edit(descend: descend, ascend: ascend)
+      guard let child = try descend(self) else {
+         return
+      }
+      try child.walk(descend: descend, ascend: ascend)
       try ascend(self, child)
    }
    
-   ///  Split keys into an array of strings
-   static func splitKeys(path: String) -> [String] {
-      return path.characters.split(".").map(String.init)
-   }
-   
-   /// Join keys with `KeypathSeperator`
-   static func joinKeys(keys: [String]) -> String {
-      return keys.joinWithSeparator(String(KeypathSeperator))
-   }
-   
-   func edit<V>(
-      keys: [String],
-      editor: Store -> V,
-      onMissingKey: (Store, String) throws -> Store? ) rethrows -> V  {
+   func edit<V>(keys: [String], editor: KVStore throws -> V,
+      onMissingKey: (KVStore, String) throws -> KVStore? ) throws -> V  {
       var keyGen = keys.generate()
       var result : V? = nil
       
-      try edit(
+      try walk(
          descend:  { store in
             guard let nextKey = keyGen.next() else {
-               // we hit bottom
-               result = editor(store)
+               // bottom
+               result = try editor(store)
                return nil
             }
-            guard let next = store.stores[nextKey] else {
+            guard let next = store.container.keys[nextKey] else {
                // we have an unrecognized key
                return  try onMissingKey(store, nextKey)
             }
@@ -301,75 +405,11 @@ extension Store {
          },
          ascend: { _, _ in  }
       )
-      return result!
-   }
-   
-   func getStore(keys: [String], add: Bool = false) throws -> Store? {
-      let editor: Store -> Store = { store in
-         return store
-      }
-      let onMissingKey: (Store, String) throws -> Store? =  { store, key in
-         if add {
-            let newStore = Store()
-            store.stores[key] = newStore
-            return newStore
-         }
-         else {
-            throw StoreError.StoreNotFound(Store.joinKeys(keys))
-         }
-      }
-      return try edit(keys, editor: editor, onMissingKey: onMissingKey)
-   }
-   
-   func setStore (
-      store: Store = Store(),
-      keypath: String,
-      add: Bool = false) -> Store {
       
-      let setter: (Store, String, Store) -> Void = { (parentStore, key, childStore) in
-         parentStore.stores[key] = childStore
-      }
-      set(keypath, value: store, add: add, setter: setter)
-      return store
-   }
-   
-   
-   func getValue<V>(keypath: String, getter: (Store, String) -> V) -> V {
-      var keys = Store.splitKeys(keypath)
-      let key = keys.removeLast()
-      var targetStore : Store? = nil
-      
-      do {
-         targetStore =  try getStore(keys, add: true)
-      }
-      catch StoreError.StoreNotFound(let key) {
-         preconditionFailure("Store not found, Keypath: \(Store.joinKeys(keys)), Invalid Key: \(key)")
-      }
-      catch {
-         print("Unkown error : \(error)")
-      }
-      
-      return getter(targetStore!, key)
-   }
-   
-   func set<Element>(
-      keypath: String,
-      value: Element, add: Bool = false,
-      setter: (Store, String, Element) -> Void) -> Void {
-
-      var keys = Store.splitKeys(keypath)
-      let key = keys.removeLast()
-      let targetStore: Store?
-      
-      do {
-         targetStore = try getStore(keys, add: add)
-         setter(targetStore!, key, value)
-      }
-      catch StoreError.StoreNotFound(let key) {
-         preconditionFailure("Store not found, Keypath: \(Store.joinKeys(keys)), Invalid Key: \(key)")
-      }
-      catch {
-         print("Unkown error : \(error)")
+      if let result = result {
+         return result
+      } else {
+         throw KVStoreError.NoResult
       }
    }
 }
@@ -387,3 +427,22 @@ extension Dictionary {
       }
    }
 }
+
+///  Split keys into an array of strings
+func splitKeypath(path: String) -> [String] {
+   return path.characters.split(".").map(String.init)
+}
+
+/// Join keys with `KeypathSeperator`
+func joinKeypath(keys: [String]) -> String {
+   return keys.joinWithSeparator(String(KeypathSeperator))
+}
+
+ func seperateKeypath(path: String) -> (keypath: String?, valueName: String) {
+   var keys = splitKeypath(path)
+   let key = keys.removeLast()
+   let joinResult = joinKeypath(keys)
+   let keypath : String? = joinResult.characters.count > 0 ? joinResult : nil
+   return (keypath, key)
+}
+

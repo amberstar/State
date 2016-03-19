@@ -43,7 +43,7 @@ extension UIColor : Encodable, Decodable {
    }
 }
 
-extension Store {
+extension KVStore {
    
    /// Returns a Bool at key or nil
    public func getColor(keypath: String) -> UIColor? {

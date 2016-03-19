@@ -21,3 +21,8 @@ s.addStore("1.2.3.4.5")
 s.getColor("Color")
 
 
+s.set("Hat", true)
+
+
+
+
