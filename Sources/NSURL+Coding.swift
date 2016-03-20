@@ -15,3 +15,14 @@ extension NSURL : Encodable, Decodable {
       encoder.encode(self.absoluteString, "URL")
    }
 }
+
+extension KVStore {
+   
+   public func getURL(key: String) -> NSURL? {
+      return getValue(key)
+   }
+   
+   public func getURL(key: String, defaultValue: NSURL) -> NSURL {
+      return getValue(key) ?? defaultValue
+   }
+}

@@ -1,9 +1,7 @@
 import XCTest
 import State
 
-
 class KVStoreTests: Test {
-    
     override func setUp() {
         super.setUp()
     }
@@ -128,45 +126,184 @@ class KVStoreTests: Test {
       XCTAssert(result2 == 42)
    }
    
+   func testDecodables() {
+      let employee = Employee(name: "Fred", title: "President")
+      let employee2 = Employee(name: "Alice", title: nil)
+      let company = Company(name: "TestCompany", yearFounded: 2014, phoneNumber: "860-222-1234", employees: [employee, employee2])
+      
+      let employeeArray = [employee, employee2]
+      let employeeDict = ["Fred" : employee, "Alice" : employee2]
+      
+      let store = KVStore()
+      
+      store.setValue(employee, forKey: "employees.instance")
+      store.setValue(employeeArray, forKey: "employees.array")
+      store.setValue(employeeDict, forKey: "employees.dict")
+      store.setValue(company, forKey: "company")
+      
+      store.save(tempPathFor("Test.plist"))
+      
+      let inputStore = KVStore.load(tempPathFor("Test.plist"))
+      
+      XCTAssertNotNil(inputStore)
+      
+      let inEmployee : Employee? = inputStore?.getValue("employees.instance")
+      XCTAssertNotNil(inEmployee)
+      XCTAssert(inEmployee?.name == "Fred")
+      
+      let inEmployeeArray : [Employee]? = inputStore?.getValue("employees.array")
+      XCTAssertNotNil(inEmployeeArray)
+      XCTAssert(inEmployeeArray?.count == 2)
+      
+      let inEmployeeDict : [String : Employee]? = inputStore?.getValue("employees.dict")
+      XCTAssertNotNil(inEmployeeDict)
+      XCTAssert(inEmployeeDict?.count == 2)
+      XCTAssert(inEmployeeDict?["Alice"]?.name == "Alice")
+      
+      let inCompany : Company? = inputStore?.getValue("company")
+      XCTAssertNotNil(inCompany)
+      XCTAssert(inCompany?.employees?.count == 2)
+   }
    
-//    func createTestStoreContainer() -> KVStoreContainer {
-//        let store = KVStoreContainer()
-//        let model = Employee(name: "Test Employee", title: "Manager")
-//        
-//        store.set(value: false, forKey: "TestBool")
-//        store.set(value: 10, forKey: "TestInt")
-//        store.set(value: 24.5, forKey: "TestFloat")
-//        store.set(value: [true, false, true], forKey: "TestArrayBool")
-//        store.set(value: [10, 11, 12], forKey: "TestArrayInt")
-//        store.set(value: [22.5, 2, 11.4], forKey: "TestArrayFloat")
-//        store.set(value: ["Key" : false, "Key1" : true], forKey: "TestBoolDictionary")
-//        store.set(value: model, forKey: "TestModel")
-//        store.set(value: [model, model, model], forKey: "TestArrayModel")
-//        store.set(value: ["Key" : model, "Key1" : model], forKey: "TestDictionaryModel")
-//        
-//        return store
-//    }
-//    
-//    func saveAndLoadStore() -> KVStoreContainer? {
-//        let baseStore = createTestStoreContainer()
-//        
-//        baseStore.save(.Plist, path: tempPathFor("TestStore.plist"))
-//        let inStore = KVStoreContainer(.Plist, path: tempPathFor("TestStore.plist"))
-//        return inStore
-//    }
-//    
-//    
-//    func testSavingAndLoadingStore() {
-//        XCTAssertNotNil(saveAndLoadStore())
-//    }
-//    
-//    func testGettingValuesFromStore() {
-//        guard let store = saveAndLoadStore() else { XCTFail() ; return }
-//        
-//        XCTAssertNotNil(store.getValue(forKey: "TestBool"))
-//        
-//        let employees : [Employee]? = store.getValue(forKey: "TestArrayModel")
-//        XCTAssertNotNil(employees)
-//        XCTAssert(employees?[2].name == "Test Employee")
-//    }
+   func testBasicGetters() {
+      let testBool: Bool = true
+      let testInt : Int = 42
+      let testDouble: Double = 3.14
+      let testFloat: Float = 0.001
+      let testString: String = "Hello"
+      
+      let store = KVStore()
+      
+      store.setValue(testBool, forKey: "testBool")
+      store.setValue(testInt, forKey: "testInt")
+      store.setValue(testDouble, forKey: "testDouble")
+      store.setValue(testFloat, forKey: "testFloat")
+      store.setValue(testString, forKey: "testString")
+      
+      let notFound = store.getBool("Invalid")
+      XCTAssertNil(notFound)
+      
+      let inValidType = store.getString("testInt")
+      XCTAssertNil(inValidType)
+      
+      XCTAssert(store.getBool("testBool") == testBool)
+      XCTAssert(store.getInt("testInt") == testInt)
+      XCTAssert(store.getDouble("testDouble") == testDouble)
+      XCTAssert(store.getFloat("testFloat") == testFloat)
+      XCTAssert(store.getString("testString") == testString)
+   }
+
+   func testGettersWithDefaultValues() {
+      
+      let store = KVStore()
+ 
+      let notFound = store.getBool("Invalid")
+      XCTAssertNil(notFound)
+      
+      let inValidType = store.getString("testInt")
+      XCTAssertNil(inValidType)
+      
+      XCTAssert(store.getBool("testBool", defaultValue: true) == true)
+      XCTAssert(store.getInt("testInt", defaultValue: 42) == 42)
+      XCTAssert(store.getDouble("testDouble", defaultValue: 3.14) == 3.14)
+      XCTAssert(store.getFloat("testFloat", defaultValue: 0.001) == 0.001)
+      XCTAssert(store.getString("testString", defaultValue: "Hello") == "Hello")
+      
+      store.setValue(10, forKey: "testInt")
+      XCTAssert(store.getInt("testInt", defaultValue: 42) == 10)
+      
+      let employee = Employee(name: "Fred", title: "President")
+      
+      let resultEmployee : Employee = store.getValue("Fred", defaultValue: employee)
+      XCTAssert(resultEmployee.name == "Fred")
+   }
+   
+   func testRemovalFromStore() {
+      let store = KVStore()
+      
+      let employee = Employee(name: "Fred", title: "President")
+      let employee2 = Employee(name: "Alice", title: nil)
+      let company = Company(name: "TestCompany", yearFounded: 2014, phoneNumber: "860-222-1234", employees: [employee, employee2])
+      
+      let employeeArray = [employee, employee2]
+      let employeeDict = ["Fred" : employee, "Alice" : employee2]
+      
+      store.setValue("HELLO", forKey: "some.string.value")
+      store.setValue(employee, forKey: "employees.instance")
+      store.setValue(employeeArray, forKey: "employees.array")
+      store.setValue(employeeDict, forKey: "employees.dict")
+      store.setValue(company, forKey: "company")
+      
+      let removedString: String? = store.removeValue("some.string.value")
+      XCTAssert(removedString == "HELLO")
+      
+      let getRemovedString: String? = store.getValue("some.string.value")
+      XCTAssertNil(getRemovedString)
+      
+      let removedEmployee : Employee? = store.removeValue("employees.instance")
+      XCTAssertNotNil(removedEmployee)
+      
+      let getRemovedEmployee : Employee? = store.getValue("employees.instance")
+      XCTAssertNil(getRemovedEmployee)
+      
+      let removedEmployeeArray : [Employee]? = store.removeValue("employees.array")
+      XCTAssertNotNil(removedEmployeeArray)
+      
+      store.setValue(employee, forKey: "employees.instance")
+      store.deleteValue("employees.instance")
+      
+      let getDeletedEmployee : Employee? = store.getValue("employees.instance")
+      XCTAssertNil(getDeletedEmployee)
+   }
+
+   func testMergingStores() {
+      let store = KVStore()
+      store.setValue("HELLO", forKey: "some.string.value")
+      let store2 = KVStore()
+      
+      store2.setValue(12, forKey: "some.integer.value")
+      store2.setValue("SOME STRING", forKey: "some.string.other")
+      
+      store.merge(store2)
+      
+      let i: Int? = store.getInt("some.integer.value")
+      XCTAssertNotNil(i)
+      XCTAssert(i == 12)
+      
+      let s: String? = store.getString("some.string.other")
+      XCTAssertNotNil(s)
+      XCTAssert(s == "SOME STRING")
+   }
+   
+   func testMergingStoreIntoKeypath() {
+      let store = KVStore()
+      store.setValue("HELLO", forKey: "some.string.value")
+      let store2 = KVStore()
+      
+      store2.setValue(12, forKey: "branch.integer.value")
+      store2.setValue("SOME STRING", forKey: "some.string.other")
+      store.merge(store2, intoKeypath: "other.key")
+      
+      let i : Int? = store.getValue("other.key.branch.integer.value")
+      XCTAssertNotNil(i)
+      XCTAssert(i == 12)
+      
+      let s: String? = store.getString("other.key.some.string.other")
+      XCTAssertNotNil(s)
+      XCTAssert(s == "SOME STRING")
+   }
+   
+   func testVolatileDoesNotSave() {
+      let store = KVStore()
+      store.setValue(45, forKey: "root.volatile.number")
+      store.setValue(88, forKey: "root.notVolatile.number")
+      store.getKey("root.volatile")?.isVolatile = true
+      store.setValue(120, forKey: "external.reference.number")
+      store.getKey("external.reference")?.externalLocation = tempPathFor("ExternalRef.plist")
+      
+      store.save(tempPathFor("NOVolatiles.plist"))
+      
+      print(tempPathFor("NOVolatiles.plist"))
+      
+   }
 }

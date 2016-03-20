@@ -45,13 +45,11 @@ extension UIColor : Encodable, Decodable {
 
 extension KVStore {
    
-   /// Returns a Bool at key or nil
-   public func getColor(keypath: String) -> UIColor? {
-      return getModel(keypath)
+   public func getColor(key: String) -> UIColor? {
+      return getValue(key)
    }
    
-   public func getColor(keypath: String, defaultValue: UIColor, add: Bool = true) -> UIColor {
-      return materializeValue(keypath, value: getModel(keypath), defaultValue: defaultValue, add: add)
+   public func getColor(key: String, defaultValue: UIColor) -> UIColor {
+     return getValue(key) ?? defaultValue
    }
-
 }

@@ -1,13 +1,17 @@
 let KeypathSeperator : Character = "."
-let StoreKey = "Keys"
-let DataKey = "Values"
+let StoreKey = "KEYS"
+let DataKey = "VALUES"
+let RefKey = "REFERENCE"
+let VolatileKey = "VOLATILE"
+let HeaderKey = "HEADER"
+
 
 public enum KVStoreError : ErrorType {
    case KeyNotFound(String)
    case NoResult
 }
 
-/// A Store is a general purpose key-value store for models and/or arbitrary
+/// A KVStore is a general purpose key-value store for models and/or arbitrary
 /// values. It is useful in situations where it makes sense to store a group of
 /// models or collections of models together, but there is not a need to create
 /// a collection model type. Instead conveniently store them in a Store. A
@@ -20,6 +24,31 @@ public final class KVStore: Encodable, Decodable {
       var data = [String : AnyObject]()
       var keys : [String : KVStore] = [:]
       
+      var nonVolatileKeys : [String : KVStore] {
+         return filterKeys(keys, shouldKeep: { $0.isVolatile == false })
+      }
+      
+      var localKeys : [String : KVStore] {
+         return filterKeys(keys, shouldKeep: { $0.externalLocation == nil } )
+      }
+      
+      var localNonVolatileKeys : [String : KVStore] {
+          return filterKeys(nonVolatileKeys, shouldKeep: { $0.externalLocation == nil } )
+      }
+      
+      var externalKeys : [String : KVStore] {
+          return filterKeys(keys, shouldKeep: { $0.externalLocation != nil } )
+      }
+      
+      func filterKeys(keys: [String : KVStore], shouldKeep: (KVStore) -> Bool) -> [String : KVStore] {
+         var data : [String : KVStore] = [:]
+         let filteredKeys = keys.filter { shouldKeep($1) }
+         for result in   filteredKeys {
+            data[result.0] = result.1
+         }
+         return data
+      }
+      
       init(data: [String : AnyObject] =  [:], keys: [String : KVStore] = [:]) {
          self.data = data
          self.keys = keys
@@ -27,6 +56,24 @@ public final class KVStore: Encodable, Decodable {
    }
    
    let container : KVContainer
+   
+   public var isVolatile : Bool {
+      get {
+         return getBool(HeaderKey + "." + VolatileKey, defaultValue: false)
+      }
+      set {
+         setValue(newValue, forKey: HeaderKey + "." + VolatileKey)
+      }
+   }
+   
+   public var externalLocation : String? {
+      get {
+         return getString(HeaderKey + "." + RefKey)
+      }
+      set {
+         setValue(newValue, forKey: HeaderKey + "." + RefKey)
+      }
+   }
    
    public var keys : [String : KVStore] {
       return container.keys
@@ -37,13 +84,27 @@ public final class KVStore: Encodable, Decodable {
    }
    
    /// Initialize a new Store with the specified value and key dictionaries
-   public init(values: [String : AnyObject] =  [:], keys: [String : KVStore] = [:]) {
+   public init(path: String? = nil, values: [String : AnyObject] =  [:], keys: [String : KVStore] = [:]) {
       container = KVContainer(data: values, keys: keys)
    }
    
+   
    public func save(path: String) {
       save(.Plist, path: path)
+      saveExternalKeys()
    }
+   
+   func saveExternalKeys() {
+      for key in container.externalKeys {
+         if let location = key.1.externalLocation {
+            key.1.save(location)
+         }
+      }
+      for key in container.localNonVolatileKeys {
+         key.1.saveExternalKeys()
+      }
+   }
+   
    
    public static func load(path: String) -> KVStore? {
       return KVStore.decodeFromFile(Format.Plist.converter, path: path)
@@ -58,9 +119,14 @@ public final class KVStore: Encodable, Decodable {
       if container.data.count > 0 {
          encoder.encode(container.data, DataKey)
       }
+   
+      if container.localNonVolatileKeys.count > 0 {
+         encoder.encode(container.localNonVolatileKeys, StoreKey)
+      }
       
-      if container.keys.count > 0 {
-         encoder.encode(container.keys, StoreKey)
+      for key in container.externalKeys {
+         let reference : [String : String ] = [RefKey : key.1.externalLocation!]
+         encoder.encode(reference, key.0)
       }
    }
    
@@ -168,25 +234,21 @@ public final class KVStore: Encodable, Decodable {
    
       /// Merges the sourceKey with the key specified at keypath
       /// - returns : the mergedKey
-      public func mergeKey(keypath: String, sourceKey: KVStore ) -> KVStore? {
-   
-         if let targetKey = getKey(keypath) {
-               return targetKey.mergeKey(sourceKey)
-         }
-         else {
-            return nil
-         }
+      public func merge(source: KVStore, intoKeypath: String  ) -> KVStore {
+         let targetKey = createKey(intoKeypath)
+         return targetKey.merge(source)
       }
    
       /// Deep merges the sourceKey into the reciever
-      public func mergeKey(sourceKey: KVStore) -> KVStore? {
-         self.container.data.merge(sourceKey.container.data)
+      public func merge(source: KVStore) -> KVStore {
+         self.container.data.merge(source.container.data)
          
-         for entry in sourceKey.container.keys {
+         for entry in source.container.keys {
             // if we already have this key, merge them
             if let targetKey = container.keys[entry.0] {
-               targetKey.mergeKey(entry.1)
+               targetKey.merge(entry.1)
             }
+            // else add the key
             else {
                self.container.keys[entry.0] = entry.1
             }
@@ -347,28 +409,71 @@ public final class KVStore: Encodable, Decodable {
      ) -> [String : T] {
       return getValue(key) ?? defaultValue
    }
-}
    
-////****************************************************************************//
-//// MARK: Removal
-////****************************************************************************//
-//   
-//
-//   /// Removes a value at `keypath
-//   public func removeValue(keypath: String)  {
-//      var keys = KVStore.splitKeys(keypath)
-//      let key = keys.removeLast()
-//      let editor : KVStore -> Void = { store in
-//         store.values.removeValueForKey(key)
-//      }
-//      let onMissingKey : (KVStore, String) throws ->  KVStore? = { store, key in
-//         print("Key not found, Invalid Key: \(keypath) Key: \(key)")
-//         return nil
-//      }
-//      try! edit(keys, editor: editor, onMissingKey: onMissingKey)
-//   }
-//}
-//
+//****************************************************************************//
+// MARK: Removal
+//****************************************************************************//
+   
+   /// Removes a value at key and returns it,
+   /// or returns nil if not found
+   public func removeValue<T>(key: String) -> T? {
+      return removeValue(key) { store, valueName in
+         return store.container.decode(valueName)
+      }
+   }
+   
+   /// Removes a value at key and returns it,
+   /// or returns nil if not found
+   public func removeValue<T: Decodable>(key: String) -> T? {
+      return removeValue(key) { store, valueName in
+         return store.container.decode(valueName)
+      }
+   }
+   
+   /// Removes a value at key and returns it,
+   /// or returns nil if not found
+   public func removeValue<T: Decodable>(key: String) -> [T]? {
+      return removeValue(key) { store, valueName in
+         return store.container.decode(valueName)
+      }
+   }
+   
+   /// Removes a value at key and returns it,
+   /// or returns nil if not found
+   public func removeValue<T: Decodable>(key: String) -> [String : T]? {
+      return removeValue(key) { store, valueName in
+         return store.container.decode(valueName)
+      }
+   }
+   
+   /// Removes a value at key and returns it,
+   /// or returns nil if not found
+   func removeValue<T>(key: String, decode: (KVStore, String) ->  T? ) -> T? {
+      let keys = seperateKeypath(key)
+      let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
+      
+      if let targetKey = targetKey {
+         let value : T? =  decode(targetKey, keys.valueName)
+         targetKey.container.data.removeValueForKey(keys.valueName)
+         return value
+      }
+      else {
+         return nil
+      }
+   }
+   
+   /// Simillar to remove but does not return
+   /// the value removed.
+   public func deleteValue(key: String) {
+      let keys = seperateKeypath(key)
+      let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
+      
+      if let targetKey = targetKey {
+         targetKey.container.data.removeValueForKey(keys.valueName)
+      }
+   }
+}
+
 //****************************************************************************//
 // MARK: Implementations
 //****************************************************************************//
@@ -438,7 +543,7 @@ func joinKeypath(keys: [String]) -> String {
    return keys.joinWithSeparator(String(KeypathSeperator))
 }
 
- func seperateKeypath(path: String) -> (keypath: String?, valueName: String) {
+func seperateKeypath(path: String) -> (keypath: String?, valueName: String) {
    var keys = splitKeypath(path)
    let key = keys.removeLast()
    let joinResult = joinKeypath(keys)
