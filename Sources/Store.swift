@@ -1,9 +1,6 @@
 let KeypathSeperator : Character = "."
 let StoreKey = "KEYS"
 let DataKey = "VALUES"
-let RefKey = "REFERENCE"
-let VolatileKey = "VOLATILE"
-let HeaderKey = "HEADER"
 let ExternalKey = "EXTERNAL"
 
 
