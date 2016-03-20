@@ -4,6 +4,7 @@ let DataKey = "VALUES"
 let RefKey = "REFERENCE"
 let VolatileKey = "VOLATILE"
 let HeaderKey = "HEADER"
+let ExternalKey = "EXTERNAL"
 
 
 public enum KVStoreError : ErrorType {
@@ -29,15 +30,15 @@ public final class KVStore: Encodable, Decodable {
       }
       
       var localKeys : [String : KVStore] {
-         return filterKeys(keys, shouldKeep: { $0.externalLocation == nil } )
+         return filterKeys(keys, shouldKeep: { $0.path == nil } )
       }
       
       var localNonVolatileKeys : [String : KVStore] {
-          return filterKeys(nonVolatileKeys, shouldKeep: { $0.externalLocation == nil } )
+          return filterKeys(nonVolatileKeys, shouldKeep: { $0.path == nil } )
       }
       
       var externalKeys : [String : KVStore] {
-          return filterKeys(keys, shouldKeep: { $0.externalLocation != nil } )
+          return filterKeys(keys, shouldKeep: { $0.path != nil } )
       }
       
       func filterKeys(keys: [String : KVStore], shouldKeep: (KVStore) -> Bool) -> [String : KVStore] {
@@ -56,24 +57,8 @@ public final class KVStore: Encodable, Decodable {
    }
    
    let container : KVContainer
-   
-   public var isVolatile : Bool {
-      get {
-         return getBool(HeaderKey + "." + VolatileKey, defaultValue: false)
-      }
-      set {
-         setValue(newValue, forKey: HeaderKey + "." + VolatileKey)
-      }
-   }
-   
-   public var externalLocation : String? {
-      get {
-         return getString(HeaderKey + "." + RefKey)
-      }
-      set {
-         setValue(newValue, forKey: HeaderKey + "." + RefKey)
-      }
-   }
+   public var isVolatile : Bool = false
+   public var path : String? = nil
    
    public var keys : [String : KVStore] {
       return container.keys
@@ -84,10 +69,11 @@ public final class KVStore: Encodable, Decodable {
    }
    
    /// Initialize a new Store with the specified value and key dictionaries
-   public init(path: String? = nil, values: [String : AnyObject] =  [:], keys: [String : KVStore] = [:]) {
+   public init(isVolatile: Bool = false, path: String? = nil, values: [String : AnyObject] =  [:], keys: [String : KVStore] = [:]) {
+      self.isVolatile = isVolatile
+      self.path = path
       container = KVContainer(data: values, keys: keys)
    }
-   
    
    public func save(path: String) {
       save(.Plist, path: path)
@@ -96,7 +82,7 @@ public final class KVStore: Encodable, Decodable {
    
    func saveExternalKeys() {
       for key in container.externalKeys {
-         if let location = key.1.externalLocation {
+         if let location = key.1.path {
             key.1.save(location)
          }
       }
@@ -104,7 +90,6 @@ public final class KVStore: Encodable, Decodable {
          key.1.saveExternalKeys()
       }
    }
-   
    
    public static func load(path: String) -> KVStore? {
       return KVStore.decodeFromFile(Format.Plist.converter, path: path)
@@ -124,9 +109,13 @@ public final class KVStore: Encodable, Decodable {
          encoder.encode(container.localNonVolatileKeys, StoreKey)
       }
       
-      for key in container.externalKeys {
-         let reference : [String : String ] = [RefKey : key.1.externalLocation!]
-         encoder.encode(reference, key.0)
+      
+      if container.externalKeys.count > 0 {
+         var externals : [String : String] = [:]
+         for key in container.externalKeys {
+            externals[key.0] = key.1.path!
+         }
+         encoder.encode(externals, ExternalKey)
       }
    }
    
@@ -134,8 +123,20 @@ public final class KVStore: Encodable, Decodable {
       let stores : [String : KVStore]? = decoder.decode(StoreKey)
       let data : [String : AnyObject]? = decoder.decode(DataKey)
 
-      return self.init(values: data ?? [:], keys: stores ?? [:])
+      let result = self.init(values: data ?? [:], keys: stores ?? [:])
       
+      let externals : [String : String]? = decoder.decode(ExternalKey)
+      
+      if let externals = externals {
+         for external in externals {
+            if let key = KVStore.load(external.1) {
+               key.path = external.1
+               result.updateKey(external.0, newKey: key)
+            }
+            
+         }
+      }
+      return result
    }
    //****************************************************************************//
    // MARK: Stores - Creating, Getting, Updating
@@ -199,10 +200,10 @@ public final class KVStore: Encodable, Decodable {
    ///
    /// - returns : the key that was replaced or nil if the newKey was added
    public func updateKey(keypath: String, newKey key: KVStore) -> KVStore? {
-      var keyNames = splitKeypath(keypath)
-      let targetKeyName = keyNames.removeLast()
-      let parent = createKey(joinKeypath(keyNames))
-      return parent.container.keys.updateValue(key, forKey: targetKeyName)
+      let keys = seperateKeypath(keypath)
+      let targetKey = keys.keypath == nil ? self : createKey(keys.keypath!)
+      
+      return targetKey.container.keys.updateValue(key, forKey: keys.valueName)
    }
    
    /// Removes the key at `keypath` and returns it or

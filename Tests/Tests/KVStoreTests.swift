@@ -47,6 +47,7 @@ class KVStoreTests: Test {
       XCTAssert(cKey === createdKey)
    }
    
+
    func testUpdatingKeyWithNewKeyReplacesAndReturnsOldKey() {
       let store = KVStore()
       store.createKey("A.B.C.D")
@@ -299,11 +300,35 @@ class KVStoreTests: Test {
       store.setValue(88, forKey: "root.notVolatile.number")
       store.getKey("root.volatile")?.isVolatile = true
       store.setValue(120, forKey: "external.reference.number")
-      store.getKey("external.reference")?.externalLocation = tempPathFor("ExternalRef.plist")
+      store.getKey("external.reference")?.path = tempPathFor("ExternalRef.plist")
       
       store.save(tempPathFor("NOVolatiles.plist"))
       
       print(tempPathFor("NOVolatiles.plist"))
       
+      let newStore = KVStore.load(tempPathFor("NOVolatiles.plist"))
+      
+      let inputValue = newStore?.getInt("external.reference.number")
+      XCTAssert(inputValue == 120)
+      
+      newStore?.getKey("external.reference")?.path = nil
+      newStore?.save(tempPathFor("NOVolatiles2.plist"))
+   }
+   
+   func testExternalKeySavesToExternalLocation() {
+      let store = KVStore()
+      store.createKey("external").path = tempPathFor("External.plist")
+      store.setValue(10, forKey: "external.number")
+      
+      store.save(tempPathFor("Main.plist"))
+      
+      let externalStore = KVStore.load(tempPathFor("External.plist"))
+      XCTAssert(externalStore != nil)
+      
+      XCTAssert(externalStore?.getValue("number") == 10)
+      
+      let inStore = KVStore.load(tempPathFor("Main.plist"))
+
+      XCTAssert(inStore?.getKey("external")?.path == (tempPathFor("External.plist")))
    }
 }
