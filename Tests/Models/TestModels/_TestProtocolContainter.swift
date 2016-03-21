@@ -63,3 +63,22 @@ extension TestProtocolContainter {
     }
 }
 
+extension KVStore {
+
+   public func getTestProtocolContainter(key: String) -> TestProtocolContainter? {
+      return getValue(key)
+   }
+
+   public func getTestProtocolContainter(key: String, defaultValue: TestProtocolContainter) -> TestProtocolContainter {
+      return getValue(key) ?? defaultValue
+   }
+
+   public func getTestProtocolContainters(key: String) -> [TestProtocolContainter]? {
+      return getValue(key)
+   }
+
+   public func getTestProtocolContainters(key: String, defaultValue: [TestProtocolContainter]) -> [TestProtocolContainter] {
+      return getValue(key) ?? defaultValue
+   }
+}
+

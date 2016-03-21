@@ -25,4 +25,12 @@ extension KVStore {
    public func getURL(key: String, defaultValue: NSURL) -> NSURL {
       return getValue(key) ?? defaultValue
    }
+   
+   public func getURLS(key: String) -> [NSURL]? {
+      return getValue(key)
+   }
+   
+   public func getURLS(key: String, defaultValue: [NSURL]) -> [NSURL] {
+      return getValue(key) ?? defaultValue
+   }
 }

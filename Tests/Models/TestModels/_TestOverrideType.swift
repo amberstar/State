@@ -57,3 +57,22 @@ extension TestOverrideType {
     }
 }
 
+extension KVStore {
+
+   public func getTestOverrideType(key: String) -> TestOverrideType? {
+      return getValue(key)
+   }
+
+   public func getTestOverrideType(key: String, defaultValue: TestOverrideType) -> TestOverrideType {
+      return getValue(key) ?? defaultValue
+   }
+
+   public func getTestOverrideTypes(key: String) -> [TestOverrideType]? {
+      return getValue(key)
+   }
+
+   public func getTestOverrideTypes(key: String, defaultValue: [TestOverrideType]) -> [TestOverrideType] {
+      return getValue(key) ?? defaultValue
+   }
+}
+

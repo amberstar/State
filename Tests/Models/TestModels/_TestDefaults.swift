@@ -98,3 +98,22 @@ extension TestDefaults {
     }
 }
 
+extension KVStore {
+
+   public func getTestDefaults(key: String) -> TestDefaults? {
+      return getValue(key)
+   }
+
+   public func getTestDefaults(key: String, defaultValue: TestDefaults) -> TestDefaults {
+      return getValue(key) ?? defaultValue
+   }
+
+   public func getTestDefaultss(key: String) -> [TestDefaults]? {
+      return getValue(key)
+   }
+
+   public func getTestDefaultss(key: String, defaultValue: [TestDefaults]) -> [TestDefaults] {
+      return getValue(key) ?? defaultValue
+   }
+}
+

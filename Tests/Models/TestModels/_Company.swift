@@ -68,3 +68,22 @@ extension Company {
     }
 }
 
+extension KVStore {
+
+   public func getCompany(key: String) -> Company? {
+      return getValue(key)
+   }
+
+   public func getCompany(key: String, defaultValue: Company) -> Company {
+      return getValue(key) ?? defaultValue
+   }
+
+   public func getCompanys(key: String) -> [Company]? {
+      return getValue(key)
+   }
+
+   public func getCompanys(key: String, defaultValue: [Company]) -> [Company] {
+      return getValue(key) ?? defaultValue
+   }
+}
+

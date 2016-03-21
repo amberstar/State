@@ -67,3 +67,23 @@ extension TestRegEnum {
         return nil
     }
 }
+
+extension KVStore {
+
+   public func getTestRegEnum(key: String) -> TestRegEnum? {
+      return getValue(key)
+   }
+
+   public func getTestRegEnum(key: String, defaultValue: TestRegEnum) -> TestRegEnum {
+      return getValue(key) ?? defaultValue
+   }
+
+   public func getTestRegEnums(key: String) -> [TestRegEnum]? {
+      return getValue(key)
+   }
+
+   public func getTestRegEnums(key: String, defaultValue: [TestRegEnum]) -> [TestRegEnum] {
+      return getValue(key) ?? defaultValue
+   }
+}
+

@@ -81,3 +81,22 @@ extension TestImmutableOptionalTypes {
     }
 }
 
+extension KVStore {
+
+   public func getTestImmutableOptionalTypes(key: String) -> TestImmutableOptionalTypes? {
+      return getValue(key)
+   }
+
+   public func getTestImmutableOptionalTypes(key: String, defaultValue: TestImmutableOptionalTypes) -> TestImmutableOptionalTypes {
+      return getValue(key) ?? defaultValue
+   }
+
+   public func getTestImmutableOptionalTypess(key: String) -> [TestImmutableOptionalTypes]? {
+      return getValue(key)
+   }
+
+   public func getTestImmutableOptionalTypess(key: String, defaultValue: [TestImmutableOptionalTypes]) -> [TestImmutableOptionalTypes] {
+      return getValue(key) ?? defaultValue
+   }
+}
+

@@ -55,3 +55,22 @@ extension TestTransient2 {
     }
 }
 
+extension KVStore {
+
+   public func getTestTransient2(key: String) -> TestTransient2? {
+      return getValue(key)
+   }
+
+   public func getTestTransient2(key: String, defaultValue: TestTransient2) -> TestTransient2 {
+      return getValue(key) ?? defaultValue
+   }
+
+   public func getTestTransient2s(key: String) -> [TestTransient2]? {
+      return getValue(key)
+   }
+
+   public func getTestTransient2s(key: String, defaultValue: [TestTransient2]) -> [TestTransient2] {
+      return getValue(key) ?? defaultValue
+   }
+}
+

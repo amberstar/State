@@ -60,3 +60,22 @@ extension TestMigrationV2 {
     }
 }
 
+extension KVStore {
+
+   public func getTestMigrationV2(key: String) -> TestMigrationV2? {
+      return getValue(key)
+   }
+
+   public func getTestMigrationV2(key: String, defaultValue: TestMigrationV2) -> TestMigrationV2 {
+      return getValue(key) ?? defaultValue
+   }
+
+   public func getTestMigrationV2s(key: String) -> [TestMigrationV2]? {
+      return getValue(key)
+   }
+
+   public func getTestMigrationV2s(key: String, defaultValue: [TestMigrationV2]) -> [TestMigrationV2] {
+      return getValue(key) ?? defaultValue
+   }
+}
+

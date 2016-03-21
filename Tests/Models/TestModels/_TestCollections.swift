@@ -63,3 +63,22 @@ extension TestCollections {
     }
 }
 
+extension KVStore {
+
+   public func getTestCollections(key: String) -> TestCollections? {
+      return getValue(key)
+   }
+
+   public func getTestCollections(key: String, defaultValue: TestCollections) -> TestCollections {
+      return getValue(key) ?? defaultValue
+   }
+
+   public func getTestCollectionss(key: String) -> [TestCollections]? {
+      return getValue(key)
+   }
+
+   public func getTestCollectionss(key: String, defaultValue: [TestCollections]) -> [TestCollections] {
+      return getValue(key) ?? defaultValue
+   }
+}
+

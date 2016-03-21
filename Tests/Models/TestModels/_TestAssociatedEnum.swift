@@ -155,3 +155,23 @@ extension TestAssociatedEnum {
         return nil
     }
 }
+
+extension KVStore {
+
+   public func getTestAssociatedEnum(key: String) -> TestAssociatedEnum? {
+      return getValue(key)
+   }
+
+   public func getTestAssociatedEnum(key: String, defaultValue: TestAssociatedEnum) -> TestAssociatedEnum {
+      return getValue(key) ?? defaultValue
+   }
+
+   public func getTestAssociatedEnums(key: String) -> [TestAssociatedEnum]? {
+      return getValue(key)
+   }
+
+   public func getTestAssociatedEnums(key: String, defaultValue: [TestAssociatedEnum]) -> [TestAssociatedEnum] {
+      return getValue(key) ?? defaultValue
+   }
+}
+

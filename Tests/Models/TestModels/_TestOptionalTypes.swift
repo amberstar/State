@@ -81,3 +81,22 @@ extension TestOptionalTypes {
     }
 }
 
+extension KVStore {
+
+   public func getTestOptionalTypes(key: String) -> TestOptionalTypes? {
+      return getValue(key)
+   }
+
+   public func getTestOptionalTypes(key: String, defaultValue: TestOptionalTypes) -> TestOptionalTypes {
+      return getValue(key) ?? defaultValue
+   }
+
+   public func getTestOptionalTypess(key: String) -> [TestOptionalTypes]? {
+      return getValue(key)
+   }
+
+   public func getTestOptionalTypess(key: String, defaultValue: [TestOptionalTypes]) -> [TestOptionalTypes] {
+      return getValue(key) ?? defaultValue
+   }
+}
+

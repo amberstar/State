@@ -60,3 +60,22 @@ extension Employee {
     }
 }
 
+extension KVStore {
+
+   public func getEmployee(key: String) -> Employee? {
+      return getValue(key)
+   }
+
+   public func getEmployee(key: String, defaultValue: Employee) -> Employee {
+      return getValue(key) ?? defaultValue
+   }
+
+   public func getEmployees(key: String) -> [Employee]? {
+      return getValue(key)
+   }
+
+   public func getEmployees(key: String, defaultValue: [Employee]) -> [Employee] {
+      return getValue(key) ?? defaultValue
+   }
+}
+

@@ -49,3 +49,23 @@ extension Gender {
         return nil
     }
 }
+
+extension KVStore {
+
+   public func getGender(key: String) -> Gender? {
+      return getValue(key)
+   }
+
+   public func getGender(key: String, defaultValue: Gender) -> Gender {
+      return getValue(key) ?? defaultValue
+   }
+
+   public func getGenders(key: String) -> [Gender]? {
+      return getValue(key)
+   }
+
+   public func getGenders(key: String, defaultValue: [Gender]) -> [Gender] {
+      return getValue(key) ?? defaultValue
+   }
+}
+

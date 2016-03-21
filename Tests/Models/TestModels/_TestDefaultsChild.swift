@@ -55,3 +55,22 @@ extension TestDefaultsChild {
     }
 }
 
+extension KVStore {
+
+   public func getTestDefaultsChild(key: String) -> TestDefaultsChild? {
+      return getValue(key)
+   }
+
+   public func getTestDefaultsChild(key: String, defaultValue: TestDefaultsChild) -> TestDefaultsChild {
+      return getValue(key) ?? defaultValue
+   }
+
+   public func getTestDefaultsChilds(key: String) -> [TestDefaultsChild]? {
+      return getValue(key)
+   }
+
+   public func getTestDefaultsChilds(key: String, defaultValue: [TestDefaultsChild]) -> [TestDefaultsChild] {
+      return getValue(key) ?? defaultValue
+   }
+}
+

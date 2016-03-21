@@ -50,3 +50,23 @@ extension TestRawEnum {
         return nil
     }
 }
+
+extension KVStore {
+
+   public func getTestRawEnum(key: String) -> TestRawEnum? {
+      return getValue(key)
+   }
+
+   public func getTestRawEnum(key: String, defaultValue: TestRawEnum) -> TestRawEnum {
+      return getValue(key) ?? defaultValue
+   }
+
+   public func getTestRawEnums(key: String) -> [TestRawEnum]? {
+      return getValue(key)
+   }
+
+   public func getTestRawEnums(key: String, defaultValue: [TestRawEnum]) -> [TestRawEnum] {
+      return getValue(key) ?? defaultValue
+   }
+}
+

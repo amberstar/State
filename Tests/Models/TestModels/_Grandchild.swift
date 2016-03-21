@@ -61,3 +61,22 @@ extension Grandchild {
     }
 }
 
+extension KVStore {
+
+   public func getGrandchild(key: String) -> Grandchild? {
+      return getValue(key)
+   }
+
+   public func getGrandchild(key: String, defaultValue: Grandchild) -> Grandchild {
+      return getValue(key) ?? defaultValue
+   }
+
+   public func getGrandchilds(key: String) -> [Grandchild]? {
+      return getValue(key)
+   }
+
+   public func getGrandchilds(key: String, defaultValue: [Grandchild]) -> [Grandchild] {
+      return getValue(key) ?? defaultValue
+   }
+}
+

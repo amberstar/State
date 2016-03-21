@@ -18,8 +18,8 @@ public enum KVStoreError : ErrorType {
 
 public final class KVStore: Encodable, Decodable {
    
-   class KVContainer : EncoderType, DecoderType {
-      var data = [String : AnyObject]()
+   public class KVContainer : EncoderType, DecoderType {
+      public var data = [String : AnyObject]()
       var keys : [String : KVStore] = [:]
       
       var nonVolatileKeys : [String : KVStore] {
@@ -53,7 +53,7 @@ public final class KVStore: Encodable, Decodable {
       }
    }
    
-   let container : KVContainer
+   public let container : KVContainer
    public var isVolatile : Bool = false
    public var path : String? = nil
    
@@ -130,7 +130,6 @@ public final class KVStore: Encodable, Decodable {
                key.path = external.1
                result.updateKey(external.0, newKey: key)
             }
-            
          }
       }
       return result
@@ -541,7 +540,7 @@ func joinKeypath(keys: [String]) -> String {
    return keys.joinWithSeparator(String(KeypathSeperator))
 }
 
-func seperateKeypath(path: String) -> (keypath: String?, valueName: String) {
+public func seperateKeypath(path: String) -> (keypath: String?, valueName: String) {
    var keys = splitKeypath(path)
    let key = keys.removeLast()
    let joinResult = joinKeypath(keys)

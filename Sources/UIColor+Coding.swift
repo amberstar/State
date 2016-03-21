@@ -52,4 +52,12 @@ extension KVStore {
    public func getColor(key: String, defaultValue: UIColor) -> UIColor {
      return getValue(key) ?? defaultValue
    }
+   
+   public func getColors(key: String) -> [UIColor]? {
+      return getValue(key)
+   }
+   
+   public func getColors(key: String, defaultValue: [UIColor]) -> [UIColor] {
+      return getValue(key) ?? defaultValue
+   }
 }

@@ -68,3 +68,22 @@ extension TestTransformable {
     }
 }
 
+extension KVStore {
+
+   public func getTestTransformable(key: String) -> TestTransformable? {
+      return getValue(key)
+   }
+
+   public func getTestTransformable(key: String, defaultValue: TestTransformable) -> TestTransformable {
+      return getValue(key) ?? defaultValue
+   }
+
+   public func getTestTransformables(key: String) -> [TestTransformable]? {
+      return getValue(key)
+   }
+
+   public func getTestTransformables(key: String, defaultValue: [TestTransformable]) -> [TestTransformable] {
+      return getValue(key) ?? defaultValue
+   }
+}
+

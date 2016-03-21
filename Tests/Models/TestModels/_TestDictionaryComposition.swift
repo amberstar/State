@@ -55,3 +55,22 @@ extension TestDictionaryComposition {
     }
 }
 
+extension KVStore {
+
+   public func getTestDictionaryComposition(key: String) -> TestDictionaryComposition? {
+      return getValue(key)
+   }
+
+   public func getTestDictionaryComposition(key: String, defaultValue: TestDictionaryComposition) -> TestDictionaryComposition {
+      return getValue(key) ?? defaultValue
+   }
+
+   public func getTestDictionaryCompositions(key: String) -> [TestDictionaryComposition]? {
+      return getValue(key)
+   }
+
+   public func getTestDictionaryCompositions(key: String, defaultValue: [TestDictionaryComposition]) -> [TestDictionaryComposition] {
+      return getValue(key) ?? defaultValue
+   }
+}
+

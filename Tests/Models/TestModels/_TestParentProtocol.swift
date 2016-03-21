@@ -14,7 +14,7 @@ public protocol TestParentProtocol : Model  {
 
 // Mark: Decoding
 
-public extension Decoder {
+public extension DecoderType {
 
     public func decodeTestParentProtocol(key: String) -> TestParentProtocol? {
         let data = self.data
@@ -59,18 +59,47 @@ public extension Decoder {
 
 // Mark: Encoding
 
-public extension Encoder {
+public extension EncoderType {
 
     public func encode(element: TestParentProtocol?, _ key: String) {
-        element.apply { self.data[key] = $0.encode() }
+        guard let element = element else { return }
+        self.data[key] = element.encode()
     }
 
     public func encode(element: [TestParentProtocol]?, _ key: String) {
-        element.apply { self.data[key] = $0.map { $0.encode() } }
+       guard let element = element else { return }
+       self.data[key] = element.map { $0.encode() }
     }
 
     public func encode(element: [String : TestParentProtocol]?, _ key: String) {
-        element.apply { self.data[key] = $0.map { $0.encode() } }
+        guard let element = element else { return }
+        self.data[key] = element.map { $0.encode() }
     }
+}
+
+extension KVStore {
+   public func getTestParentProtocol(key: String) -> TestParentProtocol? {
+      let keys = seperateKeypath(key)
+      let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
+
+      if let targetKey = targetKey {
+         return targetKey.container.decodeTestParentProtocol(keys.valueName)
+      }
+      else {
+         return nil
+      }
+   }
+
+   public func getTestParentProtocols(key: String) -> [TestParentProtocol]? {
+      let keys = seperateKeypath(key)
+      let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
+
+      if let targetKey = targetKey {
+         return targetKey.container.decodeTestParentProtocol(keys.valueName)
+      }
+      else {
+         return nil
+      }
+   }
 }
 
