@@ -1,8 +1,9 @@
 let KeypathSeperator : Character = "."
 let StoreKey = "KEYS"
 let DataKey = "VALUES"
-let ExternalKey = "EXTERNAL"
-
+let ExternalKey = "EXTERNAL_KEYS"
+let KVStoreVersionKey = "VERSION"
+let KVStoreVersion = 1
 
 public enum KVStoreError : ErrorType {
    case KeyNotFound(String)
@@ -22,25 +23,17 @@ public final class KVStore: Encodable, Decodable {
       public var data = [String : AnyObject]()
       var keys : [String : KVStore] = [:]
       
-      var nonVolatileKeys : [String : KVStore] {
-         return filterKeys(keys, shouldKeep: { $0.isVolatile == false })
-      }
-      
-      var localKeys : [String : KVStore] {
-         return filterKeys(keys, shouldKeep: { $0.path == nil } )
-      }
-      
-      var localNonVolatileKeys : [String : KVStore] {
-          return filterKeys(nonVolatileKeys, shouldKeep: { $0.path == nil } )
+      var persistentKeys : [String : KVStore] {
+          return filterKeys(keys, shouldKeep: { $1.isVolatile == false && $1.path == nil } )
       }
       
       var externalKeys : [String : KVStore] {
-          return filterKeys(keys, shouldKeep: { $0.path != nil } )
+          return filterKeys(keys, shouldKeep: { $1.path != nil } )
       }
       
-      func filterKeys(keys: [String : KVStore], shouldKeep: (KVStore) -> Bool) -> [String : KVStore] {
+      public func filterKeys(keys: [String : KVStore], shouldKeep: (String, KVStore) -> Bool) -> [String : KVStore] {
          var data : [String : KVStore] = [:]
-         let filteredKeys = keys.filter { shouldKeep($1) }
+         let filteredKeys = keys.filter { shouldKeep($0, $1) }
          for result in   filteredKeys {
             data[result.0] = result.1
          }
@@ -83,7 +76,7 @@ public final class KVStore: Encodable, Decodable {
             key.1.save(location)
          }
       }
-      for key in container.localNonVolatileKeys {
+      for key in container.persistentKeys {
          key.1.saveExternalKeys()
       }
    }
@@ -102,8 +95,8 @@ public final class KVStore: Encodable, Decodable {
          encoder.encode(container.data, DataKey)
       }
    
-      if container.localNonVolatileKeys.count > 0 {
-         encoder.encode(container.localNonVolatileKeys, StoreKey)
+      if container.persistentKeys.count > 0 {
+         encoder.encode(container.persistentKeys, StoreKey)
       }
       
       
@@ -128,7 +121,7 @@ public final class KVStore: Encodable, Decodable {
          for external in externals {
             if let key = KVStore.load(external.1) {
                key.path = external.1
-               result.updateKey(external.0, newKey: key)
+               result.setKey(external.0, newKey: key)
             }
          }
       }
@@ -195,7 +188,7 @@ public final class KVStore: Encodable, Decodable {
    /// if it doesn't already exsist.
    ///
    /// - returns : the key that was replaced or nil if the newKey was added
-   public func updateKey(keypath: String, newKey key: KVStore) -> KVStore? {
+   public func setKey(keypath: String, newKey key: KVStore) -> KVStore? {
       let keys = seperateKeypath(keypath)
       let targetKey = keys.keypath == nil ? self : createKey(keys.keypath!)
       

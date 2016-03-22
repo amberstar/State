@@ -9,20 +9,16 @@ func tempPathFor(file: String) -> String {
    return NSString.pathWithComponents([NSTemporaryDirectory(), file])
 }
 
-let filename = tempPathFor("Test.plist")
-
-let color = UIColor(red: 1.0, green: 0.5, blue: 0.3, alpha: 0.8)
-
-let s = Store()
-s.set("Color", color)
-
-s.addStore("1.2.3.4.5")
-
-s.getColor("Color")
-
-
-s.set("Hat", true)
+let storeA = KVStore()
 
 
 
 
+
+storeA.createKey("My.New.Key")
+
+storeA.getKey("My.New.Key")?.path = tempPathFor("External.plist")
+
+storeA.save(tempPathFor("Main.plist"))
+
+print(tempPathFor("Main.plist"))
