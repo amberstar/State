@@ -10,13 +10,7 @@ public enum KVStoreError : ErrorType {
    case NoResult
 }
 
-/// A KVStore is a general purpose key-value store for models and/or arbitrary
-/// values. It is useful in situations where it makes sense to store a group of
-/// models or collections of models together, but there is not a need to create
-/// a collection model type. Instead conveniently store them in a Store. A
-/// - Store can have child stores.
-/// - When you ask for something from a store, you do so with a `keypath`
-
+/// A KVStore is a general purpose key-value store for arbitrary values. 
 public final class KVStore: Encodable, Decodable {
    
    public class KVContainer : EncoderType, DecoderType {
@@ -98,7 +92,6 @@ public final class KVStore: Encodable, Decodable {
       if container.persistentKeys.count > 0 {
          encoder.encode(container.persistentKeys, StoreKey)
       }
-      
       
       if container.externalKeys.count > 0 {
          var externals : [String : String] = [:]
@@ -540,4 +533,3 @@ public func seperateKeypath(path: String) -> (keypath: String?, valueName: Strin
    let keypath : String? = joinResult.characters.count > 0 ? joinResult : nil
    return (keypath, key)
 }
-

@@ -93,6 +93,10 @@ extension KVStore {
       }
    }
 
+   public func getTestProtocol(key: String, defaultValue: TestProtocol) -> TestProtocol {
+      return getTestProtocol(key) ?? defaultValue
+   }
+
    public func getTestProtocols(key: String) -> [TestProtocol]? {
       let keys = seperateKeypath(key)
       let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
@@ -104,5 +108,47 @@ extension KVStore {
          return nil
       }
    }
+
+   public func getTestProtocols(key: String, defaultValue: [TestProtocol]) -> [TestProtocol] {
+      return getTestProtocols(key) ?? defaultValue
+   }
+
+   public func getTestProtocolDictionary(key: String) -> [String : TestProtocol]? {
+      let keys = seperateKeypath(key)
+      let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
+
+      if let targetKey = targetKey {
+         return targetKey.container.decodeTestProtocol(keys.valueName)
+      }
+      else {
+         return nil
+      }
+   }
+
+   public func getTestProtocolDictionary(key: String, defaultValue: [String : TestProtocol]) -> [String : TestProtocol] {
+      return getTestProtocolDictionary(key) ?? defaultValue
+   }
+
+   public func setValue(value: TestProtocol, forKey: String) {
+      let keys = seperateKeypath(forKey)
+
+      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      targetKey.container.encode(value, keys.valueName)
+   }
+
+   public func setValue(value: [TestProtocol], forKey: String) {
+      let keys = seperateKeypath(forKey)
+
+      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      targetKey.container.encode(value, keys.valueName)
+   }
+
+   public func setValue(value: [String : TestProtocol], forKey: String) {
+      let keys = seperateKeypath(forKey)
+
+      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      targetKey.container.encode(value, keys.valueName)
+   }
+
 }
 

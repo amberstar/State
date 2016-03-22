@@ -54,7 +54,6 @@ public extension Encodable {
    var JSONDescription : String? {
       return JSON.write(self.encode())
    }
-
 }
 
 //****************************************************************************//
@@ -90,7 +89,6 @@ extension EncoderType {
 public final class Encoder : EncoderType {
    public var data = [String : AnyObject]()
 }
-
 
 //****************************************************************************//
 //                               Decodable

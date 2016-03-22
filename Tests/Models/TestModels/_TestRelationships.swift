@@ -68,7 +68,7 @@ extension KVStore {
    }
 
    public func getTestRelationships(key: String, defaultValue: TestRelationships) -> TestRelationships {
-      return getValue(key) ?? defaultValue
+      return getTestRelationships(key) ?? defaultValue
    }
 
    public func getTestRelationshipss(key: String) -> [TestRelationships]? {
@@ -76,7 +76,15 @@ extension KVStore {
    }
 
    public func getTestRelationshipss(key: String, defaultValue: [TestRelationships]) -> [TestRelationships] {
-      return getValue(key) ?? defaultValue
+      return getTestRelationshipss(key) ?? defaultValue
+   }
+
+   public func getTestRelationshipsDictionary(key: String) -> [String : TestRelationships]? {
+      return getValue(key)
+   }
+
+   public func getTestRelationshipsDictionary(key: String, defaultValue: [String : TestRelationships]) -> [String : TestRelationships] {
+      return getTestRelationshipsDictionary(key) ?? defaultValue
    }
 }
 

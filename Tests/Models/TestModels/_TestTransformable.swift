@@ -75,7 +75,7 @@ extension KVStore {
    }
 
    public func getTestTransformable(key: String, defaultValue: TestTransformable) -> TestTransformable {
-      return getValue(key) ?? defaultValue
+      return getTestTransformable(key) ?? defaultValue
    }
 
    public func getTestTransformables(key: String) -> [TestTransformable]? {
@@ -83,7 +83,15 @@ extension KVStore {
    }
 
    public func getTestTransformables(key: String, defaultValue: [TestTransformable]) -> [TestTransformable] {
-      return getValue(key) ?? defaultValue
+      return getTestTransformables(key) ?? defaultValue
+   }
+
+   public func getTestTransformableDictionary(key: String) -> [String : TestTransformable]? {
+      return getValue(key)
+   }
+
+   public func getTestTransformableDictionary(key: String, defaultValue: [String : TestTransformable]) -> [String : TestTransformable] {
+      return getTestTransformableDictionary(key) ?? defaultValue
    }
 }
 

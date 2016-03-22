@@ -58,7 +58,7 @@ extension KVStore {
    }
 
    public func getTestRawEnum(key: String, defaultValue: TestRawEnum) -> TestRawEnum {
-      return getValue(key) ?? defaultValue
+      return getTestRawEnum(key) ?? defaultValue
    }
 
    public func getTestRawEnums(key: String) -> [TestRawEnum]? {
@@ -66,7 +66,15 @@ extension KVStore {
    }
 
    public func getTestRawEnums(key: String, defaultValue: [TestRawEnum]) -> [TestRawEnum] {
-      return getValue(key) ?? defaultValue
+      return getTestRawEnums(key) ?? defaultValue
+   }
+
+   public func getTestRawEnumDictionary(key: String) -> [String : TestRawEnum]? {
+      return getValue(key)
+   }
+
+   public func getTestRawEnumDictionary(key: String, defaultValue: [String : TestRawEnum]) -> [String : TestRawEnum] {
+      return getTestRawEnumDictionary(key) ?? defaultValue
    }
 }
 

@@ -67,7 +67,7 @@ extension KVStore {
    }
 
    public func getEmployee(key: String, defaultValue: Employee) -> Employee {
-      return getValue(key) ?? defaultValue
+      return getEmployee(key) ?? defaultValue
    }
 
    public func getEmployees(key: String) -> [Employee]? {
@@ -75,7 +75,15 @@ extension KVStore {
    }
 
    public func getEmployees(key: String, defaultValue: [Employee]) -> [Employee] {
-      return getValue(key) ?? defaultValue
+      return getEmployees(key) ?? defaultValue
+   }
+
+   public func getEmployeeDictionary(key: String) -> [String : Employee]? {
+      return getValue(key)
+   }
+
+   public func getEmployeeDictionary(key: String, defaultValue: [String : Employee]) -> [String : Employee] {
+      return getEmployeeDictionary(key) ?? defaultValue
    }
 }
 

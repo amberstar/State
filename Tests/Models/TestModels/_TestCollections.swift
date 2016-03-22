@@ -70,7 +70,7 @@ extension KVStore {
    }
 
    public func getTestCollections(key: String, defaultValue: TestCollections) -> TestCollections {
-      return getValue(key) ?? defaultValue
+      return getTestCollections(key) ?? defaultValue
    }
 
    public func getTestCollectionss(key: String) -> [TestCollections]? {
@@ -78,7 +78,15 @@ extension KVStore {
    }
 
    public func getTestCollectionss(key: String, defaultValue: [TestCollections]) -> [TestCollections] {
-      return getValue(key) ?? defaultValue
+      return getTestCollectionss(key) ?? defaultValue
+   }
+
+   public func getTestCollectionsDictionary(key: String) -> [String : TestCollections]? {
+      return getValue(key)
+   }
+
+   public func getTestCollectionsDictionary(key: String, defaultValue: [String : TestCollections]) -> [String : TestCollections] {
+      return getTestCollectionsDictionary(key) ?? defaultValue
    }
 }
 

@@ -163,7 +163,7 @@ extension KVStore {
    }
 
    public func getTestAssociatedEnum(key: String, defaultValue: TestAssociatedEnum) -> TestAssociatedEnum {
-      return getValue(key) ?? defaultValue
+      return getTestAssociatedEnum(key) ?? defaultValue
    }
 
    public func getTestAssociatedEnums(key: String) -> [TestAssociatedEnum]? {
@@ -171,7 +171,15 @@ extension KVStore {
    }
 
    public func getTestAssociatedEnums(key: String, defaultValue: [TestAssociatedEnum]) -> [TestAssociatedEnum] {
-      return getValue(key) ?? defaultValue
+      return getTestAssociatedEnums(key) ?? defaultValue
+   }
+
+   public func getTestAssociatedEnumDictionary(key: String) -> [String : TestAssociatedEnum]? {
+      return getValue(key)
+   }
+
+   public func getTestAssociatedEnumDictionary(key: String, defaultValue: [String : TestAssociatedEnum]) -> [String : TestAssociatedEnum] {
+      return getTestAssociatedEnumDictionary(key) ?? defaultValue
    }
 }
 

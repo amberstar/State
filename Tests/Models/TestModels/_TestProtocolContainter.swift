@@ -70,7 +70,7 @@ extension KVStore {
    }
 
    public func getTestProtocolContainter(key: String, defaultValue: TestProtocolContainter) -> TestProtocolContainter {
-      return getValue(key) ?? defaultValue
+      return getTestProtocolContainter(key) ?? defaultValue
    }
 
    public func getTestProtocolContainters(key: String) -> [TestProtocolContainter]? {
@@ -78,7 +78,15 @@ extension KVStore {
    }
 
    public func getTestProtocolContainters(key: String, defaultValue: [TestProtocolContainter]) -> [TestProtocolContainter] {
-      return getValue(key) ?? defaultValue
+      return getTestProtocolContainters(key) ?? defaultValue
+   }
+
+   public func getTestProtocolContainterDictionary(key: String) -> [String : TestProtocolContainter]? {
+      return getValue(key)
+   }
+
+   public func getTestProtocolContainterDictionary(key: String, defaultValue: [String : TestProtocolContainter]) -> [String : TestProtocolContainter] {
+      return getTestProtocolContainterDictionary(key) ?? defaultValue
    }
 }
 

@@ -47,13 +47,12 @@ class KVStoreTests: Test {
       XCTAssert(cKey === createdKey)
    }
    
-
    func testUpdatingKeyWithNewKeyReplacesAndReturnsOldKey() {
       let store = KVStore()
       store.createKey("A.B.C.D")
       let oldKey = store.getKey("A.B.C")
       let newKey = KVStore()
-      let returnedKey = store.updateKey("A.B.C", newKey: newKey)
+      let returnedKey = store.setKey("A.B.C", newKey: newKey)
       XCTAssert(store.getKey("A.B.C") === newKey)
       XCTAssert(returnedKey === oldKey)
    }

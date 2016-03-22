@@ -90,7 +90,7 @@ extension KVStore {
    }
 
    public func getTestImmutableTypes(key: String, defaultValue: TestImmutableTypes) -> TestImmutableTypes {
-      return getValue(key) ?? defaultValue
+      return getTestImmutableTypes(key) ?? defaultValue
    }
 
    public func getTestImmutableTypess(key: String) -> [TestImmutableTypes]? {
@@ -98,7 +98,15 @@ extension KVStore {
    }
 
    public func getTestImmutableTypess(key: String, defaultValue: [TestImmutableTypes]) -> [TestImmutableTypes] {
-      return getValue(key) ?? defaultValue
+      return getTestImmutableTypess(key) ?? defaultValue
+   }
+
+   public func getTestImmutableTypesDictionary(key: String) -> [String : TestImmutableTypes]? {
+      return getValue(key)
+   }
+
+   public func getTestImmutableTypesDictionary(key: String, defaultValue: [String : TestImmutableTypes]) -> [String : TestImmutableTypes] {
+      return getTestImmutableTypesDictionary(key) ?? defaultValue
    }
 }
 

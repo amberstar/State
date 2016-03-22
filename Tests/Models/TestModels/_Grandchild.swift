@@ -68,7 +68,7 @@ extension KVStore {
    }
 
    public func getGrandchild(key: String, defaultValue: Grandchild) -> Grandchild {
-      return getValue(key) ?? defaultValue
+      return getGrandchild(key) ?? defaultValue
    }
 
    public func getGrandchilds(key: String) -> [Grandchild]? {
@@ -76,7 +76,15 @@ extension KVStore {
    }
 
    public func getGrandchilds(key: String, defaultValue: [Grandchild]) -> [Grandchild] {
-      return getValue(key) ?? defaultValue
+      return getGrandchilds(key) ?? defaultValue
+   }
+
+   public func getGrandchildDictionary(key: String) -> [String : Grandchild]? {
+      return getValue(key)
+   }
+
+   public func getGrandchildDictionary(key: String, defaultValue: [String : Grandchild]) -> [String : Grandchild] {
+      return getGrandchildDictionary(key) ?? defaultValue
    }
 }
 

@@ -62,7 +62,7 @@ extension KVStore {
    }
 
    public func getTestDictionaryComposition(key: String, defaultValue: TestDictionaryComposition) -> TestDictionaryComposition {
-      return getValue(key) ?? defaultValue
+      return getTestDictionaryComposition(key) ?? defaultValue
    }
 
    public func getTestDictionaryCompositions(key: String) -> [TestDictionaryComposition]? {
@@ -70,7 +70,15 @@ extension KVStore {
    }
 
    public func getTestDictionaryCompositions(key: String, defaultValue: [TestDictionaryComposition]) -> [TestDictionaryComposition] {
-      return getValue(key) ?? defaultValue
+      return getTestDictionaryCompositions(key) ?? defaultValue
+   }
+
+   public func getTestDictionaryCompositionDictionary(key: String) -> [String : TestDictionaryComposition]? {
+      return getValue(key)
+   }
+
+   public func getTestDictionaryCompositionDictionary(key: String, defaultValue: [String : TestDictionaryComposition]) -> [String : TestDictionaryComposition] {
+      return getTestDictionaryCompositionDictionary(key) ?? defaultValue
    }
 }
 

@@ -75,7 +75,7 @@ extension KVStore {
    }
 
    public func getCompany(key: String, defaultValue: Company) -> Company {
-      return getValue(key) ?? defaultValue
+      return getCompany(key) ?? defaultValue
    }
 
    public func getCompanys(key: String) -> [Company]? {
@@ -83,7 +83,15 @@ extension KVStore {
    }
 
    public func getCompanys(key: String, defaultValue: [Company]) -> [Company] {
-      return getValue(key) ?? defaultValue
+      return getCompanys(key) ?? defaultValue
+   }
+
+   public func getCompanyDictionary(key: String) -> [String : Company]? {
+      return getValue(key)
+   }
+
+   public func getCompanyDictionary(key: String, defaultValue: [String : Company]) -> [String : Company] {
+      return getCompanyDictionary(key) ?? defaultValue
    }
 }
 

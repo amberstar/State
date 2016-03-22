@@ -57,7 +57,7 @@ extension KVStore {
    }
 
    public func getGender(key: String, defaultValue: Gender) -> Gender {
-      return getValue(key) ?? defaultValue
+      return getGender(key) ?? defaultValue
    }
 
    public func getGenders(key: String) -> [Gender]? {
@@ -65,7 +65,15 @@ extension KVStore {
    }
 
    public func getGenders(key: String, defaultValue: [Gender]) -> [Gender] {
-      return getValue(key) ?? defaultValue
+      return getGenders(key) ?? defaultValue
+   }
+
+   public func getGenderDictionary(key: String) -> [String : Gender]? {
+      return getValue(key)
+   }
+
+   public func getGenderDictionary(key: String, defaultValue: [String : Gender]) -> [String : Gender] {
+      return getGenderDictionary(key) ?? defaultValue
    }
 }
 

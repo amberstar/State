@@ -67,7 +67,7 @@ extension KVStore {
    }
 
    public func getTestMigrationV2(key: String, defaultValue: TestMigrationV2) -> TestMigrationV2 {
-      return getValue(key) ?? defaultValue
+      return getTestMigrationV2(key) ?? defaultValue
    }
 
    public func getTestMigrationV2s(key: String) -> [TestMigrationV2]? {
@@ -75,7 +75,15 @@ extension KVStore {
    }
 
    public func getTestMigrationV2s(key: String, defaultValue: [TestMigrationV2]) -> [TestMigrationV2] {
-      return getValue(key) ?? defaultValue
+      return getTestMigrationV2s(key) ?? defaultValue
+   }
+
+   public func getTestMigrationV2Dictionary(key: String) -> [String : TestMigrationV2]? {
+      return getValue(key)
+   }
+
+   public func getTestMigrationV2Dictionary(key: String, defaultValue: [String : TestMigrationV2]) -> [String : TestMigrationV2] {
+      return getTestMigrationV2Dictionary(key) ?? defaultValue
    }
 }
 

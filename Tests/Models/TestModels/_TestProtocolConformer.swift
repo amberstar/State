@@ -83,7 +83,7 @@ extension KVStore {
    }
 
    public func getTestProtocolConformer(key: String, defaultValue: TestProtocolConformer) -> TestProtocolConformer {
-      return getValue(key) ?? defaultValue
+      return getTestProtocolConformer(key) ?? defaultValue
    }
 
    public func getTestProtocolConformers(key: String) -> [TestProtocolConformer]? {
@@ -91,7 +91,15 @@ extension KVStore {
    }
 
    public func getTestProtocolConformers(key: String, defaultValue: [TestProtocolConformer]) -> [TestProtocolConformer] {
-      return getValue(key) ?? defaultValue
+      return getTestProtocolConformers(key) ?? defaultValue
+   }
+
+   public func getTestProtocolConformerDictionary(key: String) -> [String : TestProtocolConformer]? {
+      return getValue(key)
+   }
+
+   public func getTestProtocolConformerDictionary(key: String, defaultValue: [String : TestProtocolConformer]) -> [String : TestProtocolConformer] {
+      return getTestProtocolConformerDictionary(key) ?? defaultValue
    }
 }
 

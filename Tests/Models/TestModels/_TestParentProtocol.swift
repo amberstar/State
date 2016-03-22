@@ -90,6 +90,10 @@ extension KVStore {
       }
    }
 
+   public func getTestParentProtocol(key: String, defaultValue: TestParentProtocol) -> TestParentProtocol {
+      return getTestParentProtocol(key) ?? defaultValue
+   }
+
    public func getTestParentProtocols(key: String) -> [TestParentProtocol]? {
       let keys = seperateKeypath(key)
       let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
@@ -101,5 +105,47 @@ extension KVStore {
          return nil
       }
    }
+
+   public func getTestParentProtocols(key: String, defaultValue: [TestParentProtocol]) -> [TestParentProtocol] {
+      return getTestParentProtocols(key) ?? defaultValue
+   }
+
+   public func getTestParentProtocolDictionary(key: String) -> [String : TestParentProtocol]? {
+      let keys = seperateKeypath(key)
+      let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
+
+      if let targetKey = targetKey {
+         return targetKey.container.decodeTestParentProtocol(keys.valueName)
+      }
+      else {
+         return nil
+      }
+   }
+
+   public func getTestParentProtocolDictionary(key: String, defaultValue: [String : TestParentProtocol]) -> [String : TestParentProtocol] {
+      return getTestParentProtocolDictionary(key) ?? defaultValue
+   }
+
+   public func setValue(value: TestParentProtocol, forKey: String) {
+      let keys = seperateKeypath(forKey)
+
+      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      targetKey.container.encode(value, keys.valueName)
+   }
+
+   public func setValue(value: [TestParentProtocol], forKey: String) {
+      let keys = seperateKeypath(forKey)
+
+      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      targetKey.container.encode(value, keys.valueName)
+   }
+
+   public func setValue(value: [String : TestParentProtocol], forKey: String) {
+      let keys = seperateKeypath(forKey)
+
+      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      targetKey.container.encode(value, keys.valueName)
+   }
+
 }
 

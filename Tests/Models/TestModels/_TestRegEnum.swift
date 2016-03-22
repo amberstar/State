@@ -75,7 +75,7 @@ extension KVStore {
    }
 
    public func getTestRegEnum(key: String, defaultValue: TestRegEnum) -> TestRegEnum {
-      return getValue(key) ?? defaultValue
+      return getTestRegEnum(key) ?? defaultValue
    }
 
    public func getTestRegEnums(key: String) -> [TestRegEnum]? {
@@ -83,7 +83,15 @@ extension KVStore {
    }
 
    public func getTestRegEnums(key: String, defaultValue: [TestRegEnum]) -> [TestRegEnum] {
-      return getValue(key) ?? defaultValue
+      return getTestRegEnums(key) ?? defaultValue
+   }
+
+   public func getTestRegEnumDictionary(key: String) -> [String : TestRegEnum]? {
+      return getValue(key)
+   }
+
+   public func getTestRegEnumDictionary(key: String, defaultValue: [String : TestRegEnum]) -> [String : TestRegEnum] {
+      return getTestRegEnumDictionary(key) ?? defaultValue
    }
 }
 

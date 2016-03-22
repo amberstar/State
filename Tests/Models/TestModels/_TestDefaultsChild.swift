@@ -62,7 +62,7 @@ extension KVStore {
    }
 
    public func getTestDefaultsChild(key: String, defaultValue: TestDefaultsChild) -> TestDefaultsChild {
-      return getValue(key) ?? defaultValue
+      return getTestDefaultsChild(key) ?? defaultValue
    }
 
    public func getTestDefaultsChilds(key: String) -> [TestDefaultsChild]? {
@@ -70,7 +70,15 @@ extension KVStore {
    }
 
    public func getTestDefaultsChilds(key: String, defaultValue: [TestDefaultsChild]) -> [TestDefaultsChild] {
-      return getValue(key) ?? defaultValue
+      return getTestDefaultsChilds(key) ?? defaultValue
+   }
+
+   public func getTestDefaultsChildDictionary(key: String) -> [String : TestDefaultsChild]? {
+      return getValue(key)
+   }
+
+   public func getTestDefaultsChildDictionary(key: String, defaultValue: [String : TestDefaultsChild]) -> [String : TestDefaultsChild] {
+      return getTestDefaultsChildDictionary(key) ?? defaultValue
    }
 }
 
