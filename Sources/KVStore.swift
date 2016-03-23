@@ -1,3 +1,5 @@
+import Foundation
+
 let KeypathSeperator : Character = "."
 let StoreKey = "KEYS"
 let DataKey = "VALUES"
@@ -77,6 +79,10 @@ public final class KVStore: Encodable, Decodable {
    
    public static func load(path: String) -> KVStore? {
       return KVStore.decodeFromFile(Format.Plist.converter, path: path)
+   }
+   
+   public static func load(data: NSData) -> KVStore? {
+      return decode(Format.Plist.converter.read(data))
    }
    
    //****************************************************************************//
