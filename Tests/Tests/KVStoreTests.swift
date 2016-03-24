@@ -80,7 +80,7 @@ class KVStoreTests: Test {
       let store = KVStore()
       store.setValue(10, forKey: "TestValue")
       
-      let value = store.values["TestValue"] as! Int
+      let value = store.data["TestValue"] as! Int
       debugPrint(value)
       
      XCTAssert(value == 10)
@@ -91,7 +91,7 @@ class KVStoreTests: Test {
       store.setValue(20, forKey:"A.B.C.TestValue")
       
       if let key = store.getKey("A.B.C") {
-         let value = key.values["TestValue"] as! Int
+         let value = key.data["TestValue"] as! Int
          XCTAssert(value == 20)
       }
       else {

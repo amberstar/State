@@ -15,12 +15,8 @@ public enum KVStoreError : ErrorType {
 public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
    
    public private(set) var keys : [String : KVStore] = [:]
-   public  var data = [String : AnyObject]()
+   public var data = [String : AnyObject]()
   
-   public var values : [String : AnyObject] {
-      return data
-   }
-   
    /// Initialize a new Store with the specified value and key dictionaries
    public init(values: [String : AnyObject] =  [:], keys: [String : KVStore] = [:]) {
       data = values
@@ -54,7 +50,7 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
       }
    }
    
-   public static func decode(decoder: Decoder) -> Self? {
+   public static func decode(decoder: Decoder) -> KVStore? {
       let stores : [String : KVStore]? = decoder.decode(StoreKey)
       let data : [String : AnyObject]? = decoder.decode(DataKey)
 
@@ -190,6 +186,7 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
       
       let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
       targetKey.encode(value, keys.valueName)
+      
    }
    
    public func setValue<T: Encodable>(value: [T], forKey: String) {
