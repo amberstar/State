@@ -83,7 +83,7 @@ extension KVStore {
       let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
 
       if let targetKey = targetKey {
-         return targetKey.container.decodeTestParentProtocol(keys.valueName)
+         return targetKey.decodeTestParentProtocol(keys.valueName)
       }
       else {
          return nil
@@ -99,7 +99,7 @@ extension KVStore {
       let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
 
       if let targetKey = targetKey {
-         return targetKey.container.decodeTestParentProtocol(keys.valueName)
+         return targetKey.decodeTestParentProtocol(keys.valueName)
       }
       else {
          return nil
@@ -115,7 +115,7 @@ extension KVStore {
       let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
 
       if let targetKey = targetKey {
-         return targetKey.container.decodeTestParentProtocol(keys.valueName)
+         return targetKey.decodeTestParentProtocol(keys.valueName)
       }
       else {
          return nil
@@ -130,21 +130,21 @@ extension KVStore {
       let keys = seperateKeypath(forKey)
 
       let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
-      targetKey.container.encode(value, keys.valueName)
+      targetKey.encode(value, keys.valueName)
    }
 
    public func setValue(value: [TestParentProtocol], forKey: String) {
       let keys = seperateKeypath(forKey)
 
       let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
-      targetKey.container.encode(value, keys.valueName)
+      targetKey.encode(value, keys.valueName)
    }
 
    public func setValue(value: [String : TestParentProtocol], forKey: String) {
       let keys = seperateKeypath(forKey)
 
       let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
-      targetKey.container.encode(value, keys.valueName)
+      targetKey.encode(value, keys.valueName)
    }
 
 }

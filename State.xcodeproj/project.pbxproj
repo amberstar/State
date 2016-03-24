@@ -108,7 +108,7 @@
 			remoteGlobalIDString = 04012A741AE12FA6006DAC19;
 			remoteInfo = Spot;
 		};
-		96B8A8FA1C9ADB350086619F /* PBXContainerItemProxy */ = {
+		9699AE401CA439B300BD4BEE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 04012A6C1AE12FA6006DAC19 /* Project object */;
 			proxyType = 1;
@@ -490,7 +490,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				96B8A8FB1C9ADB350086619F /* PBXTargetDependency */,
+				9699AE411CA439B300BD4BEE /* PBXTargetDependency */,
 				04012A831AE12FA6006DAC19 /* PBXTargetDependency */,
 			);
 			name = "Tests-iOS";
@@ -668,10 +668,10 @@
 			target = 04012A741AE12FA6006DAC19 /* State-iOS */;
 			targetProxy = 04012A821AE12FA6006DAC19 /* PBXContainerItemProxy */;
 		};
-		96B8A8FB1C9ADB350086619F /* PBXTargetDependency */ = {
+		9699AE411CA439B300BD4BEE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 04012AE31AE13A90006DAC19 /* TestModels */;
-			targetProxy = 96B8A8FA1C9ADB350086619F /* PBXContainerItemProxy */;
+			targetProxy = 9699AE401CA439B300BD4BEE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
