@@ -35,7 +35,7 @@ public protocol Converter {
 extension Converter {
     /// print data to standard output
     static func inspect(data: [String : AnyObject]) {
-        if let string: String? = write(data) {
+        if let string: String = write(data) {
             print(string)
         } else  { debugPrint("Data: could not print") }
     }
@@ -188,7 +188,8 @@ public final class JSON: Binary {
       do {
          
          data = try NSJSONSerialization.dataWithJSONObject(object, options: options)
-      } catch let error as NSError {
+      }
+      catch let error as NSError {
          
          Swift.print(error)
          data = nil
