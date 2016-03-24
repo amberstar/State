@@ -135,21 +135,21 @@ extension KVStore {
    public func setValue(value: <$typeName$>, forKey: String) {
       let keys = seperateKeypath(forKey)
 
-      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      let targetKey = keys.keypath == nil  ? self : addKey(keys.keypath!)
       targetKey.encode(value, keys.valueName)
    }
 
    public func setValue(value: [<$typeName$>], forKey: String) {
       let keys = seperateKeypath(forKey)
 
-      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      let targetKey = keys.keypath == nil  ? self : addKey(keys.keypath!)
       targetKey.encode(value, keys.valueName)
    }
 
    public func setValue(value: [String : <$typeName$>], forKey: String) {
       let keys = seperateKeypath(forKey)
 
-      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      let targetKey = keys.keypath == nil  ? self : addKey(keys.keypath!)
       targetKey.encode(value, keys.valueName)
    }
 

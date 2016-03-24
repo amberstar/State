@@ -59,7 +59,7 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
       return result
    }
    //****************************************************************************//
-   // MARK: Stores - Creating, Getting, Updating
+   // MARK: Keys - Creating, Getting, Updating
    //****************************************************************************//
    
    /// Return the key at the keypath
@@ -84,7 +84,7 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
    /// 
    /// - note: any intermediate keys are created
    /// - returns: key created or found
-   public func createKey(keypath: String) -> KVStore {
+   public func addKey(keypath: String) -> KVStore {
       var keyNames: [String] = splitKeypath(keypath)
       let keyName: String = keyNames.removeLast()
       
@@ -119,9 +119,9 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
    /// if it doesn't already exsist.
    ///
    /// - returns : the key that was replaced or nil if the newKey was added
-   public func setKey(keypath: String, newKey key: KVStore) -> KVStore? {
+   public func updateKey(keypath: String, newKey key: KVStore) -> KVStore? {
       let keys = seperateKeypath(keypath)
-      let targetKey = keys.keypath == nil ? self : createKey(keys.keypath!)
+      let targetKey = keys.keypath == nil ? self : addKey(keys.keypath!)
       
       return targetKey.keys.updateValue(key, forKey: keys.valueName)
    }
@@ -156,7 +156,7 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
       /// Merges the sourceKey with the key specified at keypath
       /// - returns : the mergedKey
       public func merge(source: KVStore, intoKeypath: String  ) -> KVStore {
-         let targetKey = createKey(intoKeypath)
+         let targetKey = addKey(intoKeypath)
          return targetKey.merge(source)
       }
    
@@ -184,7 +184,7 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
    public func setValue<V: Encodable>(value: V, forKey: String) {
       let keys = seperateKeypath(forKey)
       
-      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      let targetKey = keys.keypath == nil  ? self : addKey(keys.keypath!)
       targetKey.encode(value, keys.valueName)
       
    }
@@ -192,21 +192,21 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
    public func setValue<T: Encodable>(value: [T], forKey: String) {
       let keys = seperateKeypath(forKey)
       
-      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      let targetKey = keys.keypath == nil  ? self : addKey(keys.keypath!)
       targetKey.encode(value, keys.valueName)
    }
    
    public func setValue<T: Encodable>(value: [String : T], forKey: String) {
       let keys = seperateKeypath(forKey)
       
-      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      let targetKey = keys.keypath == nil  ? self : addKey(keys.keypath!)
       targetKey.encode(value, keys.valueName)
    }
    
    public func setValue<V>(value: V, forKey: String) {
       let keys = seperateKeypath(forKey)
       
-      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      let targetKey = keys.keypath == nil  ? self : addKey(keys.keypath!)
       targetKey.encode(value, keys.valueName)
    }
    
