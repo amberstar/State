@@ -19,14 +19,6 @@ public final class KVStore: Encodable, Decodable {
       public var data = [String : AnyObject]()
       var keys : [String : KVStore] = [:]
       
-      var persistentKeys : [String : KVStore] {
-          return filterKeys(keys, shouldKeep: { $1.isVolatile == false && $1.path == nil } )
-      }
-      
-      var externalKeys : [String : KVStore] {
-          return filterKeys(keys, shouldKeep: { $1.path != nil } )
-      }
-      
       public func filterKeys(keys: [String : KVStore], shouldKeep: (String, KVStore) -> Bool) -> [String : KVStore] {
          var data : [String : KVStore] = [:]
          let filteredKeys = keys.filter { shouldKeep($0, $1) }
@@ -43,8 +35,7 @@ public final class KVStore: Encodable, Decodable {
    }
    
    public let container : KVContainer
-   public var isVolatile : Bool = false
-   public var path : String? = nil
+
    
    public var keys : [String : KVStore] {
       return container.keys
@@ -55,26 +46,12 @@ public final class KVStore: Encodable, Decodable {
    }
    
    /// Initialize a new Store with the specified value and key dictionaries
-   public init(isVolatile: Bool = false, path: String? = nil, values: [String : AnyObject] =  [:], keys: [String : KVStore] = [:]) {
-      self.isVolatile = isVolatile
-      self.path = path
+   public init(values: [String : AnyObject] =  [:], keys: [String : KVStore] = [:]) {
       container = KVContainer(data: values, keys: keys)
    }
    
    public func save(path: String) {
       save(.Plist, path: path)
-      saveExternalKeys()
-   }
-   
-   func saveExternalKeys() {
-      for key in container.externalKeys {
-         if let location = key.1.path {
-            key.1.save(location)
-         }
-      }
-      for key in container.persistentKeys {
-         key.1.saveExternalKeys()
-      }
    }
    
    public static func load(path: String) -> KVStore? {
@@ -95,16 +72,8 @@ public final class KVStore: Encodable, Decodable {
          encoder.encode(container.data, DataKey)
       }
    
-      if container.persistentKeys.count > 0 {
-         encoder.encode(container.persistentKeys, StoreKey)
-      }
-      
-      if container.externalKeys.count > 0 {
-         var externals : [String : String] = [:]
-         for key in container.externalKeys {
-            externals[key.0] = key.1.path!
-         }
-         encoder.encode(externals, ExternalKey)
+      if container.keys.count > 0 {
+         encoder.encode(container.keys, StoreKey)
       }
    }
    
@@ -114,16 +83,6 @@ public final class KVStore: Encodable, Decodable {
 
       let result = self.init(values: data ?? [:], keys: stores ?? [:])
       
-      let externals : [String : String]? = decoder.decode(ExternalKey)
-      
-      if let externals = externals {
-         for external in externals {
-            if let key = KVStore.load(external.1) {
-               key.path = external.1
-               result.setKey(external.0, newKey: key)
-            }
-         }
-      }
       return result
    }
    //****************************************************************************//
