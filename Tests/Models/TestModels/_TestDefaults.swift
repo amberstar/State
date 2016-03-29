@@ -98,6 +98,57 @@ extension TestDefaults {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getTestDefaults(key: String) -> TestDefaults? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return TestDefaults.decode(dictionary)
+   }
+
+   public func getTestDefaults(key: String) -> [TestDefaults]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(TestDefaults.decode))
+   }
+
+   public func getTestDefaults(key: String) -> [String : TestDefaults]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { TestDefaults.decode($0) })
+   }
+
+   public func getTestDefaults(key: String, defaultValue: TestDefaults) -> TestDefaults {
+      return getTestDefaults(key) ?? defaultValue
+   }
+
+   public func getTestDefaults(key: String, defaultValue: [TestDefaults]) -> [TestDefaults] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getTestDefaults(key: String,  defaultValue: [String : TestDefaults]
+   ) -> [String : TestDefaults] {
+      return getTestDefaults(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestDefaults(value: TestDefaults, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestDefaults(value: [TestDefaults], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestDefaults(value: [String : TestDefaults], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getTestDefaults(key: String) -> TestDefaults? {

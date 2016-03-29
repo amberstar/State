@@ -50,6 +50,57 @@ extension Gender {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getGender(key: String) -> Gender? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return Gender.decode(dictionary)
+   }
+
+   public func getGender(key: String) -> [Gender]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(Gender.decode))
+   }
+
+   public func getGender(key: String) -> [String : Gender]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { Gender.decode($0) })
+   }
+
+   public func getGender(key: String, defaultValue: Gender) -> Gender {
+      return getGender(key) ?? defaultValue
+   }
+
+   public func getGender(key: String, defaultValue: [Gender]) -> [Gender] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getGender(key: String,  defaultValue: [String : Gender]
+   ) -> [String : Gender] {
+      return getGender(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setGender(value: Gender, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setGender(value: [Gender], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setGender(value: [String : Gender], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getGender(key: String) -> Gender? {

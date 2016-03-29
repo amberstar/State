@@ -81,6 +81,57 @@ extension TestImmutableOptionalTypes {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getTestImmutableOptionalTypes(key: String) -> TestImmutableOptionalTypes? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return TestImmutableOptionalTypes.decode(dictionary)
+   }
+
+   public func getTestImmutableOptionalTypes(key: String) -> [TestImmutableOptionalTypes]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(TestImmutableOptionalTypes.decode))
+   }
+
+   public func getTestImmutableOptionalTypes(key: String) -> [String : TestImmutableOptionalTypes]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { TestImmutableOptionalTypes.decode($0) })
+   }
+
+   public func getTestImmutableOptionalTypes(key: String, defaultValue: TestImmutableOptionalTypes) -> TestImmutableOptionalTypes {
+      return getTestImmutableOptionalTypes(key) ?? defaultValue
+   }
+
+   public func getTestImmutableOptionalTypes(key: String, defaultValue: [TestImmutableOptionalTypes]) -> [TestImmutableOptionalTypes] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getTestImmutableOptionalTypes(key: String,  defaultValue: [String : TestImmutableOptionalTypes]
+   ) -> [String : TestImmutableOptionalTypes] {
+      return getTestImmutableOptionalTypes(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestImmutableOptionalTypes(value: TestImmutableOptionalTypes, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestImmutableOptionalTypes(value: [TestImmutableOptionalTypes], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestImmutableOptionalTypes(value: [String : TestImmutableOptionalTypes], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getTestImmutableOptionalTypes(key: String) -> TestImmutableOptionalTypes? {

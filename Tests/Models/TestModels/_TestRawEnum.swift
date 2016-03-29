@@ -51,6 +51,57 @@ extension TestRawEnum {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getTestRawEnum(key: String) -> TestRawEnum? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return TestRawEnum.decode(dictionary)
+   }
+
+   public func getTestRawEnum(key: String) -> [TestRawEnum]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(TestRawEnum.decode))
+   }
+
+   public func getTestRawEnum(key: String) -> [String : TestRawEnum]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { TestRawEnum.decode($0) })
+   }
+
+   public func getTestRawEnum(key: String, defaultValue: TestRawEnum) -> TestRawEnum {
+      return getTestRawEnum(key) ?? defaultValue
+   }
+
+   public func getTestRawEnum(key: String, defaultValue: [TestRawEnum]) -> [TestRawEnum] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getTestRawEnum(key: String,  defaultValue: [String : TestRawEnum]
+   ) -> [String : TestRawEnum] {
+      return getTestRawEnum(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestRawEnum(value: TestRawEnum, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestRawEnum(value: [TestRawEnum], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestRawEnum(value: [String : TestRawEnum], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getTestRawEnum(key: String) -> TestRawEnum? {

@@ -146,6 +146,57 @@ extension TestAssociatedOptionalEnum {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getTestAssociatedOptionalEnum(key: String) -> TestAssociatedOptionalEnum? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return TestAssociatedOptionalEnum.decode(dictionary)
+   }
+
+   public func getTestAssociatedOptionalEnum(key: String) -> [TestAssociatedOptionalEnum]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(TestAssociatedOptionalEnum.decode))
+   }
+
+   public func getTestAssociatedOptionalEnum(key: String) -> [String : TestAssociatedOptionalEnum]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { TestAssociatedOptionalEnum.decode($0) })
+   }
+
+   public func getTestAssociatedOptionalEnum(key: String, defaultValue: TestAssociatedOptionalEnum) -> TestAssociatedOptionalEnum {
+      return getTestAssociatedOptionalEnum(key) ?? defaultValue
+   }
+
+   public func getTestAssociatedOptionalEnum(key: String, defaultValue: [TestAssociatedOptionalEnum]) -> [TestAssociatedOptionalEnum] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getTestAssociatedOptionalEnum(key: String,  defaultValue: [String : TestAssociatedOptionalEnum]
+   ) -> [String : TestAssociatedOptionalEnum] {
+      return getTestAssociatedOptionalEnum(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestAssociatedOptionalEnum(value: TestAssociatedOptionalEnum, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestAssociatedOptionalEnum(value: [TestAssociatedOptionalEnum], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestAssociatedOptionalEnum(value: [String : TestAssociatedOptionalEnum], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getTestAssociatedOptionalEnum(key: String) -> TestAssociatedOptionalEnum? {

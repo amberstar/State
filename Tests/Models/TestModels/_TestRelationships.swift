@@ -61,6 +61,57 @@ extension TestRelationships {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getTestRelationships(key: String) -> TestRelationships? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return TestRelationships.decode(dictionary)
+   }
+
+   public func getTestRelationships(key: String) -> [TestRelationships]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(TestRelationships.decode))
+   }
+
+   public func getTestRelationships(key: String) -> [String : TestRelationships]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { TestRelationships.decode($0) })
+   }
+
+   public func getTestRelationships(key: String, defaultValue: TestRelationships) -> TestRelationships {
+      return getTestRelationships(key) ?? defaultValue
+   }
+
+   public func getTestRelationships(key: String, defaultValue: [TestRelationships]) -> [TestRelationships] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getTestRelationships(key: String,  defaultValue: [String : TestRelationships]
+   ) -> [String : TestRelationships] {
+      return getTestRelationships(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestRelationships(value: TestRelationships, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestRelationships(value: [TestRelationships], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestRelationships(value: [String : TestRelationships], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getTestRelationships(key: String) -> TestRelationships? {

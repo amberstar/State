@@ -55,6 +55,57 @@ extension TestDefaultsChild {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getTestDefaultsChild(key: String) -> TestDefaultsChild? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return TestDefaultsChild.decode(dictionary)
+   }
+
+   public func getTestDefaultsChild(key: String) -> [TestDefaultsChild]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(TestDefaultsChild.decode))
+   }
+
+   public func getTestDefaultsChild(key: String) -> [String : TestDefaultsChild]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { TestDefaultsChild.decode($0) })
+   }
+
+   public func getTestDefaultsChild(key: String, defaultValue: TestDefaultsChild) -> TestDefaultsChild {
+      return getTestDefaultsChild(key) ?? defaultValue
+   }
+
+   public func getTestDefaultsChild(key: String, defaultValue: [TestDefaultsChild]) -> [TestDefaultsChild] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getTestDefaultsChild(key: String,  defaultValue: [String : TestDefaultsChild]
+   ) -> [String : TestDefaultsChild] {
+      return getTestDefaultsChild(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestDefaultsChild(value: TestDefaultsChild, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestDefaultsChild(value: [TestDefaultsChild], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestDefaultsChild(value: [String : TestDefaultsChild], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getTestDefaultsChild(key: String) -> TestDefaultsChild? {

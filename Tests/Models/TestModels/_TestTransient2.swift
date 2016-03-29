@@ -55,6 +55,57 @@ extension TestTransient2 {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getTestTransient2(key: String) -> TestTransient2? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return TestTransient2.decode(dictionary)
+   }
+
+   public func getTestTransient2(key: String) -> [TestTransient2]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(TestTransient2.decode))
+   }
+
+   public func getTestTransient2(key: String) -> [String : TestTransient2]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { TestTransient2.decode($0) })
+   }
+
+   public func getTestTransient2(key: String, defaultValue: TestTransient2) -> TestTransient2 {
+      return getTestTransient2(key) ?? defaultValue
+   }
+
+   public func getTestTransient2(key: String, defaultValue: [TestTransient2]) -> [TestTransient2] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getTestTransient2(key: String,  defaultValue: [String : TestTransient2]
+   ) -> [String : TestTransient2] {
+      return getTestTransient2(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestTransient2(value: TestTransient2, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestTransient2(value: [TestTransient2], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestTransient2(value: [String : TestTransient2], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getTestTransient2(key: String) -> TestTransient2? {

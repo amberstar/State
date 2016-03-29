@@ -60,6 +60,7 @@ public extension Encodable {
 //                               Encoder
 //****************************************************************************//
 
+
 public protocol EncoderType : class {
    var data : [String : AnyObject] { get set }
 }

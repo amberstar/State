@@ -12,6 +12,19 @@ public protocol TestParentProtocol : Model  {
 
 }
 
+func decodeTestParentProtocol(data: AnyObject?) -> TestParentProtocol? {
+
+   if let data = data as? [String : AnyObject] {
+      let decoder = Decoder(data: data)
+      guard let dataTypeKey = data["TestParentProtocol"] as? String else { return nil }
+      if let t = decoder.TestParentProtocolTypeForKey(dataTypeKey) {
+         return t.decode(decoder)
+      }
+      return nil
+   }
+   return nil
+}
+
 // Mark: Decoding
 
 public extension DecoderType {
@@ -77,6 +90,57 @@ public extension EncoderType {
     }
 }
 
+extension NSUserDefaults {
+
+//****************************************************************************//
+// MARK: NSUserDefault Getters
+//****************************************************************************//
+
+   public func getTestParentProtocol(key: String) -> TestParentProtocol? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return decodeTestParentProtocol(dictionary)
+   }
+
+   public func getTestParentProtocol(key: String) -> [TestParentProtocol]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(decodeTestParentProtocol))
+   }
+
+   public func getTestParentProtocol(key: String) -> [String : TestParentProtocol]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { decodeTestParentProtocol($0) })
+   }
+
+   public func getTestParentProtocol(key: String, defaultValue: TestParentProtocol) -> TestParentProtocol {
+      return getTestParentProtocol(key) ?? defaultValue
+   }
+
+   public func getTestParentProtocol(key: String, defaultValue: [TestParentProtocol]) -> [TestParentProtocol] {
+      return getTestParentProtocol(key) ?? defaultValue
+   }
+
+   public func getTestParentProtocol(key: String,  defaultValue: [String : TestParentProtocol]
+   ) -> [String : TestParentProtocol] {
+      return getTestParentProtocol(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestParentProtocol(value: TestParentProtocol, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestParentProtocol(value: [TestParentProtocol], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestParentProtocol(value: [String : TestParentProtocol], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
    public func getTestParentProtocol(key: String) -> TestParentProtocol? {
       let keys = seperateKeypath(key)
@@ -129,21 +193,21 @@ extension KVStore {
    public func setValue(value: TestParentProtocol, forKey: String) {
       let keys = seperateKeypath(forKey)
 
-      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      let targetKey = keys.keypath == nil  ? self : addKey(keys.keypath!)
       targetKey.encode(value, keys.valueName)
    }
 
    public func setValue(value: [TestParentProtocol], forKey: String) {
       let keys = seperateKeypath(forKey)
 
-      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      let targetKey = keys.keypath == nil  ? self : addKey(keys.keypath!)
       targetKey.encode(value, keys.valueName)
    }
 
    public func setValue(value: [String : TestParentProtocol], forKey: String) {
       let keys = seperateKeypath(forKey)
 
-      let targetKey = keys.keypath == nil  ? self : createKey(keys.keypath!)
+      let targetKey = keys.keypath == nil  ? self : addKey(keys.keypath!)
       targetKey.encode(value, keys.valueName)
    }
 

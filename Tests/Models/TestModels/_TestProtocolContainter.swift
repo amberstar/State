@@ -63,6 +63,57 @@ extension TestProtocolContainter {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getTestProtocolContainter(key: String) -> TestProtocolContainter? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return TestProtocolContainter.decode(dictionary)
+   }
+
+   public func getTestProtocolContainter(key: String) -> [TestProtocolContainter]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(TestProtocolContainter.decode))
+   }
+
+   public func getTestProtocolContainter(key: String) -> [String : TestProtocolContainter]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { TestProtocolContainter.decode($0) })
+   }
+
+   public func getTestProtocolContainter(key: String, defaultValue: TestProtocolContainter) -> TestProtocolContainter {
+      return getTestProtocolContainter(key) ?? defaultValue
+   }
+
+   public func getTestProtocolContainter(key: String, defaultValue: [TestProtocolContainter]) -> [TestProtocolContainter] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getTestProtocolContainter(key: String,  defaultValue: [String : TestProtocolContainter]
+   ) -> [String : TestProtocolContainter] {
+      return getTestProtocolContainter(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestProtocolContainter(value: TestProtocolContainter, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestProtocolContainter(value: [TestProtocolContainter], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestProtocolContainter(value: [String : TestProtocolContainter], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getTestProtocolContainter(key: String) -> TestProtocolContainter? {

@@ -16,7 +16,7 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
    
    public private(set) var keys : [String : KVStore] = [:]
    public var data = [String : AnyObject]()
-  
+   
    /// Initialize a new Store with the specified value and key dictionaries
    public init(values: [String : AnyObject] =  [:], keys: [String : KVStore] = [:]) {
       data = values

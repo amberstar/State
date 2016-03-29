@@ -60,6 +60,57 @@ extension Employee {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getEmployee(key: String) -> Employee? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return Employee.decode(dictionary)
+   }
+
+   public func getEmployee(key: String) -> [Employee]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(Employee.decode))
+   }
+
+   public func getEmployee(key: String) -> [String : Employee]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { Employee.decode($0) })
+   }
+
+   public func getEmployee(key: String, defaultValue: Employee) -> Employee {
+      return getEmployee(key) ?? defaultValue
+   }
+
+   public func getEmployee(key: String, defaultValue: [Employee]) -> [Employee] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getEmployee(key: String,  defaultValue: [String : Employee]
+   ) -> [String : Employee] {
+      return getEmployee(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setEmployee(value: Employee, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setEmployee(value: [Employee], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setEmployee(value: [String : Employee], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getEmployee(key: String) -> Employee? {

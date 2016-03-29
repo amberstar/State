@@ -83,6 +83,57 @@ extension TestImmutableTypes {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getTestImmutableTypes(key: String) -> TestImmutableTypes? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return TestImmutableTypes.decode(dictionary)
+   }
+
+   public func getTestImmutableTypes(key: String) -> [TestImmutableTypes]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(TestImmutableTypes.decode))
+   }
+
+   public func getTestImmutableTypes(key: String) -> [String : TestImmutableTypes]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { TestImmutableTypes.decode($0) })
+   }
+
+   public func getTestImmutableTypes(key: String, defaultValue: TestImmutableTypes) -> TestImmutableTypes {
+      return getTestImmutableTypes(key) ?? defaultValue
+   }
+
+   public func getTestImmutableTypes(key: String, defaultValue: [TestImmutableTypes]) -> [TestImmutableTypes] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getTestImmutableTypes(key: String,  defaultValue: [String : TestImmutableTypes]
+   ) -> [String : TestImmutableTypes] {
+      return getTestImmutableTypes(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestImmutableTypes(value: TestImmutableTypes, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestImmutableTypes(value: [TestImmutableTypes], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestImmutableTypes(value: [String : TestImmutableTypes], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getTestImmutableTypes(key: String) -> TestImmutableTypes? {

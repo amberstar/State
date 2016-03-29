@@ -156,6 +156,57 @@ extension TestAssociatedEnum {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getTestAssociatedEnum(key: String) -> TestAssociatedEnum? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return TestAssociatedEnum.decode(dictionary)
+   }
+
+   public func getTestAssociatedEnum(key: String) -> [TestAssociatedEnum]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(TestAssociatedEnum.decode))
+   }
+
+   public func getTestAssociatedEnum(key: String) -> [String : TestAssociatedEnum]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { TestAssociatedEnum.decode($0) })
+   }
+
+   public func getTestAssociatedEnum(key: String, defaultValue: TestAssociatedEnum) -> TestAssociatedEnum {
+      return getTestAssociatedEnum(key) ?? defaultValue
+   }
+
+   public func getTestAssociatedEnum(key: String, defaultValue: [TestAssociatedEnum]) -> [TestAssociatedEnum] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getTestAssociatedEnum(key: String,  defaultValue: [String : TestAssociatedEnum]
+   ) -> [String : TestAssociatedEnum] {
+      return getTestAssociatedEnum(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestAssociatedEnum(value: TestAssociatedEnum, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestAssociatedEnum(value: [TestAssociatedEnum], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestAssociatedEnum(value: [String : TestAssociatedEnum], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getTestAssociatedEnum(key: String) -> TestAssociatedEnum? {

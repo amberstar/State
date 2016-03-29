@@ -76,6 +76,57 @@ extension TestProtocolConformer {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getTestProtocolConformer(key: String) -> TestProtocolConformer? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return TestProtocolConformer.decode(dictionary)
+   }
+
+   public func getTestProtocolConformer(key: String) -> [TestProtocolConformer]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(TestProtocolConformer.decode))
+   }
+
+   public func getTestProtocolConformer(key: String) -> [String : TestProtocolConformer]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { TestProtocolConformer.decode($0) })
+   }
+
+   public func getTestProtocolConformer(key: String, defaultValue: TestProtocolConformer) -> TestProtocolConformer {
+      return getTestProtocolConformer(key) ?? defaultValue
+   }
+
+   public func getTestProtocolConformer(key: String, defaultValue: [TestProtocolConformer]) -> [TestProtocolConformer] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getTestProtocolConformer(key: String,  defaultValue: [String : TestProtocolConformer]
+   ) -> [String : TestProtocolConformer] {
+      return getTestProtocolConformer(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestProtocolConformer(value: TestProtocolConformer, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestProtocolConformer(value: [TestProtocolConformer], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestProtocolConformer(value: [String : TestProtocolConformer], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getTestProtocolConformer(key: String) -> TestProtocolConformer? {

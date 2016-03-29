@@ -80,7 +80,6 @@
 		961D13F61C11AE5A00F0EE1F /* Data.json in Resources */ = {isa = PBXBuildFile; fileRef = 961D13EE1C11AE5A00F0EE1F /* Data.json */; };
 		961D13F81C11AE5A00F0EE1F /* Data.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961D13EF1C11AE5A00F0EE1F /* Data.plist */; };
 		9622DF981C9C8EC5009C1E6B /* NSURL+Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B8A90C1C9B6CA60086619F /* NSURL+Coding.swift */; };
-		9622DF9F1C9D9D74009C1E6B /* KVStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622DF941C9C8A85009C1E6B /* KVStoreTests.swift */; };
 		9622DFA11C9EE637009C1E6B /* KVStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622DF921C9C8A61009C1E6B /* KVStore.swift */; };
 		9622DFA21C9EE63A009C1E6B /* UIColor+Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B8A90D1C9B6CA60086619F /* UIColor+Coding.swift */; };
 		9690A0641C942C9100924F4C /* _TestProtocolConformer2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0621C942C9100924F4C /* _TestProtocolConformer2.swift */; };
@@ -98,6 +97,8 @@
 		96B8A9491C9BEB870086619F /* Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B8A9101C9B6FD10086619F /* Conversion.swift */; };
 		96C5C3891B3C6988009121A1 /* MigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817801B124AB4002CA532 /* MigrationTests.swift */; };
 		96C86BFD1BC2E81800D6F0F3 /* TestProtocolConformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C86BFB1BC2E7F500D6F0F3 /* TestProtocolConformer.swift */; };
+		96FDF3361CAAABCB0099074C /* NSUserDefaults+Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FDF3351CAAABCB0099074C /* NSUserDefaults+Coding.swift */; };
+		96FDF3371CAAC5420099074C /* KVStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622DF941C9C8A85009C1E6B /* KVStoreTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -234,6 +235,7 @@
 		96B8A9101C9B6FD10086619F /* Conversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversion.swift; sourceTree = "<group>"; };
 		96C86BFB1BC2E7F500D6F0F3 /* TestProtocolConformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocolConformer.swift; path = Tests/Models/TestModels/TestProtocolConformer.swift; sourceTree = "<group>"; };
 		96CE6B7B1B3BFDEC00D632BF /* Docs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Docs; sourceTree = "<group>"; };
+		96FDF3351CAAABCB0099074C /* NSUserDefaults+Coding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+Coding.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -407,6 +409,7 @@
 		96960A431C90F00B00D4E6D0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				96FDF3351CAAABCB0099074C /* NSUserDefaults+Coding.swift */,
 				9622DF921C9C8A61009C1E6B /* KVStore.swift */,
 				96B8A8F81C9AD3CC0086619F /* Coding.swift */,
 				96B8A9101C9B6FD10086619F /* Conversion.swift */,
@@ -570,6 +573,7 @@
 				96B8A9491C9BEB870086619F /* Conversion.swift in Sources */,
 				96960A5C1C90F00B00D4E6D0 /* Migration.swift in Sources */,
 				9622DFA11C9EE637009C1E6B /* KVStore.swift in Sources */,
+				96FDF3361CAAABCB0099074C /* NSUserDefaults+Coding.swift in Sources */,
 				9622DF981C9C8EC5009C1E6B /* NSURL+Coding.swift in Sources */,
 				96960A5D1C90F00B00D4E6D0 /* Model.swift in Sources */,
 			);
@@ -599,7 +603,7 @@
 				044F889B1AE69BD900FAB475 /* TestCollections.swift in Sources */,
 				04C1B9301AE9219900A85730 /* _Employee.swift in Sources */,
 				044F88A31AE69BD900FAB475 /* TestTypes.swift in Sources */,
-				9622DF9F1C9D9D74009C1E6B /* KVStoreTests.swift in Sources */,
+				96FDF3371CAAC5420099074C /* KVStoreTests.swift in Sources */,
 				96B8A9091C9AFA390086619F /* (null) in Sources */,
 				96A543611B63C6C8009A2B2D /* TestDictionaryComposition.swift in Sources */,
 				044F88A11AE69BD900FAB475 /* TestRelationships.swift in Sources */,

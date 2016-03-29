@@ -57,6 +57,57 @@ extension TestOverrideType {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getTestOverrideType(key: String) -> TestOverrideType? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return TestOverrideType.decode(dictionary)
+   }
+
+   public func getTestOverrideType(key: String) -> [TestOverrideType]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(TestOverrideType.decode))
+   }
+
+   public func getTestOverrideType(key: String) -> [String : TestOverrideType]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { TestOverrideType.decode($0) })
+   }
+
+   public func getTestOverrideType(key: String, defaultValue: TestOverrideType) -> TestOverrideType {
+      return getTestOverrideType(key) ?? defaultValue
+   }
+
+   public func getTestOverrideType(key: String, defaultValue: [TestOverrideType]) -> [TestOverrideType] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getTestOverrideType(key: String,  defaultValue: [String : TestOverrideType]
+   ) -> [String : TestOverrideType] {
+      return getTestOverrideType(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestOverrideType(value: TestOverrideType, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestOverrideType(value: [TestOverrideType], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestOverrideType(value: [String : TestOverrideType], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getTestOverrideType(key: String) -> TestOverrideType? {

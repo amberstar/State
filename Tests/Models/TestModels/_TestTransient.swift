@@ -57,6 +57,57 @@ extension TestTransient {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getTestTransient(key: String) -> TestTransient? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return TestTransient.decode(dictionary)
+   }
+
+   public func getTestTransient(key: String) -> [TestTransient]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(TestTransient.decode))
+   }
+
+   public func getTestTransient(key: String) -> [String : TestTransient]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { TestTransient.decode($0) })
+   }
+
+   public func getTestTransient(key: String, defaultValue: TestTransient) -> TestTransient {
+      return getTestTransient(key) ?? defaultValue
+   }
+
+   public func getTestTransient(key: String, defaultValue: [TestTransient]) -> [TestTransient] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getTestTransient(key: String,  defaultValue: [String : TestTransient]
+   ) -> [String : TestTransient] {
+      return getTestTransient(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestTransient(value: TestTransient, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestTransient(value: [TestTransient], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestTransient(value: [String : TestTransient], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getTestTransient(key: String) -> TestTransient? {

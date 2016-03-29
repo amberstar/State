@@ -68,6 +68,57 @@ extension TestTransformable {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getTestTransformable(key: String) -> TestTransformable? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return TestTransformable.decode(dictionary)
+   }
+
+   public func getTestTransformable(key: String) -> [TestTransformable]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(TestTransformable.decode))
+   }
+
+   public func getTestTransformable(key: String) -> [String : TestTransformable]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { TestTransformable.decode($0) })
+   }
+
+   public func getTestTransformable(key: String, defaultValue: TestTransformable) -> TestTransformable {
+      return getTestTransformable(key) ?? defaultValue
+   }
+
+   public func getTestTransformable(key: String, defaultValue: [TestTransformable]) -> [TestTransformable] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getTestTransformable(key: String,  defaultValue: [String : TestTransformable]
+   ) -> [String : TestTransformable] {
+      return getTestTransformable(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestTransformable(value: TestTransformable, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestTransformable(value: [TestTransformable], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestTransformable(value: [String : TestTransformable], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getTestTransformable(key: String) -> TestTransformable? {

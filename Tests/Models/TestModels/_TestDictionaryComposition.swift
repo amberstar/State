@@ -55,6 +55,57 @@ extension TestDictionaryComposition {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getTestDictionaryComposition(key: String) -> TestDictionaryComposition? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return TestDictionaryComposition.decode(dictionary)
+   }
+
+   public func getTestDictionaryComposition(key: String) -> [TestDictionaryComposition]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(TestDictionaryComposition.decode))
+   }
+
+   public func getTestDictionaryComposition(key: String) -> [String : TestDictionaryComposition]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { TestDictionaryComposition.decode($0) })
+   }
+
+   public func getTestDictionaryComposition(key: String, defaultValue: TestDictionaryComposition) -> TestDictionaryComposition {
+      return getTestDictionaryComposition(key) ?? defaultValue
+   }
+
+   public func getTestDictionaryComposition(key: String, defaultValue: [TestDictionaryComposition]) -> [TestDictionaryComposition] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getTestDictionaryComposition(key: String,  defaultValue: [String : TestDictionaryComposition]
+   ) -> [String : TestDictionaryComposition] {
+      return getTestDictionaryComposition(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestDictionaryComposition(value: TestDictionaryComposition, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestDictionaryComposition(value: [TestDictionaryComposition], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestDictionaryComposition(value: [String : TestDictionaryComposition], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getTestDictionaryComposition(key: String) -> TestDictionaryComposition? {

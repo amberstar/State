@@ -68,6 +68,57 @@ extension TestRegEnum {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getTestRegEnum(key: String) -> TestRegEnum? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return TestRegEnum.decode(dictionary)
+   }
+
+   public func getTestRegEnum(key: String) -> [TestRegEnum]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(TestRegEnum.decode))
+   }
+
+   public func getTestRegEnum(key: String) -> [String : TestRegEnum]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { TestRegEnum.decode($0) })
+   }
+
+   public func getTestRegEnum(key: String, defaultValue: TestRegEnum) -> TestRegEnum {
+      return getTestRegEnum(key) ?? defaultValue
+   }
+
+   public func getTestRegEnum(key: String, defaultValue: [TestRegEnum]) -> [TestRegEnum] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getTestRegEnum(key: String,  defaultValue: [String : TestRegEnum]
+   ) -> [String : TestRegEnum] {
+      return getTestRegEnum(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestRegEnum(value: TestRegEnum, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestRegEnum(value: [TestRegEnum], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestRegEnum(value: [String : TestRegEnum], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getTestRegEnum(key: String) -> TestRegEnum? {

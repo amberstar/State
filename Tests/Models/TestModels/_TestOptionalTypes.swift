@@ -81,6 +81,57 @@ extension TestOptionalTypes {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getTestOptionalTypes(key: String) -> TestOptionalTypes? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return TestOptionalTypes.decode(dictionary)
+   }
+
+   public func getTestOptionalTypes(key: String) -> [TestOptionalTypes]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(TestOptionalTypes.decode))
+   }
+
+   public func getTestOptionalTypes(key: String) -> [String : TestOptionalTypes]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { TestOptionalTypes.decode($0) })
+   }
+
+   public func getTestOptionalTypes(key: String, defaultValue: TestOptionalTypes) -> TestOptionalTypes {
+      return getTestOptionalTypes(key) ?? defaultValue
+   }
+
+   public func getTestOptionalTypes(key: String, defaultValue: [TestOptionalTypes]) -> [TestOptionalTypes] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getTestOptionalTypes(key: String,  defaultValue: [String : TestOptionalTypes]
+   ) -> [String : TestOptionalTypes] {
+      return getTestOptionalTypes(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestOptionalTypes(value: TestOptionalTypes, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestOptionalTypes(value: [TestOptionalTypes], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestOptionalTypes(value: [String : TestOptionalTypes], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getTestOptionalTypes(key: String) -> TestOptionalTypes? {

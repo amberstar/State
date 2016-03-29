@@ -52,8 +52,60 @@ extension <$typeName$> {
     }
 }<$endprocedure$>
 
+
+<$procedure writeNSUserDefaultsSupportBlock$>
+//****************************************************************************//
+// MARK: NSUserDefaults support
+//****************************************************************************//
+extension NSUserDefaults {
+
+   public func get<$typeName$>(key: String) -> <$typeName$>? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return <$typeName$>.decode(dictionary)
+   }
+
+   public func get<$typeName$>(key: String) -> [<$typeName$>]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(<$typeName$>.decode))
+   }
+
+   public func get<$typeName$>(key: String) -> [String : <$typeName$>]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { <$typeName$>.decode($0) })
+   }
+
+   public func get<$typeName$>(key: String, defaultValue: <$typeName$>) -> <$typeName$> {
+      return get<$typeName$>(key) ?? defaultValue
+   }
+
+   public func get<$typeName$>(key: String, defaultValue: [<$typeName$>]) -> [<$typeName$>] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func get<$typeName$>(key: String,  defaultValue: [String : <$typeName$>]
+   ) -> [String : <$typeName$>] {
+      return get<$typeName$>(key) ?? defaultValue
+   }
+
+   public func set<$typeName$>(value: <$typeName$>, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func set<$typeName$>(value: [<$typeName$>], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func set<$typeName$>(value: [String : <$typeName$>], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+<$endprocedure$>
+
 <$procedure writeKVStoreSupportBlock$>
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
    public func get<$typeName$>(key: String) -> <$typeName$>? {
@@ -82,7 +134,61 @@ extension KVStore {
 }
 <$endprocedure$>
 
+<$procedure writeNSUserDefaultsProtocolSupportBlock$>
+
+//****************************************************************************//
+// MARK: NSUserDefault Support
+//****************************************************************************//
+
+extension NSUserDefaults {
+
+   public func get<$typeName$>(key: String) -> <$typeName$>? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return decode<$typeName$>(dictionary)
+   }
+
+   public func get<$typeName$>(key: String) -> [<$typeName$>]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(decode<$typeName$>))
+   }
+
+   public func get<$typeName$>(key: String) -> [String : <$typeName$>]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { decode<$typeName$>($0) })
+   }
+
+   public func get<$typeName$>(key: String, defaultValue: <$typeName$>) -> <$typeName$> {
+      return get<$typeName$>(key) ?? defaultValue
+   }
+
+   public func get<$typeName$>(key: String, defaultValue: [<$typeName$>]) -> [<$typeName$>] {
+      return get<$typeName$>(key) ?? defaultValue
+   }
+
+   public func get<$typeName$>(key: String,  defaultValue: [String : <$typeName$>]
+   ) -> [String : <$typeName$>] {
+      return get<$typeName$>(key) ?? defaultValue
+   }
+
+   public func set<$typeName$>(value: <$typeName$>, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func set<$typeName$>(value: [<$typeName$>], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func set<$typeName$>(value: [String : <$typeName$>], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+<$endprocedure$>
+
+
 <$procedure writeKVStoreProtocolSupportBlock$>
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
    public func get<$typeName$>(key: String) -> <$typeName$>? {
       let keys = seperateKeypath(key)
@@ -218,6 +324,7 @@ extension <$typeName$> : Encodable {
 }
 
 <$call writeVersionHashExtension $>
+<$call writeNSUserDefaultsSupportBlock$>
 <$call writeKVStoreSupportBlock$>
 <$endprocedure$>
 
@@ -345,6 +452,7 @@ extension <$typeName$>: Encodable {
 }
 
 <$call writeVersionHashExtension $>
+<$call writeNSUserDefaultsSupportBlock$>
 <$call writeKVStoreSupportBlock$>
 <$endprocedure$>
 
@@ -377,9 +485,24 @@ public protocol <$typeName$><$if hasSuperentity$> : <$superentity.managedObjectC
 
 }
 
+func decode<$typeName$>(data: AnyObject?) -> <$typeName$>? {
+
+   if let data = data as? [String : AnyObject] {
+      let decoder = Decoder(data: data)
+      guard let dataTypeKey = data["<$typeName$>"] as? String else { return nil }
+      if let t = decoder.<$typeName$>TypeForKey(dataTypeKey) {
+         return t.decode(decoder)
+      }
+      return nil
+   }
+   return nil
+}
+
+
 // Mark: Decoding
 
 public extension DecoderType {
+
 
     public func decode<$typeName$>(key: String) -> <$typeName$>? {
         let data = self.data
@@ -436,6 +559,7 @@ public extension EncoderType {
     }
 }
 
+<$call writeNSUserDefaultsProtocolSupportBlock$>
 <$call writeKVStoreProtocolSupportBlock$>
 <$endprocedure$>
 

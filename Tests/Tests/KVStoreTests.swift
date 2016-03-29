@@ -14,20 +14,20 @@ class KVStoreTests: Test {
    
    func testGetKeyReturnsKey() {
       let store = KVStore()
-      store.createKey("A.B.C.D")
+      store.addKey("A.B.C.D")
       XCTAssertNotNil(store.getKey("A.B.C"))
    }
    
    func testCreateKeyOneLevelDeepShouldCreateKey() {
       let store = KVStore()
-      store.createKey("Level1")
+      store.addKey("Level1")
       let resultKey = store.getKey("Level1")
       XCTAssertNotNil(resultKey)
    }
    
    func testCreateKeyMultiLevelsDeepShouldCreateKeys() {
       let store = KVStore()
-      store.createKey("Level1.Level2.Level3")
+      store.addKey("Level1.Level2.Level3")
    
       let resultKey1 = store.getKey("Level1")
       XCTAssertNotNil(resultKey1)
@@ -41,18 +41,18 @@ class KVStoreTests: Test {
    
    func testCreatingKeyThatExsistsReturnsExsitingKey() {
       let store = KVStore()
-      store.createKey("A.B.C.D")
+      store.addKey("A.B.C.D")
       let cKey = store.getKey("A.B.C")
-      let createdKey = store.createKey("A.B.C")
+      let createdKey = store.addKey("A.B.C")
       XCTAssert(cKey === createdKey)
    }
    
    func testUpdatingKeyWithNewKeyReplacesAndReturnsOldKey() {
       let store = KVStore()
-      store.createKey("A.B.C.D")
+      store.addKey("A.B.C.D")
       let oldKey = store.getKey("A.B.C")
       let newKey = KVStore()
-      let returnedKey = store.setKey("A.B.C", newKey: newKey)
+      let returnedKey = store.updateKey("A.B.C", newKey: newKey)
       XCTAssert(store.getKey("A.B.C") === newKey)
       XCTAssert(returnedKey === oldKey)
    }
@@ -65,7 +65,7 @@ class KVStoreTests: Test {
    
    func testRemovingKeyReturnsRemovedKeyAndIsRemoved() {
       let store = KVStore()
-      store.createKey("A.B.C.D")
+      store.addKey("A.B.C.D")
       let lastKey = store.getKey("A.B.C.D")
       let removedKey = store.removeKey("A.B.C.D")
       XCTAssert(lastKey === removedKey)

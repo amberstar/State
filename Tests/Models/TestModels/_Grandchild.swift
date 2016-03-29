@@ -61,6 +61,57 @@ extension Grandchild {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getGrandchild(key: String) -> Grandchild? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return Grandchild.decode(dictionary)
+   }
+
+   public func getGrandchild(key: String) -> [Grandchild]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(Grandchild.decode))
+   }
+
+   public func getGrandchild(key: String) -> [String : Grandchild]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { Grandchild.decode($0) })
+   }
+
+   public func getGrandchild(key: String, defaultValue: Grandchild) -> Grandchild {
+      return getGrandchild(key) ?? defaultValue
+   }
+
+   public func getGrandchild(key: String, defaultValue: [Grandchild]) -> [Grandchild] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getGrandchild(key: String,  defaultValue: [String : Grandchild]
+   ) -> [String : Grandchild] {
+      return getGrandchild(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setGrandchild(value: Grandchild, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setGrandchild(value: [Grandchild], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setGrandchild(value: [String : Grandchild], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getGrandchild(key: String) -> Grandchild? {

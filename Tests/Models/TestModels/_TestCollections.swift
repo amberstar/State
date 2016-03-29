@@ -63,6 +63,57 @@ extension TestCollections {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getTestCollections(key: String) -> TestCollections? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return TestCollections.decode(dictionary)
+   }
+
+   public func getTestCollections(key: String) -> [TestCollections]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(TestCollections.decode))
+   }
+
+   public func getTestCollections(key: String) -> [String : TestCollections]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { TestCollections.decode($0) })
+   }
+
+   public func getTestCollections(key: String, defaultValue: TestCollections) -> TestCollections {
+      return getTestCollections(key) ?? defaultValue
+   }
+
+   public func getTestCollections(key: String, defaultValue: [TestCollections]) -> [TestCollections] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getTestCollections(key: String,  defaultValue: [String : TestCollections]
+   ) -> [String : TestCollections] {
+      return getTestCollections(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestCollections(value: TestCollections, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestCollections(value: [TestCollections], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestCollections(value: [String : TestCollections], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getTestCollections(key: String) -> TestCollections? {

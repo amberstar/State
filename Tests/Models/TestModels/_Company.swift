@@ -68,6 +68,57 @@ extension Company {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getCompany(key: String) -> Company? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return Company.decode(dictionary)
+   }
+
+   public func getCompany(key: String) -> [Company]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(Company.decode))
+   }
+
+   public func getCompany(key: String) -> [String : Company]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { Company.decode($0) })
+   }
+
+   public func getCompany(key: String, defaultValue: Company) -> Company {
+      return getCompany(key) ?? defaultValue
+   }
+
+   public func getCompany(key: String, defaultValue: [Company]) -> [Company] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getCompany(key: String,  defaultValue: [String : Company]
+   ) -> [String : Company] {
+      return getCompany(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setCompany(value: Company, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setCompany(value: [Company], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setCompany(value: [String : Company], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getCompany(key: String) -> Company? {

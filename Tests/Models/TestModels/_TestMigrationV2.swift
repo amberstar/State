@@ -60,6 +60,57 @@ extension TestMigrationV2 {
     }
 }
 
+extension NSUserDefaults {
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Getters
+   //****************************************************************************//
+
+   public func getTestMigrationV2(key: String) -> TestMigrationV2? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return TestMigrationV2.decode(dictionary)
+   }
+
+   public func getTestMigrationV2(key: String) -> [TestMigrationV2]? {
+      guard let array = arrayForKey(key) else { return nil }
+      return sequence(array.map(TestMigrationV2.decode))
+   }
+
+   public func getTestMigrationV2(key: String) -> [String : TestMigrationV2]? {
+      guard let dictionary = dictionaryForKey(key) else { return nil }
+      return sequence(dictionary.map { TestMigrationV2.decode($0) })
+   }
+
+   public func getTestMigrationV2(key: String, defaultValue: TestMigrationV2) -> TestMigrationV2 {
+      return getTestMigrationV2(key) ?? defaultValue
+   }
+
+   public func getTestMigrationV2(key: String, defaultValue: [TestMigrationV2]) -> [TestMigrationV2] {
+      return getDecodable(key) ?? defaultValue
+   }
+
+   public func getTestMigrationV2(key: String,  defaultValue: [String : TestMigrationV2]
+   ) -> [String : TestMigrationV2] {
+      return getTestMigrationV2(key) ?? defaultValue
+   }
+
+   //****************************************************************************//
+   // MARK: NSUserDefault Setters
+   //****************************************************************************//
+
+   public func setTestMigrationV2(value: TestMigrationV2, forKey key: String) {
+      setObject(value.encode(), forKey: key)
+   }
+
+   public func setTestMigrationV2(value: [TestMigrationV2], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+
+   public func setTestMigrationV2(value: [String : TestMigrationV2], forKey key: String) {
+      setObject(value.map { $0.encode() }, forKey: key)
+   }
+}
+
 extension KVStore {
 
    public func getTestMigrationV2(key: String) -> TestMigrationV2? {
