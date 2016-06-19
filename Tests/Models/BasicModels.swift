@@ -23,7 +23,7 @@ struct BasicTypes<T> {
 
 extension BasicTypes : Decodable {
    
-   static func decode(decoder: Decoder) -> BasicTypes? {
+   static func decode(_ decoder: Decoder) -> BasicTypes? {
       return self.init(decoder: decoder)
    }
     
@@ -53,7 +53,7 @@ extension BasicTypes : Decodable {
 
 extension BasicTypes : Encodable {
     
-    func encode(encoder: Encoder){
+    func encode(_ encoder: Encoder){
         encoder.encode(t, "t")
         encoder.encode(tOpt, "t_opt")
         encoder.encode(tImp, "t_imp")
@@ -89,7 +89,7 @@ struct StringTypes {
 
 extension StringTypes : Decodable {
    
-   static func decode(decoder: Decoder) -> StringTypes? {
+   static func decode(_ decoder: Decoder) -> StringTypes? {
       return self.init(decoder: decoder)
    }
     
@@ -119,7 +119,7 @@ extension StringTypes : Decodable {
 
 extension StringTypes : Encodable {
     
-    func encode(encoder: Encoder){
+    func encode(_ encoder: Encoder){
         encoder.encode(t, "t")
         encoder.encode(tOpt, "t_opt")
         encoder.encode(tImp, "t_imp")
@@ -155,7 +155,7 @@ struct AnyObjectTypes {
 
 extension AnyObjectTypes : Decodable {
    
-   static func decode(decoder: Decoder) -> AnyObjectTypes? {
+   static func decode(_ decoder: Decoder) -> AnyObjectTypes? {
       return self.init(decoder: decoder)
    }
    
@@ -185,7 +185,7 @@ extension AnyObjectTypes : Decodable {
 
 extension AnyObjectTypes : Encodable {
    
-    func encode(encoder: Encoder){
+    func encode(_ encoder: Encoder){
         encoder.encode(t, "t")
         encoder.encode(tOpt, "t_opt")
         encoder.encode(tImp, "t_imp")

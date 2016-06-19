@@ -8,14 +8,14 @@ import State
 
 public enum Gender  : String, Model {
 
-    case Female  = "Female"
-    case Male  = "Male"
+    case female  = "female"
+    case male  = "male"
 
 }
 
 extension Gender: Decodable {
 
-   public static func decode(decoder: Decoder) -> Gender? {
+   public static func decode(_ decoder: Decoder) -> Gender? {
       return self.init(decoder: decoder)
    }
 
@@ -29,7 +29,7 @@ extension Gender: Decodable {
 
 extension Gender: Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(self.rawValue, "value")
         Gender.encodeVersionIfNeeded(encoder)
         self.willFinishEncodingWithEncoder(encoder)
@@ -50,81 +50,79 @@ extension Gender {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getGender(key: String) -> Gender? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getGender(forKey key: String) -> Gender? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return Gender.decode(dictionary)
    }
 
-   public func getGender(key: String) -> [Gender]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getGender(forKey key: String) -> [Gender]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(Gender.decode))
    }
 
-   public func getGender(key: String) -> [String : Gender]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getGender(forKey key: String) -> [String : Gender]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { Gender.decode($0) })
    }
 
-   public func getGender(key: String, defaultValue: Gender) -> Gender {
-      return getGender(key) ?? defaultValue
+   public func getGender(forKey key: String, defaultValue: Gender) -> Gender {
+      return getGender(forKey: key) ?? defaultValue
    }
 
-   public func getGender(key: String, defaultValue: [Gender]) -> [Gender] {
+   public func getGender(forKey key: String, defaultValue: [Gender]) -> [Gender] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getGender(key: String,  defaultValue: [String : Gender]
+   public func getGender(forKey key: String,  defaultValue: [String : Gender]
    ) -> [String : Gender] {
-      return getGender(key) ?? defaultValue
+      return getGender(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setGender(value: Gender, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setGender(value: [Gender], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setGender(value: [String : Gender], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getGender(key: String) -> Gender? {
-      return getValue(key)
+   public func getGender(forKey key: String) -> Gender? {
+      return getValue(forKey: key)
    }
 
-   public func getGender(key: String, defaultValue: Gender) -> Gender {
-      return getGender(key) ?? defaultValue
+   public func getGender(forKey key: String, defaultValue: Gender) -> Gender {
+      return getGender(forKey: key) ?? defaultValue
    }
 
-   public func getGenders(key: String) -> [Gender]? {
-      return getValue(key)
+   public func getGenders(forKey key: String) -> [Gender]? {
+      return getValue(forKey: key)
    }
 
-   public func getGenders(key: String, defaultValue: [Gender]) -> [Gender] {
-      return getGenders(key) ?? defaultValue
+   public func getGenders(forKey key: String, defaultValue: [Gender]) -> [Gender] {
+      return getGenders(forKey: key) ?? defaultValue
    }
 
-   public func getGenderDictionary(key: String) -> [String : Gender]? {
-      return getValue(key)
+   public func getGenderDictionary(forKey key: String) -> [String : Gender]? {
+      return getValue(forKey: key)
    }
 
-   public func getGenderDictionary(key: String, defaultValue: [String : Gender]) -> [String : Gender] {
-      return getGenderDictionary(key) ?? defaultValue
+   public func getGenderDictionary(forKey key: String, defaultValue: [String : Gender]) -> [String : Gender] {
+      return getGenderDictionary(forKey: key) ?? defaultValue
    }
 }
 

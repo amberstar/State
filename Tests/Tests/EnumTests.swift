@@ -5,54 +5,54 @@ import UIKit
 class EnumTests: Test {
 
     func testRawEnum() {
-        let test_out = TestRawEnum.Ready
-        test_out.save(.Plist, path: tempPathFor("test_raw_enum.plist"))
-        let sut = TestRawEnum(.Plist, path: tempPathFor("test_raw_enum.plist"))
+        let test_out = TestRawEnum.ready
+        test_out.save(.plist, path: tempPathFor("test_raw_enum.plist"))
+        let sut = TestRawEnum(.plist, path: tempPathFor("test_raw_enum.plist"))
         XCTAssert(sut != nil)
-        XCTAssert(sut == TestRawEnum.Ready)
+        XCTAssert(sut == TestRawEnum.ready)
     }
     
     func testRegEnum() {
-        let test_out = TestRegEnum.Cold
-        test_out.save(.Plist, path: tempPathFor("test_reg_enum.plist"))
-        let sut = TestRegEnum(.Plist, path: tempPathFor("test_reg_enum.plist"))
+        let test_out = TestRegEnum.cold
+        test_out.save(.plist, path: tempPathFor("test_reg_enum.plist"))
+        let sut = TestRegEnum(.plist, path: tempPathFor("test_reg_enum.plist"))
         XCTAssert(sut != nil)
-        XCTAssert(sut == TestRegEnum.Cold)
+        XCTAssert(sut == TestRegEnum.cold)
     }
 
     func testAssociatedEnum() {
         
-         func createBinary() -> NSData? {
-            if let path = NSBundle(forClass: Test.self).pathForResource("Data", ofType: "plist") {
-                return  NSData(contentsOfFile:path)
+         func createBinary() -> Data? {
+            if let path = Bundle(for: Test.self).pathForResource("Data", ofType: "plist") {
+                return  (try? Data(contentsOf: URL(fileURLWithPath: path)))
             }
             return nil
         }
         
-        func performTestFor(testEnum: TestAssociatedEnum, message: String) {
-            testEnum.save(.Binary, path: tempPathFor("test_associated_enum.plist"))
-            let sut = TestAssociatedEnum(.Binary, path: tempPathFor("test_associated_enum.plist"))
+        func performTestFor(_ testEnum: TestAssociatedEnum, message: String) {
+            testEnum.save(.binary, path: tempPathFor("test_associated_enum.plist"))
+            let sut = TestAssociatedEnum(.binary, path: tempPathFor("test_associated_enum.plist"))
             XCTAssert(sut != nil)
             if let sut = sut {
                 switch sut {
-                case let .StringType(s):
+                case let .stringType(s):
                     XCTAssert(s == "Hello World", message)
-                case let .IntType(i):
+                case let .intType(i):
                     XCTAssert(i == 10, message)
-                case let .FloatType(f):
+                case let .floatType(f):
                     XCTAssert(f == 0.1235, message)
-                case let .DoubleType(d):
+                case let .doubleType(d):
                     XCTAssert(d == -12.34, message)
-                case let .BooleanType(b):
+                case let .booleanType(b):
                     XCTAssert(b == true, message)
-                case let .BinaryType(b):
+                case let .binaryType(b):
                     XCTAssertNotNil(b, message)
-                case let .DecimalType(d):
-                    XCTAssert(d == NSDecimalNumber(double:0.8976), message)
-                case let .DateType(d):
-                    XCTAssert(d == NSDate(timeIntervalSince1970: 10000), message)
-                case let .TransformableColorType(t):
-                    XCTAssert(t == UIColor.blueColor(), message)
+                case let .decimalType(d):
+                    XCTAssert(d == NSDecimalNumber(value:0.8976), message)
+                case let .dateType(d):
+                    XCTAssert(d == Date(timeIntervalSince1970: 10000), message)
+                case let .transformableColorType(t):
+                    XCTAssert(t == UIColor.blue(), message)
                 default:
                     XCTFail()
                 }
@@ -60,29 +60,29 @@ class EnumTests: Test {
 
         }
         
-        performTestFor(TestAssociatedEnum.StringType("Hello World"), message: "StringType should be Hello World")
-        performTestFor(TestAssociatedEnum.IntType(10), message: "IntType should be 10")
-        performTestFor(TestAssociatedEnum.FloatType(0.1235), message: "FloatType should be .1235")
-        performTestFor(TestAssociatedEnum.DoubleType(-12.34), message: "DoubleType should be -12.34")
-        performTestFor(TestAssociatedEnum.BooleanType(true), message: "BooleanType should be true")
-        performTestFor(TestAssociatedEnum.BinaryType(createBinary()!), message: "Binary should not be nil")
-        performTestFor(TestAssociatedEnum.DecimalType(NSDecimalNumber(double: 0.8976)), message: "DecimalType should equal 0.8976")
-        performTestFor(TestAssociatedEnum.DateType(NSDate(timeIntervalSince1970: 10000)), message: "DateType should equal 10000 since 1970")
-        performTestFor(TestAssociatedEnum.TransformableColorType(UIColor.blueColor()), message: "Color should be blue")
+        performTestFor(TestAssociatedEnum.stringType("Hello World"), message: "StringType should be Hello World")
+        performTestFor(TestAssociatedEnum.intType(10), message: "IntType should be 10")
+        performTestFor(TestAssociatedEnum.floatType(0.1235), message: "FloatType should be .1235")
+        performTestFor(TestAssociatedEnum.doubleType(-12.34), message: "DoubleType should be -12.34")
+        performTestFor(TestAssociatedEnum.booleanType(true), message: "BooleanType should be true")
+        performTestFor(TestAssociatedEnum.binaryType(createBinary()!), message: "Binary should not be nil")
+        performTestFor(TestAssociatedEnum.decimalType(NSDecimalNumber(value: 0.8976)), message: "DecimalType should equal 0.8976")
+        performTestFor(TestAssociatedEnum.dateType(Date(timeIntervalSince1970: 10000)), message: "DateType should equal 10000 since 1970")
+        performTestFor(TestAssociatedEnum.transformableColorType(UIColor.blue()), message: "Color should be blue")
     }
     
     
     func testAssociatedDecodeableToManyEnum() {
         let employee = Employee(name: "Joe", title: "Manager")
         let employees = [employee, employee, employee]
-        let test_out = TestAssociatedEnum.DecodableToManyType(employees)
-        test_out.save(.Plist, path: tempPathFor("test_associated_tomany_enum.plist"))
+        let test_out = TestAssociatedEnum.decodableToManyType(employees)
+        test_out.save(.plist, path: tempPathFor("test_associated_tomany_enum.plist"))
         print(tempPathFor("test_associated_tomany_enum.plist"))
-        let sut = TestAssociatedEnum(.Plist, path: tempPathFor("test_associated_tomany_enum.plist"))
+        let sut = TestAssociatedEnum(.plist, path: tempPathFor("test_associated_tomany_enum.plist"))
         XCTAssert(sut != nil)
         
         switch sut! {
-        case let .DecodableToManyType(e):
+        case let .decodableToManyType(e):
             XCTAssert(e.count == 3)
             XCTAssert(e[1].name == "Joe")
         default:
@@ -92,13 +92,13 @@ class EnumTests: Test {
     
     func testAssociatedDecodeableToOneEnum() {
         let employee = Employee(name: "Joe", title: "Manager")
-        let test_out = TestAssociatedEnum.DecodableToOneType(employee)
-        test_out.save(.Plist, path: tempPathFor("test_associated_toone_enum.plist"))
-        let sut = TestAssociatedEnum(.Plist, path: tempPathFor("test_associated_toone_enum.plist"))
+        let test_out = TestAssociatedEnum.decodableToOneType(employee)
+        test_out.save(.plist, path: tempPathFor("test_associated_toone_enum.plist"))
+        let sut = TestAssociatedEnum(.plist, path: tempPathFor("test_associated_toone_enum.plist"))
         XCTAssert(sut != nil)
         
         switch sut! {
-        case let .DecodableToOneType(e):
+        case let .decodableToOneType(e):
             XCTAssert(e.name == "Joe")
         default:
             XCTFail()
@@ -107,64 +107,64 @@ class EnumTests: Test {
     
     func testAssociatedOptionalEnum() {
         
-        func createBinary() -> NSData? {
-            if let path = NSBundle(forClass: Test.self).pathForResource("Data", ofType: "plist") {
-                return  NSData(contentsOfFile:path)
+        func createBinary() -> Data? {
+            if let path = Bundle(for: Test.self).pathForResource("Data", ofType: "plist") {
+                return  (try? Data(contentsOf: URL(fileURLWithPath: path)))
             }
             return nil
         }
         
-        func performTestFor(testEnum: TestAssociatedOptionalEnum, message: String) {
-            testEnum.save(.Binary, path: tempPathFor("test_associated_optional_enum.plist"))
-            let sut = TestAssociatedOptionalEnum(.Binary, path: tempPathFor("test_associated_optional_enum.plist"))
+        func performTestFor(_ testEnum: TestAssociatedOptionalEnum, message: String) {
+            testEnum.save(.binary, path: tempPathFor("test_associated_optional_enum.plist"))
+            let sut = TestAssociatedOptionalEnum(.binary, path: tempPathFor("test_associated_optional_enum.plist"))
             XCTAssert(sut != nil, "system under test is nil")
             if let sut = sut {
                 switch sut {
-                case let .StringType(s):
+                case let .stringType(s):
                     XCTAssert(s == "Hello World", message)
-                case let .IntType(i):
+                case let .intType(i):
                     XCTAssert(i == 10, message)
-                case let .FloatType(f):
+                case let .floatType(f):
                     XCTAssert(f == 0.1235, message)
-                case let .DoubleType(d):
+                case let .doubleType(d):
                     XCTAssert(d == -12.34, message)
-                case let .BooleanType(b):
+                case let .booleanType(b):
                     XCTAssert(b == true, message)
-                case let .BinaryType(b):
+                case let .binaryType(b):
                     XCTAssertNotNil(b, message)
-                case let .DecimalType(d):
-                    XCTAssert(d == NSDecimalNumber(double:0.8976), message)
-                case let .DateType(d):
-                    XCTAssert(d == NSDate(timeIntervalSince1970: 10000), message)
-                case let .TransformableColorType(t):
-                    XCTAssert(t == UIColor.blueColor(), message)
+                case let .decimalType(d):
+                    XCTAssert(d == NSDecimalNumber(value:0.8976), message)
+                case let .dateType(d):
+                    XCTAssert(d == Date(timeIntervalSince1970: 10000), message)
+                case let .transformableColorType(t):
+                    XCTAssert(t == UIColor.blue(), message)
                 default:
                     XCTFail("no case found")
                 }
             }
         }
         
-        performTestFor(TestAssociatedOptionalEnum.StringType("Hello World"), message: "StringType should be Hello World")
-        performTestFor(TestAssociatedOptionalEnum.IntType(10), message: "IntType should be 10")
-        performTestFor(TestAssociatedOptionalEnum.FloatType(0.1235), message: "FloatType should be .1235")
-        performTestFor(TestAssociatedOptionalEnum.DoubleType(-12.34), message: "DoubleType should be -12.34")
-        performTestFor(TestAssociatedOptionalEnum.BooleanType(true), message: "BooleanType should be true")
-        performTestFor(TestAssociatedOptionalEnum.BinaryType(createBinary()!), message: "Binary should not be nil")
-        performTestFor(TestAssociatedOptionalEnum.DecimalType(NSDecimalNumber(double: 0.8976)), message: "DecimalType should equal 0.8976")
-        performTestFor(TestAssociatedOptionalEnum.DateType(NSDate(timeIntervalSince1970: 10000)), message: "DateType should equal 10000 since 1970")
-        performTestFor(TestAssociatedOptionalEnum.TransformableColorType(UIColor.blueColor()), message: "Color should be blue")
+        performTestFor(TestAssociatedOptionalEnum.stringType("Hello World"), message: "StringType should be Hello World")
+        performTestFor(TestAssociatedOptionalEnum.intType(10), message: "IntType should be 10")
+        performTestFor(TestAssociatedOptionalEnum.floatType(0.1235), message: "FloatType should be .1235")
+        performTestFor(TestAssociatedOptionalEnum.doubleType(-12.34), message: "DoubleType should be -12.34")
+        performTestFor(TestAssociatedOptionalEnum.booleanType(true), message: "BooleanType should be true")
+        performTestFor(TestAssociatedOptionalEnum.binaryType(createBinary()!), message: "Binary should not be nil")
+        performTestFor(TestAssociatedOptionalEnum.decimalType(NSDecimalNumber(value: 0.8976)), message: "DecimalType should equal 0.8976")
+        performTestFor(TestAssociatedOptionalEnum.dateType(Date(timeIntervalSince1970: 10000)), message: "DateType should equal 10000 since 1970")
+        performTestFor(TestAssociatedOptionalEnum.transformableColorType(UIColor.blue()), message: "Color should be blue")
     }
 
     func testAssociatedDecodeableOptionalToManyEnum() {
         let employee = Employee(name: "Joe", title: "Manager")
         let employees = [employee, employee, employee]
-        let test_out = TestAssociatedOptionalEnum.DecodableToManyType(employees)
-        test_out.save(.Plist, path: tempPathFor("test_associated_optional_tomany_enum.plist"))
-        let sut = TestAssociatedOptionalEnum(.Plist, path: tempPathFor("test_associated_optional_tomany_enum.plist"))
+        let test_out = TestAssociatedOptionalEnum.decodableToManyType(employees)
+        test_out.save(.plist, path: tempPathFor("test_associated_optional_tomany_enum.plist"))
+        let sut = TestAssociatedOptionalEnum(.plist, path: tempPathFor("test_associated_optional_tomany_enum.plist"))
         XCTAssert(sut != nil)
         
         switch sut! {
-        case let .DecodableToManyType(e):
+        case let .decodableToManyType(e):
             XCTAssert(e?.count == 3)
             XCTAssert(e?[1].name == "Joe")
         default:
@@ -174,13 +174,13 @@ class EnumTests: Test {
     
     func testAssociatedDecodeableOptionalToOneEnum() {
         let employee = Employee(name: "Joe", title: "Manager")
-        let test_out = TestAssociatedOptionalEnum.DecodableToOneType(employee)
-        test_out.save(.Plist, path: tempPathFor("test_associated_optional_toone_enum.plist"))
-        let sut = TestAssociatedOptionalEnum(.Plist, path: tempPathFor("test_associated_optional_toone_enum.plist"))
+        let test_out = TestAssociatedOptionalEnum.decodableToOneType(employee)
+        test_out.save(.plist, path: tempPathFor("test_associated_optional_toone_enum.plist"))
+        let sut = TestAssociatedOptionalEnum(.plist, path: tempPathFor("test_associated_optional_toone_enum.plist"))
         XCTAssert(sut != nil)
         
         switch sut! {
-        case let .DecodableToOneType(e):
+        case let .decodableToOneType(e):
             XCTAssert(e?.name == "Joe")
         default:
             XCTFail()

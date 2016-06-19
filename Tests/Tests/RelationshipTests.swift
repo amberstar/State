@@ -9,21 +9,21 @@ class RelationshipTests: Test {
             var grandChildren = [Grandchild]()
             
             for index in 0...4 {
-                let grandChild = Grandchild(age: index, name: "GrandChild\(index)", gender: Gender.Female)
+                let grandChild = Grandchild(age: index, name: "GrandChild\(index)", gender: Gender.female)
                 grandChildren.append(grandChild)
             }
-            let child = TestChild(age: index, name: "Child\(index)",   myChildren: grandChildren, gender: Gender.Male)
+            let child = TestChild(age: index, name: "Child\(index)",   myChildren: grandChildren, gender: Gender.male)
             children.append(child)
         }
         return children
     }
     
-    func makeGrandChildren(children: [TestChild]) -> [Grandchild] {
+    func makeGrandChildren(_ children: [TestChild]) -> [Grandchild] {
         var grandChildren = [Grandchild]()
         
         for child in children {
             if let grandkids = child.myChildren {
-                grandChildren.appendContentsOf(grandkids)
+                grandChildren.append(contentsOf: grandkids)
             }
         }
         return grandChildren
@@ -32,10 +32,10 @@ class RelationshipTests: Test {
     func testCodingModelWithOneToMany() {
         let children = makeChildren()
         let grandChildren = makeGrandChildren(children)
-        let sampleData = TestRelationships(myChildren: children, myGrandChildren: grandChildren, myOneChild: TestChild(age: 22, name: "Mark", myChildren: nil, gender: Gender.Male ))
-        sampleData.save(.JSON, path: tempPathFor("relationship.json"))
+        let sampleData = TestRelationships(myChildren: children, myGrandChildren: grandChildren, myOneChild: TestChild(age: 22, name: "Mark", myChildren: nil, gender: Gender.male ))
+        sampleData.save(.json, path: tempPathFor("relationship.json"))
 
-        let testData = TestRelationships(.JSON, path:tempPathFor("relationship.json"))
+        let testData = TestRelationships(.json, path:tempPathFor("relationship.json"))
         
         XCTAssert(testData != nil)
         XCTAssert(testData?.myChildren?.count == sampleData.myChildren?.count)
@@ -53,9 +53,9 @@ class RelationshipTests: Test {
         let employee2 = Employee(name: "John", title: nil)
         testComposition.employees["Jane"] = employee1
         testComposition.employees["John"] = employee2
-        testComposition.save(.Plist, path: tempPathFor("test_composition.plist"))
+        testComposition.save(.plist, path: tempPathFor("test_composition.plist"))
         
-        let inTestComposition = TestDictionaryComposition(.Plist, path: tempPathFor("test_composition.plist"))
+        let inTestComposition = TestDictionaryComposition(.plist, path: tempPathFor("test_composition.plist"))
         
         XCTAssert(inTestComposition != nil)
         XCTAssert(inTestComposition?.employees["Jane"]?.title == "Manager")

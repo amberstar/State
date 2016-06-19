@@ -16,7 +16,7 @@ public struct TestChild : Model {
 
 extension TestChild : Decodable {
 
-   public static func decode(decoder: Decoder) -> TestChild? {
+   public static func decode(_ decoder: Decoder) -> TestChild? {
       return self.init(decoder: decoder)
    }
 
@@ -39,7 +39,7 @@ extension TestChild : Decodable {
 
 extension TestChild : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(age, "age")
         encoder.encode(name, "name")
         encoder.encode(myChildren, "myChildren")
@@ -65,81 +65,79 @@ extension TestChild {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestChild(key: String) -> TestChild? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestChild(forKey key: String) -> TestChild? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return TestChild.decode(dictionary)
    }
 
-   public func getTestChild(key: String) -> [TestChild]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getTestChild(forKey key: String) -> [TestChild]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(TestChild.decode))
    }
 
-   public func getTestChild(key: String) -> [String : TestChild]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestChild(forKey key: String) -> [String : TestChild]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { TestChild.decode($0) })
    }
 
-   public func getTestChild(key: String, defaultValue: TestChild) -> TestChild {
-      return getTestChild(key) ?? defaultValue
+   public func getTestChild(forKey key: String, defaultValue: TestChild) -> TestChild {
+      return getTestChild(forKey: key) ?? defaultValue
    }
 
-   public func getTestChild(key: String, defaultValue: [TestChild]) -> [TestChild] {
+   public func getTestChild(forKey key: String, defaultValue: [TestChild]) -> [TestChild] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestChild(key: String,  defaultValue: [String : TestChild]
+   public func getTestChild(forKey key: String,  defaultValue: [String : TestChild]
    ) -> [String : TestChild] {
-      return getTestChild(key) ?? defaultValue
+      return getTestChild(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setTestChild(value: TestChild, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setTestChild(value: [TestChild], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setTestChild(value: [String : TestChild], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getTestChild(key: String) -> TestChild? {
-      return getValue(key)
+   public func getTestChild(forKey key: String) -> TestChild? {
+      return getValue(forKey: key)
    }
 
-   public func getTestChild(key: String, defaultValue: TestChild) -> TestChild {
-      return getTestChild(key) ?? defaultValue
+   public func getTestChild(forKey key: String, defaultValue: TestChild) -> TestChild {
+      return getTestChild(forKey: key) ?? defaultValue
    }
 
-   public func getTestChilds(key: String) -> [TestChild]? {
-      return getValue(key)
+   public func getTestChilds(forKey key: String) -> [TestChild]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestChilds(key: String, defaultValue: [TestChild]) -> [TestChild] {
-      return getTestChilds(key) ?? defaultValue
+   public func getTestChilds(forKey key: String, defaultValue: [TestChild]) -> [TestChild] {
+      return getTestChilds(forKey: key) ?? defaultValue
    }
 
-   public func getTestChildDictionary(key: String) -> [String : TestChild]? {
-      return getValue(key)
+   public func getTestChildDictionary(forKey key: String) -> [String : TestChild]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestChildDictionary(key: String, defaultValue: [String : TestChild]) -> [String : TestChild] {
-      return getTestChildDictionary(key) ?? defaultValue
+   public func getTestChildDictionary(forKey key: String, defaultValue: [String : TestChild]) -> [String : TestChild] {
+      return getTestChildDictionary(forKey: key) ?? defaultValue
    }
 }
 

@@ -508,14 +508,20 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Amber Star";
 				TargetAttributes = {
 					04012A741AE12FA6006DAC19 = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = FG43PMZ33H;
+						DevelopmentTeamName = "Amber Star (Personal Team)";
+						LastSwiftMigration = 0800;
 					};
 					04012A7F1AE12FA6006DAC19 = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = FG43PMZ33H;
+						DevelopmentTeamName = "Amber Star (Personal Team)";
+						LastSwiftMigration = 0800;
 					};
 					04012AE31AE13A90006DAC19 = {
 						CreatedOnToolsVersion = 6.3;
@@ -784,6 +790,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.amberstar.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -801,6 +808,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.amberstar.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -818,6 +827,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.amberstar.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(PROJECT_NAME)Tests";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -830,6 +840,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.amberstar.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(PROJECT_NAME)Tests";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

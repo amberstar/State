@@ -23,7 +23,7 @@ public struct TestDefaults : Model {
 
 extension TestDefaults : Decodable {
 
-   public static func decode(decoder: Decoder) -> TestDefaults? {
+   public static func decode(_ decoder: Decoder) -> TestDefaults? {
       return self.init(decoder: decoder)
    }
 
@@ -65,7 +65,7 @@ extension TestDefaults : Decodable {
 
 extension TestDefaults : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(defaultManualString, "defaultManualString")
         encoder.encode(defaultArray, "defaultArray")
         encoder.encode(defaultString, "defaultString")
@@ -98,81 +98,79 @@ extension TestDefaults {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestDefaults(key: String) -> TestDefaults? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestDefaults(forKey key: String) -> TestDefaults? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return TestDefaults.decode(dictionary)
    }
 
-   public func getTestDefaults(key: String) -> [TestDefaults]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getTestDefaults(forKey key: String) -> [TestDefaults]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(TestDefaults.decode))
    }
 
-   public func getTestDefaults(key: String) -> [String : TestDefaults]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestDefaults(forKey key: String) -> [String : TestDefaults]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { TestDefaults.decode($0) })
    }
 
-   public func getTestDefaults(key: String, defaultValue: TestDefaults) -> TestDefaults {
-      return getTestDefaults(key) ?? defaultValue
+   public func getTestDefaults(forKey key: String, defaultValue: TestDefaults) -> TestDefaults {
+      return getTestDefaults(forKey: key) ?? defaultValue
    }
 
-   public func getTestDefaults(key: String, defaultValue: [TestDefaults]) -> [TestDefaults] {
+   public func getTestDefaults(forKey key: String, defaultValue: [TestDefaults]) -> [TestDefaults] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestDefaults(key: String,  defaultValue: [String : TestDefaults]
+   public func getTestDefaults(forKey key: String,  defaultValue: [String : TestDefaults]
    ) -> [String : TestDefaults] {
-      return getTestDefaults(key) ?? defaultValue
+      return getTestDefaults(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setTestDefaults(value: TestDefaults, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setTestDefaults(value: [TestDefaults], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setTestDefaults(value: [String : TestDefaults], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getTestDefaults(key: String) -> TestDefaults? {
-      return getValue(key)
+   public func getTestDefaults(forKey key: String) -> TestDefaults? {
+      return getValue(forKey: key)
    }
 
-   public func getTestDefaults(key: String, defaultValue: TestDefaults) -> TestDefaults {
-      return getTestDefaults(key) ?? defaultValue
+   public func getTestDefaults(forKey key: String, defaultValue: TestDefaults) -> TestDefaults {
+      return getTestDefaults(forKey: key) ?? defaultValue
    }
 
-   public func getTestDefaultss(key: String) -> [TestDefaults]? {
-      return getValue(key)
+   public func getTestDefaultss(forKey key: String) -> [TestDefaults]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestDefaultss(key: String, defaultValue: [TestDefaults]) -> [TestDefaults] {
-      return getTestDefaultss(key) ?? defaultValue
+   public func getTestDefaultss(forKey key: String, defaultValue: [TestDefaults]) -> [TestDefaults] {
+      return getTestDefaultss(forKey: key) ?? defaultValue
    }
 
-   public func getTestDefaultsDictionary(key: String) -> [String : TestDefaults]? {
-      return getValue(key)
+   public func getTestDefaultsDictionary(forKey key: String) -> [String : TestDefaults]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestDefaultsDictionary(key: String, defaultValue: [String : TestDefaults]) -> [String : TestDefaults] {
-      return getTestDefaultsDictionary(key) ?? defaultValue
+   public func getTestDefaultsDictionary(forKey key: String, defaultValue: [String : TestDefaults]) -> [String : TestDefaults] {
+      return getTestDefaultsDictionary(forKey: key) ?? defaultValue
    }
 }
 

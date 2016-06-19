@@ -1,36 +1,36 @@
 import Foundation
 
-extension NSURL : Encodable, Decodable {
-   
-   public static func decode(decoder: Decoder) -> Self? {
-      if let value : String  = decoder.decode("URL") {
-          return self.init(string: value)
-      }
-      else {
-         return nil
-      }
-   }
-   
-   public func encode(encoder: Encoder) {
-      encoder.encode(self.absoluteString, "URL")
-   }
+extension URL : Encodable, Decodable {
+    
+    public static func decode(_ decoder: Decoder) -> URL? {
+        if let value : String  = decoder.decode("URL") {
+            return self.init(string: value)
+        }
+        else {
+            return nil
+        }
+    }
+    
+    public func encode(_ encoder: Encoder) {
+        encoder.encode(self.absoluteString, "URL")
+    }
 }
 
 extension KVStore {
-   
-   public func getURL(key: String) -> NSURL? {
-      return getValue(key)
-   }
-   
-   public func getURL(key: String, defaultValue: NSURL) -> NSURL {
-      return getValue(key) ?? defaultValue
-   }
-   
-   public func getURLS(key: String) -> [NSURL]? {
-      return getValue(key)
-   }
-   
-   public func getURLS(key: String, defaultValue: [NSURL]) -> [NSURL] {
-      return getValue(key) ?? defaultValue
-   }
+    
+    public func getURL(forKey key: String) -> URL? {
+        return getValue(forKey: key)
+    }
+    
+    public func getURL(forKey key: String, defaultValue: URL) -> URL {
+        return getValue(forKey: key) ?? defaultValue
+    }
+    
+    public func getURLS(forKey key: String) -> [URL]? {
+        return getValue(forKey: key)
+    }
+    
+    public func getURLS(forKey key: String, defaultValue: [URL]) -> [URL] {
+        return getValue(forKey: key) ?? defaultValue
+    }
 }

@@ -4,14 +4,14 @@ let blank_version_hash = ""
 // All implemented as func because: http://openradar.appspot.com/21550415
 /// Provides migration and version managment for models
 public protocol Migratable {
-    static func version(modelVersionHash: String, modelVersionHashModifier: String?) -> AnyObject?
-    static func needsMigration(dataVersion: AnyObject) -> Bool
+    static func version(_ modelVersionHash: String, modelVersionHashModifier: String?) -> AnyObject?
+    static func needsMigration(_ dataVersion: AnyObject) -> Bool
     static func shouldEncodeVersion() -> Bool
     static func shouldMigrateIfNeeded() ->  Bool
     static func versionKey() -> String
     static func modelVersionHash() ->  String 
     static func modelVersionHashModifier() -> String?
-    static func migrateDataForDecoding(data: [String : AnyObject], dataVersion: AnyObject) -> [String : AnyObject]
+    static func migrateDataForDecoding(_ data: [String : AnyObject], dataVersion: AnyObject) -> [String : AnyObject]
 }
 
 /// Default Migration Implementations. 
@@ -47,7 +47,7 @@ public extension Migratable {
     /// The modelVersionHash and modelVersionHashModifier are provided from the model designer to help denote
     /// a unique version. What type, and how to make that denotation is unspecified, and ultimatly up to the impementation
     /// of this method.
-    static func version(modelVersionHash: String, modelVersionHashModifier: String?) -> AnyObject? {
+    static func version(_ modelVersionHash: String, modelVersionHashModifier: String?) -> AnyObject? {
         return modelVersionHash
     }
 
@@ -60,7 +60,7 @@ public extension Migratable {
     
     /// given the dataVersion parameter, this method should determine if the data being decoded is a different version
     /// than the current version, and needs to be migrated.
-    static func needsMigration(dataVersion: AnyObject) -> Bool {
+    static func needsMigration(_ dataVersion: AnyObject) -> Bool {
         if let dataVersion = dataVersion as? String,
             currentVersion = version( modelVersionHash(), modelVersionHashModifier: modelVersionHashModifier()) as? String {
                 return dataVersion != currentVersion
@@ -81,7 +81,7 @@ public extension Migratable {
     /// This method should perform the migration needed to prepare the data for decoding.
     /// Here you can add keys and values, remove keys and values, rename properties, etc.
     /// migrated data returned will then be used for decoding the model.
-    static func migrateDataForDecoding(data: [String : AnyObject], dataVersion: AnyObject) -> [String : AnyObject] {
+    static func migrateDataForDecoding(_ data: [String : AnyObject], dataVersion: AnyObject) -> [String : AnyObject] {
         return data
     }
 
@@ -98,7 +98,7 @@ public extension Migratable {
 }
 
 public extension Migratable where Self: Decodable {
-    static func performMigrationIfNeeded(decoder: Decoder) -> Decoder {
+    static func performMigrationIfNeeded(_ decoder: Decoder) -> Decoder {
         guard Self.shouldMigrateIfNeeded() else { return decoder }
         
         if let dataVersion: AnyObject = decoder.decode(Self.versionKey()) where Self.needsMigration(dataVersion) {
@@ -110,7 +110,7 @@ public extension Migratable where Self: Decodable {
 }
 
 public extension Migratable where Self: Encodable {
-    static func encodeVersionIfNeeded(encoder: Encoder) {
+    static func encodeVersionIfNeeded(_ encoder: Encoder) {
         guard Self.shouldEncodeVersion() else { return  }
         encoder.encode(Self.version(Self.modelVersionHash(), modelVersionHashModifier: Self.modelVersionHashModifier()), Self.versionKey())
     }

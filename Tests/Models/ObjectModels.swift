@@ -22,7 +22,7 @@ struct UserTypes: Model {
 
 extension UserTypes : Decodable {
    
-   static func decode(decoder: Decoder) -> UserTypes? {
+   static func decode(_ decoder: Decoder) -> UserTypes? {
       return self.init(decoder: decoder)
    }
    
@@ -52,7 +52,7 @@ extension UserTypes : Decodable {
 
 extension UserTypes : Encodable {
    
-    func encode(encoder: Encoder){
+    func encode(_ encoder: Encoder){
         encoder.encode(t, "t")
         encoder.encode(tOpt, "t_opt")
         encoder.encode(tImp, "t_imp")
@@ -82,7 +82,7 @@ struct User {
 extension User: Decodable, Encodable{
   
    
-   static func decode(decoder: Decoder) -> User? {
+   static func decode(_ decoder: Decoder) -> User? {
       return self.init(decoder: decoder)
    }
    
@@ -96,7 +96,7 @@ extension User: Decodable, Encodable{
       self.email = email
    }
 
-    func encode(encoder: Encoder) {
+    func encode(_ encoder: Encoder) {
         encoder.encode(id, "id")
         encoder.encode(name, "name")
         encoder.encode(email, "email")

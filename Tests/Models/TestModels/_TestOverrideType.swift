@@ -14,7 +14,7 @@ public struct TestOverrideType : Model {
 
 extension TestOverrideType : Decodable {
 
-   public static func decode(decoder: Decoder) -> TestOverrideType? {
+   public static func decode(_ decoder: Decoder) -> TestOverrideType? {
       return self.init(decoder: decoder)
    }
 
@@ -33,7 +33,7 @@ extension TestOverrideType : Decodable {
 
 extension TestOverrideType : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(myURL, "myURL")
         encoder.encode(myArrayOfString, "myArrayOfString")
 
@@ -57,81 +57,79 @@ extension TestOverrideType {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestOverrideType(key: String) -> TestOverrideType? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestOverrideType(forKey key: String) -> TestOverrideType? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return TestOverrideType.decode(dictionary)
    }
 
-   public func getTestOverrideType(key: String) -> [TestOverrideType]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getTestOverrideType(forKey key: String) -> [TestOverrideType]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(TestOverrideType.decode))
    }
 
-   public func getTestOverrideType(key: String) -> [String : TestOverrideType]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestOverrideType(forKey key: String) -> [String : TestOverrideType]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { TestOverrideType.decode($0) })
    }
 
-   public func getTestOverrideType(key: String, defaultValue: TestOverrideType) -> TestOverrideType {
-      return getTestOverrideType(key) ?? defaultValue
+   public func getTestOverrideType(forKey key: String, defaultValue: TestOverrideType) -> TestOverrideType {
+      return getTestOverrideType(forKey: key) ?? defaultValue
    }
 
-   public func getTestOverrideType(key: String, defaultValue: [TestOverrideType]) -> [TestOverrideType] {
+   public func getTestOverrideType(forKey key: String, defaultValue: [TestOverrideType]) -> [TestOverrideType] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestOverrideType(key: String,  defaultValue: [String : TestOverrideType]
+   public func getTestOverrideType(forKey key: String,  defaultValue: [String : TestOverrideType]
    ) -> [String : TestOverrideType] {
-      return getTestOverrideType(key) ?? defaultValue
+      return getTestOverrideType(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setTestOverrideType(value: TestOverrideType, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setTestOverrideType(value: [TestOverrideType], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setTestOverrideType(value: [String : TestOverrideType], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getTestOverrideType(key: String) -> TestOverrideType? {
-      return getValue(key)
+   public func getTestOverrideType(forKey key: String) -> TestOverrideType? {
+      return getValue(forKey: key)
    }
 
-   public func getTestOverrideType(key: String, defaultValue: TestOverrideType) -> TestOverrideType {
-      return getTestOverrideType(key) ?? defaultValue
+   public func getTestOverrideType(forKey key: String, defaultValue: TestOverrideType) -> TestOverrideType {
+      return getTestOverrideType(forKey: key) ?? defaultValue
    }
 
-   public func getTestOverrideTypes(key: String) -> [TestOverrideType]? {
-      return getValue(key)
+   public func getTestOverrideTypes(forKey key: String) -> [TestOverrideType]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestOverrideTypes(key: String, defaultValue: [TestOverrideType]) -> [TestOverrideType] {
-      return getTestOverrideTypes(key) ?? defaultValue
+   public func getTestOverrideTypes(forKey key: String, defaultValue: [TestOverrideType]) -> [TestOverrideType] {
+      return getTestOverrideTypes(forKey: key) ?? defaultValue
    }
 
-   public func getTestOverrideTypeDictionary(key: String) -> [String : TestOverrideType]? {
-      return getValue(key)
+   public func getTestOverrideTypeDictionary(forKey key: String) -> [String : TestOverrideType]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestOverrideTypeDictionary(key: String, defaultValue: [String : TestOverrideType]) -> [String : TestOverrideType] {
-      return getTestOverrideTypeDictionary(key) ?? defaultValue
+   public func getTestOverrideTypeDictionary(forKey key: String, defaultValue: [String : TestOverrideType]) -> [String : TestOverrideType] {
+      return getTestOverrideTypeDictionary(forKey: key) ?? defaultValue
    }
 }
 

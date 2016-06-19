@@ -15,7 +15,7 @@ public struct TestRelationships : Model {
 
 extension TestRelationships : Decodable {
 
-   public static func decode(decoder: Decoder) -> TestRelationships? {
+   public static func decode(_ decoder: Decoder) -> TestRelationships? {
       return self.init(decoder: decoder)
    }
 
@@ -36,7 +36,7 @@ extension TestRelationships : Decodable {
 
 extension TestRelationships : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(myChildren, "myChildren")
         encoder.encode(myGrandChildren, "myGrandChildren")
         encoder.encode(myOneChild, "myOneChild")
@@ -61,81 +61,79 @@ extension TestRelationships {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestRelationships(key: String) -> TestRelationships? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestRelationships(forKey key: String) -> TestRelationships? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return TestRelationships.decode(dictionary)
    }
 
-   public func getTestRelationships(key: String) -> [TestRelationships]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getTestRelationships(forKey key: String) -> [TestRelationships]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(TestRelationships.decode))
    }
 
-   public func getTestRelationships(key: String) -> [String : TestRelationships]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestRelationships(forKey key: String) -> [String : TestRelationships]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { TestRelationships.decode($0) })
    }
 
-   public func getTestRelationships(key: String, defaultValue: TestRelationships) -> TestRelationships {
-      return getTestRelationships(key) ?? defaultValue
+   public func getTestRelationships(forKey key: String, defaultValue: TestRelationships) -> TestRelationships {
+      return getTestRelationships(forKey: key) ?? defaultValue
    }
 
-   public func getTestRelationships(key: String, defaultValue: [TestRelationships]) -> [TestRelationships] {
+   public func getTestRelationships(forKey key: String, defaultValue: [TestRelationships]) -> [TestRelationships] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestRelationships(key: String,  defaultValue: [String : TestRelationships]
+   public func getTestRelationships(forKey key: String,  defaultValue: [String : TestRelationships]
    ) -> [String : TestRelationships] {
-      return getTestRelationships(key) ?? defaultValue
+      return getTestRelationships(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setTestRelationships(value: TestRelationships, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setTestRelationships(value: [TestRelationships], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setTestRelationships(value: [String : TestRelationships], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getTestRelationships(key: String) -> TestRelationships? {
-      return getValue(key)
+   public func getTestRelationships(forKey key: String) -> TestRelationships? {
+      return getValue(forKey: key)
    }
 
-   public func getTestRelationships(key: String, defaultValue: TestRelationships) -> TestRelationships {
-      return getTestRelationships(key) ?? defaultValue
+   public func getTestRelationships(forKey key: String, defaultValue: TestRelationships) -> TestRelationships {
+      return getTestRelationships(forKey: key) ?? defaultValue
    }
 
-   public func getTestRelationshipss(key: String) -> [TestRelationships]? {
-      return getValue(key)
+   public func getTestRelationshipss(forKey key: String) -> [TestRelationships]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestRelationshipss(key: String, defaultValue: [TestRelationships]) -> [TestRelationships] {
-      return getTestRelationshipss(key) ?? defaultValue
+   public func getTestRelationshipss(forKey key: String, defaultValue: [TestRelationships]) -> [TestRelationships] {
+      return getTestRelationshipss(forKey: key) ?? defaultValue
    }
 
-   public func getTestRelationshipsDictionary(key: String) -> [String : TestRelationships]? {
-      return getValue(key)
+   public func getTestRelationshipsDictionary(forKey key: String) -> [String : TestRelationships]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestRelationshipsDictionary(key: String, defaultValue: [String : TestRelationships]) -> [String : TestRelationships] {
-      return getTestRelationshipsDictionary(key) ?? defaultValue
+   public func getTestRelationshipsDictionary(forKey key: String, defaultValue: [String : TestRelationships]) -> [String : TestRelationships] {
+      return getTestRelationshipsDictionary(forKey: key) ?? defaultValue
    }
 }
 

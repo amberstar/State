@@ -14,7 +14,7 @@ public struct Employee : Model {
 
 extension Employee : Decodable {
 
-   public static func decode(decoder: Decoder) -> Employee? {
+   public static func decode(_ decoder: Decoder) -> Employee? {
       return self.init(decoder: decoder)
    }
 
@@ -36,7 +36,7 @@ extension Employee : Decodable {
 
 extension Employee : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(name, "name")
         encoder.encode(title, "title")
 
@@ -60,81 +60,79 @@ extension Employee {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getEmployee(key: String) -> Employee? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getEmployee(forKey key: String) -> Employee? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return Employee.decode(dictionary)
    }
 
-   public func getEmployee(key: String) -> [Employee]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getEmployee(forKey key: String) -> [Employee]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(Employee.decode))
    }
 
-   public func getEmployee(key: String) -> [String : Employee]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getEmployee(forKey key: String) -> [String : Employee]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { Employee.decode($0) })
    }
 
-   public func getEmployee(key: String, defaultValue: Employee) -> Employee {
-      return getEmployee(key) ?? defaultValue
+   public func getEmployee(forKey key: String, defaultValue: Employee) -> Employee {
+      return getEmployee(forKey: key) ?? defaultValue
    }
 
-   public func getEmployee(key: String, defaultValue: [Employee]) -> [Employee] {
+   public func getEmployee(forKey key: String, defaultValue: [Employee]) -> [Employee] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getEmployee(key: String,  defaultValue: [String : Employee]
+   public func getEmployee(forKey key: String,  defaultValue: [String : Employee]
    ) -> [String : Employee] {
-      return getEmployee(key) ?? defaultValue
+      return getEmployee(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setEmployee(value: Employee, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setEmployee(value: [Employee], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setEmployee(value: [String : Employee], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getEmployee(key: String) -> Employee? {
-      return getValue(key)
+   public func getEmployee(forKey key: String) -> Employee? {
+      return getValue(forKey: key)
    }
 
-   public func getEmployee(key: String, defaultValue: Employee) -> Employee {
-      return getEmployee(key) ?? defaultValue
+   public func getEmployee(forKey key: String, defaultValue: Employee) -> Employee {
+      return getEmployee(forKey: key) ?? defaultValue
    }
 
-   public func getEmployees(key: String) -> [Employee]? {
-      return getValue(key)
+   public func getEmployees(forKey key: String) -> [Employee]? {
+      return getValue(forKey: key)
    }
 
-   public func getEmployees(key: String, defaultValue: [Employee]) -> [Employee] {
-      return getEmployees(key) ?? defaultValue
+   public func getEmployees(forKey key: String, defaultValue: [Employee]) -> [Employee] {
+      return getEmployees(forKey: key) ?? defaultValue
    }
 
-   public func getEmployeeDictionary(key: String) -> [String : Employee]? {
-      return getValue(key)
+   public func getEmployeeDictionary(forKey key: String) -> [String : Employee]? {
+      return getValue(forKey: key)
    }
 
-   public func getEmployeeDictionary(key: String, defaultValue: [String : Employee]) -> [String : Employee] {
-      return getEmployeeDictionary(key) ?? defaultValue
+   public func getEmployeeDictionary(forKey key: String, defaultValue: [String : Employee]) -> [String : Employee] {
+      return getEmployeeDictionary(forKey: key) ?? defaultValue
    }
 }
 

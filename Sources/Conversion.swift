@@ -1,17 +1,17 @@
 import Foundation
 
 public enum Format {
-    case JSON
-    case Plist
-    case Binary
+    case json
+    case plist
+    case binary
     
     public var converter: Converter.Type {
         switch self {
-        case JSON:
+        case json:
             return State.JSON.self
-        case Plist:
+        case plist:
             return State.Plist.self
-        case Binary:
+        case binary:
             return State.Binary.self
         }
     }
@@ -23,18 +23,18 @@ public enum Format {
 
 /// Serialization format
 public protocol Converter {
-    static func write(data: [String : AnyObject]?, path: String) -> Bool
-    static func write(data: [String : AnyObject]) -> NSData?
-    static func write(data: [String : AnyObject]) -> String?
-    static func read(path: String) -> [String : AnyObject]?
-    static func read(data: NSData) -> [String : AnyObject]?
-    static func read(contentsOfURL aURL: NSURL) -> [String : AnyObject]?
-    static func readString(string: String) -> [String : AnyObject]?
+    static func write(_ data: [String : AnyObject]?, path: String) -> Bool
+    static func write(_ data: [String : AnyObject]) -> Data?
+    static func write(_ data: [String : AnyObject]) -> String?
+    static func read(_ path: String) -> [String : AnyObject]?
+    static func read(_ data: Data) -> [String : AnyObject]?
+    static func read(contentsOfURL aURL: URL) -> [String : AnyObject]?
+    static func readString(_ string: String) -> [String : AnyObject]?
 }
 
 extension Converter {
     /// print data to standard output
-    static func inspect(data: [String : AnyObject]) {
+    static func inspect(_ data: [String : AnyObject]) {
         if let string: String = write(data) {
             print(string)
         } else  { debugPrint("Data: could not print") }
@@ -51,7 +51,7 @@ public class Binary: Converter {
    
    /// write data to a file
    /// - returns: true if succeeded, false if failed
-   public class func write(data: [String : AnyObject]?, path: String) -> Bool {
+   public class func write(_ data: [String : AnyObject]?, path: String) -> Bool {
       if let input = data {
          return fileFromObject(input, path: path)
       } else {
@@ -61,32 +61,32 @@ public class Binary: Converter {
    
    /// write data to  NSData
    /// - returns: NSData or nil if failed
-   public class func write(data: [String : AnyObject]) -> NSData? {
+   public class func write(_ data: [String : AnyObject]) -> Data? {
       return dataFromObject(data, prettyPrint: false)
    }
    
    /// write data to String
    /// - returns: a string or nil if failed
-   public class func write(data: [String : AnyObject]) -> String? {
+   public class func write(_ data: [String : AnyObject]) -> String? {
       return stringFromObject(data)
    }
    
    /// Read data from a file
    /// - returns: a data object or nil
-   public  class func read(path: String) -> [String : AnyObject]? {
+   public  class func read(_ path: String) -> [String : AnyObject]? {
       return objectFromFile(path)
    }
    
    /// Read data from NSData
    /// - returns: a data object or nil
-   public class func read(data: NSData) -> [String : AnyObject]? {
+   public class func read(_ data: Data) -> [String : AnyObject]? {
       return objectFromData(data)
    }
    
    /// Read data from a URL
    /// - returns: a data object or nil
-   public class func read(contentsOfURL aURL: NSURL) -> [String : AnyObject]? {
-      if let data = NSData(contentsOfURL: aURL) {
+   public class func read(contentsOfURL aURL: URL) -> [String : AnyObject]? {
+      if let data = try? Data(contentsOf: aURL) {
          return objectFromData(data)
       }
       return nil
@@ -94,22 +94,22 @@ public class Binary: Converter {
    
    /// Read data from a string
    /// - returns: a data object or nil
-   public class func readString(string: String) -> [String : AnyObject]? {
+   public class func readString(_ string: String) -> [String : AnyObject]? {
       return objectFromString(string)
    }
    
    // MARK: - INTERNAL METHODS
    
-   class func fileFromObject(object: [String : AnyObject], path: String) -> Bool  {
+   class func fileFromObject(_ object: [String : AnyObject], path: String) -> Bool  {
       if let data = dataFromObject(object, prettyPrint: true) {
-         return data.writeToFile(path, atomically: true )
+         return ((try? data.write(to: URL(fileURLWithPath: path), options: [.dataWritingAtomic] )) != nil)
       }
       else {
          return false
       }
    }
    
-   class func objectFromFile(path: String) -> [String : AnyObject]? {
+   class func objectFromFile(_ path: String) -> [String : AnyObject]? {
       if let data = dataFromFile(path) {
          return objectFromData(data)
       } else {
@@ -117,7 +117,7 @@ public class Binary: Converter {
       }
    }
    
-   class func stringFromObject(object: [String : AnyObject]) -> String? {
+   class func stringFromObject(_ object: [String : AnyObject]) -> String? {
       if let data = dataFromObject(object, prettyPrint: true) {
          return stringFromData(data)
       } else {
@@ -125,7 +125,7 @@ public class Binary: Converter {
       }
    }
    
-   class func objectFromString(string: String) -> [String : AnyObject]? {
+   class func objectFromString(_ string: String) -> [String : AnyObject]? {
       if let data = dataFromString(string) {
          return objectFromData(data)
       } else {
@@ -133,26 +133,26 @@ public class Binary: Converter {
       }
    }
    
-   class func dataFromFile(path: String) -> NSData? {
-      return NSData(contentsOfFile: path)
+   class func dataFromFile(_ path: String) -> Data? {
+      return (try? Data(contentsOf: URL(fileURLWithPath: path)))
    }
    
-   class func stringFromData(data: NSData) -> String? {
-      return NSString(data: data, encoding: NSUTF8StringEncoding) as? String
+   class func stringFromData(_ data: Data) -> String? {
+      return NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String
    }
    
-   class func dataFromString(string : String) -> NSData? {
-      return string.dataUsingEncoding(NSUTF8StringEncoding,
+   class func dataFromString(_ string : String) -> Data? {
+      return string.data(using: String.Encoding.utf8,
                                       allowLossyConversion: true)
    }
    
-   class func objectFromData(data: NSData) -> [String : AnyObject]? {
-      return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? [String : AnyObject]
+   class func objectFromData(_ data: Data) -> [String : AnyObject]? {
+      return NSKeyedUnarchiver.unarchiveObject(with: data) as? [String : AnyObject]
    }
    
-   class func dataFromObject(object: [String : AnyObject],
-                             prettyPrint: Bool) -> NSData?  {
-      return NSKeyedArchiver.archivedDataWithRootObject(object)
+   class func dataFromObject(_ object: [String : AnyObject],
+                             prettyPrint: Bool) -> Data?  {
+      return NSKeyedArchiver.archivedData(withRootObject: object)
    }
 }
 
@@ -164,10 +164,10 @@ public class Binary: Converter {
 /// JSON serialization format
 public final class JSON: Binary {
    
-   override class func objectFromData(data: NSData) -> [String : AnyObject]? {
+   override class func objectFromData(_ data: Data) -> [String : AnyObject]? {
       do {
-         let o: AnyObject =  try NSJSONSerialization.JSONObjectWithData(
-            data, options: NSJSONReadingOptions.AllowFragments)
+         let o: AnyObject =  try JSONSerialization.jsonObject(
+            with: data, options: JSONSerialization.ReadingOptions.allowFragments)
          return o as? [String : AnyObject]
       } catch let error as NSError {
          Swift.print(error)
@@ -175,19 +175,19 @@ public final class JSON: Binary {
       }
    }
    
-   override class func dataFromObject(object: [String : AnyObject],
-                                      prettyPrint: Bool) -> NSData?  {
+   override class func dataFromObject(_ object: [String : AnyObject],
+                                      prettyPrint: Bool) -> Data?  {
       
-      guard NSJSONSerialization.isValidJSONObject(object) else {
+      guard JSONSerialization.isValidJSONObject(object) else {
          return nil
       }
       
-      let options: NSJSONWritingOptions = prettyPrint ? .PrettyPrinted : []
-      let data: NSData?
+      let options: JSONSerialization.WritingOptions = prettyPrint ? .prettyPrinted : []
+      let data: Data?
       
       do {
          
-         data = try NSJSONSerialization.dataWithJSONObject(object, options: options)
+         data = try JSONSerialization.data(withJSONObject: object, options: options)
       }
       catch let error as NSError {
          
@@ -206,13 +206,13 @@ public final class JSON: Binary {
 /// XML Plist serialization format
 public final class Plist: Binary {
    
-   override class func objectFromData(data: NSData) -> [String : AnyObject]? {
+   override class func objectFromData(_ data: Data) -> [String : AnyObject]? {
       
       do {
          
          let o: AnyObject =
-            try NSPropertyListSerialization.propertyListWithData(
-               data, options:[.MutableContainersAndLeaves], format:nil
+            try PropertyListSerialization.propertyList(
+               from: data, options:[.mutableContainersAndLeaves], format:nil
                )
          
          return o as? [String : AnyObject]
@@ -223,18 +223,18 @@ public final class Plist: Binary {
       }
    }
    
-   override class func dataFromObject(object: [String : AnyObject],
-                                      prettyPrint: Bool) -> NSData?  {
+   override class func dataFromObject(_ object: [String : AnyObject],
+                                      prettyPrint: Bool) -> Data?  {
       
-      guard NSPropertyListSerialization.propertyList(
-         object, isValidForFormat: NSPropertyListFormat.XMLFormat_v1_0) else {
+      guard PropertyListSerialization.propertyList(
+         object, isValidFor: PropertyListSerialization.PropertyListFormat.xmlFormat_v1_0) else {
             return nil
       }
       
       do {
          
-         let data: NSData? = try NSPropertyListSerialization.dataWithPropertyList(
-            object, format: NSPropertyListFormat.XMLFormat_v1_0, options: .allZeros
+         let data: Data? = try PropertyListSerialization.data(
+            fromPropertyList: object, format: PropertyListSerialization.PropertyListFormat.xmlFormat_v1_0, options: .allZeros
             )
          
          return data
@@ -245,7 +245,7 @@ public final class Plist: Binary {
       return nil
    }
    
-   override class func objectFromString(string: String) -> [String : AnyObject]? {
+   override class func objectFromString(_ string: String) -> [String : AnyObject]? {
       let s = string as NSString
       return s.propertyList() as? [String : AnyObject]
    }

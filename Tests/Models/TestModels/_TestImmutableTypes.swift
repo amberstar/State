@@ -20,7 +20,7 @@ public struct TestImmutableTypes : Model {
 
 extension TestImmutableTypes : Decodable {
 
-   public static func decode(decoder: Decoder) -> TestImmutableTypes? {
+   public static func decode(_ decoder: Decoder) -> TestImmutableTypes? {
       return self.init(decoder: decoder)
    }
 
@@ -53,7 +53,7 @@ extension TestImmutableTypes : Decodable {
 
 extension TestImmutableTypes : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(myDate, "myDate")
         encoder.encode(myFloat, "myFloat")
         encoder.encode(myBinary, "myBinary")
@@ -83,81 +83,79 @@ extension TestImmutableTypes {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestImmutableTypes(key: String) -> TestImmutableTypes? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestImmutableTypes(forKey key: String) -> TestImmutableTypes? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return TestImmutableTypes.decode(dictionary)
    }
 
-   public func getTestImmutableTypes(key: String) -> [TestImmutableTypes]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getTestImmutableTypes(forKey key: String) -> [TestImmutableTypes]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(TestImmutableTypes.decode))
    }
 
-   public func getTestImmutableTypes(key: String) -> [String : TestImmutableTypes]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestImmutableTypes(forKey key: String) -> [String : TestImmutableTypes]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { TestImmutableTypes.decode($0) })
    }
 
-   public func getTestImmutableTypes(key: String, defaultValue: TestImmutableTypes) -> TestImmutableTypes {
-      return getTestImmutableTypes(key) ?? defaultValue
+   public func getTestImmutableTypes(forKey key: String, defaultValue: TestImmutableTypes) -> TestImmutableTypes {
+      return getTestImmutableTypes(forKey: key) ?? defaultValue
    }
 
-   public func getTestImmutableTypes(key: String, defaultValue: [TestImmutableTypes]) -> [TestImmutableTypes] {
+   public func getTestImmutableTypes(forKey key: String, defaultValue: [TestImmutableTypes]) -> [TestImmutableTypes] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestImmutableTypes(key: String,  defaultValue: [String : TestImmutableTypes]
+   public func getTestImmutableTypes(forKey key: String,  defaultValue: [String : TestImmutableTypes]
    ) -> [String : TestImmutableTypes] {
-      return getTestImmutableTypes(key) ?? defaultValue
+      return getTestImmutableTypes(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setTestImmutableTypes(value: TestImmutableTypes, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setTestImmutableTypes(value: [TestImmutableTypes], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setTestImmutableTypes(value: [String : TestImmutableTypes], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getTestImmutableTypes(key: String) -> TestImmutableTypes? {
-      return getValue(key)
+   public func getTestImmutableTypes(forKey key: String) -> TestImmutableTypes? {
+      return getValue(forKey: key)
    }
 
-   public func getTestImmutableTypes(key: String, defaultValue: TestImmutableTypes) -> TestImmutableTypes {
-      return getTestImmutableTypes(key) ?? defaultValue
+   public func getTestImmutableTypes(forKey key: String, defaultValue: TestImmutableTypes) -> TestImmutableTypes {
+      return getTestImmutableTypes(forKey: key) ?? defaultValue
    }
 
-   public func getTestImmutableTypess(key: String) -> [TestImmutableTypes]? {
-      return getValue(key)
+   public func getTestImmutableTypess(forKey key: String) -> [TestImmutableTypes]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestImmutableTypess(key: String, defaultValue: [TestImmutableTypes]) -> [TestImmutableTypes] {
-      return getTestImmutableTypess(key) ?? defaultValue
+   public func getTestImmutableTypess(forKey key: String, defaultValue: [TestImmutableTypes]) -> [TestImmutableTypes] {
+      return getTestImmutableTypess(forKey: key) ?? defaultValue
    }
 
-   public func getTestImmutableTypesDictionary(key: String) -> [String : TestImmutableTypes]? {
-      return getValue(key)
+   public func getTestImmutableTypesDictionary(forKey key: String) -> [String : TestImmutableTypes]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestImmutableTypesDictionary(key: String, defaultValue: [String : TestImmutableTypes]) -> [String : TestImmutableTypes] {
-      return getTestImmutableTypesDictionary(key) ?? defaultValue
+   public func getTestImmutableTypesDictionary(forKey key: String, defaultValue: [String : TestImmutableTypes]) -> [String : TestImmutableTypes] {
+      return getTestImmutableTypesDictionary(forKey: key) ?? defaultValue
    }
 }
 

@@ -16,7 +16,7 @@ infix operator -<< { associativity right precedence 100 }
  
  - returns: A value of type Optional<U>
  */
-func >>-<T, U>(a: T?, @noescape f: T -> U?) -> U? {
+func >>-<T, U>(a: T?, @noescape f: (T) -> U?) -> U? {
    return a.flatMap(f)
 }
 
@@ -140,7 +140,7 @@ class ConverterTests: Test {
     
     func testReadingAndWritingPlistData() {
         testPlistWasReadCorrectly()
-        let testData: NSData? = Plist.write(testPlist!)
+        let testData: Data? = Plist.write(testPlist!)
         testPlist = nil
         testData >>- Plist.read >>- { self.testPlist = $0 }
         testPlistWasReadCorrectly()
@@ -148,7 +148,7 @@ class ConverterTests: Test {
     
     func testReadingAndWritingJSONData() {
         testJSONWasReadCorrectly()
-        let testData: NSData? = JSON.write(testJSON!)
+        let testData: Data? = JSON.write(testJSON!)
         testJSON = nil
         testData >>- JSON.read >>- { self.testJSON = $0 }
         testJSONWasReadCorrectly()
@@ -156,7 +156,7 @@ class ConverterTests: Test {
     
     func testReadingAndWritingData() {
         testDataWasReadCorrectly()
-        let testNSData: NSData? = Binary.write(testData!)
+        let testNSData: Data? = Binary.write(testData!)
         testData = nil
         testNSData >>- Binary.read >>- { self.testData = $0 }
         testDataWasReadCorrectly()
@@ -164,8 +164,8 @@ class ConverterTests: Test {
     
     func testReadingJSONAndWritingPlist() {
         let users_out = UserTypes.decode(jsonData)
-        users_out!.save(.Plist, path: tempPathFor("users.plist"))
-        let users  =  UserTypes(.Plist, path: tempPathFor("users.plist"))
+        users_out!.save(.plist, path: tempPathFor("users.plist"))
+        let users  =  UserTypes(.plist, path: tempPathFor("users.plist"))
         XCTAssert(users != nil)
         XCTAssert(users?.tArr.count == 3)
         XCTAssert(users?.tImp.name == "John Doe")

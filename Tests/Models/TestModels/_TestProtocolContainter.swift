@@ -15,7 +15,7 @@ public struct TestProtocolContainter : Model {
 
 extension TestProtocolContainter : Decodable {
 
-   public static func decode(decoder: Decoder) -> TestProtocolContainter? {
+   public static func decode(_ decoder: Decoder) -> TestProtocolContainter? {
       return self.init(decoder: decoder)
    }
 
@@ -38,7 +38,7 @@ extension TestProtocolContainter : Decodable {
 
 extension TestProtocolContainter : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(testProtocol, "testProtocol")
         encoder.encode(testProtocols, "testProtocols")
         encoder.encode(testProtocolsDict, "testProtocolsDict")
@@ -63,81 +63,79 @@ extension TestProtocolContainter {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestProtocolContainter(key: String) -> TestProtocolContainter? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestProtocolContainter(forKey key: String) -> TestProtocolContainter? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return TestProtocolContainter.decode(dictionary)
    }
 
-   public func getTestProtocolContainter(key: String) -> [TestProtocolContainter]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getTestProtocolContainter(forKey key: String) -> [TestProtocolContainter]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(TestProtocolContainter.decode))
    }
 
-   public func getTestProtocolContainter(key: String) -> [String : TestProtocolContainter]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestProtocolContainter(forKey key: String) -> [String : TestProtocolContainter]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { TestProtocolContainter.decode($0) })
    }
 
-   public func getTestProtocolContainter(key: String, defaultValue: TestProtocolContainter) -> TestProtocolContainter {
-      return getTestProtocolContainter(key) ?? defaultValue
+   public func getTestProtocolContainter(forKey key: String, defaultValue: TestProtocolContainter) -> TestProtocolContainter {
+      return getTestProtocolContainter(forKey: key) ?? defaultValue
    }
 
-   public func getTestProtocolContainter(key: String, defaultValue: [TestProtocolContainter]) -> [TestProtocolContainter] {
+   public func getTestProtocolContainter(forKey key: String, defaultValue: [TestProtocolContainter]) -> [TestProtocolContainter] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestProtocolContainter(key: String,  defaultValue: [String : TestProtocolContainter]
+   public func getTestProtocolContainter(forKey key: String,  defaultValue: [String : TestProtocolContainter]
    ) -> [String : TestProtocolContainter] {
-      return getTestProtocolContainter(key) ?? defaultValue
+      return getTestProtocolContainter(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setTestProtocolContainter(value: TestProtocolContainter, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setTestProtocolContainter(value: [TestProtocolContainter], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setTestProtocolContainter(value: [String : TestProtocolContainter], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getTestProtocolContainter(key: String) -> TestProtocolContainter? {
-      return getValue(key)
+   public func getTestProtocolContainter(forKey key: String) -> TestProtocolContainter? {
+      return getValue(forKey: key)
    }
 
-   public func getTestProtocolContainter(key: String, defaultValue: TestProtocolContainter) -> TestProtocolContainter {
-      return getTestProtocolContainter(key) ?? defaultValue
+   public func getTestProtocolContainter(forKey key: String, defaultValue: TestProtocolContainter) -> TestProtocolContainter {
+      return getTestProtocolContainter(forKey: key) ?? defaultValue
    }
 
-   public func getTestProtocolContainters(key: String) -> [TestProtocolContainter]? {
-      return getValue(key)
+   public func getTestProtocolContainters(forKey key: String) -> [TestProtocolContainter]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestProtocolContainters(key: String, defaultValue: [TestProtocolContainter]) -> [TestProtocolContainter] {
-      return getTestProtocolContainters(key) ?? defaultValue
+   public func getTestProtocolContainters(forKey key: String, defaultValue: [TestProtocolContainter]) -> [TestProtocolContainter] {
+      return getTestProtocolContainters(forKey: key) ?? defaultValue
    }
 
-   public func getTestProtocolContainterDictionary(key: String) -> [String : TestProtocolContainter]? {
-      return getValue(key)
+   public func getTestProtocolContainterDictionary(forKey key: String) -> [String : TestProtocolContainter]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestProtocolContainterDictionary(key: String, defaultValue: [String : TestProtocolContainter]) -> [String : TestProtocolContainter] {
-      return getTestProtocolContainterDictionary(key) ?? defaultValue
+   public func getTestProtocolContainterDictionary(forKey key: String, defaultValue: [String : TestProtocolContainter]) -> [String : TestProtocolContainter] {
+      return getTestProtocolContainterDictionary(forKey: key) ?? defaultValue
    }
 }
 

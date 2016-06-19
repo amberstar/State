@@ -18,7 +18,7 @@ public struct TestMigrationV1: Model, Migratable {
 
 extension TestMigrationV1 : Decodable {
    
-   public static func decode(decoder: Decoder) -> TestMigrationV1? {
+   public static func decode(_ decoder: Decoder) -> TestMigrationV1? {
       return self.init(decoder: decoder)
    }
    
@@ -34,7 +34,7 @@ extension TestMigrationV1 : Decodable {
 
 extension TestMigrationV1 : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(name, "name")
 
         TestMigrationV1.encodeVersionIfNeeded(encoder)

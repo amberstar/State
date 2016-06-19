@@ -16,7 +16,7 @@ public struct Company : Model {
 
 extension Company : Decodable {
 
-   public static func decode(decoder: Decoder) -> Company? {
+   public static func decode(_ decoder: Decoder) -> Company? {
       return self.init(decoder: decoder)
    }
 
@@ -42,7 +42,7 @@ extension Company : Decodable {
 
 extension Company : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(name, "name")
         encoder.encode(yearFounded, "yearFounded")
         encoder.encode(phoneNumber, "phoneNumber")
@@ -68,81 +68,79 @@ extension Company {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getCompany(key: String) -> Company? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getCompany(forKey key: String) -> Company? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return Company.decode(dictionary)
    }
 
-   public func getCompany(key: String) -> [Company]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getCompany(forKey key: String) -> [Company]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(Company.decode))
    }
 
-   public func getCompany(key: String) -> [String : Company]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getCompany(forKey key: String) -> [String : Company]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { Company.decode($0) })
    }
 
-   public func getCompany(key: String, defaultValue: Company) -> Company {
-      return getCompany(key) ?? defaultValue
+   public func getCompany(forKey key: String, defaultValue: Company) -> Company {
+      return getCompany(forKey: key) ?? defaultValue
    }
 
-   public func getCompany(key: String, defaultValue: [Company]) -> [Company] {
+   public func getCompany(forKey key: String, defaultValue: [Company]) -> [Company] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getCompany(key: String,  defaultValue: [String : Company]
+   public func getCompany(forKey key: String,  defaultValue: [String : Company]
    ) -> [String : Company] {
-      return getCompany(key) ?? defaultValue
+      return getCompany(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setCompany(value: Company, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setCompany(value: [Company], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setCompany(value: [String : Company], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getCompany(key: String) -> Company? {
-      return getValue(key)
+   public func getCompany(forKey key: String) -> Company? {
+      return getValue(forKey: key)
    }
 
-   public func getCompany(key: String, defaultValue: Company) -> Company {
-      return getCompany(key) ?? defaultValue
+   public func getCompany(forKey key: String, defaultValue: Company) -> Company {
+      return getCompany(forKey: key) ?? defaultValue
    }
 
-   public func getCompanys(key: String) -> [Company]? {
-      return getValue(key)
+   public func getCompanys(forKey key: String) -> [Company]? {
+      return getValue(forKey: key)
    }
 
-   public func getCompanys(key: String, defaultValue: [Company]) -> [Company] {
-      return getCompanys(key) ?? defaultValue
+   public func getCompanys(forKey key: String, defaultValue: [Company]) -> [Company] {
+      return getCompanys(forKey: key) ?? defaultValue
    }
 
-   public func getCompanyDictionary(key: String) -> [String : Company]? {
-      return getValue(key)
+   public func getCompanyDictionary(forKey key: String) -> [String : Company]? {
+      return getValue(forKey: key)
    }
 
-   public func getCompanyDictionary(key: String, defaultValue: [String : Company]) -> [String : Company] {
-      return getCompanyDictionary(key) ?? defaultValue
+   public func getCompanyDictionary(forKey key: String, defaultValue: [String : Company]) -> [String : Company] {
+      return getCompanyDictionary(forKey: key) ?? defaultValue
    }
 }
 

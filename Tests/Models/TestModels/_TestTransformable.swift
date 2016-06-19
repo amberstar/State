@@ -16,7 +16,7 @@ public struct TestTransformable : Model {
 
 extension TestTransformable : Decodable {
 
-   public static func decode(decoder: Decoder) -> TestTransformable? {
+   public static func decode(_ decoder: Decoder) -> TestTransformable? {
       return self.init(decoder: decoder)
    }
 
@@ -42,7 +42,7 @@ extension TestTransformable : Decodable {
 
 extension TestTransformable : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(myTransformable, "myTransformable")
         encoder.encode(myTransformableImmutable, "myTransformableImmutable")
         encoder.encode(myTransformableImmutableOptional, "myTransformableImmutableOptional")
@@ -68,81 +68,79 @@ extension TestTransformable {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestTransformable(key: String) -> TestTransformable? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestTransformable(forKey key: String) -> TestTransformable? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return TestTransformable.decode(dictionary)
    }
 
-   public func getTestTransformable(key: String) -> [TestTransformable]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getTestTransformable(forKey key: String) -> [TestTransformable]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(TestTransformable.decode))
    }
 
-   public func getTestTransformable(key: String) -> [String : TestTransformable]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestTransformable(forKey key: String) -> [String : TestTransformable]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { TestTransformable.decode($0) })
    }
 
-   public func getTestTransformable(key: String, defaultValue: TestTransformable) -> TestTransformable {
-      return getTestTransformable(key) ?? defaultValue
+   public func getTestTransformable(forKey key: String, defaultValue: TestTransformable) -> TestTransformable {
+      return getTestTransformable(forKey: key) ?? defaultValue
    }
 
-   public func getTestTransformable(key: String, defaultValue: [TestTransformable]) -> [TestTransformable] {
+   public func getTestTransformable(forKey key: String, defaultValue: [TestTransformable]) -> [TestTransformable] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestTransformable(key: String,  defaultValue: [String : TestTransformable]
+   public func getTestTransformable(forKey key: String,  defaultValue: [String : TestTransformable]
    ) -> [String : TestTransformable] {
-      return getTestTransformable(key) ?? defaultValue
+      return getTestTransformable(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setTestTransformable(value: TestTransformable, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setTestTransformable(value: [TestTransformable], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setTestTransformable(value: [String : TestTransformable], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getTestTransformable(key: String) -> TestTransformable? {
-      return getValue(key)
+   public func getTestTransformable(forKey key: String) -> TestTransformable? {
+      return getValue(forKey: key)
    }
 
-   public func getTestTransformable(key: String, defaultValue: TestTransformable) -> TestTransformable {
-      return getTestTransformable(key) ?? defaultValue
+   public func getTestTransformable(forKey key: String, defaultValue: TestTransformable) -> TestTransformable {
+      return getTestTransformable(forKey: key) ?? defaultValue
    }
 
-   public func getTestTransformables(key: String) -> [TestTransformable]? {
-      return getValue(key)
+   public func getTestTransformables(forKey key: String) -> [TestTransformable]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestTransformables(key: String, defaultValue: [TestTransformable]) -> [TestTransformable] {
-      return getTestTransformables(key) ?? defaultValue
+   public func getTestTransformables(forKey key: String, defaultValue: [TestTransformable]) -> [TestTransformable] {
+      return getTestTransformables(forKey: key) ?? defaultValue
    }
 
-   public func getTestTransformableDictionary(key: String) -> [String : TestTransformable]? {
-      return getValue(key)
+   public func getTestTransformableDictionary(forKey key: String) -> [String : TestTransformable]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestTransformableDictionary(key: String, defaultValue: [String : TestTransformable]) -> [String : TestTransformable] {
-      return getTestTransformableDictionary(key) ?? defaultValue
+   public func getTestTransformableDictionary(forKey key: String, defaultValue: [String : TestTransformable]) -> [String : TestTransformable] {
+      return getTestTransformableDictionary(forKey: key) ?? defaultValue
    }
 }
 

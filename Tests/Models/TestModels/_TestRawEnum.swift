@@ -8,15 +8,15 @@ import State
 
 public enum TestRawEnum  : String, Model {
 
-    case Aim  = "Aim"
-    case Fire  = "Fire"
-    case Ready  = "Ready"
+    case aim  = "Aim"
+    case fire  = "Fire"
+    case ready  = "Ready"
 
 }
 
 extension TestRawEnum: Decodable {
 
-   public static func decode(decoder: Decoder) -> TestRawEnum? {
+   public static func decode(_ decoder: Decoder) -> TestRawEnum? {
       return self.init(decoder: decoder)
    }
 
@@ -30,7 +30,7 @@ extension TestRawEnum: Decodable {
 
 extension TestRawEnum: Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(self.rawValue, "value")
         TestRawEnum.encodeVersionIfNeeded(encoder)
         self.willFinishEncodingWithEncoder(encoder)
@@ -51,81 +51,79 @@ extension TestRawEnum {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestRawEnum(key: String) -> TestRawEnum? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestRawEnum(forKey key: String) -> TestRawEnum? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return TestRawEnum.decode(dictionary)
    }
 
-   public func getTestRawEnum(key: String) -> [TestRawEnum]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getTestRawEnum(forKey key: String) -> [TestRawEnum]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(TestRawEnum.decode))
    }
 
-   public func getTestRawEnum(key: String) -> [String : TestRawEnum]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestRawEnum(forKey key: String) -> [String : TestRawEnum]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { TestRawEnum.decode($0) })
    }
 
-   public func getTestRawEnum(key: String, defaultValue: TestRawEnum) -> TestRawEnum {
-      return getTestRawEnum(key) ?? defaultValue
+   public func getTestRawEnum(forKey key: String, defaultValue: TestRawEnum) -> TestRawEnum {
+      return getTestRawEnum(forKey: key) ?? defaultValue
    }
 
-   public func getTestRawEnum(key: String, defaultValue: [TestRawEnum]) -> [TestRawEnum] {
+   public func getTestRawEnum(forKey key: String, defaultValue: [TestRawEnum]) -> [TestRawEnum] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestRawEnum(key: String,  defaultValue: [String : TestRawEnum]
+   public func getTestRawEnum(forKey key: String,  defaultValue: [String : TestRawEnum]
    ) -> [String : TestRawEnum] {
-      return getTestRawEnum(key) ?? defaultValue
+      return getTestRawEnum(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setTestRawEnum(value: TestRawEnum, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setTestRawEnum(value: [TestRawEnum], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setTestRawEnum(value: [String : TestRawEnum], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getTestRawEnum(key: String) -> TestRawEnum? {
-      return getValue(key)
+   public func getTestRawEnum(forKey key: String) -> TestRawEnum? {
+      return getValue(forKey: key)
    }
 
-   public func getTestRawEnum(key: String, defaultValue: TestRawEnum) -> TestRawEnum {
-      return getTestRawEnum(key) ?? defaultValue
+   public func getTestRawEnum(forKey key: String, defaultValue: TestRawEnum) -> TestRawEnum {
+      return getTestRawEnum(forKey: key) ?? defaultValue
    }
 
-   public func getTestRawEnums(key: String) -> [TestRawEnum]? {
-      return getValue(key)
+   public func getTestRawEnums(forKey key: String) -> [TestRawEnum]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestRawEnums(key: String, defaultValue: [TestRawEnum]) -> [TestRawEnum] {
-      return getTestRawEnums(key) ?? defaultValue
+   public func getTestRawEnums(forKey key: String, defaultValue: [TestRawEnum]) -> [TestRawEnum] {
+      return getTestRawEnums(forKey: key) ?? defaultValue
    }
 
-   public func getTestRawEnumDictionary(key: String) -> [String : TestRawEnum]? {
-      return getValue(key)
+   public func getTestRawEnumDictionary(forKey key: String) -> [String : TestRawEnum]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestRawEnumDictionary(key: String, defaultValue: [String : TestRawEnum]) -> [String : TestRawEnum] {
-      return getTestRawEnumDictionary(key) ?? defaultValue
+   public func getTestRawEnumDictionary(forKey key: String, defaultValue: [String : TestRawEnum]) -> [String : TestRawEnum] {
+      return getTestRawEnumDictionary(forKey: key) ?? defaultValue
    }
 }
 

@@ -14,7 +14,7 @@ public struct TestMigrationV2 : Model {
 
 extension TestMigrationV2 : Decodable {
 
-   public static func decode(decoder: Decoder) -> TestMigrationV2? {
+   public static func decode(_ decoder: Decoder) -> TestMigrationV2? {
       return self.init(decoder: decoder)
    }
 
@@ -36,7 +36,7 @@ extension TestMigrationV2 : Decodable {
 
 extension TestMigrationV2 : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(age, "age")
         encoder.encode(name, "name")
 
@@ -60,81 +60,79 @@ extension TestMigrationV2 {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestMigrationV2(key: String) -> TestMigrationV2? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestMigrationV2(forKey key: String) -> TestMigrationV2? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return TestMigrationV2.decode(dictionary)
    }
 
-   public func getTestMigrationV2(key: String) -> [TestMigrationV2]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getTestMigrationV2(forKey key: String) -> [TestMigrationV2]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(TestMigrationV2.decode))
    }
 
-   public func getTestMigrationV2(key: String) -> [String : TestMigrationV2]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestMigrationV2(forKey key: String) -> [String : TestMigrationV2]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { TestMigrationV2.decode($0) })
    }
 
-   public func getTestMigrationV2(key: String, defaultValue: TestMigrationV2) -> TestMigrationV2 {
-      return getTestMigrationV2(key) ?? defaultValue
+   public func getTestMigrationV2(forKey key: String, defaultValue: TestMigrationV2) -> TestMigrationV2 {
+      return getTestMigrationV2(forKey: key) ?? defaultValue
    }
 
-   public func getTestMigrationV2(key: String, defaultValue: [TestMigrationV2]) -> [TestMigrationV2] {
+   public func getTestMigrationV2(forKey key: String, defaultValue: [TestMigrationV2]) -> [TestMigrationV2] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestMigrationV2(key: String,  defaultValue: [String : TestMigrationV2]
+   public func getTestMigrationV2(forKey key: String,  defaultValue: [String : TestMigrationV2]
    ) -> [String : TestMigrationV2] {
-      return getTestMigrationV2(key) ?? defaultValue
+      return getTestMigrationV2(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setTestMigrationV2(value: TestMigrationV2, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setTestMigrationV2(value: [TestMigrationV2], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setTestMigrationV2(value: [String : TestMigrationV2], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getTestMigrationV2(key: String) -> TestMigrationV2? {
-      return getValue(key)
+   public func getTestMigrationV2(forKey key: String) -> TestMigrationV2? {
+      return getValue(forKey: key)
    }
 
-   public func getTestMigrationV2(key: String, defaultValue: TestMigrationV2) -> TestMigrationV2 {
-      return getTestMigrationV2(key) ?? defaultValue
+   public func getTestMigrationV2(forKey key: String, defaultValue: TestMigrationV2) -> TestMigrationV2 {
+      return getTestMigrationV2(forKey: key) ?? defaultValue
    }
 
-   public func getTestMigrationV2s(key: String) -> [TestMigrationV2]? {
-      return getValue(key)
+   public func getTestMigrationV2s(forKey key: String) -> [TestMigrationV2]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestMigrationV2s(key: String, defaultValue: [TestMigrationV2]) -> [TestMigrationV2] {
-      return getTestMigrationV2s(key) ?? defaultValue
+   public func getTestMigrationV2s(forKey key: String, defaultValue: [TestMigrationV2]) -> [TestMigrationV2] {
+      return getTestMigrationV2s(forKey: key) ?? defaultValue
    }
 
-   public func getTestMigrationV2Dictionary(key: String) -> [String : TestMigrationV2]? {
-      return getValue(key)
+   public func getTestMigrationV2Dictionary(forKey key: String) -> [String : TestMigrationV2]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestMigrationV2Dictionary(key: String, defaultValue: [String : TestMigrationV2]) -> [String : TestMigrationV2] {
-      return getTestMigrationV2Dictionary(key) ?? defaultValue
+   public func getTestMigrationV2Dictionary(forKey key: String, defaultValue: [String : TestMigrationV2]) -> [String : TestMigrationV2] {
+      return getTestMigrationV2Dictionary(forKey: key) ?? defaultValue
    }
 }
 

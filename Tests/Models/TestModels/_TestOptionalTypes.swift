@@ -20,7 +20,7 @@ public struct TestOptionalTypes : Model {
 
 extension TestOptionalTypes : Decodable {
 
-   public static func decode(decoder: Decoder) -> TestOptionalTypes? {
+   public static func decode(_ decoder: Decoder) -> TestOptionalTypes? {
       return self.init(decoder: decoder)
    }
 
@@ -51,7 +51,7 @@ extension TestOptionalTypes : Decodable {
 
 extension TestOptionalTypes : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(myDate, "myDate")
         encoder.encode(myFloat, "myFloat")
         encoder.encode(myBinary, "myBinary")
@@ -81,81 +81,79 @@ extension TestOptionalTypes {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestOptionalTypes(key: String) -> TestOptionalTypes? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestOptionalTypes(forKey key: String) -> TestOptionalTypes? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return TestOptionalTypes.decode(dictionary)
    }
 
-   public func getTestOptionalTypes(key: String) -> [TestOptionalTypes]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getTestOptionalTypes(forKey key: String) -> [TestOptionalTypes]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(TestOptionalTypes.decode))
    }
 
-   public func getTestOptionalTypes(key: String) -> [String : TestOptionalTypes]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestOptionalTypes(forKey key: String) -> [String : TestOptionalTypes]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { TestOptionalTypes.decode($0) })
    }
 
-   public func getTestOptionalTypes(key: String, defaultValue: TestOptionalTypes) -> TestOptionalTypes {
-      return getTestOptionalTypes(key) ?? defaultValue
+   public func getTestOptionalTypes(forKey key: String, defaultValue: TestOptionalTypes) -> TestOptionalTypes {
+      return getTestOptionalTypes(forKey: key) ?? defaultValue
    }
 
-   public func getTestOptionalTypes(key: String, defaultValue: [TestOptionalTypes]) -> [TestOptionalTypes] {
+   public func getTestOptionalTypes(forKey key: String, defaultValue: [TestOptionalTypes]) -> [TestOptionalTypes] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestOptionalTypes(key: String,  defaultValue: [String : TestOptionalTypes]
+   public func getTestOptionalTypes(forKey key: String,  defaultValue: [String : TestOptionalTypes]
    ) -> [String : TestOptionalTypes] {
-      return getTestOptionalTypes(key) ?? defaultValue
+      return getTestOptionalTypes(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setTestOptionalTypes(value: TestOptionalTypes, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setTestOptionalTypes(value: [TestOptionalTypes], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setTestOptionalTypes(value: [String : TestOptionalTypes], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getTestOptionalTypes(key: String) -> TestOptionalTypes? {
-      return getValue(key)
+   public func getTestOptionalTypes(forKey key: String) -> TestOptionalTypes? {
+      return getValue(forKey: key)
    }
 
-   public func getTestOptionalTypes(key: String, defaultValue: TestOptionalTypes) -> TestOptionalTypes {
-      return getTestOptionalTypes(key) ?? defaultValue
+   public func getTestOptionalTypes(forKey key: String, defaultValue: TestOptionalTypes) -> TestOptionalTypes {
+      return getTestOptionalTypes(forKey: key) ?? defaultValue
    }
 
-   public func getTestOptionalTypess(key: String) -> [TestOptionalTypes]? {
-      return getValue(key)
+   public func getTestOptionalTypess(forKey key: String) -> [TestOptionalTypes]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestOptionalTypess(key: String, defaultValue: [TestOptionalTypes]) -> [TestOptionalTypes] {
-      return getTestOptionalTypess(key) ?? defaultValue
+   public func getTestOptionalTypess(forKey key: String, defaultValue: [TestOptionalTypes]) -> [TestOptionalTypes] {
+      return getTestOptionalTypess(forKey: key) ?? defaultValue
    }
 
-   public func getTestOptionalTypesDictionary(key: String) -> [String : TestOptionalTypes]? {
-      return getValue(key)
+   public func getTestOptionalTypesDictionary(forKey key: String) -> [String : TestOptionalTypes]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestOptionalTypesDictionary(key: String, defaultValue: [String : TestOptionalTypes]) -> [String : TestOptionalTypes] {
-      return getTestOptionalTypesDictionary(key) ?? defaultValue
+   public func getTestOptionalTypesDictionary(forKey key: String, defaultValue: [String : TestOptionalTypes]) -> [String : TestOptionalTypes] {
+      return getTestOptionalTypesDictionary(forKey: key) ?? defaultValue
    }
 }
 

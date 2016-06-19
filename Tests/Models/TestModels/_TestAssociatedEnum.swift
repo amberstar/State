@@ -9,23 +9,23 @@ import UIKit
 
 public enum TestAssociatedEnum  : Model {
 
-    case BinaryType (NSData)
-    case BooleanType (Bool)
-    case DateType (NSDate)
-    case DecimalType (NSDecimalNumber)
-    case DoubleType (Double)
-    case FloatType (Float)
-    case IntType (Int)
-    case StringType (String)
-    case TransformableColorType (UIColor)
-    case DecodableToManyType ([Employee])
-    case DecodableToOneType (Employee)
+    case binaryType (NSData)
+    case booleanType (Bool)
+    case dateType (NSDate)
+    case decimalType (NSDecimalNumber)
+    case doubleType (Double)
+    case floatType (Float)
+    case intType (Int)
+    case stringType (String)
+    case transformableColorType (UIColor)
+    case decodableToManyType ([Employee])
+    case decodableToOneType (Employee)
 
 }
 
 extension TestAssociatedEnum: Decodable {
 
-   public static func decode(decoder: Decoder) -> TestAssociatedEnum? {
+   public static func decode(_ decoder: Decoder) -> TestAssociatedEnum? {
       return self.init(decoder: decoder)
    }
 
@@ -35,58 +35,58 @@ extension TestAssociatedEnum: Decodable {
 
         guard let type: String = decoder.decode("TestAssociatedEnum") else { return nil }
         switch type {
-                case "BinaryType":
+                case "binaryType":
                    if let value: NSData = decoder.decode("value") {
-self = TestAssociatedEnum.BinaryType(value)
+self = TestAssociatedEnum.binaryType(value)
 } else { return nil }
 
-                case "BooleanType":
+                case "booleanType":
                    if let value: Bool = decoder.decode("value") {
-self = TestAssociatedEnum.BooleanType(value)
+self = TestAssociatedEnum.booleanType(value)
 } else { return nil }
 
-                case "DateType":
+                case "dateType":
                    if let value: NSDate = decoder.decode("value") {
-self = TestAssociatedEnum.DateType(value)
+self = TestAssociatedEnum.dateType(value)
 } else { return nil }
 
-                case "DecimalType":
+                case "decimalType":
                    if let value: NSDecimalNumber = decoder.decode("value") {
-self = TestAssociatedEnum.DecimalType(value)
+self = TestAssociatedEnum.decimalType(value)
 } else { return nil }
 
-                case "DoubleType":
+                case "doubleType":
                    if let value: Double = decoder.decode("value") {
-self = TestAssociatedEnum.DoubleType(value)
+self = TestAssociatedEnum.doubleType(value)
 } else { return nil }
 
-                case "FloatType":
+                case "floatType":
                    if let value: Float = decoder.decode("value") {
-self = TestAssociatedEnum.FloatType(value)
+self = TestAssociatedEnum.floatType(value)
 } else { return nil }
 
-                case "IntType":
+                case "intType":
                    if let value: Int = decoder.decode("value") {
-self = TestAssociatedEnum.IntType(value)
+self = TestAssociatedEnum.intType(value)
 } else { return nil }
 
-                case "StringType":
+                case "stringType":
                    if let value: String = decoder.decode("value") {
-self = TestAssociatedEnum.StringType(value)
+self = TestAssociatedEnum.stringType(value)
 } else { return nil }
 
-                case "TransformableColorType":
+                case "transformableColorType":
                    if let value: UIColor = decoder.decode("value") {
-self = TestAssociatedEnum.TransformableColorType(value)
+self = TestAssociatedEnum.transformableColorType(value)
 } else { return nil }
 
-                case "DecodableToManyType":
+                case "decodableToManyType":
                     if let value: [Employee] = decoder.decode("value") {
-self = TestAssociatedEnum.DecodableToManyType(value)
+self = TestAssociatedEnum.decodableToManyType(value)
 } else { return nil } 
-                case "DecodableToOneType":
+                case "decodableToOneType":
                     if let value: Employee = decoder.decode("value") {
-self = TestAssociatedEnum.DecodableToOneType(value)
+self = TestAssociatedEnum.decodableToOneType(value)
 } else { return nil }
 
                 default:
@@ -98,41 +98,41 @@ self = TestAssociatedEnum.DecodableToOneType(value)
 
 extension TestAssociatedEnum: Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
 
         switch self {
-            case let .BinaryType(value):
-                encoder.encode("BinaryType", "TestAssociatedEnum")
+            case let .binaryType(value):
+                encoder.encode("binaryType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
-            case let .BooleanType(value):
-                encoder.encode("BooleanType", "TestAssociatedEnum")
+            case let .booleanType(value):
+                encoder.encode("booleanType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
-            case let .DateType(value):
-                encoder.encode("DateType", "TestAssociatedEnum")
+            case let .dateType(value):
+                encoder.encode("dateType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
-            case let .DecimalType(value):
-                encoder.encode("DecimalType", "TestAssociatedEnum")
+            case let .decimalType(value):
+                encoder.encode("decimalType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
-            case let .DoubleType(value):
-                encoder.encode("DoubleType", "TestAssociatedEnum")
+            case let .doubleType(value):
+                encoder.encode("doubleType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
-            case let .FloatType(value):
-                encoder.encode("FloatType", "TestAssociatedEnum")
+            case let .floatType(value):
+                encoder.encode("floatType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
-            case let .IntType(value):
-                encoder.encode("IntType", "TestAssociatedEnum")
+            case let .intType(value):
+                encoder.encode("intType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
-            case let .StringType(value):
-                encoder.encode("StringType", "TestAssociatedEnum")
+            case let .stringType(value):
+                encoder.encode("stringType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
-            case let .TransformableColorType(value):
-                encoder.encode("TransformableColorType", "TestAssociatedEnum")
+            case let .transformableColorType(value):
+                encoder.encode("transformableColorType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
-            case let .DecodableToManyType(value):
-                encoder.encode("DecodableToManyType", "TestAssociatedEnum")
+            case let .decodableToManyType(value):
+                encoder.encode("decodableToManyType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
-            case let .DecodableToOneType(value):
-                encoder.encode("DecodableToOneType", "TestAssociatedEnum")
+            case let .decodableToOneType(value):
+                encoder.encode("decodableToOneType", "TestAssociatedEnum")
                 encoder.encode(value, "value")
 
         }
@@ -156,81 +156,79 @@ extension TestAssociatedEnum {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestAssociatedEnum(key: String) -> TestAssociatedEnum? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestAssociatedEnum(forKey key: String) -> TestAssociatedEnum? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return TestAssociatedEnum.decode(dictionary)
    }
 
-   public func getTestAssociatedEnum(key: String) -> [TestAssociatedEnum]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getTestAssociatedEnum(forKey key: String) -> [TestAssociatedEnum]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(TestAssociatedEnum.decode))
    }
 
-   public func getTestAssociatedEnum(key: String) -> [String : TestAssociatedEnum]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestAssociatedEnum(forKey key: String) -> [String : TestAssociatedEnum]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { TestAssociatedEnum.decode($0) })
    }
 
-   public func getTestAssociatedEnum(key: String, defaultValue: TestAssociatedEnum) -> TestAssociatedEnum {
-      return getTestAssociatedEnum(key) ?? defaultValue
+   public func getTestAssociatedEnum(forKey key: String, defaultValue: TestAssociatedEnum) -> TestAssociatedEnum {
+      return getTestAssociatedEnum(forKey: key) ?? defaultValue
    }
 
-   public func getTestAssociatedEnum(key: String, defaultValue: [TestAssociatedEnum]) -> [TestAssociatedEnum] {
+   public func getTestAssociatedEnum(forKey key: String, defaultValue: [TestAssociatedEnum]) -> [TestAssociatedEnum] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestAssociatedEnum(key: String,  defaultValue: [String : TestAssociatedEnum]
+   public func getTestAssociatedEnum(forKey key: String,  defaultValue: [String : TestAssociatedEnum]
    ) -> [String : TestAssociatedEnum] {
-      return getTestAssociatedEnum(key) ?? defaultValue
+      return getTestAssociatedEnum(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setTestAssociatedEnum(value: TestAssociatedEnum, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setTestAssociatedEnum(value: [TestAssociatedEnum], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setTestAssociatedEnum(value: [String : TestAssociatedEnum], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getTestAssociatedEnum(key: String) -> TestAssociatedEnum? {
-      return getValue(key)
+   public func getTestAssociatedEnum(forKey key: String) -> TestAssociatedEnum? {
+      return getValue(forKey: key)
    }
 
-   public func getTestAssociatedEnum(key: String, defaultValue: TestAssociatedEnum) -> TestAssociatedEnum {
-      return getTestAssociatedEnum(key) ?? defaultValue
+   public func getTestAssociatedEnum(forKey key: String, defaultValue: TestAssociatedEnum) -> TestAssociatedEnum {
+      return getTestAssociatedEnum(forKey: key) ?? defaultValue
    }
 
-   public func getTestAssociatedEnums(key: String) -> [TestAssociatedEnum]? {
-      return getValue(key)
+   public func getTestAssociatedEnums(forKey key: String) -> [TestAssociatedEnum]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestAssociatedEnums(key: String, defaultValue: [TestAssociatedEnum]) -> [TestAssociatedEnum] {
-      return getTestAssociatedEnums(key) ?? defaultValue
+   public func getTestAssociatedEnums(forKey key: String, defaultValue: [TestAssociatedEnum]) -> [TestAssociatedEnum] {
+      return getTestAssociatedEnums(forKey: key) ?? defaultValue
    }
 
-   public func getTestAssociatedEnumDictionary(key: String) -> [String : TestAssociatedEnum]? {
-      return getValue(key)
+   public func getTestAssociatedEnumDictionary(forKey key: String) -> [String : TestAssociatedEnum]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestAssociatedEnumDictionary(key: String, defaultValue: [String : TestAssociatedEnum]) -> [String : TestAssociatedEnum] {
-      return getTestAssociatedEnumDictionary(key) ?? defaultValue
+   public func getTestAssociatedEnumDictionary(forKey key: String, defaultValue: [String : TestAssociatedEnum]) -> [String : TestAssociatedEnum] {
+      return getTestAssociatedEnumDictionary(forKey: key) ?? defaultValue
    }
 }
 

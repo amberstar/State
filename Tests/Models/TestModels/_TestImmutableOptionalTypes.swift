@@ -20,7 +20,7 @@ public struct TestImmutableOptionalTypes : Model {
 
 extension TestImmutableOptionalTypes : Decodable {
 
-   public static func decode(decoder: Decoder) -> TestImmutableOptionalTypes? {
+   public static func decode(_ decoder: Decoder) -> TestImmutableOptionalTypes? {
       return self.init(decoder: decoder)
    }
 
@@ -51,7 +51,7 @@ extension TestImmutableOptionalTypes : Decodable {
 
 extension TestImmutableOptionalTypes : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(myDate, "myDate")
         encoder.encode(myFloat, "myFloat")
         encoder.encode(myBinary, "myBinary")
@@ -81,81 +81,79 @@ extension TestImmutableOptionalTypes {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestImmutableOptionalTypes(key: String) -> TestImmutableOptionalTypes? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestImmutableOptionalTypes(forKey key: String) -> TestImmutableOptionalTypes? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return TestImmutableOptionalTypes.decode(dictionary)
    }
 
-   public func getTestImmutableOptionalTypes(key: String) -> [TestImmutableOptionalTypes]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getTestImmutableOptionalTypes(forKey key: String) -> [TestImmutableOptionalTypes]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(TestImmutableOptionalTypes.decode))
    }
 
-   public func getTestImmutableOptionalTypes(key: String) -> [String : TestImmutableOptionalTypes]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestImmutableOptionalTypes(forKey key: String) -> [String : TestImmutableOptionalTypes]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { TestImmutableOptionalTypes.decode($0) })
    }
 
-   public func getTestImmutableOptionalTypes(key: String, defaultValue: TestImmutableOptionalTypes) -> TestImmutableOptionalTypes {
-      return getTestImmutableOptionalTypes(key) ?? defaultValue
+   public func getTestImmutableOptionalTypes(forKey key: String, defaultValue: TestImmutableOptionalTypes) -> TestImmutableOptionalTypes {
+      return getTestImmutableOptionalTypes(forKey: key) ?? defaultValue
    }
 
-   public func getTestImmutableOptionalTypes(key: String, defaultValue: [TestImmutableOptionalTypes]) -> [TestImmutableOptionalTypes] {
+   public func getTestImmutableOptionalTypes(forKey key: String, defaultValue: [TestImmutableOptionalTypes]) -> [TestImmutableOptionalTypes] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestImmutableOptionalTypes(key: String,  defaultValue: [String : TestImmutableOptionalTypes]
+   public func getTestImmutableOptionalTypes(forKey key: String,  defaultValue: [String : TestImmutableOptionalTypes]
    ) -> [String : TestImmutableOptionalTypes] {
-      return getTestImmutableOptionalTypes(key) ?? defaultValue
+      return getTestImmutableOptionalTypes(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setTestImmutableOptionalTypes(value: TestImmutableOptionalTypes, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setTestImmutableOptionalTypes(value: [TestImmutableOptionalTypes], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setTestImmutableOptionalTypes(value: [String : TestImmutableOptionalTypes], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getTestImmutableOptionalTypes(key: String) -> TestImmutableOptionalTypes? {
-      return getValue(key)
+   public func getTestImmutableOptionalTypes(forKey key: String) -> TestImmutableOptionalTypes? {
+      return getValue(forKey: key)
    }
 
-   public func getTestImmutableOptionalTypes(key: String, defaultValue: TestImmutableOptionalTypes) -> TestImmutableOptionalTypes {
-      return getTestImmutableOptionalTypes(key) ?? defaultValue
+   public func getTestImmutableOptionalTypes(forKey key: String, defaultValue: TestImmutableOptionalTypes) -> TestImmutableOptionalTypes {
+      return getTestImmutableOptionalTypes(forKey: key) ?? defaultValue
    }
 
-   public func getTestImmutableOptionalTypess(key: String) -> [TestImmutableOptionalTypes]? {
-      return getValue(key)
+   public func getTestImmutableOptionalTypess(forKey key: String) -> [TestImmutableOptionalTypes]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestImmutableOptionalTypess(key: String, defaultValue: [TestImmutableOptionalTypes]) -> [TestImmutableOptionalTypes] {
-      return getTestImmutableOptionalTypess(key) ?? defaultValue
+   public func getTestImmutableOptionalTypess(forKey key: String, defaultValue: [TestImmutableOptionalTypes]) -> [TestImmutableOptionalTypes] {
+      return getTestImmutableOptionalTypess(forKey: key) ?? defaultValue
    }
 
-   public func getTestImmutableOptionalTypesDictionary(key: String) -> [String : TestImmutableOptionalTypes]? {
-      return getValue(key)
+   public func getTestImmutableOptionalTypesDictionary(forKey key: String) -> [String : TestImmutableOptionalTypes]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestImmutableOptionalTypesDictionary(key: String, defaultValue: [String : TestImmutableOptionalTypes]) -> [String : TestImmutableOptionalTypes] {
-      return getTestImmutableOptionalTypesDictionary(key) ?? defaultValue
+   public func getTestImmutableOptionalTypesDictionary(forKey key: String, defaultValue: [String : TestImmutableOptionalTypes]) -> [String : TestImmutableOptionalTypes] {
+      return getTestImmutableOptionalTypesDictionary(forKey: key) ?? defaultValue
    }
 }
 

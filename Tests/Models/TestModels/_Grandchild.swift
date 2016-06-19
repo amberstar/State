@@ -15,7 +15,7 @@ public struct Grandchild : Model {
 
 extension Grandchild : Decodable {
 
-   public static func decode(decoder: Decoder) -> Grandchild? {
+   public static func decode(_ decoder: Decoder) -> Grandchild? {
       return self.init(decoder: decoder)
    }
 
@@ -36,7 +36,7 @@ extension Grandchild : Decodable {
 
 extension Grandchild : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(age, "age")
         encoder.encode(name, "name")
         encoder.encode(gender, "gender")
@@ -61,81 +61,79 @@ extension Grandchild {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getGrandchild(key: String) -> Grandchild? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getGrandchild(forKey key: String) -> Grandchild? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return Grandchild.decode(dictionary)
    }
 
-   public func getGrandchild(key: String) -> [Grandchild]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getGrandchild(forKey key: String) -> [Grandchild]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(Grandchild.decode))
    }
 
-   public func getGrandchild(key: String) -> [String : Grandchild]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getGrandchild(forKey key: String) -> [String : Grandchild]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { Grandchild.decode($0) })
    }
 
-   public func getGrandchild(key: String, defaultValue: Grandchild) -> Grandchild {
-      return getGrandchild(key) ?? defaultValue
+   public func getGrandchild(forKey key: String, defaultValue: Grandchild) -> Grandchild {
+      return getGrandchild(forKey: key) ?? defaultValue
    }
 
-   public func getGrandchild(key: String, defaultValue: [Grandchild]) -> [Grandchild] {
+   public func getGrandchild(forKey key: String, defaultValue: [Grandchild]) -> [Grandchild] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getGrandchild(key: String,  defaultValue: [String : Grandchild]
+   public func getGrandchild(forKey key: String,  defaultValue: [String : Grandchild]
    ) -> [String : Grandchild] {
-      return getGrandchild(key) ?? defaultValue
+      return getGrandchild(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setGrandchild(value: Grandchild, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setGrandchild(value: [Grandchild], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setGrandchild(value: [String : Grandchild], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getGrandchild(key: String) -> Grandchild? {
-      return getValue(key)
+   public func getGrandchild(forKey key: String) -> Grandchild? {
+      return getValue(forKey: key)
    }
 
-   public func getGrandchild(key: String, defaultValue: Grandchild) -> Grandchild {
-      return getGrandchild(key) ?? defaultValue
+   public func getGrandchild(forKey key: String, defaultValue: Grandchild) -> Grandchild {
+      return getGrandchild(forKey: key) ?? defaultValue
    }
 
-   public func getGrandchilds(key: String) -> [Grandchild]? {
-      return getValue(key)
+   public func getGrandchilds(forKey key: String) -> [Grandchild]? {
+      return getValue(forKey: key)
    }
 
-   public func getGrandchilds(key: String, defaultValue: [Grandchild]) -> [Grandchild] {
-      return getGrandchilds(key) ?? defaultValue
+   public func getGrandchilds(forKey key: String, defaultValue: [Grandchild]) -> [Grandchild] {
+      return getGrandchilds(forKey: key) ?? defaultValue
    }
 
-   public func getGrandchildDictionary(key: String) -> [String : Grandchild]? {
-      return getValue(key)
+   public func getGrandchildDictionary(forKey key: String) -> [String : Grandchild]? {
+      return getValue(forKey: key)
    }
 
-   public func getGrandchildDictionary(key: String, defaultValue: [String : Grandchild]) -> [String : Grandchild] {
-      return getGrandchildDictionary(key) ?? defaultValue
+   public func getGrandchildDictionary(forKey key: String, defaultValue: [String : Grandchild]) -> [String : Grandchild] {
+      return getGrandchildDictionary(forKey: key) ?? defaultValue
    }
 }
 

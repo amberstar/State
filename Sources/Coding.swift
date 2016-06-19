@@ -1,14 +1,14 @@
 import Foundation
 
-public enum DecodingError : ErrorType {
-   case KeyNotFound(String)
+public enum DecodingError : ErrorProtocol {
+   case keyNotFound(String)
    
    public init(key: String) {
-      self = .KeyNotFound(errorMessage("Decoding Error, Key Not Found: \(key)"))
+      self = .keyNotFound(errorMessage("Decoding Error, Key Not Found: \(key)"))
    }
 }
 
-func errorMessage(reason: String, function: String = #function ,file: String = #file, line: Int = #line) -> String {
+func errorMessage(_ reason: String, function: String = #function ,file: String = #file, line: Int = #line) -> String {
         return "reason: \(reason) function: \(function) file: \((file as NSString).lastPathComponent) line: \(line)"
 }
 
@@ -17,8 +17,8 @@ func errorMessage(reason: String, function: String = #function ,file: String = #
 //****************************************************************************//
 
 public protocol Encodable {
-   func encode(encoder: Encoder)
-   func willFinishEncodingWithEncoder(encoder: Encoder)
+   func encode(_ encoder: Encoder)
+   func willFinishEncodingWithEncoder(_ encoder: Encoder)
 }
 
 public extension Encodable {
@@ -29,7 +29,7 @@ public extension Encodable {
       return coder.data
    }
    
-   func encodeToFile(converter: Converter.Type, path: String) {
+   func encodeToFile(_ converter: Converter.Type, path: String) {
       converter.write(self.encode(), path: path)
    }
    
@@ -38,11 +38,11 @@ public extension Encodable {
    /// - parameter encoder: the encoder used for encoding
    /// - note: This method is called right before encoding finishes.
    /// It provides a chance to encode any further data with the encoder.
-   func willFinishEncodingWithEncoder(encoder: Encoder) { }
+   func willFinishEncodingWithEncoder(_ encoder: Encoder) { }
    
    
    /// Save a model to a specified format
-   public func save(format: Format, path: String) -> Bool {
+   public func save(_ format: Format, path: String) -> Bool {
       return format.converter.write(self.encode(), path: path)
    }
    
@@ -66,22 +66,22 @@ public protocol EncoderType : class {
 }
 
 extension EncoderType {
-   public func encode<T: Encodable>(value: T?, _ key: String) {
+   public func encode<T: Encodable>(_ value: T?, _ key: String) {
       guard let value = value else { return }
       data[key] = value.encode()
    }
    
-   public func encode<T: Encodable>(value: [T]?, _ key: String) {
+   public func encode<T: Encodable>(_ value: [T]?, _ key: String) {
       guard let value = value else { return }
       data[key] = value.map { $0.encode() }
    }
    
-   public func encode<T: Encodable>(value: [String : T]?, _ key: String) {
+   public func encode<T: Encodable>(_ value: [String : T]?, _ key: String) {
       guard let value = value else { return }
       data[key] = value.map { $0.encode() }
    }
    
-   public func encode<V>(value: V?, _ key: String) {
+   public func encode<V>(_ value: V?, _ key: String) {
       guard let value = value else { return }
       self.data[key] = value as? AnyObject
    }
@@ -96,18 +96,18 @@ public final class Encoder : EncoderType {
 //****************************************************************************//
 
 public protocol Decodable {
-   static func decode(decoder: Decoder) -> Self?
-   func didFinishDecodingWithDecoder(decoder: Decoder)
+   static func decode(_ decoder: Decoder) -> Self?
+   func didFinishDecodingWithDecoder(_ decoder: Decoder)
 }
 
 public extension Decodable {
    
-   public static func decode(data: [String : AnyObject]) -> Self? {
+   public static func decode(_ data: [String : AnyObject]) -> Self? {
       let decoder = Decoder(data: data)
       return Self.decode(decoder)
    }
 
-   static func decode(data: AnyObject?) -> Self? {
+   static func decode(_ data: AnyObject?) -> Self? {
       
       if let data = data as? [String : AnyObject] {
          return Self.decode(data)
@@ -116,7 +116,7 @@ public extension Decodable {
    }
    
    static func decodeFromFile(
-      converter: Converter.Type,
+      _ converter: Converter.Type,
       path: String) -> Self? {
       return decode(converter.read(path))
    }
@@ -135,7 +135,7 @@ public extension Decodable {
    /// - note: This method is called after decoding takes place.
    /// It provides a way to decode any further data with the decoder
    /// or to do any initialization needed after decoding.
-   func didFinishDecodingWithDecoder(decoder: Decoder) {
+   func didFinishDecodingWithDecoder(_ decoder: Decoder) {
       
    }
 }
@@ -153,7 +153,7 @@ extension DecoderType {
    /// decode a decodable element
    /// - parameter key: a dictionary to use for decoding
    /// - returns: return element of type T or nil if decoding failed
-   public func decode<T:Decodable>(key: String) -> T? {
+   public func decode<T:Decodable>(_ key: String) -> T? {
       let d = data[key] as? [String : AnyObject]
       return d.flatMap(_decodeDecodable)
    }
@@ -162,7 +162,7 @@ extension DecoderType {
    /// - parameter key: a dictionary to use for decoding
    /// - returns: return an optional array of T or nil 
    /// if decoding failed
-   public func decode<T:Decodable>(key: String) -> [T]? {
+   public func decode<T:Decodable>(_ key: String) -> [T]? {
       let d = data[key] as? [[String : AnyObject]]
       return d.flatMap { sequence($0.map( _decodeDecodable)) }
    }
@@ -171,7 +171,7 @@ extension DecoderType {
    /// - parameter key: a dictionary to use for decoding
    /// - returns: return a dictionary of string, element T 
    /// or nil if decoding failed
-   public func decode<T: Decodable>(key: String) -> [String : T]? {
+   public func decode<T: Decodable>(_ key: String) -> [String : T]? {
       let d = data[key] as? [String : [String : AnyObject]]
       return d.flatMap { sequence($0.map(_decodeDecodable)) }
    }
@@ -179,12 +179,12 @@ extension DecoderType {
    /// decode a value element V
    /// - parameter key: a dictionary to use for decoding
    /// - returns: return an element V or nil if decoding failed
-   public func decode<V>(key: String) -> V? {
+   public func decode<V>(_ key: String) -> V? {
       return data[key] as? V
    }
    
    private func _decodeDecodable<T: Decodable>(
-      data: [String : AnyObject]) -> T? {
+      _ data: [String : AnyObject]) -> T? {
       return T.decode(Decoder(data: data))
    }
 }
@@ -204,15 +204,15 @@ public final class Decoder : DecoderType {
 //                            functions
 //****************************************************************************//
 
-public func sequence<T>(array: [T?]) -> [T]? {
-   return  array.reduce(.Some([])) { accum, elem in
+public func sequence<T>(_ array: [T?]) -> [T]? {
+   return  array.reduce(.some([])) { accum, elem in
       guard let accum = accum, elem = elem else { return nil }
       return accum + [elem]
    }
 }
 
-public func sequence<T>(dictionary: [String: T?]) -> [String: T]? {
-   return dictionary.reduce(.Some([:])) { accum, elem in
+public func sequence<T>(_ dictionary: [String: T?]) -> [String: T]? {
+   return dictionary.reduce(.some([:])) { accum, elem in
       guard let accum = accum, value = elem.1 else { return nil }
       var result = accum
       result[elem.0] = value
@@ -222,7 +222,7 @@ public func sequence<T>(dictionary: [String: T?]) -> [String: T]? {
 
 extension Dictionary {
    
-   public func map<A>(transform: Value -> A) -> [Key: A] {
+   public func map<A>(_ transform: (Value) -> A) -> [Key: A] {
       return self.reduce([:]) { accum, elem in
          var result = accum
          result[elem.0] = transform(elem.1)

@@ -14,7 +14,7 @@ public struct TestProtocolConformer2 : TestParentProtocol {
 
 extension TestProtocolConformer2 : Decodable {
 
-   public static func decode(decoder: Decoder) -> TestProtocolConformer2? {
+   public static func decode(_ decoder: Decoder) -> TestProtocolConformer2? {
       return self.init(decoder: decoder)
    }
 
@@ -35,7 +35,7 @@ extension TestProtocolConformer2 : Decodable {
 
 extension TestProtocolConformer2 : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(name, "name")
         encoder.encode(ss_number, "ss_number")
 
@@ -61,81 +61,79 @@ extension TestProtocolConformer2 {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestProtocolConformer2(key: String) -> TestProtocolConformer2? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestProtocolConformer2(forKey key: String) -> TestProtocolConformer2? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return TestProtocolConformer2.decode(dictionary)
    }
 
-   public func getTestProtocolConformer2(key: String) -> [TestProtocolConformer2]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getTestProtocolConformer2(forKey key: String) -> [TestProtocolConformer2]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(TestProtocolConformer2.decode))
    }
 
-   public func getTestProtocolConformer2(key: String) -> [String : TestProtocolConformer2]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestProtocolConformer2(forKey key: String) -> [String : TestProtocolConformer2]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { TestProtocolConformer2.decode($0) })
    }
 
-   public func getTestProtocolConformer2(key: String, defaultValue: TestProtocolConformer2) -> TestProtocolConformer2 {
-      return getTestProtocolConformer2(key) ?? defaultValue
+   public func getTestProtocolConformer2(forKey key: String, defaultValue: TestProtocolConformer2) -> TestProtocolConformer2 {
+      return getTestProtocolConformer2(forKey: key) ?? defaultValue
    }
 
-   public func getTestProtocolConformer2(key: String, defaultValue: [TestProtocolConformer2]) -> [TestProtocolConformer2] {
+   public func getTestProtocolConformer2(forKey key: String, defaultValue: [TestProtocolConformer2]) -> [TestProtocolConformer2] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestProtocolConformer2(key: String,  defaultValue: [String : TestProtocolConformer2]
+   public func getTestProtocolConformer2(forKey key: String,  defaultValue: [String : TestProtocolConformer2]
    ) -> [String : TestProtocolConformer2] {
-      return getTestProtocolConformer2(key) ?? defaultValue
+      return getTestProtocolConformer2(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setTestProtocolConformer2(value: TestProtocolConformer2, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setTestProtocolConformer2(value: [TestProtocolConformer2], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setTestProtocolConformer2(value: [String : TestProtocolConformer2], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getTestProtocolConformer2(key: String) -> TestProtocolConformer2? {
-      return getValue(key)
+   public func getTestProtocolConformer2(forKey key: String) -> TestProtocolConformer2? {
+      return getValue(forKey: key)
    }
 
-   public func getTestProtocolConformer2(key: String, defaultValue: TestProtocolConformer2) -> TestProtocolConformer2 {
-      return getTestProtocolConformer2(key) ?? defaultValue
+   public func getTestProtocolConformer2(forKey key: String, defaultValue: TestProtocolConformer2) -> TestProtocolConformer2 {
+      return getTestProtocolConformer2(forKey: key) ?? defaultValue
    }
 
-   public func getTestProtocolConformer2s(key: String) -> [TestProtocolConformer2]? {
-      return getValue(key)
+   public func getTestProtocolConformer2s(forKey key: String) -> [TestProtocolConformer2]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestProtocolConformer2s(key: String, defaultValue: [TestProtocolConformer2]) -> [TestProtocolConformer2] {
-      return getTestProtocolConformer2s(key) ?? defaultValue
+   public func getTestProtocolConformer2s(forKey key: String, defaultValue: [TestProtocolConformer2]) -> [TestProtocolConformer2] {
+      return getTestProtocolConformer2s(forKey: key) ?? defaultValue
    }
 
-   public func getTestProtocolConformer2Dictionary(key: String) -> [String : TestProtocolConformer2]? {
-      return getValue(key)
+   public func getTestProtocolConformer2Dictionary(forKey key: String) -> [String : TestProtocolConformer2]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestProtocolConformer2Dictionary(key: String, defaultValue: [String : TestProtocolConformer2]) -> [String : TestProtocolConformer2] {
-      return getTestProtocolConformer2Dictionary(key) ?? defaultValue
+   public func getTestProtocolConformer2Dictionary(forKey key: String, defaultValue: [String : TestProtocolConformer2]) -> [String : TestProtocolConformer2] {
+      return getTestProtocolConformer2Dictionary(forKey: key) ?? defaultValue
    }
 }
 

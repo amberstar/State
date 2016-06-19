@@ -15,7 +15,7 @@ public struct TestCollections : Model {
 
 extension TestCollections : Decodable {
 
-   public static func decode(decoder: Decoder) -> TestCollections? {
+   public static func decode(_ decoder: Decoder) -> TestCollections? {
       return self.init(decoder: decoder)
    }
 
@@ -38,7 +38,7 @@ extension TestCollections : Decodable {
 
 extension TestCollections : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(arrayOfStrings, "arrayOfStrings")
         encoder.encode(dicOfInts, "dicOfInts")
         encoder.encode(setOfStrings, "setOfStrings")
@@ -63,81 +63,79 @@ extension TestCollections {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestCollections(key: String) -> TestCollections? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestCollections(forKey key: String) -> TestCollections? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return TestCollections.decode(dictionary)
    }
 
-   public func getTestCollections(key: String) -> [TestCollections]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getTestCollections(forKey key: String) -> [TestCollections]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(TestCollections.decode))
    }
 
-   public func getTestCollections(key: String) -> [String : TestCollections]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestCollections(forKey key: String) -> [String : TestCollections]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { TestCollections.decode($0) })
    }
 
-   public func getTestCollections(key: String, defaultValue: TestCollections) -> TestCollections {
-      return getTestCollections(key) ?? defaultValue
+   public func getTestCollections(forKey key: String, defaultValue: TestCollections) -> TestCollections {
+      return getTestCollections(forKey: key) ?? defaultValue
    }
 
-   public func getTestCollections(key: String, defaultValue: [TestCollections]) -> [TestCollections] {
+   public func getTestCollections(forKey key: String, defaultValue: [TestCollections]) -> [TestCollections] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestCollections(key: String,  defaultValue: [String : TestCollections]
+   public func getTestCollections(forKey key: String,  defaultValue: [String : TestCollections]
    ) -> [String : TestCollections] {
-      return getTestCollections(key) ?? defaultValue
+      return getTestCollections(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setTestCollections(value: TestCollections, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setTestCollections(value: [TestCollections], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setTestCollections(value: [String : TestCollections], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getTestCollections(key: String) -> TestCollections? {
-      return getValue(key)
+   public func getTestCollections(forKey key: String) -> TestCollections? {
+      return getValue(forKey: key)
    }
 
-   public func getTestCollections(key: String, defaultValue: TestCollections) -> TestCollections {
-      return getTestCollections(key) ?? defaultValue
+   public func getTestCollections(forKey key: String, defaultValue: TestCollections) -> TestCollections {
+      return getTestCollections(forKey: key) ?? defaultValue
    }
 
-   public func getTestCollectionss(key: String) -> [TestCollections]? {
-      return getValue(key)
+   public func getTestCollectionss(forKey key: String) -> [TestCollections]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestCollectionss(key: String, defaultValue: [TestCollections]) -> [TestCollections] {
-      return getTestCollectionss(key) ?? defaultValue
+   public func getTestCollectionss(forKey key: String, defaultValue: [TestCollections]) -> [TestCollections] {
+      return getTestCollectionss(forKey: key) ?? defaultValue
    }
 
-   public func getTestCollectionsDictionary(key: String) -> [String : TestCollections]? {
-      return getValue(key)
+   public func getTestCollectionsDictionary(forKey key: String) -> [String : TestCollections]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestCollectionsDictionary(key: String, defaultValue: [String : TestCollections]) -> [String : TestCollections] {
-      return getTestCollectionsDictionary(key) ?? defaultValue
+   public func getTestCollectionsDictionary(forKey key: String, defaultValue: [String : TestCollections]) -> [String : TestCollections] {
+      return getTestCollectionsDictionary(forKey: key) ?? defaultValue
    }
 }
 

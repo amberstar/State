@@ -13,7 +13,7 @@ public struct TestDictionaryComposition : Model {
 
 extension TestDictionaryComposition : Decodable {
 
-   public static func decode(decoder: Decoder) -> TestDictionaryComposition? {
+   public static func decode(_ decoder: Decoder) -> TestDictionaryComposition? {
       return self.init(decoder: decoder)
    }
 
@@ -32,7 +32,7 @@ extension TestDictionaryComposition : Decodable {
 
 extension TestDictionaryComposition : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(employees, "employees")
 
         TestDictionaryComposition.encodeVersionIfNeeded(encoder)
@@ -55,81 +55,79 @@ extension TestDictionaryComposition {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestDictionaryComposition(key: String) -> TestDictionaryComposition? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestDictionaryComposition(forKey key: String) -> TestDictionaryComposition? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return TestDictionaryComposition.decode(dictionary)
    }
 
-   public func getTestDictionaryComposition(key: String) -> [TestDictionaryComposition]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getTestDictionaryComposition(forKey key: String) -> [TestDictionaryComposition]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(TestDictionaryComposition.decode))
    }
 
-   public func getTestDictionaryComposition(key: String) -> [String : TestDictionaryComposition]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestDictionaryComposition(forKey key: String) -> [String : TestDictionaryComposition]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { TestDictionaryComposition.decode($0) })
    }
 
-   public func getTestDictionaryComposition(key: String, defaultValue: TestDictionaryComposition) -> TestDictionaryComposition {
-      return getTestDictionaryComposition(key) ?? defaultValue
+   public func getTestDictionaryComposition(forKey key: String, defaultValue: TestDictionaryComposition) -> TestDictionaryComposition {
+      return getTestDictionaryComposition(forKey: key) ?? defaultValue
    }
 
-   public func getTestDictionaryComposition(key: String, defaultValue: [TestDictionaryComposition]) -> [TestDictionaryComposition] {
+   public func getTestDictionaryComposition(forKey key: String, defaultValue: [TestDictionaryComposition]) -> [TestDictionaryComposition] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestDictionaryComposition(key: String,  defaultValue: [String : TestDictionaryComposition]
+   public func getTestDictionaryComposition(forKey key: String,  defaultValue: [String : TestDictionaryComposition]
    ) -> [String : TestDictionaryComposition] {
-      return getTestDictionaryComposition(key) ?? defaultValue
+      return getTestDictionaryComposition(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setTestDictionaryComposition(value: TestDictionaryComposition, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setTestDictionaryComposition(value: [TestDictionaryComposition], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setTestDictionaryComposition(value: [String : TestDictionaryComposition], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getTestDictionaryComposition(key: String) -> TestDictionaryComposition? {
-      return getValue(key)
+   public func getTestDictionaryComposition(forKey key: String) -> TestDictionaryComposition? {
+      return getValue(forKey: key)
    }
 
-   public func getTestDictionaryComposition(key: String, defaultValue: TestDictionaryComposition) -> TestDictionaryComposition {
-      return getTestDictionaryComposition(key) ?? defaultValue
+   public func getTestDictionaryComposition(forKey key: String, defaultValue: TestDictionaryComposition) -> TestDictionaryComposition {
+      return getTestDictionaryComposition(forKey: key) ?? defaultValue
    }
 
-   public func getTestDictionaryCompositions(key: String) -> [TestDictionaryComposition]? {
-      return getValue(key)
+   public func getTestDictionaryCompositions(forKey key: String) -> [TestDictionaryComposition]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestDictionaryCompositions(key: String, defaultValue: [TestDictionaryComposition]) -> [TestDictionaryComposition] {
-      return getTestDictionaryCompositions(key) ?? defaultValue
+   public func getTestDictionaryCompositions(forKey key: String, defaultValue: [TestDictionaryComposition]) -> [TestDictionaryComposition] {
+      return getTestDictionaryCompositions(forKey: key) ?? defaultValue
    }
 
-   public func getTestDictionaryCompositionDictionary(key: String) -> [String : TestDictionaryComposition]? {
-      return getValue(key)
+   public func getTestDictionaryCompositionDictionary(forKey key: String) -> [String : TestDictionaryComposition]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestDictionaryCompositionDictionary(key: String, defaultValue: [String : TestDictionaryComposition]) -> [String : TestDictionaryComposition] {
-      return getTestDictionaryCompositionDictionary(key) ?? defaultValue
+   public func getTestDictionaryCompositionDictionary(forKey key: String, defaultValue: [String : TestDictionaryComposition]) -> [String : TestDictionaryComposition] {
+      return getTestDictionaryCompositionDictionary(forKey: key) ?? defaultValue
    }
 }
 

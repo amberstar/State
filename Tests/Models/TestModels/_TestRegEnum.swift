@@ -8,14 +8,14 @@ import State
 
 public enum TestRegEnum  : Model {
 
-    case Cold 
-    case Hot
+    case cold 
+    case hot
 
 }
 
 extension TestRegEnum: Decodable {
 
-   public static func decode(decoder: Decoder) -> TestRegEnum? {
+   public static func decode(_ decoder: Decoder) -> TestRegEnum? {
       return self.init(decoder: decoder)
    }
 
@@ -25,10 +25,10 @@ extension TestRegEnum: Decodable {
 
         guard let type: String = decoder.decode("TestRegEnum") else { return nil }
         switch type {
-                case "Cold":
-                   self = TestRegEnum.Cold
-                case "Hot":
-                   self = TestRegEnum.Hot
+                case "cold":
+                   self = TestRegEnum.cold
+                case "hot":
+                   self = TestRegEnum.hot
 
                 default:
                     return nil
@@ -39,13 +39,13 @@ extension TestRegEnum: Decodable {
 
 extension TestRegEnum: Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
 
         switch self {
-            case .Cold:
-                encoder.encode("Cold", "TestRegEnum")
-            case .Hot:
-                encoder.encode("Hot", "TestRegEnum")
+            case .cold:
+                encoder.encode("cold", "TestRegEnum")
+            case .hot:
+                encoder.encode("hot", "TestRegEnum")
 
         }
 
@@ -68,81 +68,79 @@ extension TestRegEnum {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestRegEnum(key: String) -> TestRegEnum? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestRegEnum(forKey key: String) -> TestRegEnum? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return TestRegEnum.decode(dictionary)
    }
 
-   public func getTestRegEnum(key: String) -> [TestRegEnum]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getTestRegEnum(forKey key: String) -> [TestRegEnum]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(TestRegEnum.decode))
    }
 
-   public func getTestRegEnum(key: String) -> [String : TestRegEnum]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestRegEnum(forKey key: String) -> [String : TestRegEnum]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { TestRegEnum.decode($0) })
    }
 
-   public func getTestRegEnum(key: String, defaultValue: TestRegEnum) -> TestRegEnum {
-      return getTestRegEnum(key) ?? defaultValue
+   public func getTestRegEnum(forKey key: String, defaultValue: TestRegEnum) -> TestRegEnum {
+      return getTestRegEnum(forKey: key) ?? defaultValue
    }
 
-   public func getTestRegEnum(key: String, defaultValue: [TestRegEnum]) -> [TestRegEnum] {
+   public func getTestRegEnum(forKey key: String, defaultValue: [TestRegEnum]) -> [TestRegEnum] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestRegEnum(key: String,  defaultValue: [String : TestRegEnum]
+   public func getTestRegEnum(forKey key: String,  defaultValue: [String : TestRegEnum]
    ) -> [String : TestRegEnum] {
-      return getTestRegEnum(key) ?? defaultValue
+      return getTestRegEnum(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setTestRegEnum(value: TestRegEnum, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setTestRegEnum(value: [TestRegEnum], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setTestRegEnum(value: [String : TestRegEnum], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getTestRegEnum(key: String) -> TestRegEnum? {
-      return getValue(key)
+   public func getTestRegEnum(forKey key: String) -> TestRegEnum? {
+      return getValue(forKey: key)
    }
 
-   public func getTestRegEnum(key: String, defaultValue: TestRegEnum) -> TestRegEnum {
-      return getTestRegEnum(key) ?? defaultValue
+   public func getTestRegEnum(forKey key: String, defaultValue: TestRegEnum) -> TestRegEnum {
+      return getTestRegEnum(forKey: key) ?? defaultValue
    }
 
-   public func getTestRegEnums(key: String) -> [TestRegEnum]? {
-      return getValue(key)
+   public func getTestRegEnums(forKey key: String) -> [TestRegEnum]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestRegEnums(key: String, defaultValue: [TestRegEnum]) -> [TestRegEnum] {
-      return getTestRegEnums(key) ?? defaultValue
+   public func getTestRegEnums(forKey key: String, defaultValue: [TestRegEnum]) -> [TestRegEnum] {
+      return getTestRegEnums(forKey: key) ?? defaultValue
    }
 
-   public func getTestRegEnumDictionary(key: String) -> [String : TestRegEnum]? {
-      return getValue(key)
+   public func getTestRegEnumDictionary(forKey key: String) -> [String : TestRegEnum]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestRegEnumDictionary(key: String, defaultValue: [String : TestRegEnum]) -> [String : TestRegEnum] {
-      return getTestRegEnumDictionary(key) ?? defaultValue
+   public func getTestRegEnumDictionary(forKey key: String, defaultValue: [String : TestRegEnum]) -> [String : TestRegEnum] {
+      return getTestRegEnumDictionary(forKey: key) ?? defaultValue
    }
 }
 

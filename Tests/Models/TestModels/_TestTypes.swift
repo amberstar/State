@@ -20,7 +20,7 @@ public struct TestTypes : Model {
 
 extension TestTypes : Decodable {
 
-   public static func decode(decoder: Decoder) -> TestTypes? {
+   public static func decode(_ decoder: Decoder) -> TestTypes? {
       return self.init(decoder: decoder)
    }
 
@@ -53,7 +53,7 @@ extension TestTypes : Decodable {
 
 extension TestTypes : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(myDate, "myDate")
         encoder.encode(myFloat, "myFloat")
         encoder.encode(myBinary, "myBinary")
@@ -83,81 +83,79 @@ extension TestTypes {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestTypes(key: String) -> TestTypes? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestTypes(forKey key: String) -> TestTypes? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return TestTypes.decode(dictionary)
    }
 
-   public func getTestTypes(key: String) -> [TestTypes]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getTestTypes(forKey key: String) -> [TestTypes]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(TestTypes.decode))
    }
 
-   public func getTestTypes(key: String) -> [String : TestTypes]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestTypes(forKey key: String) -> [String : TestTypes]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { TestTypes.decode($0) })
    }
 
-   public func getTestTypes(key: String, defaultValue: TestTypes) -> TestTypes {
-      return getTestTypes(key) ?? defaultValue
+   public func getTestTypes(forKey key: String, defaultValue: TestTypes) -> TestTypes {
+      return getTestTypes(forKey: key) ?? defaultValue
    }
 
-   public func getTestTypes(key: String, defaultValue: [TestTypes]) -> [TestTypes] {
+   public func getTestTypes(forKey key: String, defaultValue: [TestTypes]) -> [TestTypes] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestTypes(key: String,  defaultValue: [String : TestTypes]
+   public func getTestTypes(forKey key: String,  defaultValue: [String : TestTypes]
    ) -> [String : TestTypes] {
-      return getTestTypes(key) ?? defaultValue
+      return getTestTypes(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setTestTypes(value: TestTypes, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setTestTypes(value: [TestTypes], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setTestTypes(value: [String : TestTypes], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getTestTypes(key: String) -> TestTypes? {
-      return getValue(key)
+   public func getTestTypes(forKey key: String) -> TestTypes? {
+      return getValue(forKey: key)
    }
 
-   public func getTestTypes(key: String, defaultValue: TestTypes) -> TestTypes {
-      return getTestTypes(key) ?? defaultValue
+   public func getTestTypes(forKey key: String, defaultValue: TestTypes) -> TestTypes {
+      return getTestTypes(forKey: key) ?? defaultValue
    }
 
-   public func getTestTypess(key: String) -> [TestTypes]? {
-      return getValue(key)
+   public func getTestTypess(forKey key: String) -> [TestTypes]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestTypess(key: String, defaultValue: [TestTypes]) -> [TestTypes] {
-      return getTestTypess(key) ?? defaultValue
+   public func getTestTypess(forKey key: String, defaultValue: [TestTypes]) -> [TestTypes] {
+      return getTestTypess(forKey: key) ?? defaultValue
    }
 
-   public func getTestTypesDictionary(key: String) -> [String : TestTypes]? {
-      return getValue(key)
+   public func getTestTypesDictionary(forKey key: String) -> [String : TestTypes]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestTypesDictionary(key: String, defaultValue: [String : TestTypes]) -> [String : TestTypes] {
-      return getTestTypesDictionary(key) ?? defaultValue
+   public func getTestTypesDictionary(forKey key: String, defaultValue: [String : TestTypes]) -> [String : TestTypes] {
+      return getTestTypesDictionary(forKey: key) ?? defaultValue
    }
 }
 

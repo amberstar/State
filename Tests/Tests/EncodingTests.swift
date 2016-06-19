@@ -155,6 +155,6 @@ class EncodingTests: Test {
         XCTAssert(objects?.tDic["key1"] as? Bool == true )
         XCTAssert(objects?.tDic["key0"] as? Int == 0)
         XCTAssert(objects?.tDicOpt != nil)
-        XCTAssert(objects?.tDictImp["key1"] as? NSDate != nil)
+        XCTAssert(objects?.tDictImp["key1"] as? Date != nil)
     }
 }

@@ -2,7 +2,7 @@ import XCTest
 
 public extension Optional {
    
-   public func apply<U>(f: (Wrapped -> U)?) -> U? {
+   public func apply<U>(_ f: ((Wrapped) -> U)?) -> U? {
       return f.flatMap { self.map($0) }
    }
 }
@@ -14,7 +14,7 @@ class Test : XCTestCase {
     var jsonData : [String : AnyObject] = [:]
     
     class func plist(fromFile file: String) -> AnyObject? {
-        let path = NSBundle(forClass: self).pathForResource(file, ofType: "plist")
+        let path = Bundle(for: self).pathForResource(file, ofType: "plist")
         
         if let p = path {
             if let dict = NSDictionary(contentsOfFile: p) {
@@ -24,38 +24,38 @@ class Test : XCTestCase {
                 return arr
             }
         }
-        return .None
+        return .none
     }
     
     class func JSON(fromFile file: String) -> AnyObject? {
-        let path = NSBundle(forClass: self).pathForResource(file, ofType: "json")
+        let path = Bundle(for: self).pathForResource(file, ofType: "json")
         
         if path != nil {
-            if let data = NSData(contentsOfFile: path!) {
+            if let data = try? Data(contentsOf: URL(fileURLWithPath: path!)) {
                 do {
-                    return try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
+                    return try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0))
                 } catch _ {
                     return nil
                 }
             }
         }
-        return .None
+        return .none
     }
     
-     func bundlePathFor(file: String, ofType type: String) -> String?  {
-        return NSBundle(forClass: Test.self ).pathForResource(file , ofType:type)
+     func bundlePathFor(_ file: String, ofType type: String) -> String?  {
+        return Bundle(for: Test.self ).pathForResource(file , ofType:type)
     }
     
-     func tempPathFor(file: String) -> String {
-        return NSString.pathWithComponents([NSTemporaryDirectory(), file])
+     func tempPathFor(_ file: String) -> String {
+        return NSString.path(withComponents: [NSTemporaryDirectory(), file])
     }
     
      func clearTempData() {
-        let fileManager = NSFileManager.defaultManager()
-        let enumerator = fileManager.enumeratorAtPath(NSTemporaryDirectory())
+        let fileManager = FileManager.default()
+        let enumerator = fileManager.enumerator(atPath: NSTemporaryDirectory())
         while let file = enumerator?.nextObject() as? String {
             do {
-                try fileManager.removeItemAtURL(NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(file))
+                try fileManager.removeItem(at: try! URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(file))
             } catch _ {
             }
         }

@@ -9,13 +9,13 @@ import State
 public struct TestTransient : Model {
     public var myNonTransient: String
     public var myTransientOptional: Double?
-    public var myTransientRelationship = Gender.Female
+    public var myTransientRelationship = Gender.female
 
 }
 
 extension TestTransient : Decodable {
 
-   public static func decode(decoder: Decoder) -> TestTransient? {
+   public static func decode(_ decoder: Decoder) -> TestTransient? {
       return self.init(decoder: decoder)
    }
 
@@ -34,7 +34,7 @@ extension TestTransient : Decodable {
 
 extension TestTransient : Encodable {
 
-    public func encode(encoder: Encoder) {
+    public func encode(_ encoder: Encoder) {
         encoder.encode(myNonTransient, "myNonTransient")
 
         TestTransient.encodeVersionIfNeeded(encoder)
@@ -57,81 +57,79 @@ extension TestTransient {
     }
 }
 
-extension NSUserDefaults {
+//****************************************************************************//
+// MARK: UserDefaults support
+//****************************************************************************//
+extension UserDefaults {
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestTransient(key: String) -> TestTransient? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestTransient(forKey key: String) -> TestTransient? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return TestTransient.decode(dictionary)
    }
 
-   public func getTestTransient(key: String) -> [TestTransient]? {
-      guard let array = arrayForKey(key) else { return nil }
+   public func getTestTransient(forKey key: String) -> [TestTransient]? {
+      guard let array = array(forKey: key) else { return nil }
       return sequence(array.map(TestTransient.decode))
    }
 
-   public func getTestTransient(key: String) -> [String : TestTransient]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
+   public func getTestTransient(forKey key: String) -> [String : TestTransient]? {
+      guard let dictionary = dictionary(forKey: key) else { return nil }
       return sequence(dictionary.map { TestTransient.decode($0) })
    }
 
-   public func getTestTransient(key: String, defaultValue: TestTransient) -> TestTransient {
-      return getTestTransient(key) ?? defaultValue
+   public func getTestTransient(forKey key: String, defaultValue: TestTransient) -> TestTransient {
+      return getTestTransient(forKey: key) ?? defaultValue
    }
 
-   public func getTestTransient(key: String, defaultValue: [TestTransient]) -> [TestTransient] {
+   public func getTestTransient(forKey key: String, defaultValue: [TestTransient]) -> [TestTransient] {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestTransient(key: String,  defaultValue: [String : TestTransient]
+   public func getTestTransient(forKey key: String,  defaultValue: [String : TestTransient]
    ) -> [String : TestTransient] {
-      return getTestTransient(key) ?? defaultValue
+      return getTestTransient(forKey: key) ?? defaultValue
    }
 
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
    public func setTestTransient(value: TestTransient, forKey key: String) {
-      setObject(value.encode(), forKey: key)
+      set(value.encode(), forKey: key)
    }
 
    public func setTestTransient(value: [TestTransient], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 
    public func setTestTransient(value: [String : TestTransient], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
+      set(value.map { $0.encode() }, forKey: key)
    }
 }
 
+//****************************************************************************//
+// MARK: KVStore support
+//****************************************************************************//
 extension KVStore {
 
-   public func getTestTransient(key: String) -> TestTransient? {
-      return getValue(key)
+   public func getTestTransient(forKey key: String) -> TestTransient? {
+      return getValue(forKey: key)
    }
 
-   public func getTestTransient(key: String, defaultValue: TestTransient) -> TestTransient {
-      return getTestTransient(key) ?? defaultValue
+   public func getTestTransient(forKey key: String, defaultValue: TestTransient) -> TestTransient {
+      return getTestTransient(forKey: key) ?? defaultValue
    }
 
-   public func getTestTransients(key: String) -> [TestTransient]? {
-      return getValue(key)
+   public func getTestTransients(forKey key: String) -> [TestTransient]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestTransients(key: String, defaultValue: [TestTransient]) -> [TestTransient] {
-      return getTestTransients(key) ?? defaultValue
+   public func getTestTransients(forKey key: String, defaultValue: [TestTransient]) -> [TestTransient] {
+      return getTestTransients(forKey: key) ?? defaultValue
    }
 
-   public func getTestTransientDictionary(key: String) -> [String : TestTransient]? {
-      return getValue(key)
+   public func getTestTransientDictionary(forKey key: String) -> [String : TestTransient]? {
+      return getValue(forKey: key)
    }
 
-   public func getTestTransientDictionary(key: String, defaultValue: [String : TestTransient]) -> [String : TestTransient] {
-      return getTestTransientDictionary(key) ?? defaultValue
+   public func getTestTransientDictionary(forKey key: String, defaultValue: [String : TestTransient]) -> [String : TestTransient] {
+      return getTestTransientDictionary(forKey: key) ?? defaultValue
    }
 }
 

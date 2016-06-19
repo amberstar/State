@@ -30,7 +30,7 @@ struct Player: Model {
       self.age = age
    }
    
-   static func decode(decoder: Decoder) -> Player? {
+   static func decode(_ decoder: Decoder) -> Player? {
       return self.init(decoder: decoder)
    }
    
@@ -67,7 +67,7 @@ struct Player: Model {
 
 
 extension Player: Encodable {
-    func encode(encoder: Encoder) {
+    func encode(_ encoder: Encoder) {
         encoder.encode(id, "id")
         encoder.encode(name, "name")
         encoder.encode(email, "email")
