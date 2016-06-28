@@ -26,7 +26,7 @@ extension TestDictionaryComposition : Decodable {
          else { return  nil }
 
         self.employees = employees
-        didFinishDecodingWithDecoder(decoder)
+        didFinishDecoding(decoder: decoder)
     }
 }
 
@@ -37,7 +37,7 @@ extension TestDictionaryComposition : Encodable {
 
         TestDictionaryComposition.encodeVersionIfNeeded(encoder)
 
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -83,8 +83,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestDictionaryComposition(forKey key: String,  defaultValue: [String : TestDictionaryComposition]
-   ) -> [String : TestDictionaryComposition] {
+   public func getTestDictionaryComposition(forKey key: String,  defaultValue: [String : TestDictionaryComposition]) -> [String : TestDictionaryComposition] {
       return getTestDictionaryComposition(forKey: key) ?? defaultValue
    }
 

@@ -36,7 +36,7 @@ extension TestTransformable : Decodable {
         self.myTransformableImmutable = myTransformableImmutable
         self.myTransformableImmutableOptional = myTransformableImmutableOptional
         self.myTransformableOptional = myTransformableOptional
-        didFinishDecodingWithDecoder(decoder)
+        didFinishDecoding(decoder: decoder)
     }
 }
 
@@ -50,7 +50,7 @@ extension TestTransformable : Encodable {
 
         TestTransformable.encodeVersionIfNeeded(encoder)
 
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -96,8 +96,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestTransformable(forKey key: String,  defaultValue: [String : TestTransformable]
-   ) -> [String : TestTransformable] {
+   public func getTestTransformable(forKey key: String,  defaultValue: [String : TestTransformable]) -> [String : TestTransformable] {
       return getTestTransformable(forKey: key) ?? defaultValue
    }
 

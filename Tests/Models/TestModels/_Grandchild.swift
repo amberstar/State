@@ -30,7 +30,7 @@ extension Grandchild : Decodable {
         self.age = age
         self.name = name
         self.gender = gender
-        didFinishDecodingWithDecoder(decoder)
+        didFinishDecoding(decoder: decoder)
     }
 }
 
@@ -43,7 +43,7 @@ extension Grandchild : Encodable {
 
         Grandchild.encodeVersionIfNeeded(encoder)
 
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -89,8 +89,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getGrandchild(forKey key: String,  defaultValue: [String : Grandchild]
-   ) -> [String : Grandchild] {
+   public func getGrandchild(forKey key: String,  defaultValue: [String : Grandchild]) -> [String : Grandchild] {
       return getGrandchild(forKey: key) ?? defaultValue
    }
 

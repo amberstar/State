@@ -33,7 +33,7 @@ extension TestChild : Decodable {
         self.name = name
         self.myChildren = myChildren
         self.gender = gender
-        didFinishDecodingWithDecoder(decoder)
+        didFinishDecoding(decoder: decoder)
     }
 }
 
@@ -47,7 +47,7 @@ extension TestChild : Encodable {
 
         TestChild.encodeVersionIfNeeded(encoder)
 
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -93,8 +93,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestChild(forKey key: String,  defaultValue: [String : TestChild]
-   ) -> [String : TestChild] {
+   public func getTestChild(forKey key: String,  defaultValue: [String : TestChild]) -> [String : TestChild] {
       return getTestChild(forKey: key) ?? defaultValue
    }
 

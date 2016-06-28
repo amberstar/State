@@ -10,7 +10,7 @@ To create an enum in the modeler:
 
 1. Add the key `State.Enum` and the value `YES` to an entity in the user info area of the inspector to specify an entity as an enum.
  
-2. Add attributes to create cases for the enum. The name of the attribute becomes the name of the case.(but will be capitalized)
+2. Add attributes to create cases for the enum. The name of the attribute becomes the name of the case.
 
 
 

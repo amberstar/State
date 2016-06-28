@@ -138,7 +138,7 @@ extension TestAssociatedEnum: Encodable {
         }
 
         TestAssociatedEnum.encodeVersionIfNeeded(encoder)
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -184,8 +184,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestAssociatedEnum(forKey key: String,  defaultValue: [String : TestAssociatedEnum]
-   ) -> [String : TestAssociatedEnum] {
+   public func getTestAssociatedEnum(forKey key: String,  defaultValue: [String : TestAssociatedEnum]) -> [String : TestAssociatedEnum] {
       return getTestAssociatedEnum(forKey: key) ?? defaultValue
    }
 

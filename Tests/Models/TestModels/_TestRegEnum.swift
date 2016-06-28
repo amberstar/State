@@ -50,7 +50,7 @@ extension TestRegEnum: Encodable {
         }
 
         TestRegEnum.encodeVersionIfNeeded(encoder)
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -96,8 +96,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestRegEnum(forKey key: String,  defaultValue: [String : TestRegEnum]
-   ) -> [String : TestRegEnum] {
+   public func getTestRegEnum(forKey key: String,  defaultValue: [String : TestRegEnum]) -> [String : TestRegEnum] {
       return getTestRegEnum(forKey: key) ?? defaultValue
    }
 

@@ -45,7 +45,7 @@ extension TestOptionalTypes : Decodable {
         self.myBoolean = myBoolean
         self.myDecimal = myDecimal
         self.myInt = myInt
-        didFinishDecodingWithDecoder(decoder)
+        didFinishDecoding(decoder: decoder)
     }
 }
 
@@ -63,7 +63,7 @@ extension TestOptionalTypes : Encodable {
 
         TestOptionalTypes.encodeVersionIfNeeded(encoder)
 
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -109,8 +109,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestOptionalTypes(forKey key: String,  defaultValue: [String : TestOptionalTypes]
-   ) -> [String : TestOptionalTypes] {
+   public func getTestOptionalTypes(forKey key: String,  defaultValue: [String : TestOptionalTypes]) -> [String : TestOptionalTypes] {
       return getTestOptionalTypes(forKey: key) ?? defaultValue
    }
 

@@ -26,7 +26,7 @@ extension TestTransient2 : Decodable {
         let myNonTransient: Gender? = decoder.decode("myNonTransient")
 
         self.myNonTransient = myNonTransient
-        didFinishDecodingWithDecoder(decoder)
+        didFinishDecoding(decoder: decoder)
     }
 }
 
@@ -37,7 +37,7 @@ extension TestTransient2 : Encodable {
 
         TestTransient2.encodeVersionIfNeeded(encoder)
 
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -83,8 +83,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestTransient2(forKey key: String,  defaultValue: [String : TestTransient2]
-   ) -> [String : TestTransient2] {
+   public func getTestTransient2(forKey key: String,  defaultValue: [String : TestTransient2]) -> [String : TestTransient2] {
       return getTestTransient2(forKey: key) ?? defaultValue
    }
 

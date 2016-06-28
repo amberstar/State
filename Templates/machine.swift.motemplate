@@ -82,8 +82,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func get<$typeName$>(forKey key: String,  defaultValue: [String : <$typeName$>]
-   ) -> [String : <$typeName$>] {
+   public func get<$typeName$>(forKey key: String,  defaultValue: [String : <$typeName$>]) -> [String : <$typeName$>] {
       return get<$typeName$>(forKey: key) ?? defaultValue
    }
 
@@ -307,7 +306,7 @@ extension <$typeName$> : Decodable {
 
         <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$>self.<$Attribute.name$> = <$Attribute.name$>
         <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient && Relationship.userInfo.State.ProtocolRequirementType != get$>self.<$Relationship.name$> = <$Relationship.name$>
-        <$endif$><$endforeach do$>didFinishDecodingWithDecoder(decoder)
+        <$endif$><$endforeach do$>didFinishDecoding(decoder: decoder)
     }
 }
 
@@ -319,7 +318,7 @@ extension <$typeName$> : Encodable {
         <$endif$><$endforeach do$>
         <$if hasSuperentity$>encoder.encode("<$typeName$>", "<$rootTypeName$>")<$endif$>
         <$call writeEncodingVersioningBlock$>
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -376,7 +375,7 @@ self = <$typeName$>.<$Relationship.name$>(value)
 
 <$procedure writeRelationshipDecodeRawSwitchCaseForEnum Relationship$>if let value: <$userInfo.State.Type$> = decoder.decode("value"),
                         instance = <$typeName$>(rawValue: value) {
-                        instance.didFinishDecodingWithDecoder(decoder)
+                        instance.didFinishDecoding(decoder: decoder)
                         self = instance
                     } else { return nil }<$endprocedure$>
 
@@ -447,7 +446,7 @@ extension <$typeName$>: Encodable {
             <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$call writeRelationshipEncodeSwitchCaseForEnumCase Relationship$>
             <$endforeach do$>
         }
-<$else$>        encoder.encode(self.rawValue, "value")<$endif$><$call writeEncodingVersioningBlock$>self.willFinishEncodingWithEncoder(encoder)
+<$else$>        encoder.encode(self.rawValue, "value")<$endif$><$call writeEncodingVersioningBlock$>self.willFinishEncoding(encoder: encoder)
     }
 }
 

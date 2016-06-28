@@ -36,7 +36,7 @@ extension Company : Decodable {
         self.yearFounded = yearFounded
         self.phoneNumber = phoneNumber
         self.employees = employees
-        didFinishDecodingWithDecoder(decoder)
+        didFinishDecoding(decoder: decoder)
     }
 }
 
@@ -50,7 +50,7 @@ extension Company : Encodable {
 
         Company.encodeVersionIfNeeded(encoder)
 
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -96,8 +96,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getCompany(forKey key: String,  defaultValue: [String : Company]
-   ) -> [String : Company] {
+   public func getCompany(forKey key: String,  defaultValue: [String : Company]) -> [String : Company] {
       return getCompany(forKey: key) ?? defaultValue
    }
 

@@ -32,7 +32,7 @@ extension Gender: Encodable {
     public func encode(_ encoder: Encoder) {
         encoder.encode(self.rawValue, "value")
         Gender.encodeVersionIfNeeded(encoder)
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -78,8 +78,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getGender(forKey key: String,  defaultValue: [String : Gender]
-   ) -> [String : Gender] {
+   public func getGender(forKey key: String,  defaultValue: [String : Gender]) -> [String : Gender] {
       return getGender(forKey: key) ?? defaultValue
    }
 

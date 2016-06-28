@@ -27,7 +27,6 @@ class MigrationTests: Test {
         // should now have a version 2 type (should have an age property that defaults to 10)
         
         XCTAssert(testVersion2?.age == 10)
-    
     }
     
     func testWillFinishEncodingWithEncoderIsCalled() {

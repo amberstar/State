@@ -30,7 +30,7 @@ extension TestRelationships : Decodable {
         self.myChildren = myChildren
         self.myGrandChildren = myGrandChildren
         self.myOneChild = myOneChild
-        didFinishDecodingWithDecoder(decoder)
+        didFinishDecoding(decoder: decoder)
     }
 }
 
@@ -43,7 +43,7 @@ extension TestRelationships : Encodable {
 
         TestRelationships.encodeVersionIfNeeded(encoder)
 
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -89,8 +89,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestRelationships(forKey key: String,  defaultValue: [String : TestRelationships]
-   ) -> [String : TestRelationships] {
+   public func getTestRelationships(forKey key: String,  defaultValue: [String : TestRelationships]) -> [String : TestRelationships] {
       return getTestRelationships(forKey: key) ?? defaultValue
    }
 

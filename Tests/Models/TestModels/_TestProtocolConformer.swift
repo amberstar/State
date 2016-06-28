@@ -41,7 +41,7 @@ extension TestProtocolConformer : Decodable {
         self.isReady = isReady
         self.employee = employee
         self.children = children
-        didFinishDecodingWithDecoder(decoder)
+        didFinishDecoding(decoder: decoder)
     }
 }
 
@@ -58,7 +58,7 @@ extension TestProtocolConformer : Encodable {
 
         TestProtocolConformer.encodeVersionIfNeeded(encoder)
 
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -104,8 +104,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestProtocolConformer(forKey key: String,  defaultValue: [String : TestProtocolConformer]
-   ) -> [String : TestProtocolConformer] {
+   public func getTestProtocolConformer(forKey key: String,  defaultValue: [String : TestProtocolConformer]) -> [String : TestProtocolConformer] {
       return getTestProtocolConformer(forKey: key) ?? defaultValue
    }
 

@@ -1,3 +1,24 @@
+
+//
+// State: Sources/KVStore.swift
+// Copyright © 2016 SIMPLETOUCH LLC. All rights reserved.
+//
+// Licensed under The MIT License (MIT)
+//
+
+/// Status: Experimental
+///
+/// KVStore - A gerneral purpose key-value tree store
+///
+/// A KVStore can be used to store models as well as
+/// arbitrary values.
+/// 
+/// Simillar to `UserDefaults` however A KVStore is 
+/// arranged as a hierarchical set of
+/// `key`s in which you can store items at any keypath
+/// location.
+///
+
 import Foundation
 
 let KeypathSeperator : Character = "."
@@ -11,8 +32,7 @@ public enum KVStoreError : ErrorProtocol {
     case noResult
 }
 
-/// A KVStore is a general purpose key-value store for arbitrary values.
-public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
+public final class KVStore: ModelStore, Model, EncoderType, DecoderType {
     
     public private(set) var keys : [String : KVStore] = [:]
     public var data = [String : AnyObject]()
@@ -23,23 +43,9 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
         self.keys = keys
     }
     
-    public func save(_ path: String) {
-        save(.plist, path: path)
-    }
+// MARK: Encoding
     
-    public static func load(_ path: String) -> KVStore? {
-        return KVStore.decodeFromFile(Format.plist.converter, path: path)
-    }
-    
-    public static func load(_ data: Data) -> KVStore? {
-        return decode(Format.plist.converter.read(data))
-    }
-    
-    //****************************************************************************//
-    // MARK: Coding
-    //****************************************************************************//
-    
-    public func encode(_ encoder: Encoder) {
+    public func encode(with encoder: Encoder) {
         
         if data.count > 0 {
             encoder.encode(data, DataKey)
@@ -50,7 +56,7 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
         }
     }
     
-    public static func decode(_ decoder: Decoder) -> KVStore? {
+    public static func decode(with decoder: Decoder) -> KVStore? {
         let stores : [String : KVStore]? = decoder.decode(StoreKey)
         let data : [String : AnyObject]? = decoder.decode(DataKey)
         
@@ -73,7 +79,7 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
         }
         
         do {
-            return try edit(splitKeypath(keypath),  editor: editor, onMissingKey: onMissingKey)
+            return try edit(path: split(keyPath: keypath),  editor: editor, onMissingKey: onMissingKey)
         }
         catch {
             return nil
@@ -85,7 +91,7 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
     /// - note: any intermediate keys are created
     /// - returns: key created or found
     public func addKey(_ keypath: String) -> KVStore {
-        var keyNames: [String] = splitKeypath(keypath)
+        var keyNames: [String] = split(keyPath: keypath)
         let keyName: String = keyNames.removeLast()
         
         func addNewKeyToKey(_ key: KVStore, name: String) -> KVStore {
@@ -107,7 +113,7 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
             }
             
             do {
-                return try edit(keyNames, editor: editor, onMissingKey: onMissingKey)
+                return try edit(path: keyNames, editor: editor, onMissingKey: onMissingKey)
             }
             catch {
                 fatalError("Could not create key \(keypath)")
@@ -120,7 +126,7 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
     ///
     /// - returns : the key that was replaced or nil if the newKey was added
     public func updateKey(_ keypath: String, newKey key: KVStore) -> KVStore? {
-        let keys = seperateKeypath(keypath)
+        let keys = seperate(keyPath: keypath)
         let targetKey = keys.keypath == nil ? self : addKey(keys.keypath!)
         
         return targetKey.keys.updateValue(key, forKey: keys.valueName)
@@ -129,7 +135,7 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
     /// Removes the key at `keypath` and returns it or
     /// returns nil if not found.
     public func removeKey(_ keypath: String) -> KVStore? {
-        var keyNames = splitKeypath(keypath)
+        var keyNames = split(keyPath: keypath)
         let keyName = keyNames.removeLast()
         let editor : (KVStore) -> KVStore? = { key in
             return key.keys.removeValue(forKey: keyName)
@@ -140,7 +146,7 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
         }
         
         do {
-            let result : KVStore? =  try edit(keyNames, editor: editor, onMissingKey: onMissingKey)
+            let result : KVStore? =  try edit(path: keyNames, editor: editor, onMissingKey: onMissingKey)
             return result
             
         }
@@ -181,31 +187,50 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
     // MARK: Setters
     //****************************************************************************//
     
-    public func setValue<V: Encodable>(_ value: V, forKey: String) {
-        let keys = seperateKeypath(forKey)
+    public func set<Model: Encodable>(_ model: Model, forKey keyPath: String) {
+        let keys = seperate(keyPath: keyPath)
         
         let targetKey = keys.keypath == nil  ? self : addKey(keys.keypath!)
-        targetKey.encode(value, keys.valueName)
-        
+        targetKey.encode(model, keys.valueName)
     }
     
-    public func setValue<T: Encodable>(_ value: [T], forKey: String) {
-        let keys = seperateKeypath(forKey)
+    public func set<Model: Encodable>(_ models: [Model], forKey keyPath: String) {
+        let keys = seperate(keyPath: keyPath)
         
         let targetKey = keys.keypath == nil  ? self : addKey(keys.keypath!)
-        targetKey.encode(value, keys.valueName)
+        targetKey.encode(models, keys.valueName)
     }
     
-    public func setValue<T: Encodable>(_ value: [String : T], forKey: String) {
-        let keys = seperateKeypath(forKey)
+    public func set<Model: Encodable>(_ models: [String : Model], forKey keyPath: String) {
+        let keys = seperate(keyPath: keyPath)
         
         let targetKey = keys.keypath == nil  ? self : addKey(keys.keypath!)
-        targetKey.encode(value, keys.valueName)
+        targetKey.encode(models, keys.valueName)
     }
     
-    public func setValue<V>(_ value: V, forKey: String) {
-        let keys = seperateKeypath(forKey)
-        
+    public func set(_ value: Bool, forKey keyPath: String) {
+        _set(value, forKey: keyPath)
+    }
+    
+    public func set(_ value: Float, forKey keyPath: String) {
+        _set(value, forKey: keyPath)
+    }
+    
+    public func set(_ value: Int, forKey keyPath: String) {
+        _set(value, forKey: keyPath)
+    }
+    
+    // Must be plist object
+    public func set(_ value: AnyObject?, forKey keyPath: String) {
+        _set(value, forKey: keyPath)
+    }
+    
+    public func set(_ value: Double, forKey keyPath: String) {
+        _set(value, forKey: keyPath)
+    }
+    
+    func _set<Value>(_ value: Value, forKey keyPath: String) {
+        let keys = seperate(keyPath: keyPath)
         let targetKey = keys.keypath == nil  ? self : addKey(keys.keypath!)
         targetKey.encode(value, keys.valueName)
     }
@@ -214,8 +239,8 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
     // MARK: Getters
     //****************************************************************************//
     
-    public func getValue<T>(forKey key: String) -> T? {
-        let keys = seperateKeypath(key)
+    func _value<Value>(forKey key: String) -> Value? {
+        let keys = seperate(keyPath: key)
         let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
         
         if let targetKey = targetKey {
@@ -226,8 +251,8 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
         }
     }
     
-    public func getValue<T: Decodable>(forKey key: String) -> T? {
-        let keys = seperateKeypath(key)
+    public func model<Model: Decodable>(forKey keyPath: String) -> Model? {
+        let keys = seperate(keyPath: keyPath)
         let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
         
         if let targetKey = targetKey {
@@ -238,8 +263,8 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
         }
     }
     
-    public func getValue<T: Decodable>(forKey key: String) -> [T]? {
-        let keys = seperateKeypath(key)
+    public func modelArray<Model: Decodable>(forKey keyPath: String) -> [Model]? {
+        let keys = seperate(keyPath: keyPath)
         let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
         
         if let targetKey = targetKey {
@@ -250,8 +275,8 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
         }
     }
     
-    public func getValue<T: Decodable>(forKey key: String) -> [String : T]? {
-        let keys = seperateKeypath(key)
+    public func modelDictionary<Model: Decodable>(forKey keyPath: String) -> [String : Model]? {
+        let keys = seperate(keyPath: keyPath)
         let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
         
         if let targetKey = targetKey {
@@ -267,69 +292,82 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
     //****************************************************************************//
     
     /// Returns a Bool at key or nil
-    public func getBool(forKey key: String) -> Bool? {
-        return getValue(forKey: key)
+    public func bool(forKey key: String) -> Bool? {
+        return _value(forKey: key)
     }
     
     /// Returns a Int at key or nil
-    public func getInt(forKey key: String) -> Int? {
-        return getValue(forKey: key)
+    public func integer(forKey key: String) -> Int? {
+        return _value(forKey: key)
     }
     
     /// Returns a double at key or nil
-    public func getDouble(forKey key: String) -> Double? {
-        return getValue(forKey: key)
+    public func double(forKey key: String) -> Double? {
+        return _value(forKey: key)
     }
     
     /// Returns a Float at key or nil
-    public func getFloat(forKey key: String) -> Float? {
-        return getValue(forKey: key)
+    public func float(forKey key: String) -> Float? {
+        return _value(forKey: key)
     }
     
     /// Returns a String at key or nil
-    public func getString(forKey key: String) -> String? {
-        return getValue(forKey: key)
+    public func string(forKey key: String) -> String? {
+        return _value(forKey: key)
     }
     
+    /// Returns the array of strings associated with the key
+    public func stringArray(forKey key: String) -> [String]? {
+        guard let arData = _value(forKey: key) as? [String] else { return nil }
+        return arData
+    }
+    
+    public func array(forKey key: String) -> [AnyObject]? {
+        guard let arData = _value(forKey: key) as? [AnyObject] else { return nil }
+        return arData
+    }
+    
+    public func dictionary(forKey key: String) -> [String : AnyObject]? {
+        guard let dicData = _value(forKey: key) as? [String : AnyObject] else { return nil }
+        return dicData
+    }
+    
+    
+
     //****************************************************************************//
     // MARK: Getters with default values
     //****************************************************************************//
     
-    public func getBool(forKey key: String , defaultValue: Bool) -> Bool {
-        return getValue(forKey: key) ?? defaultValue
+    public func bool(forKey key: String , defaultValue: Bool) -> Bool {
+        return bool(forKey: key) ?? defaultValue
     }
     
-    public func getInt(forKey key: String, defaultValue: Int) -> Int {
-        return getValue(forKey: key) ?? defaultValue
+    public func integer(forKey key: String, defaultValue: Int) -> Int {
+        return integer(forKey: key) ?? defaultValue
     }
     
-    public func getDouble(forKey key: String, defaultValue: Double) -> Double {
-        return getValue(forKey: key) ?? defaultValue
+    public func double(forKey key: String, defaultValue: Double) -> Double {
+        return double(forKey: key) ?? defaultValue
     }
     
-    public func getFloat(forKey key: String,  defaultValue: Float) -> Float {
-        return getValue(forKey: key) ?? defaultValue
+    public func float(forKey key: String,  defaultValue: Float) -> Float {
+        return float(forKey: key) ?? defaultValue
     }
     
-    public func getString(forKey key: String, defaultValue: String) -> String {
-        return getValue(forKey: key) ?? defaultValue
+    public func string(forKey key: String, defaultValue: String) -> String {
+        return string(forKey: key) ?? defaultValue
     }
     
-    public func getValue<T>(forKey key: String, defaultValue: T) -> T {
-        return getValue(forKey: key) ?? defaultValue
+    public func stringArray(forKey key: String, defaultValue: [String]) -> [String] {
+        return stringArray(forKey: key) ?? defaultValue
     }
     
-    public func getValue<T: Decodable>(forKey key: String, defaultValue: T) -> T {
-        return getValue(forKey: key) ?? defaultValue
+    public func array(forKey key: String, defaultValue: [AnyObject]) -> [AnyObject] {
+        return array(forKey: key) ?? defaultValue
     }
     
-    public func getValue<T: Decodable>(forKey key: String, defaultValue: [T]) -> [T] {
-        return getValue(forKey: key) ?? defaultValue
-    }
-    
-    public func getValue<T: Decodable>(forKey key: String,  defaultValue: [String : T]
-        ) -> [String : T] {
-        return getValue(forKey: key) ?? defaultValue
+    public func dictionary(forKey key: String, defaultValue: [String : AnyObject]) -> [String : AnyObject] {
+        return dictionary(forKey: key) ?? defaultValue
     }
     
     //****************************************************************************//
@@ -371,7 +409,7 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
     /// Removes a value at key and returns it,
     /// or returns nil if not found
     func removeValue<T>(_ key: String, decode: (KVStore, String) ->  T? ) -> T? {
-        let keys = seperateKeypath(key)
+        let keys = seperate(keyPath: key)
         let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
         
         if let targetKey = targetKey {
@@ -387,7 +425,7 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
     /// Simillar to remove but does not return
     /// the value removed.
     public func deleteValue(_ key: String) {
-        let keys = seperateKeypath(key)
+        let keys = seperate(keyPath: key)
         let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
         
         if let targetKey = targetKey {
@@ -402,23 +440,23 @@ public final class KVStore: Encodable, Decodable, EncoderType, DecoderType {
 
 extension KVStore {
     
-    func walk(@noescape descend: (KVStore) throws -> KVStore?,
-                        @noescape ascend: (KVStore, KVStore)  throws -> Void) rethrows -> Void {
+    func walk(descendAction: @noescape(KVStore) throws -> KVStore?,
+                        ascendAction: @noescape(KVStore, KVStore)  throws -> Void) rethrows -> Void {
         
-        guard let child = try descend(self) else {
+        guard let child = try descendAction(self) else {
             return
         }
-        try child.walk(descend: descend, ascend: ascend)
-        try ascend(self, child)
+        try child.walk(descendAction: descendAction, ascendAction: ascendAction)
+        try ascendAction(self, child)
     }
     
-    func edit<V>(_ keys: [String], editor: (KVStore) throws -> V,
+    func edit<V>(path keys: [String], editor: (KVStore) throws -> V,
               onMissingKey: (KVStore, String) throws -> KVStore? ) throws -> V  {
         var keyGen = keys.makeIterator()
         var result : V? = nil
         
         try walk(
-            descend:  { store in
+            descendAction:  { store in
                 guard let nextKey = keyGen.next() else {
                     // bottom
                     result = try editor(store)
@@ -430,7 +468,7 @@ extension KVStore {
                 }
                 return next
             },
-            ascend: { _, _ in  }
+            ascendAction: { _, _ in  }
         )
         
         if let result = result {
@@ -456,19 +494,19 @@ extension Dictionary {
 }
 
 ///  Split keys into an array of strings
-func splitKeypath(_ path: String) -> [String] {
-    return path.characters.split(separator: ".").map(String.init)
+func split(keyPath: String) -> [String] {
+    return keyPath.characters.split(separator: ".").map(String.init)
 }
 
 /// Join keys with `KeypathSeperator`
-func joinKeypath(_ keys: [String]) -> String {
+func join(keys: [String]) -> String {
     return keys.joined(separator: String(KeypathSeperator))
 }
 
-public func seperateKeypath(_ path: String) -> (keypath: String?, valueName: String) {
-    var keys = splitKeypath(path)
+public func seperate(keyPath: String) -> (keypath: String?, valueName: String) {
+    var keys = split(keyPath: keyPath)
     let key = keys.removeLast()
-    let joinResult = joinKeypath(keys)
+    let joinResult = join(keys: keys)
     let keypath : String? = joinResult.characters.count > 0 ? joinResult : nil
     return (keypath, key)
 }

@@ -2,7 +2,7 @@ import UIKit
 
 extension UIColor : Encodable, Decodable {
     
-    public static func decode(_ decoder: Decoder) -> Self? {
+    public static func decode(with decoder: Decoder) -> Self? {
         
         if let
             red : CGFloat  = decoder.decode("red"),
@@ -31,7 +31,7 @@ extension UIColor : Encodable, Decodable {
         }
     }
     
-    public func encode(_ encoder: Encoder) {
+    public func encode(with encoder: Encoder) {
         var red, green, blue, alpha  : CGFloat
         red = 0; green = 0; blue = 0; alpha = 0
         self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)

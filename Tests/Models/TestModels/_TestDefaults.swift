@@ -59,7 +59,7 @@ extension TestDefaults : Decodable {
         self.defaultChild = defaultChild
         self.noDefaultChild = noDefaultChild
         self.noDefaultChildren = noDefaultChildren
-        didFinishDecodingWithDecoder(decoder)
+        didFinishDecoding(decoder: decoder)
     }
 }
 
@@ -80,7 +80,7 @@ extension TestDefaults : Encodable {
 
         TestDefaults.encodeVersionIfNeeded(encoder)
 
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -126,8 +126,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestDefaults(forKey key: String,  defaultValue: [String : TestDefaults]
-   ) -> [String : TestDefaults] {
+   public func getTestDefaults(forKey key: String,  defaultValue: [String : TestDefaults]) -> [String : TestDefaults] {
       return getTestDefaults(forKey: key) ?? defaultValue
    }
 

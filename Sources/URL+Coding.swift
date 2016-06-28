@@ -2,7 +2,7 @@ import Foundation
 
 extension URL : Encodable, Decodable {
     
-    public static func decode(_ decoder: Decoder) -> URL? {
+    public static func decode(with decoder: Decoder) -> URL? {
         if let value : String  = decoder.decode("URL") {
             return self.init(string: value)
         }
@@ -11,7 +11,7 @@ extension URL : Encodable, Decodable {
         }
     }
     
-    public func encode(_ encoder: Encoder) {
+    public func encode(with encoder: Encoder) {
         encoder.encode(self.absoluteString, "URL")
     }
 }

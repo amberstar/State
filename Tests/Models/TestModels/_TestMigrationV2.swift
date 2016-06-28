@@ -30,7 +30,7 @@ extension TestMigrationV2 : Decodable {
 
         self.age = age
         self.name = name
-        didFinishDecodingWithDecoder(decoder)
+        didFinishDecoding(decoder: decoder)
     }
 }
 
@@ -42,7 +42,7 @@ extension TestMigrationV2 : Encodable {
 
         TestMigrationV2.encodeVersionIfNeeded(encoder)
 
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -88,8 +88,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestMigrationV2(forKey key: String,  defaultValue: [String : TestMigrationV2]
-   ) -> [String : TestMigrationV2] {
+   public func getTestMigrationV2(forKey key: String,  defaultValue: [String : TestMigrationV2]) -> [String : TestMigrationV2] {
       return getTestMigrationV2(forKey: key) ?? defaultValue
    }
 

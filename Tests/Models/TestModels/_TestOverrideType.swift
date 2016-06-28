@@ -27,7 +27,7 @@ extension TestOverrideType : Decodable {
 
         self.myURL = myURL
         self.myArrayOfString = myArrayOfString
-        didFinishDecodingWithDecoder(decoder)
+        didFinishDecoding(decoder: decoder)
     }
 }
 
@@ -39,7 +39,7 @@ extension TestOverrideType : Encodable {
 
         TestOverrideType.encodeVersionIfNeeded(encoder)
 
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -85,8 +85,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestOverrideType(forKey key: String,  defaultValue: [String : TestOverrideType]
-   ) -> [String : TestOverrideType] {
+   public func getTestOverrideType(forKey key: String,  defaultValue: [String : TestOverrideType]) -> [String : TestOverrideType] {
       return getTestOverrideType(forKey: key) ?? defaultValue
    }
 

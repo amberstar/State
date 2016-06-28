@@ -29,7 +29,7 @@ extension TestProtocolConformer2 : Decodable {
 
         self.name = name
         self.ss_number = ss_number
-        didFinishDecodingWithDecoder(decoder)
+        didFinishDecoding(decoder: decoder)
     }
 }
 
@@ -43,7 +43,7 @@ extension TestProtocolConformer2 : Encodable {
 
         TestProtocolConformer2.encodeVersionIfNeeded(encoder)
 
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -89,8 +89,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestProtocolConformer2(forKey key: String,  defaultValue: [String : TestProtocolConformer2]
-   ) -> [String : TestProtocolConformer2] {
+   public func getTestProtocolConformer2(forKey key: String,  defaultValue: [String : TestProtocolConformer2]) -> [String : TestProtocolConformer2] {
       return getTestProtocolConformer2(forKey: key) ?? defaultValue
    }
 

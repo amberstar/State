@@ -1,12 +1,11 @@
 #State Model Framework
 
-State is a model framework using structs, enums, and protocols as models and provides plist, binary, or JSON formats to store models.
+State works like NSCoding for value types.
 
-- model versioning, and migration
-- design model layer in Xcode model designer and generate model code
-- models can be implemented as `struct`, `enum`, and `protocol` types.
-- immutable, optional, non-optional, and transient properties
-- custom transforms
+- use `struct`, `enum`, and `protocol`s  as models
+- save as plist, binary, or json
+- model versioning, and migration (optional)
+- use Xcode data model designer (optional)
 
 #### Creating a model
 

@@ -32,7 +32,7 @@ extension TestCollections : Decodable {
         self.arrayOfStrings = arrayOfStrings
         self.dicOfInts = dicOfInts
         self.setOfStrings = setOfStrings
-        didFinishDecodingWithDecoder(decoder)
+        didFinishDecoding(decoder: decoder)
     }
 }
 
@@ -45,7 +45,7 @@ extension TestCollections : Encodable {
 
         TestCollections.encodeVersionIfNeeded(encoder)
 
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -91,8 +91,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestCollections(forKey key: String,  defaultValue: [String : TestCollections]
-   ) -> [String : TestCollections] {
+   public func getTestCollections(forKey key: String,  defaultValue: [String : TestCollections]) -> [String : TestCollections] {
       return getTestCollections(forKey: key) ?? defaultValue
    }
 

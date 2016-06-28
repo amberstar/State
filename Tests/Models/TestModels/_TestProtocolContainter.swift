@@ -32,7 +32,7 @@ extension TestProtocolContainter : Decodable {
         self.testProtocol = testProtocol
         self.testProtocols = testProtocols
         self.testProtocolsDict = testProtocolsDict
-        didFinishDecodingWithDecoder(decoder)
+        didFinishDecoding(decoder: decoder)
     }
 }
 
@@ -45,7 +45,7 @@ extension TestProtocolContainter : Encodable {
 
         TestProtocolContainter.encodeVersionIfNeeded(encoder)
 
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -91,8 +91,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestProtocolContainter(forKey key: String,  defaultValue: [String : TestProtocolContainter]
-   ) -> [String : TestProtocolContainter] {
+   public func getTestProtocolContainter(forKey key: String,  defaultValue: [String : TestProtocolContainter]) -> [String : TestProtocolContainter] {
       return getTestProtocolContainter(forKey: key) ?? defaultValue
    }
 

@@ -33,7 +33,7 @@ extension TestRawEnum: Encodable {
     public func encode(_ encoder: Encoder) {
         encoder.encode(self.rawValue, "value")
         TestRawEnum.encodeVersionIfNeeded(encoder)
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -79,8 +79,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getTestRawEnum(forKey key: String,  defaultValue: [String : TestRawEnum]
-   ) -> [String : TestRawEnum] {
+   public func getTestRawEnum(forKey key: String,  defaultValue: [String : TestRawEnum]) -> [String : TestRawEnum] {
       return getTestRawEnum(forKey: key) ?? defaultValue
    }
 

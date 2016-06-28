@@ -30,7 +30,7 @@ extension Employee : Decodable {
 
         self.name = name
         self.title = title
-        didFinishDecodingWithDecoder(decoder)
+        didFinishDecoding(decoder: decoder)
     }
 }
 
@@ -42,7 +42,7 @@ extension Employee : Encodable {
 
         Employee.encodeVersionIfNeeded(encoder)
 
-        self.willFinishEncodingWithEncoder(encoder)
+        self.willFinishEncoding(encoder: encoder)
     }
 }
 
@@ -88,8 +88,7 @@ extension UserDefaults {
       return getDecodable(key) ?? defaultValue
    }
 
-   public func getEmployee(forKey key: String,  defaultValue: [String : Employee]
-   ) -> [String : Employee] {
+   public func getEmployee(forKey key: String,  defaultValue: [String : Employee]) -> [String : Employee] {
       return getEmployee(forKey: key) ?? defaultValue
    }
 
