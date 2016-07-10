@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "FB04C9513992D7FF4BC3F299B83FA8CCB6EBBFDA",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "C3529E4D2E88136AC210054090DB230D3D838E87" : 0,
+    "FB04C9513992D7FF4BC3F299B83FA8CCB6EBBFDA" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7B9BBE27-0D84-4055-83DC-0993B84F2974",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "C3529E4D2E88136AC210054090DB230D3D838E87" : "Library\/",
+    "FB04C9513992D7FF4BC3F299B83FA8CCB6EBBFDA" : "State"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "State",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "State.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/SimpleTouch\/Library.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C3529E4D2E88136AC210054090DB230D3D838E87"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/amberstar\/Spot.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "FB04C9513992D7FF4BC3F299B83FA8CCB6EBBFDA"
+    }
+  ]
+}

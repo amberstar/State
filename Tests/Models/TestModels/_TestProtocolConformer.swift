@@ -16,138 +16,43 @@ public struct TestProtocolConformer : TestProtocol {
 
 }
 
-extension TestProtocolConformer : Decodable {
+extension TestProtocolConformer  {
 
-   public static func decode(_ decoder: Decoder) -> TestProtocolConformer? {
-      return self.init(decoder: decoder)
+   public static func read(from store: Store) -> TestProtocolConformer? {
+      return self.init(with: store)
    }
 
-    public init?(decoder d: Decoder) {
-        var decoder = d
-        decoder = TestProtocolConformer.performMigrationIfNeeded(decoder)
+    public init?(with inStore: Store) {
+        let store = TestProtocolConformer.migrateIfNeeded(with: inStore)
 
          guard
-            let ss_number: String = decoder.decode("ss_number"),
-            let employee: Employee = decoder.decode("employee"),
-            let children: [TestChild] = decoder.decode("children")
+            let ss_number: String = store.value(forKey: "ss_number"),
+            let employee: Employee = store.value(forKey: "employee"),
+            let children: [TestChild] = store.value(forKey: "children")
          else { return  nil }
 
-        let age: Int? = decoder.decode("age")
+        let age: Int? = store.value(forKey: "age")
 
-        let isReady: Bool? = decoder.decode("isReady")
+        let isReady: Bool? = store.value(forKey: "isReady")
 
         self.age = age
         self.ss_number = ss_number
         self.isReady = isReady
         self.employee = employee
         self.children = children
-        didFinishDecoding(decoder: decoder)
-    }
-}
-
-extension TestProtocolConformer : Encodable {
-
-    public func encode(_ encoder: Encoder) {
-        encoder.encode(age, "age")
-        encoder.encode(ss_number, "ss_number")
-        encoder.encode(isReady, "isReady")
-        encoder.encode(employee, "employee")
-        encoder.encode(children, "children")
-
-        encoder.encode("TestProtocolConformer", "TestParentProtocol")
-
-        TestProtocolConformer.encodeVersionIfNeeded(encoder)
-
-        self.willFinishEncoding(encoder: encoder)
-    }
-}
-
-extension TestProtocolConformer {
-
-    /// These are provided from the data model designer
-    /// and can be used to determine if the model is
-    /// a different version.
-    public static func modelVersionHash() -> String {
-        return "<d32fcba3 281d4cc9 b37e5db7 913bf809 201719ca af7abe39 905ab5fe 694ab08b>"
+        finishReading(from: store)
     }
 
-    public static func modelVersionHashModifier() -> String? {
-        return nil
+    public func write(to store: inout Store) {
+        store.set(age, forKey: "age")
+        store.set(ss_number, forKey: "ss_number")
+        store.set(isReady, forKey: "isReady")
+        store.set(employee, forKey: "employee")
+        store.set(children, forKey: "children")
+
+        store.set("TestProtocolConformer", forKey: "TestParentProtocol")
+        TestProtocolConformer.writeVersion(with: store)
+        finishWriting(to: &store)
     }
-}
-
-//****************************************************************************//
-// MARK: UserDefaults support
-//****************************************************************************//
-extension UserDefaults {
-
-   public func getTestProtocolConformer(forKey key: String) -> TestProtocolConformer? {
-      guard let dictionary = dictionary(forKey: key) else { return nil }
-      return TestProtocolConformer.decode(dictionary)
-   }
-
-   public func getTestProtocolConformer(forKey key: String) -> [TestProtocolConformer]? {
-      guard let array = array(forKey: key) else { return nil }
-      return sequence(array.map(TestProtocolConformer.decode))
-   }
-
-   public func getTestProtocolConformer(forKey key: String) -> [String : TestProtocolConformer]? {
-      guard let dictionary = dictionary(forKey: key) else { return nil }
-      return sequence(dictionary.map { TestProtocolConformer.decode($0) })
-   }
-
-   public func getTestProtocolConformer(forKey key: String, defaultValue: TestProtocolConformer) -> TestProtocolConformer {
-      return getTestProtocolConformer(forKey: key) ?? defaultValue
-   }
-
-   public func getTestProtocolConformer(forKey key: String, defaultValue: [TestProtocolConformer]) -> [TestProtocolConformer] {
-      return getDecodable(key) ?? defaultValue
-   }
-
-   public func getTestProtocolConformer(forKey key: String,  defaultValue: [String : TestProtocolConformer]) -> [String : TestProtocolConformer] {
-      return getTestProtocolConformer(forKey: key) ?? defaultValue
-   }
-
-   public func setTestProtocolConformer(value: TestProtocolConformer, forKey key: String) {
-      set(value.encode(), forKey: key)
-   }
-
-   public func setTestProtocolConformer(value: [TestProtocolConformer], forKey key: String) {
-      set(value.map { $0.encode() }, forKey: key)
-   }
-
-   public func setTestProtocolConformer(value: [String : TestProtocolConformer], forKey key: String) {
-      set(value.map { $0.encode() }, forKey: key)
-   }
-}
-
-//****************************************************************************//
-// MARK: KVStore support
-//****************************************************************************//
-extension KVStore {
-
-   public func getTestProtocolConformer(forKey key: String) -> TestProtocolConformer? {
-      return getValue(forKey: key)
-   }
-
-   public func getTestProtocolConformer(forKey key: String, defaultValue: TestProtocolConformer) -> TestProtocolConformer {
-      return getTestProtocolConformer(forKey: key) ?? defaultValue
-   }
-
-   public func getTestProtocolConformers(forKey key: String) -> [TestProtocolConformer]? {
-      return getValue(forKey: key)
-   }
-
-   public func getTestProtocolConformers(forKey key: String, defaultValue: [TestProtocolConformer]) -> [TestProtocolConformer] {
-      return getTestProtocolConformers(forKey: key) ?? defaultValue
-   }
-
-   public func getTestProtocolConformerDictionary(forKey key: String) -> [String : TestProtocolConformer]? {
-      return getValue(forKey: key)
-   }
-
-   public func getTestProtocolConformerDictionary(forKey key: String, defaultValue: [String : TestProtocolConformer]) -> [String : TestProtocolConformer] {
-      return getTestProtocolConformerDictionary(forKey: key) ?? defaultValue
-   }
 }
 

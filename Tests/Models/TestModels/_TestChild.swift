@@ -14,129 +14,35 @@ public struct TestChild : Model {
 
 }
 
-extension TestChild : Decodable {
+extension TestChild  {
 
-   public static func decode(_ decoder: Decoder) -> TestChild? {
-      return self.init(decoder: decoder)
+   public static func read(from store: Store) -> TestChild? {
+      return self.init(with: store)
    }
 
-    public init?(decoder d: Decoder) {
-        var decoder = d
-        decoder = TestChild.performMigrationIfNeeded(decoder)
+    public init?(with inStore: Store) {
+        let store = TestChild.migrateIfNeeded(with: inStore)
 
-        let age: Int? = decoder.decode("age")
-        let name: String? = decoder.decode("name")
-        let myChildren: [Grandchild]? = decoder.decode("myChildren")
-        let gender: Gender? = decoder.decode("gender")
+        let age: Int? = store.value(forKey: "age")
+        let name: String? = store.value(forKey: "name")
+        let myChildren: [Grandchild]? = store.value(forKey: "myChildren")
+        let gender: Gender? = store.value(forKey: "gender")
 
         self.age = age
         self.name = name
         self.myChildren = myChildren
         self.gender = gender
-        didFinishDecoding(decoder: decoder)
-    }
-}
-
-extension TestChild : Encodable {
-
-    public func encode(_ encoder: Encoder) {
-        encoder.encode(age, "age")
-        encoder.encode(name, "name")
-        encoder.encode(myChildren, "myChildren")
-        encoder.encode(gender, "gender")
-
-        TestChild.encodeVersionIfNeeded(encoder)
-
-        self.willFinishEncoding(encoder: encoder)
-    }
-}
-
-extension TestChild {
-
-    /// These are provided from the data model designer
-    /// and can be used to determine if the model is
-    /// a different version.
-    public static func modelVersionHash() -> String {
-        return "<4b2e27e5 53e329ff 69cfb4ba 1573537c 35d26944 7199acfc 729b6b5c c6e0ac88>"
+        finishReading(from: store)
     }
 
-    public static func modelVersionHashModifier() -> String? {
-        return nil
+    public func write(to store: inout Store) {
+        store.set(age, forKey: "age")
+        store.set(name, forKey: "name")
+        store.set(myChildren, forKey: "myChildren")
+        store.set(gender, forKey: "gender")
+
+        TestChild.writeVersion(with: store)
+        finishWriting(to: &store)
     }
-}
-
-//****************************************************************************//
-// MARK: UserDefaults support
-//****************************************************************************//
-extension UserDefaults {
-
-   public func getTestChild(forKey key: String) -> TestChild? {
-      guard let dictionary = dictionary(forKey: key) else { return nil }
-      return TestChild.decode(dictionary)
-   }
-
-   public func getTestChild(forKey key: String) -> [TestChild]? {
-      guard let array = array(forKey: key) else { return nil }
-      return sequence(array.map(TestChild.decode))
-   }
-
-   public func getTestChild(forKey key: String) -> [String : TestChild]? {
-      guard let dictionary = dictionary(forKey: key) else { return nil }
-      return sequence(dictionary.map { TestChild.decode($0) })
-   }
-
-   public func getTestChild(forKey key: String, defaultValue: TestChild) -> TestChild {
-      return getTestChild(forKey: key) ?? defaultValue
-   }
-
-   public func getTestChild(forKey key: String, defaultValue: [TestChild]) -> [TestChild] {
-      return getDecodable(key) ?? defaultValue
-   }
-
-   public func getTestChild(forKey key: String,  defaultValue: [String : TestChild]) -> [String : TestChild] {
-      return getTestChild(forKey: key) ?? defaultValue
-   }
-
-   public func setTestChild(value: TestChild, forKey key: String) {
-      set(value.encode(), forKey: key)
-   }
-
-   public func setTestChild(value: [TestChild], forKey key: String) {
-      set(value.map { $0.encode() }, forKey: key)
-   }
-
-   public func setTestChild(value: [String : TestChild], forKey key: String) {
-      set(value.map { $0.encode() }, forKey: key)
-   }
-}
-
-//****************************************************************************//
-// MARK: KVStore support
-//****************************************************************************//
-extension KVStore {
-
-   public func getTestChild(forKey key: String) -> TestChild? {
-      return getValue(forKey: key)
-   }
-
-   public func getTestChild(forKey key: String, defaultValue: TestChild) -> TestChild {
-      return getTestChild(forKey: key) ?? defaultValue
-   }
-
-   public func getTestChilds(forKey key: String) -> [TestChild]? {
-      return getValue(forKey: key)
-   }
-
-   public func getTestChilds(forKey key: String, defaultValue: [TestChild]) -> [TestChild] {
-      return getTestChilds(forKey: key) ?? defaultValue
-   }
-
-   public func getTestChildDictionary(forKey key: String) -> [String : TestChild]? {
-      return getValue(forKey: key)
-   }
-
-   public func getTestChildDictionary(forKey key: String, defaultValue: [String : TestChild]) -> [String : TestChild] {
-      return getTestChildDictionary(forKey: key) ?? defaultValue
-   }
 }
 

@@ -30,25 +30,25 @@ struct Player: Model {
       self.age = age
    }
    
-   static func decode(_ decoder: Decoder) -> Player? {
-      return self.init(decoder: decoder)
+   static func read(from store: Store) -> Player? {
+      return self.init(with: store)
    }
    
-   init?(decoder: Decoder) {
+   init?(with store: Store) {
       
-      guard let id: Int  = decoder.decode("id"),
-         name: String = decoder.decode("name"),
-         age: Int = decoder.decode("age"),
-         MVP: Bool = decoder.decode("mvp"),
-         teamates: [Player] = decoder.decode("teamates")
+    guard let id: Int  = store.value(forKey: "id"),
+        name: String = store.value(forKey: "name"),
+        age: Int = store.value(forKey: "age"),
+        MVP: Bool = store.value(forKey: "mvp"),
+        teamates: [Player] = store.value(forKey: "teamates")
          else { return nil }
       
-      let email : String? = decoder.decode("email")
-      let height : Float? = decoder.decode("height")
-      let weight: Double? = decoder.decode("weight")
-      let fillins: [Player]? = decoder.decode("fillins")
-      let teamatesByName: [String : Player]? = decoder.decode("teamatesByName")
-      let awards: [AnyObject]? = decoder.decode("awards")
+    let email : String? = store.value(forKey: "email")
+    let height : Float? = store.value(forKey: "height")
+    let weight: Double? = store.value(forKey: "weight")
+    let fillins: [Player]? = store.value(forKey: "fillins")
+    let teamatesByName: [String : Player]? = store.value(forKey: "teamatesByName")
+    let awards: [AnyObject]? = store.value(forKey: "awards")
       
       self.id = id
       self.name = name
@@ -61,23 +61,19 @@ struct Player: Model {
       self.fillins = fillins
       self.teamatesByName = teamatesByName
       self.awards = awards
-      
    }
-}
 
-
-extension Player: Encodable {
-    func encode(_ encoder: Encoder) {
-        encoder.encode(id, "id")
-        encoder.encode(name, "name")
-        encoder.encode(email, "email")
-        encoder.encode(age, "age")
-        encoder.encode(height, "height")
-        encoder.encode(weight, "weight")
-        encoder.encode(MVP, "mvp")
-        encoder.encode(teamates, "teamates")
-        encoder.encode(fillins, "fillins")
-        encoder.encode(teamatesByName, "teamatesByName")
-        encoder.encode(awards, "awards")
+    func write(to store: inout Store) {
+        store.set(id, forKey: "id")
+        store.set(name, forKey: "name")
+        store.set(email, forKey: "email")
+        store.set(age, forKey: "age")
+        store.set(height, forKey: "height")
+        store.set(weight, forKey: "weight")
+        store.set(MVP, forKey: "mvp")
+        store.set(teamates, forKey: "teamates")
+        store.set(fillins, forKey: "fillins")
+        store.set(teamatesByName, forKey: "teamatesByName")
+        store.set(awards, forKey: "awards")
     }
 }

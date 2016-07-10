@@ -33,9 +33,9 @@ class RelationshipTests: Test {
         let children = makeChildren()
         let grandChildren = makeGrandChildren(children)
         let sampleData = TestRelationships(myChildren: children, myGrandChildren: grandChildren, myOneChild: TestChild(age: 22, name: "Mark", myChildren: nil, gender: Gender.male ))
-        sampleData.save(.json, path: tempPathFor("relationship.json"))
-
-        let testData = TestRelationships(.json, path:tempPathFor("relationship.json"))
+        _ = sampleData.write(to: tempURLFor("relationship.json"), format: .json)
+        
+        let testData = TestRelationships(file: tempURLFor("relationship.json"), format: .json)
         
         XCTAssert(testData != nil)
         XCTAssert(testData?.myChildren?.count == sampleData.myChildren?.count)
@@ -53,10 +53,9 @@ class RelationshipTests: Test {
         let employee2 = Employee(name: "John", title: nil)
         testComposition.employees["Jane"] = employee1
         testComposition.employees["John"] = employee2
-        testComposition.save(.plist, path: tempPathFor("test_composition.plist"))
+        _ = testComposition.write(to: tempURLFor("test_composition.plist"), format: .plist)
         
-        let inTestComposition = TestDictionaryComposition(.plist, path: tempPathFor("test_composition.plist"))
-        
+        let inTestComposition = TestDictionaryComposition(file: tempURLFor("test_composition.plist"), format: .plist)
         XCTAssert(inTestComposition != nil)
         XCTAssert(inTestComposition?.employees["Jane"]?.title == "Manager")
     }

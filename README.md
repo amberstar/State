@@ -3,39 +3,37 @@
 State works like NSCoding for value types.
 
 - use `struct`, `enum`, and `protocol`s  as models
-- save as plist, binary, or json
-- model versioning, and migration (optional)
-- use Xcode data model designer (optional)
+- plist, binary, or json formats
+- opt - in model versioning, and migration
+- optionally use Xcode data model designer
 
 #### Creating a model
 
 To create a model you conform to the Model protocol.
 
 ```swift
-    public struct Person : Model {
+    public struct Person  {
         public let name : String
         public let age: Int
     }
 
-   extension Person : Decodable {
-        public init?(decoder: Decoder) {
-            gaurd
-                let name: String = decoder.decode("name"),
-                let age: Int = decoder.decode("age")
-            else { return nil }
+   extension Person : Model {
 
+        public init?(with store: Store)  {
+            guard
+                let name: String = store.value(forKey: "name")
+                let age: Int = store.value(forKey: "age")
+            else {
+                return nil
+            }
             self.name = name
-            self.age = age
         }
-   }
 
-   extension Person : Encodable {
-        public func encode(encoder: Endcoder) {
-            encoder.encode("name" : name)
-            encoder.encode("age" : age)
+        public func write(to store: Store) {
+            store.set(name, forKey: "name")
+            store.set(age, forKey: "age")
         }
-   }
-
+    }
 ```
 
 #### Saving and loading models to a file

@@ -14,7 +14,6 @@ import State
 
 <$if hasSuperentity$><$call setSuperentityType superentity$><$endif$>
 
-
 <$set transientAttributeCount = 0$><$foreach Attribute noninheritedAttributes do$><$if Attribute.isTransient$><$set transientAttributeCount = transientAttributeCount + 1$><$endif$><$endforeach do$>
 
 <$set functionRequirementCount = 0$><$foreach Attribute attributesByName do$><$if Attribute.userInfo.State.ProtocolRequirementType == func$><$set functionRequirementCount = functionRequirementCount + 1$><$endif$><$endforeach do$>
@@ -262,10 +261,10 @@ extension KVStore {
 <$endprocedure$>
 
 <$procedure writeEncodingVersioningBlock$>
-        <$typeName$>.encodeVersionIfNeeded(encoder)
+        <$typeName$>.writeVersion(with: store)
         <$endprocedure$>
 
-<$procedure writeDecodingMigrationBlock$>decoder = <$typeName$>.performMigrationIfNeeded(decoder)<$endprocedure$>
+
 
 <$procedure Struct$>
 
@@ -278,15 +277,14 @@ public struct <$typeName$> : <$superTypeName$> {
     <$endforeach do$>
 }
 
-extension <$typeName$> : Decodable {
+extension <$typeName$>  {
 
-   public static func decode(_ decoder: Decoder) -> <$typeName$>? {
-      return self.init(decoder: decoder)
+   public static func read(from store: Store) -> <$typeName$>? {
+      return self.init(with: store)
    }
 
-    public init?(decoder d: Decoder) {
-        var decoder = d
-        <$call writeDecodingMigrationBlock$>
+    public init?(with inStore: Store) {
+        let store = <$typeName$>.migrateIfNeeded(with: inStore)
 
 <$setlocal hasNonOptionals = 0 $>
 <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$><$if !Attribute.isOptional$><$setlocal hasNonOptionals = 1$><$endif$><$endif$><$endforeach do$>
@@ -295,36 +293,33 @@ extension <$typeName$> : Decodable {
 <$if hasNonOptionals == 1$>
          guard
             <$setlocal prop = 0$><$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$><$if !Attribute.isOptional$><$if prop > 0$>,
-            <$endif$><$setlocal prop = prop + 1$>let <$Attribute.name$>: <$call getTypeForAttribute Attribute$> = decoder.decode("<$Attribute.name$>")<$endif$><$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient &&  Relationship.userInfo.State.ProtocolRequirementType != get$><$if !Relationship.isOptional$><$if prop > 0$>,
-            <$endif$><$setlocal prop = prop + 1$>let <$Relationship.name$>: <$if  Relationship.isToMany$>[<$endif$><$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if  Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> = decoder.decode<$if Relationship.destinationEntity.isAbstract || Relationship.destinationEntity.userInfo.State.Protocol == YES$><$Relationship.destinationEntity.managedObjectClassName$><$endif$>("<$Relationship.name$>")<$endif$><$endif$><$endforeach do$>
+            <$endif$><$setlocal prop = prop + 1$>let <$Attribute.name$>: <$call getTypeForAttribute Attribute$> = store.value(forKey: "<$Attribute.name$>")<$endif$><$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient &&  Relationship.userInfo.State.ProtocolRequirementType != get$><$if !Relationship.isOptional$><$if prop > 0$>,
+            <$endif$><$setlocal prop = prop + 1$>let <$Relationship.name$>: <$if  Relationship.isToMany$>[<$endif$><$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if  Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> = store.value<$if Relationship.destinationEntity.isAbstract || Relationship.destinationEntity.userInfo.State.Protocol == YES$><$endif$>(forKey: "<$Relationship.name$>")<$endif$><$endif$><$endforeach do$>
          else { return  nil }
          <$endif$>
 
-        <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$><$if Attribute.isOptional$>let <$Attribute.name$>: <$call getTypeForAttribute Attribute$> = decoder.decode("<$Attribute.name$>")<$endif$>
-        <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient && Relationship.userInfo.State.ProtocolRequirementType != get$><$if Relationship.isOptional$>let <$Relationship.name$>: <$if  Relationship.isToMany$>[<$endif$><$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if  Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> = decoder.decode<$if Relationship.destinationEntity.isAbstract || Relationship.destinationEntity.userInfo.State.Protocol == YES$><$Relationship.destinationEntity.managedObjectClassName$><$endif$>("<$Relationship.name$>")<$endif$>
+        <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$><$if Attribute.isOptional$>let <$Attribute.name$>: <$call getTypeForAttribute Attribute$> = store.value(forKey: "<$Attribute.name$>")<$endif$>
+        <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient && Relationship.userInfo.State.ProtocolRequirementType != get$><$if Relationship.isOptional$>let <$Relationship.name$>: <$if  Relationship.isToMany$>[<$endif$><$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if  Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$> = store.value<$if Relationship.destinationEntity.isAbstract || Relationship.destinationEntity.userInfo.State.Protocol == YES$><$endif$>(forKey: "<$Relationship.name$>")<$endif$>
         <$endif$><$endforeach do$>
 
         <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$>self.<$Attribute.name$> = <$Attribute.name$>
         <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient && Relationship.userInfo.State.ProtocolRequirementType != get$>self.<$Relationship.name$> = <$Relationship.name$>
-        <$endif$><$endforeach do$>didFinishDecoding(decoder: decoder)
+        <$endif$><$endforeach do$>finishReading(from: store)
     }
-}
 
-extension <$typeName$> : Encodable {
-
-    public func encode(_ encoder: Encoder) {
-        <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$>encoder.encode(<$Attribute.name$>, "<$Attribute.name$>")
-        <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient && Relationship.userInfo.State.ProtocolRequirementType != get$>encoder.encode(<$Relationship.name$>, "<$Relationship.name$>")
+    public func write(to store: inout Store) {
+        <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$>store.set(<$Attribute.name$>, forKey: "<$Attribute.name$>")
+        <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient && Relationship.userInfo.State.ProtocolRequirementType != get$>store.set(<$Relationship.name$>, forKey: "<$Relationship.name$>")
         <$endif$><$endforeach do$>
-        <$if hasSuperentity$>encoder.encode("<$typeName$>", "<$rootTypeName$>")<$endif$>
-        <$call writeEncodingVersioningBlock$>
-        self.willFinishEncoding(encoder: encoder)
+        <$if hasSuperentity$>store.set("<$typeName$>", forKey: "<$rootTypeName$>")<$endif$>
+        <$typeName$>.writeVersion(with: store)
+        finishWriting(to: &store)
     }
 }
 
-<$call writeVersionHashExtension $>
-<$call writeUserDefaultsSupportBlock$>
-<$call writeKVStoreSupportBlock$>
+<$comment writeVersionHashExtension $>
+<$comment writeUserDefaultsSupportBlock$>
+<$comment writeKVStoreSupportBlock$>
 <$endprocedure$>
 
 
@@ -342,13 +337,13 @@ extension <$typeName$> : Encodable {
 
 <$procedure writeEnumCaseForRelationship Relationship$>case <$Relationship.name$> <$if userInfo.State.Type$><$call writeRawValueCaseForRelationship Relationship$><$else$><$call writeAssociatedValueCaseForRelationship Relationship$><$endif$><$endprocedure$>
 
-<$procedure writeAttributeDecodeAssociatedSwitchCaseForEnumOptional Attribute$>let value: <$Attribute.userInfo.State.Type$>? = decoder.decode("value")
-self = <$typeName$>.<$Attribute.name$>(value)
+<$procedure writeAttributeDecodeAssociatedSwitchCaseForEnumOptional Attribute$>let value: <$Attribute.userInfo.State.Type$>? = store.value(forKey: "value")
+                self = <$typeName$>.<$Attribute.name$>(value)
 <$endprocedure$>
 
-<$procedure writeAttributeDecodeAssociatedSwitchCaseForEnumNonOptional Attribute$>if let value: <$Attribute.userInfo.State.Type$> = decoder.decode("value") {
-self = <$typeName$>.<$Attribute.name$>(value)
-} else { return nil }<$endprocedure$>
+<$procedure writeAttributeDecodeAssociatedSwitchCaseForEnumNonOptional Attribute$>if let value: <$Attribute.userInfo.State.Type$> = store.value(forKey: "value") {
+                     self = <$typeName$>.<$Attribute.name$>(value)
+                   } else { return nil }<$endprocedure$>
 
 
 <$procedure writeAttributeDecodeAssociatedSwitchCaseForEnum Attribute$><$if Attribute.isOptional$><$call writeAttributeDecodeAssociatedSwitchCaseForEnumOptional Attribute$><$else$><$call writeAttributeDecodeAssociatedSwitchCaseForEnumNonOptional Attribute$><$endif$>
@@ -360,22 +355,22 @@ self = <$typeName$>.<$Attribute.name$>(value)
 <$procedure writeAttributeDecodeSwitchCaseForEnumCase Attribute$>case "<$Attribute.name$>":
                    <$if Attribute.userInfo.State.Type$><$call writeAttributeDecodeAssociatedSwitchCaseForEnum Attribute$><$else$><$call writeAttributeDecodeBasicSwitchCaseForEnum Attribute$><$endif$><$endprocedure$>
 
-<$procedure writeRelationshipDecodeAssociatedSwitchCaseForEnumOptional Relationship$>let value: <$if Relationship.isToMany$>[<$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$>? = decoder.decode("value")
+<$procedure writeRelationshipDecodeAssociatedSwitchCaseForEnumOptional Relationship$>let value: <$if Relationship.isToMany$>[<$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$>? = store.value(forKey: "value")
 self = <$typeName$>.<$Relationship.name$>(value)
 <$endprocedure$>
 
-<$procedure writeRelationshipDecodeAssociatedSwitchCaseForEnumNonOptional Relationship$>if let value: <$if Relationship.isToMany$>[<$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$> = decoder.decode("value") {
-self = <$typeName$>.<$Relationship.name$>(value)
-} else { return nil }<$endprocedure$>
+<$procedure writeRelationshipDecodeAssociatedSwitchCaseForEnumNonOptional Relationship$>if let value: <$if Relationship.isToMany$>[<$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$> = store.value(forKey: "value") {
+                        self = <$typeName$>.<$Relationship.name$>(value)
+                    } else { return nil }<$endprocedure$>
 
 
 <$procedure writeRelationshipDecodeAssociatedSwitchCaseForEnum Relationship$><$if Relationship.isOptional$><$call writeRelationshipDecodeAssociatedSwitchCaseForEnumOptional Relationship$><$else$><$call writeRelationshipDecodeAssociatedSwitchCaseForEnumNonOptional Relationship$> <$endif$><$endprocedure$>
 
 <$procedure writeRelationshipDecodeBasicSwitchCaseForEnum Relationship$>self = <$typeName$>.<$Relationship.name$><$endprocedure$>
 
-<$procedure writeRelationshipDecodeRawSwitchCaseForEnum Relationship$>if let value: <$userInfo.State.Type$> = decoder.decode("value"),
+<$procedure writeRelationshipDecodeRawSwitchCaseForEnum Relationship$>if let value: <$userInfo.State.Type$> = store.value(forKey: "value"),
                         instance = <$typeName$>(rawValue: value) {
-                        instance.didFinishDecoding(decoder: decoder)
+                        instance.finishReading(from: store)
                         self = instance
                     } else { return nil }<$endprocedure$>
 
@@ -383,24 +378,24 @@ self = <$typeName$>.<$Relationship.name$>(value)
                     <$if userInfo.State.Type$><$call writeRelationshipDecodeRawSwitchCaseForEnum Relationship$><$elseif  Relationship.destinationEntity.managedObjectClassName$><$call writeRelationshipDecodeAssociatedSwitchCaseForEnum Relationship$><$else$><$call writeRelationshipDecodeBasicSwitchCaseForEnum Relationship$><$endif$><$endprocedure$>
 
 <$procedure writeAttributeEncodeBasicSwitchCaseForEnum Attribute$>case .<$Attribute.name$>:
-                encoder.encode("<$Attribute.name$>", "<$typeName$>")<$endprocedure$>
+                store.set("<$Attribute.name$>", forKey: "<$typeName$>")<$endprocedure$>
 
 <$procedure writeAttributeEncodeAssociatedSwitchCaseForEnum Attribute$>case let .<$Attribute.name$>(value):
-                encoder.encode("<$Attribute.name$>", "<$typeName$>")
-                encoder.encode(value, "value")<$endprocedure$>
+                store.set("<$Attribute.name$>", forKey: "<$typeName$>")
+                store.set(value, forKey: "value")<$endprocedure$>
 
 <$procedure writeAttributeEncodeSwitchCaseForEnumCase Attribute$><$if Attribute.userInfo.State.Type$><$call writeAttributeEncodeAssociatedSwitchCaseForEnum Attribute$><$else$><$call writeAttributeEncodeBasicSwitchCaseForEnum Attribute$><$endif$><$endprocedure$>
 
 <$procedure writeRelationshipEncodeBasicSwitchCaseForEnum Relationship$>case .<$Relationship.name$>:
-                encoder.encode("<$Relationship.name$>", "<$typeName$>")<$endprocedure$>
+                store.set("<$Relationship.name$>", forKey: "<$typeName$>")<$endprocedure$>
 
 <$procedure writeRelationshipEncodeRawSwitchCaseForEnum Relationship$>case let .<$Relationship.name$>:
-                encoder.encode("<$Relationship.name$>", "<$typeName$>")
-                encoder.encode(self.rawValue, "value")<$endprocedure$>
+                store.set("<$Relationship.name$>", forKey: "<$typeName$>")
+                store.set(self.rawValue, forKey: "value")<$endprocedure$>
 
 <$procedure writeRelationshipEncodeAssociatedSwitchCaseForEnum Relationship$>case let .<$Relationship.name$>(value):
-                encoder.encode("<$Relationship.name$>", "<$typeName$>")
-                encoder.encode(value, "value")<$endprocedure$>
+                store.set("<$Relationship.name$>", forKey: "<$typeName$>")
+                store.set(value, forKey: "value")<$endprocedure$>
 
 <$procedure writeRelationshipEncodeSwitchCaseForEnumCase Relationship$><$if userInfo.State.Type$><$call writeRelationshipEncodeRawSwitchCaseForEnum Relationship$><$elseif Relationship.destinationEntity.managedObjectClassName$><$call writeRelationshipEncodeAssociatedSwitchCaseForEnum Relationship$><$else$><$call writeRelationshipEncodeBasicSwitchCaseForEnum Relationship$><$endif$><$endprocedure$>
 
@@ -414,17 +409,17 @@ public enum <$typeName$> <$if userInfo.State.Type$> : <$userInfo.State.Type$>, M
     <$endforeach do$>
 }
 
-extension <$typeName$>: Decodable {
+extension <$typeName$> {
 
-   public static func decode(_ decoder: Decoder) -> <$typeName$>? {
-      return self.init(decoder: decoder)
+   public static func read(from store: Store) -> <$typeName$>? {
+      return self.init(with: store)
    }
 
-    public init?(decoder d: Decoder) {
-        var decoder = d
-        <$call writeDecodingMigrationBlock$>
+    public init?(with inStore: Store) {
+        let store = <$typeName$>.migrateIfNeeded(with: inStore)
+
 <$if ! userInfo.State.Type$>
-        guard let type: String = decoder.decode("<$typeName$>") else { return nil }
+        guard let type: String = store.value(forKey: "<$typeName$>") else { return nil }
         switch type {
                 <$foreach Attribute noninheritedAttributes do$><$call writeAttributeDecodeSwitchCaseForEnumCase Attribute$>
                 <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$call writeRelationshipDecodeSwitchCaseForEnumCase Relationship$>
@@ -432,27 +427,26 @@ extension <$typeName$>: Decodable {
                 default:
                     return nil
         }
-<$else$>        guard let value: <$userInfo.State.Type$> = decoder.decode<$if userInfo.State.Model$><$userInfo.State.Model$><$endif$>("value") else { return nil }
+        <$else$>        guard let value: <$userInfo.State.Type$> = store.value(forKey: "value") else { return nil }
         self.init(rawValue: value)<$endif$>
     }
-}
 
-extension <$typeName$>: Encodable {
-
-    public func encode(_ encoder: Encoder) {
+    public func write(to store: inout Store) {
 <$if ! userInfo.State.Type$>
         switch self {
             <$foreach Attribute noninheritedAttributes do$><$call writeAttributeEncodeSwitchCaseForEnumCase Attribute$>
             <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$call writeRelationshipEncodeSwitchCaseForEnumCase Relationship$>
             <$endforeach do$>
         }
-<$else$>        encoder.encode(self.rawValue, "value")<$endif$><$call writeEncodingVersioningBlock$>self.willFinishEncoding(encoder: encoder)
+<$else$>        store.set(self.rawValue, forKey: "value")<$endif$>
+            <$typeName$>.writeVersion(with: store)
+            finishWriting(to: &store)
     }
 }
 
-<$call writeVersionHashExtension $>
-<$call writeUserDefaultsSupportBlock$>
-<$call writeKVStoreSupportBlock$>
+<$comment writeVersionHashExtension $>
+<$comment writeUserDefaultsSupportBlock$>
+<$comment writeKVStoreSupportBlock$>
 <$endprocedure$>
 
 <$procedure writeAttributeProtocolFunctionRequirement Attribute$>   <$if Attribute.userInfo.State.Mutating == YES$>mutating <$endif$>func <$Attribute.userInfo.State.Func$><$endprocedure$>
@@ -484,82 +478,29 @@ public protocol <$typeName$><$if hasSuperentity$> : <$superentity.managedObjectC
 
 }
 
-func decode<$typeName$>(_ data: AnyObject?) -> <$typeName$>? {
+public extension <$typeName$> {
 
-   if let data = data as? [String : AnyObject] {
-      let decoder = Decoder(data: data)
-      guard let dataTypeKey = data["<$typeName$>"] as? String else { return nil }
-      if let t = decoder.<$typeName$>Type(forKey: dataTypeKey) {
-         return t.decode(decoder)
-      }
-      return nil
-   }
-   return nil
-}
-
-
-// Mark: Decoding
-
-public extension DecoderType {
-
-
-    public func decode<$typeName$>(_ key: String) -> <$typeName$>? {
-        let data = self.data
-        let d = data[key] as? [String : AnyObject]
-        return d.flatMap(_decode<$typeName$>)
-    }
-
-    public func decode<$typeName$>(_ key: String) -> [<$typeName$>]? {
-        let data = self.data
-        let d = data[key] as? [[String : AnyObject]]
-        return d.flatMap { sequence($0.map(_decode<$typeName$>)) }
-    }
-
-    public func decode<$typeName$>(_ key: String) -> [String : <$typeName$>]? {
-        let data = self.data
-        let d = data[key] as? [String : [String : AnyObject]]
-        return d.flatMap { sequence($0.map(_decode<$typeName$>)) }
-    }
-
-    private func _decode<$typeName$>(data: [String : AnyObject]) -> <$typeName$>? {
-        guard let dataTypeKey = data["<$rootTypeName$>"] as? String else { return nil }
-        if let t = <$typeName$>Type(forKey: dataTypeKey) {
-            return t.decode(Decoder(data: data))
+    public static func read(from store: Store) -> <$typeName$>? {
+        guard let typeKey: String = store.value(forKey: "<$typeName$>") else { return nil }
+        if let t = type(forKey: typeKey) {
+            return t.read(from: store)
         }
         return nil
     }
-
-    private func <$typeName$>Type(forKey key: String) -> <$typeName$>.Type? {
+    
+    private static func type(forKey key: String) -> <$typeName$>.Type? {
         switch key {
 <$call writeCasesForTypes subentities$>
         default:
             return nil
         }
     }
+
+
 }
 
-// Mark: Encoding
-
-public extension EncoderType {
-
-    public func encode(element: <$typeName$>?, _ key: String) {
-        guard let element = element else { return }
-        self.data[key] = element.encode()
-    }
-
-    public func encode(element: [<$typeName$>]?, _ key: String) {
-       guard let element = element else { return }
-       self.data[key] = element.map { $0.encode() }
-    }
-
-    public func encode(element: [String : <$typeName$>]?, _ key: String) {
-        guard let element = element else { return }
-        self.data[key] = element.map { $0.encode() }
-    }
-}
-
-<$call writeUserDefaultsProtocolSupportBlock$>
-<$call writeKVStoreProtocolSupportBlock$>
+<$comment writeUserDefaultsProtocolSupportBlock$>
+<$comment writeKVStoreProtocolSupportBlock$>
 <$endprocedure$>
 
 <$if userInfo.State.Enum == YES$><$call Enum$><$elseif isAbstract || userInfo.State.Protocol == YES$><$call Protocol$><$else$><$call Struct$>

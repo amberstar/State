@@ -1,12 +1,13 @@
 import XCTest
+@testable
 import State
 
 class DecodableTests: Test {
     
     func testDecodingDecodableFromJSON() {
-        let user = User.decode(jsonData["t"])
-        let userNoEmail  = User.decode(jsonData["u"])
-        let users = UserTypes.decode(jsonData)
+        let user = User.read(from: DataStore(data: jsonData["t"]))
+        let userNoEmail  = User.read(from: DataStore(data: jsonData["u"]))
+        let users = UserTypes.read(from: DataStore(data: jsonData))
         XCTAssert(user != nil)
         XCTAssert(user?.id == 10)
         XCTAssert(user?.name == "John Doe")
@@ -24,9 +25,9 @@ class DecodableTests: Test {
     }
     
     func testDecodingDecodableFromPlist() {
-        let user = User.decode(plistData["User1"])
-        let userNoEmail = User.decode(plistData["User2"])
-        let users = UserTypes.decode(plistData["Users"])
+        let user = User.read(from: DataStore(data: plistData["User1"]))
+        let userNoEmail = User.read(from: DataStore(data: plistData["User2"]))
+        let users = UserTypes.read(from: DataStore(data: plistData["Users"]))
         XCTAssert(user != nil)
         XCTAssert(user?.id == 10)
         XCTAssert(user?.name == "John Doe")
@@ -44,7 +45,7 @@ class DecodableTests: Test {
     }
     
     func testDecodingInvalidDecodableShouldFail() {
-        let user = User.decode(jsonData["x"])
+        let user = User.read(from: DataStore(data: jsonData["x"]))
         XCTAssert(user == nil)
     }
 }

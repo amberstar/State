@@ -21,23 +21,23 @@ struct BasicTypes<T> {
     
 }
 
-extension BasicTypes : Decodable {
+extension BasicTypes : Model {
    
-   static func decode(_ decoder: Decoder) -> BasicTypes? {
-      return self.init(decoder: decoder)
+   static func read(from store: Store) -> BasicTypes? {
+      return self.init(with: store)
    }
     
-    init?(decoder: Decoder) {
-        guard let t: T = decoder.decode("t"),
-        tArr : [T] = decoder.decode("t_arr"),
-        tDic : [String : T] = decoder.decode("t_dic") else { return nil }
+    init?(with store: Store) {
+        guard let t: T = store.value(forKey: "t"),
+            tArr : [T] = store.value(forKey: "t_arr"),
+            tDic : [String : T] = store.value(forKey: "t_dic") else { return nil }
         
-        let tOpt: T?  = decoder.decode("t_opt")
-        let tImp : T! = decoder.decode("t_imp")
-        let tArrOpt : [T]? = decoder.decode("t_arr_opt")
-        let tArrImp : [T]! = decoder.decode("t_arr_imp")
-        let tDicOpt : [String : T]? = decoder.decode("t_dic_opt")
-        let tDictImp : [String : T]! = decoder.decode("t_dic_imp")
+        let tOpt: T?  = store.value(forKey: "t_opt")
+        let tImp : T! = store.value(forKey: "t_imp")
+        let tArrOpt : [T]? = store.value(forKey: "t_arr_opt")
+        let tArrImp : [T]! = store.value(forKey: "t_arr_imp")
+        let tDicOpt : [String : T]? = store.value(forKey: "t_dic_opt")
+        let tDictImp : [String : T]! = store.value(forKey: "t_dic_imp")
         
         self.t = t
         self.tOpt = tOpt
@@ -49,20 +49,17 @@ extension BasicTypes : Decodable {
         self.tDicOpt = tDicOpt
         self.tDictImp = tDictImp
     }
-}
-
-extension BasicTypes : Encodable {
     
-    func encode(_ encoder: Encoder){
-        encoder.encode(t, "t")
-        encoder.encode(tOpt, "t_opt")
-        encoder.encode(tImp, "t_imp")
-        encoder.encode(tArr, "t_arr")
-        encoder.encode(tArrOpt, "t_arr_opt")
-        encoder.encode(tArrImp, "t_arr_imp")
-        encoder.encode(tDic, "t_dic")
-        encoder.encode(tDicOpt, "t_dic_opt")
-        encoder.encode(tDictImp, "t_dic_imp")
+    func write(to store: inout Store){
+        store.set(t, forKey: "t")
+        store.set(tOpt, forKey: "t_opt")
+        store.set(tImp, forKey: "t_imp")
+        store.set(tArr, forKey: "t_arr")
+        store.set(tArrOpt, forKey: "t_arr_opt")
+        store.set(tArrImp, forKey: "t_arr_imp")
+        store.set(tDic, forKey: "t_dic")
+        store.set(tDicOpt, forKey: "t_dic_opt")
+        store.set(tDictImp, forKey: "t_dic_imp")
     }
 }
 
@@ -87,23 +84,23 @@ struct StringTypes {
     
 }
 
-extension StringTypes : Decodable {
+extension StringTypes : Model {
    
-   static func decode(_ decoder: Decoder) -> StringTypes? {
-      return self.init(decoder: decoder)
+   static func read(from store: Store) -> StringTypes? {
+      return self.init(with: store)
    }
     
-    init?(decoder: Decoder) {
-        guard let t: String = decoder.decode("t"),
-            tArr : [String] = decoder.decode("t_arr"),
-            tDic : [String : String] = decoder.decode("t_dic") else { return nil }
+    init?(with store: Store) {
+        guard let t: String = store.value(forKey: "t"),
+            tArr : [String] = store.value(forKey: "t_arr"),
+            tDic : [String : String] = store.value(forKey: "t_dic") else { return nil }
         
-        let tOpt: String?  = decoder.decode("t_opt")
-        let tImp : String! = decoder.decode("t_imp")
-        let tArrOpt : [String]? = decoder.decode("t_arr_opt")
-        let tArrImp : [String]! = decoder.decode("t_arr_imp")
-        let tDicOpt : [String : String]? = decoder.decode("t_dic_opt")
-        let tDictImp : [String : String]! = decoder.decode("t_dic_imp")
+        let tOpt: String?  = store.value(forKey: "t_opt")
+        let tImp : String! = store.value(forKey: "t_imp")
+        let tArrOpt : [String]? = store.value(forKey: "t_arr_opt")
+        let tArrImp : [String]! = store.value(forKey: "t_arr_imp")
+        let tDicOpt : [String : String]? = store.value(forKey: "t_dic_opt")
+        let tDictImp : [String : String]! = store.value(forKey: "t_dic_imp")
         
         self.t = t
         self.tOpt = tOpt
@@ -115,20 +112,17 @@ extension StringTypes : Decodable {
         self.tDicOpt = tDicOpt
         self.tDictImp = tDictImp
     }
-}
-
-extension StringTypes : Encodable {
     
-    func encode(_ encoder: Encoder){
-        encoder.encode(t, "t")
-        encoder.encode(tOpt, "t_opt")
-        encoder.encode(tImp, "t_imp")
-        encoder.encode(tArr, "t_arr")
-        encoder.encode(tArrOpt, "t_arr_opt")
-        encoder.encode(tArrImp, "t_arr_imp")
-        encoder.encode(tDic, "t_dic")
-        encoder.encode(tDicOpt, "t_dic_opt")
-        encoder.encode(tDictImp, "t_dic_imp")
+    func write(to store: inout Store){
+        store.set(t, forKey: "t")
+        store.set(tOpt, forKey: "t_opt")
+        store.set(tImp, forKey: "t_imp")
+        store.set(tArr, forKey: "t_arr")
+        store.set(tArrOpt, forKey: "t_arr_opt")
+        store.set(tArrImp, forKey: "t_arr_imp")
+        store.set(tDic, forKey: "t_dic")
+        store.set(tDicOpt, forKey: "t_dic_opt")
+        store.set(tDictImp, forKey: "t_dic_imp")
     }
 }
 
@@ -153,23 +147,23 @@ struct AnyObjectTypes {
 
 }
 
-extension AnyObjectTypes : Decodable {
+extension AnyObjectTypes : Model {
    
-   static func decode(_ decoder: Decoder) -> AnyObjectTypes? {
-      return self.init(decoder: decoder)
+   static func read(from store: Store) -> AnyObjectTypes? {
+      return self.init(with: store)
    }
    
-   init?(decoder: Decoder) {
-      guard let t: AnyObject = decoder.decode("t"),
-         tArr : [AnyObject] = decoder.decode("t_arr"),
-         tDic : [String : AnyObject] = decoder.decode("t_dic") else { return nil }
+   init?(with store: Store) {
+    guard let t: AnyObject = store.value(forKey: "t"),
+        tArr : [AnyObject] = store.value(forKey: "t_arr"),
+        tDic : [String : AnyObject] = store.value(forKey: "t_dic") else { return nil }
       
-      let tOpt: AnyObject?  = decoder.decode("t_opt")
-      let tImp : AnyObject! = decoder.decode("t_imp")
-      let tArrOpt : [AnyObject]? = decoder.decode("t_arr_opt")
-      let tArrImp : [AnyObject]! = decoder.decode("t_arr_imp")
-      let tDicOpt : [String : AnyObject]? = decoder.decode("t_dic_opt")
-      let tDictImp : [String : AnyObject]! = decoder.decode("t_dic_imp")
+    let tOpt: AnyObject?  = store.value(forKey: "t_opt")
+    let tImp : AnyObject! = store.value(forKey: "t_imp")
+    let tArrOpt : [AnyObject]? = store.value(forKey: "t_arr_opt")
+    let tArrImp : [AnyObject]! = store.value(forKey: "t_arr_imp")
+    let tDicOpt : [String : AnyObject]? = store.value(forKey: "t_dic_opt")
+    let tDictImp : [String : AnyObject]! = store.value(forKey: "t_dic_imp")
       
       self.t = t
       self.tOpt = tOpt
@@ -181,19 +175,16 @@ extension AnyObjectTypes : Decodable {
       self.tDicOpt = tDicOpt
       self.tDictImp = tDictImp
    }
-}
-
-extension AnyObjectTypes : Encodable {
    
-    func encode(_ encoder: Encoder){
-        encoder.encode(t, "t")
-        encoder.encode(tOpt, "t_opt")
-        encoder.encode(tImp, "t_imp")
-        encoder.encode(tArr, "t_arr")
-        encoder.encode(tArrOpt, "t_arr_opt")
-        encoder.encode(tArrImp, "t_arr_imp")
-        encoder.encode(tDic, "t_dic")
-        encoder.encode(tDicOpt,"t_dic_opt")
-        encoder.encode(tDictImp, "t_dic_imp")
+    func write(to store: inout Store){
+        store.set(t, forKey: "t")
+        store.set(tOpt, forKey: "t_opt")
+        store.set(tImp, forKey: "t_imp")
+        store.set(tArr, forKey: "t_arr")
+        store.set(tArrOpt, forKey: "t_arr_opt")
+        store.set(tArrImp, forKey: "t_arr_imp")
+        store.set(tDic, forKey: "t_dic")
+        store.set(tDicOpt,forKey: "t_dic_opt")
+        store.set(tDictImp, forKey: "t_dic_imp")
     }
 }

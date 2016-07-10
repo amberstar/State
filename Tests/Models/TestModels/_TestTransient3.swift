@@ -13,123 +13,29 @@ public struct TestTransient3 : Model {
 
 }
 
-extension TestTransient3 : Decodable {
+extension TestTransient3  {
 
-   public static func decode(_ decoder: Decoder) -> TestTransient3? {
-      return self.init(decoder: decoder)
+   public static func read(from store: Store) -> TestTransient3? {
+      return self.init(with: store)
    }
 
-    public init?(decoder d: Decoder) {
-        var decoder = d
-        decoder = TestTransient3.performMigrationIfNeeded(decoder)
+    public init?(with inStore: Store) {
+        let store = TestTransient3.migrateIfNeeded(with: inStore)
 
-        let myNonTransient1: Double? = decoder.decode("myNonTransient1")
-        let myNonTransient2: String? = decoder.decode("myNonTransient2")
+        let myNonTransient1: Double? = store.value(forKey: "myNonTransient1")
+        let myNonTransient2: String? = store.value(forKey: "myNonTransient2")
 
         self.myNonTransient1 = myNonTransient1
         self.myNonTransient2 = myNonTransient2
-        didFinishDecoding(decoder: decoder)
-    }
-}
-
-extension TestTransient3 : Encodable {
-
-    public func encode(_ encoder: Encoder) {
-        encoder.encode(myNonTransient1, "myNonTransient1")
-        encoder.encode(myNonTransient2, "myNonTransient2")
-
-        TestTransient3.encodeVersionIfNeeded(encoder)
-
-        self.willFinishEncoding(encoder: encoder)
-    }
-}
-
-extension TestTransient3 {
-
-    /// These are provided from the data model designer
-    /// and can be used to determine if the model is
-    /// a different version.
-    public static func modelVersionHash() -> String {
-        return "<05b69b5d 1e7b7b56 3e25a035 1e39a111 32b6a4e5 35fd06b5 f81d5fe0 9fbcf182>"
+        finishReading(from: store)
     }
 
-    public static func modelVersionHashModifier() -> String? {
-        return nil
+    public func write(to store: inout Store) {
+        store.set(myNonTransient1, forKey: "myNonTransient1")
+        store.set(myNonTransient2, forKey: "myNonTransient2")
+
+        TestTransient3.writeVersion(with: store)
+        finishWriting(to: &store)
     }
-}
-
-//****************************************************************************//
-// MARK: UserDefaults support
-//****************************************************************************//
-extension UserDefaults {
-
-   public func getTestTransient3(forKey key: String) -> TestTransient3? {
-      guard let dictionary = dictionary(forKey: key) else { return nil }
-      return TestTransient3.decode(dictionary)
-   }
-
-   public func getTestTransient3(forKey key: String) -> [TestTransient3]? {
-      guard let array = array(forKey: key) else { return nil }
-      return sequence(array.map(TestTransient3.decode))
-   }
-
-   public func getTestTransient3(forKey key: String) -> [String : TestTransient3]? {
-      guard let dictionary = dictionary(forKey: key) else { return nil }
-      return sequence(dictionary.map { TestTransient3.decode($0) })
-   }
-
-   public func getTestTransient3(forKey key: String, defaultValue: TestTransient3) -> TestTransient3 {
-      return getTestTransient3(forKey: key) ?? defaultValue
-   }
-
-   public func getTestTransient3(forKey key: String, defaultValue: [TestTransient3]) -> [TestTransient3] {
-      return getDecodable(key) ?? defaultValue
-   }
-
-   public func getTestTransient3(forKey key: String,  defaultValue: [String : TestTransient3]) -> [String : TestTransient3] {
-      return getTestTransient3(forKey: key) ?? defaultValue
-   }
-
-   public func setTestTransient3(value: TestTransient3, forKey key: String) {
-      set(value.encode(), forKey: key)
-   }
-
-   public func setTestTransient3(value: [TestTransient3], forKey key: String) {
-      set(value.map { $0.encode() }, forKey: key)
-   }
-
-   public func setTestTransient3(value: [String : TestTransient3], forKey key: String) {
-      set(value.map { $0.encode() }, forKey: key)
-   }
-}
-
-//****************************************************************************//
-// MARK: KVStore support
-//****************************************************************************//
-extension KVStore {
-
-   public func getTestTransient3(forKey key: String) -> TestTransient3? {
-      return getValue(forKey: key)
-   }
-
-   public func getTestTransient3(forKey key: String, defaultValue: TestTransient3) -> TestTransient3 {
-      return getTestTransient3(forKey: key) ?? defaultValue
-   }
-
-   public func getTestTransient3s(forKey key: String) -> [TestTransient3]? {
-      return getValue(forKey: key)
-   }
-
-   public func getTestTransient3s(forKey key: String, defaultValue: [TestTransient3]) -> [TestTransient3] {
-      return getTestTransient3s(forKey: key) ?? defaultValue
-   }
-
-   public func getTestTransient3Dictionary(forKey key: String) -> [String : TestTransient3]? {
-      return getValue(forKey: key)
-   }
-
-   public func getTestTransient3Dictionary(forKey key: String, defaultValue: [String : TestTransient3]) -> [String : TestTransient3] {
-      return getTestTransient3Dictionary(forKey: key) ?? defaultValue
-   }
 }
 

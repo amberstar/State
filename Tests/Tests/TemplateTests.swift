@@ -7,9 +7,8 @@ class TemplateTests: Test {
         var company = Company(name: "State llc",yearFounded: 2015, phoneNumber: "888-888-8888",  employees: [Employee]())
         let employee = Employee(name:"Joe", title: "CEO")
         company.employees?.append(employee)
-        let data = company.encode()
-        Plist.write(data, path: tempPathFor("company.plist"))
-        let testCompany = Company(.plist, path: tempPathFor("company.plist"))
+        _ = company.write(to: tempURLFor("company.plist"), format: .plist)
+        let testCompany = Company(file: tempURLFor("company.plist"), format: .plist)
         
         XCTAssert(testCompany != nil)
         XCTAssert(testCompany?.name == "State llc")
@@ -21,8 +20,8 @@ class TemplateTests: Test {
     
     func testTypes() {
         let test_out = TestTypes()
-        test_out.save(.binary, path: tempPathFor("test_types.plist"))
-        let sut = TestTypes(.binary, path: tempPathFor("test_types.plist"))
+        _ = test_out.write(to: tempURLFor("test_types.plist"), format: .binary)
+        let sut = TestTypes(file: tempURLFor("test_types.plist"), format: .binary)
         XCTAssert(sut != nil)
         XCTAssert(sut?.myBinary != nil)
         XCTAssert(sut?.myDate != nil)
@@ -35,8 +34,8 @@ class TemplateTests: Test {
     
     func testImmutableTypes() {
         let test_out = TestImmutableTypes()
-        test_out.save(.binary, path: tempPathFor("test_immutable_types.plist"))
-        let sut = TestImmutableTypes(.binary, path: tempPathFor("test_immutable_types.plist"))
+        _ = test_out.write(to: tempURLFor("test_immutable_types.plist"), format: .binary)
+        let sut = TestImmutableTypes(file: tempURLFor("test_immutable_types.plist"), format: .binary)
         XCTAssert(sut != nil)
         XCTAssert(sut?.myBinary != nil)
         XCTAssert(sut?.myDate != nil)
@@ -49,8 +48,8 @@ class TemplateTests: Test {
 
     func testOptionalTypes() {
         let test_out = TestOptionalTypes.CreateTestInstance()
-        test_out.save(.binary, path: tempPathFor("test_optional_types.plist"))
-        let sut =  TestOptionalTypes(.binary, path: tempPathFor("test_optional_types.plist"))
+        _ = test_out.write(to: tempURLFor("test_optional_types.plist"), format: .binary)
+        let sut =  TestOptionalTypes(file: tempURLFor("test_optional_types.plist"), format: .binary)
         XCTAssert(sut != nil)
         XCTAssert(sut?.myBinary != nil)
         XCTAssert(sut?.myDate != nil)
@@ -63,8 +62,8 @@ class TemplateTests: Test {
     
     func testImmutableOptionalTypes() {
         let test_out = TestImmutableOptionalTypes()
-        test_out.save(.binary, path: tempPathFor("test_immutable_optional_types.plist"))
-        let sut = TestImmutableOptionalTypes(.binary, path: tempPathFor("test_immutable_optional_types.plist"))
+        _ = test_out.write(to: tempURLFor("test_immutable_optional_types.plist"), format: .binary)
+        let sut = TestImmutableOptionalTypes(file: tempURLFor("test_immutable_optional_types.plist"), format: .binary)
         XCTAssert(sut != nil)
         XCTAssert(sut?.myBinary != nil)
         XCTAssert(sut?.myDate != nil)
@@ -82,8 +81,8 @@ class TemplateTests: Test {
         test_out.dicOfInts["int2"] = 2
         test_out.dicOfInts["int3"] = 3
         test_out.setOfStrings = ["do", "ray", "me"]
-        test_out.save(.binary, path: tempPathFor("test_collections.plist"))
-        let sut =  TestCollections(.binary, path: tempPathFor("test_collections.plist"))
+        _ = test_out.write(to: tempURLFor("test_collections.plist"), format: .binary)
+        let sut =  TestCollections(file: tempURLFor("test_collections.plist"), format: .binary)
         
         XCTAssert(sut != nil)
         XCTAssert(sut?.arrayOfStrings.count == 3)
@@ -93,16 +92,16 @@ class TemplateTests: Test {
     
     func testRawEnum() {
         let test_out = TestRawEnum.ready
-        test_out.save(.plist, path: tempPathFor("test_enum.plist"))
-        let sut = TestRawEnum(.plist, path: tempPathFor("test_enum.plist"))
+        _ = test_out.write(to: tempURLFor("test_enum.plist"), format: .plist)
+        let sut = TestRawEnum(file: tempURLFor("test_enum.plist"), format: .plist)
         XCTAssert(sut != nil)
         XCTAssert(sut == TestRawEnum.ready)
     }
     
     func testTransformable() {
         let test_out = TestTransformable( myTransformable: URL(string: "http://facebook.com")!, myTransformableImmutable: URL(string: "http://yahoo.com")!, myTransformableImmutableOptional: nil, myTransformableOptional:URL(string: "http://twitter.com")!)
-        test_out.save(.binary, path: tempPathFor("test_transformable.plist"))
-        let sut =  TestTransformable(.binary, path: tempPathFor("test_transformable.plist"))
+        _ = test_out.write(to: tempURLFor("test_transformable.plist"), format: .binary)
+        let sut =  TestTransformable(file: tempURLFor("test_transformable.plist"), format: .binary)
         XCTAssert(sut != nil)
         XCTAssert(sut?.myTransformable == test_out.myTransformable)
         XCTAssert(sut?.myTransformableImmutable == test_out.myTransformableImmutable)

@@ -18,24 +18,23 @@ public struct TestOptionalTypes : Model {
 
 }
 
-extension TestOptionalTypes : Decodable {
+extension TestOptionalTypes  {
 
-   public static func decode(_ decoder: Decoder) -> TestOptionalTypes? {
-      return self.init(decoder: decoder)
+   public static func read(from store: Store) -> TestOptionalTypes? {
+      return self.init(with: store)
    }
 
-    public init?(decoder d: Decoder) {
-        var decoder = d
-        decoder = TestOptionalTypes.performMigrationIfNeeded(decoder)
+    public init?(with inStore: Store) {
+        let store = TestOptionalTypes.migrateIfNeeded(with: inStore)
 
-        let myDate: NSDate? = decoder.decode("myDate")
-        let myFloat: Float? = decoder.decode("myFloat")
-        let myBinary: NSData? = decoder.decode("myBinary")
-        let myDouble: Double? = decoder.decode("myDouble")
-        let myString: String? = decoder.decode("myString")
-        let myBoolean: Bool? = decoder.decode("myBoolean")
-        let myDecimal: NSDecimalNumber? = decoder.decode("myDecimal")
-        let myInt: Int? = decoder.decode("myInt")
+        let myDate: NSDate? = store.value(forKey: "myDate")
+        let myFloat: Float? = store.value(forKey: "myFloat")
+        let myBinary: NSData? = store.value(forKey: "myBinary")
+        let myDouble: Double? = store.value(forKey: "myDouble")
+        let myString: String? = store.value(forKey: "myString")
+        let myBoolean: Bool? = store.value(forKey: "myBoolean")
+        let myDecimal: NSDecimalNumber? = store.value(forKey: "myDecimal")
+        let myInt: Int? = store.value(forKey: "myInt")
 
         self.myDate = myDate
         self.myFloat = myFloat
@@ -45,114 +44,21 @@ extension TestOptionalTypes : Decodable {
         self.myBoolean = myBoolean
         self.myDecimal = myDecimal
         self.myInt = myInt
-        didFinishDecoding(decoder: decoder)
-    }
-}
-
-extension TestOptionalTypes : Encodable {
-
-    public func encode(_ encoder: Encoder) {
-        encoder.encode(myDate, "myDate")
-        encoder.encode(myFloat, "myFloat")
-        encoder.encode(myBinary, "myBinary")
-        encoder.encode(myDouble, "myDouble")
-        encoder.encode(myString, "myString")
-        encoder.encode(myBoolean, "myBoolean")
-        encoder.encode(myDecimal, "myDecimal")
-        encoder.encode(myInt, "myInt")
-
-        TestOptionalTypes.encodeVersionIfNeeded(encoder)
-
-        self.willFinishEncoding(encoder: encoder)
-    }
-}
-
-extension TestOptionalTypes {
-
-    /// These are provided from the data model designer
-    /// and can be used to determine if the model is
-    /// a different version.
-    public static func modelVersionHash() -> String {
-        return "<9f253c6d 6eee6daf 0cb47189 ec638d50 fa91dd34 ba49773b 92c39ed1 0d3546a3>"
+        finishReading(from: store)
     }
 
-    public static func modelVersionHashModifier() -> String? {
-        return nil
+    public func write(to store: inout Store) {
+        store.set(myDate, forKey: "myDate")
+        store.set(myFloat, forKey: "myFloat")
+        store.set(myBinary, forKey: "myBinary")
+        store.set(myDouble, forKey: "myDouble")
+        store.set(myString, forKey: "myString")
+        store.set(myBoolean, forKey: "myBoolean")
+        store.set(myDecimal, forKey: "myDecimal")
+        store.set(myInt, forKey: "myInt")
+
+        TestOptionalTypes.writeVersion(with: store)
+        finishWriting(to: &store)
     }
-}
-
-//****************************************************************************//
-// MARK: UserDefaults support
-//****************************************************************************//
-extension UserDefaults {
-
-   public func getTestOptionalTypes(forKey key: String) -> TestOptionalTypes? {
-      guard let dictionary = dictionary(forKey: key) else { return nil }
-      return TestOptionalTypes.decode(dictionary)
-   }
-
-   public func getTestOptionalTypes(forKey key: String) -> [TestOptionalTypes]? {
-      guard let array = array(forKey: key) else { return nil }
-      return sequence(array.map(TestOptionalTypes.decode))
-   }
-
-   public func getTestOptionalTypes(forKey key: String) -> [String : TestOptionalTypes]? {
-      guard let dictionary = dictionary(forKey: key) else { return nil }
-      return sequence(dictionary.map { TestOptionalTypes.decode($0) })
-   }
-
-   public func getTestOptionalTypes(forKey key: String, defaultValue: TestOptionalTypes) -> TestOptionalTypes {
-      return getTestOptionalTypes(forKey: key) ?? defaultValue
-   }
-
-   public func getTestOptionalTypes(forKey key: String, defaultValue: [TestOptionalTypes]) -> [TestOptionalTypes] {
-      return getDecodable(key) ?? defaultValue
-   }
-
-   public func getTestOptionalTypes(forKey key: String,  defaultValue: [String : TestOptionalTypes]) -> [String : TestOptionalTypes] {
-      return getTestOptionalTypes(forKey: key) ?? defaultValue
-   }
-
-   public func setTestOptionalTypes(value: TestOptionalTypes, forKey key: String) {
-      set(value.encode(), forKey: key)
-   }
-
-   public func setTestOptionalTypes(value: [TestOptionalTypes], forKey key: String) {
-      set(value.map { $0.encode() }, forKey: key)
-   }
-
-   public func setTestOptionalTypes(value: [String : TestOptionalTypes], forKey key: String) {
-      set(value.map { $0.encode() }, forKey: key)
-   }
-}
-
-//****************************************************************************//
-// MARK: KVStore support
-//****************************************************************************//
-extension KVStore {
-
-   public func getTestOptionalTypes(forKey key: String) -> TestOptionalTypes? {
-      return getValue(forKey: key)
-   }
-
-   public func getTestOptionalTypes(forKey key: String, defaultValue: TestOptionalTypes) -> TestOptionalTypes {
-      return getTestOptionalTypes(forKey: key) ?? defaultValue
-   }
-
-   public func getTestOptionalTypess(forKey key: String) -> [TestOptionalTypes]? {
-      return getValue(forKey: key)
-   }
-
-   public func getTestOptionalTypess(forKey key: String, defaultValue: [TestOptionalTypes]) -> [TestOptionalTypes] {
-      return getTestOptionalTypess(forKey: key) ?? defaultValue
-   }
-
-   public func getTestOptionalTypesDictionary(forKey key: String) -> [String : TestOptionalTypes]? {
-      return getValue(forKey: key)
-   }
-
-   public func getTestOptionalTypesDictionary(forKey key: String, defaultValue: [String : TestOptionalTypes]) -> [String : TestOptionalTypes] {
-      return getTestOptionalTypesDictionary(forKey: key) ?? defaultValue
-   }
 }
 

@@ -1,4 +1,5 @@
 import XCTest
+@testable
 import State
 import Foundation
 
@@ -16,7 +17,7 @@ infix operator -<< { associativity right precedence 100 }
  
  - returns: A value of type Optional<U>
  */
-func >>-<T, U>(a: T?, @noescape f: (T) -> U?) -> U? {
+func >>-<T, U>(a: T?, f: @noescape (T) -> U?) -> U? {
    return a.flatMap(f)
 }
 
@@ -29,10 +30,12 @@ class ConverterTests: Test {
     
     override func setUp() {
         super.setUp()
-       
-        bundlePathFor("Data", ofType: "plist").apply{ self.testPlist = Plist.read($0) }
-        bundlePathFor("Data", ofType: "plist").apply { self.testData = Plist.read($0) }
-        bundlePathFor("Data", ofType: "json").apply{ self.testJSON = JSON.read($0) }
+    
+        let plist = PlistFormatter()
+        let json = JSONFormatter()
+        self.testPlist = plist.read(bundleURLFor("Data", ofType: "plist")!)
+        self.testData = plist.read(bundleURLFor("Data", ofType: "plist")!)
+        self.testJSON = json.read(bundleURLFor("Data", ofType: "json")!)
     }
     
     func testPlistWasReadCorrectly() {
@@ -108,64 +111,71 @@ class ConverterTests: Test {
     
     func testParsingJSONFromString() {
         testJSONWasReadCorrectly()
-        let testString : String? = bundlePathFor("Data", ofType: "json") >>- JSON.read >>- JSON.write
+        let json = JSONFormatter()
+        let testString : String? = bundlePathFor("Data", ofType: "json") >>- json.read >>- json.makeString
         testJSON = nil
-        testJSON = JSON.readString(testString!)
+        testJSON = json.read(testString!)
         testJSONWasReadCorrectly()
     }
     
     func testParsingPlistFromString() {
         testPlistWasReadCorrectly()
-        let testString : String? = bundlePathFor("Data", ofType: "plist") >>- Plist.read >>- Plist.write
+        let plist = PlistFormatter()
+        let testString : String? = bundlePathFor("Data", ofType: "plist") >>- plist.read >>- plist.makeString
         testPlist = nil
-        testPlist = Plist.readString(testString!)
+        testPlist = plist.read(testString!)
         testPlistWasReadCorrectly()
     }
     
     func testWritingPlistString() {
         testPlistWasReadCorrectly()
-        let baseString : String? = bundlePathFor("Data", ofType: "plist") >>- Plist.read >>- Plist.write
+        let plist = PlistFormatter()
+        let baseString : String? = bundlePathFor("Data", ofType: "plist") >>- plist.read >>- plist.makeString
         var testString: String = ""
-        testPlist >>- Plist.write >>- { testString = $0 }
+        _ = testPlist >>- plist.makeString >>- { testString = $0 }
         XCTAssert(testString == baseString!)
     }
     
     func testWritingJSONString() {
         testJSONWasReadCorrectly()
-        let baseString : String? = bundlePathFor("Data", ofType: "json") >>- JSON.read >>- JSON.write
+        let json = JSONFormatter()
+        let baseString : String? = bundlePathFor("Data", ofType: "json") >>- json.read >>- json.makeString
         var testString: String = ""
-        testJSON >>- JSON.write >>- { testString = $0 }
+        _ = testJSON >>- json.makeString >>- { testString = $0 }
         XCTAssert(testString == baseString)
     }
     
     func testReadingAndWritingPlistData() {
         testPlistWasReadCorrectly()
-        let testData: Data? = Plist.write(testPlist!)
+        let plist = PlistFormatter()
+        let testData: Data? = plist.makeData(from: testPlist!, prettyPrint: true)
         testPlist = nil
-        testData >>- Plist.read >>- { self.testPlist = $0 }
+        _ = testData >>- plist.read >>- { self.testPlist = $0 }
         testPlistWasReadCorrectly()
     }
     
     func testReadingAndWritingJSONData() {
         testJSONWasReadCorrectly()
-        let testData: Data? = JSON.write(testJSON!)
+        let json = JSONFormatter()
+        let testData: Data? = json.makeData(from: testJSON!, prettyPrint:  true)
         testJSON = nil
-        testData >>- JSON.read >>- { self.testJSON = $0 }
+        _ = testData >>- json.read >>- { self.testJSON = $0 }
         testJSONWasReadCorrectly()
     }
     
     func testReadingAndWritingData() {
         testDataWasReadCorrectly()
-        let testNSData: Data? = Binary.write(testData!)
+        let binary = State.Formatter()
+        let testNSData: Data? = binary.makeData(from: testData!, prettyPrint: true)
         testData = nil
-        testNSData >>- Binary.read >>- { self.testData = $0 }
+        _ = testNSData >>- binary.read >>- { self.testData = $0 }
         testDataWasReadCorrectly()
     }
     
     func testReadingJSONAndWritingPlist() {
-        let users_out = UserTypes.decode(jsonData)
-        users_out!.save(.plist, path: tempPathFor("users.plist"))
-        let users  =  UserTypes(.plist, path: tempPathFor("users.plist"))
+        let users_out = UserTypes.read(from: DataStore(data: jsonData))
+        _ = users_out!.write(to: tempURLFor("users.plist"), format: .plist)
+        let users = UserTypes(file: tempURLFor("users.plist"), format:.plist)
         XCTAssert(users != nil)
         XCTAssert(users?.tArr.count == 3)
         XCTAssert(users?.tImp.name == "John Doe")
@@ -176,32 +186,38 @@ class ConverterTests: Test {
 
 ///MARK: - PRIVATE
     private func writePlistDataOutToTempFile() {
-        let path = tempPathFor("test.plist")
-        testPlist >>- { Plist.write($0, path: path) }
+        let path = tempURLFor("test.plist")
+        let plist = PlistFormatter()
+        _ = testPlist >>- { plist.write($0, to: path) }
     }
     
     private func readPlistDataFromTempFile() {
-        let path = tempPathFor("test.plist")
-        path >>- { self.testPlist  = Plist.read($0) }
+        let path = tempURLFor("test.plist")
+        let plist = PlistFormatter()
+        _ = path >>- { self.testPlist  = plist.read($0) }
     }
     
     private func writeJSONDataOutToTempFile() {
-        let path = tempPathFor("temp.json")
-        testJSON >>- { JSON.write($0, path: path) }
+        let path = tempURLFor("temp.json")
+        let json = JSONFormatter()
+        _ = testJSON >>- { json.write($0, to: path) }
     }
         
     private func readJSONDataFromTempFile() {
-        let path = tempPathFor("temp.json")
-        path >>- { self.testJSON = JSON.read($0) }
+        let path = tempURLFor("temp.json")
+        let json = JSONFormatter()
+        _ = path >>- { self.testJSON = json.read($0) }
     }
         
     private func writeDataOutToTempFile() {
-        let path = tempPathFor("temp.data")
-        testData >>- { Binary.write($0, path: path) }
+        let path = tempURLFor("temp.data")
+        let binary = State.Formatter()
+        _ = testData >>- { binary.write($0, to: path) }
     }
     
     private func readDataFromTempFile() {
-        let path = tempPathFor("temp.data")
-        path >>- { self.testData = Binary.read($0) }
+        let binary = State.Formatter()
+        let path = tempURLFor("temp.data")
+        _ = path >>- { self.testData = binary.read($0) }
     }
 }

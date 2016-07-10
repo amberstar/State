@@ -12,126 +12,32 @@ public struct Employee : Model {
 
 }
 
-extension Employee : Decodable {
+extension Employee  {
 
-   public static func decode(_ decoder: Decoder) -> Employee? {
-      return self.init(decoder: decoder)
+   public static func read(from store: Store) -> Employee? {
+      return self.init(with: store)
    }
 
-    public init?(decoder d: Decoder) {
-        var decoder = d
-        decoder = Employee.performMigrationIfNeeded(decoder)
+    public init?(with inStore: Store) {
+        let store = Employee.migrateIfNeeded(with: inStore)
 
          guard
-            let name: String = decoder.decode("name")
+            let name: String = store.value(forKey: "name")
          else { return  nil }
 
-        let title: String? = decoder.decode("title")
+        let title: String? = store.value(forKey: "title")
 
         self.name = name
         self.title = title
-        didFinishDecoding(decoder: decoder)
-    }
-}
-
-extension Employee : Encodable {
-
-    public func encode(_ encoder: Encoder) {
-        encoder.encode(name, "name")
-        encoder.encode(title, "title")
-
-        Employee.encodeVersionIfNeeded(encoder)
-
-        self.willFinishEncoding(encoder: encoder)
-    }
-}
-
-extension Employee {
-
-    /// These are provided from the data model designer
-    /// and can be used to determine if the model is
-    /// a different version.
-    public static func modelVersionHash() -> String {
-        return "<a7d3395e 2571c3cc f97901e5 26580a8c a813984e e25ffdd4 40813f22 16357528>"
+        finishReading(from: store)
     }
 
-    public static func modelVersionHashModifier() -> String? {
-        return nil
+    public func write(to store: inout Store) {
+        store.set(name, forKey: "name")
+        store.set(title, forKey: "title")
+
+        Employee.writeVersion(with: store)
+        finishWriting(to: &store)
     }
-}
-
-//****************************************************************************//
-// MARK: UserDefaults support
-//****************************************************************************//
-extension UserDefaults {
-
-   public func getEmployee(forKey key: String) -> Employee? {
-      guard let dictionary = dictionary(forKey: key) else { return nil }
-      return Employee.decode(dictionary)
-   }
-
-   public func getEmployee(forKey key: String) -> [Employee]? {
-      guard let array = array(forKey: key) else { return nil }
-      return sequence(array.map(Employee.decode))
-   }
-
-   public func getEmployee(forKey key: String) -> [String : Employee]? {
-      guard let dictionary = dictionary(forKey: key) else { return nil }
-      return sequence(dictionary.map { Employee.decode($0) })
-   }
-
-   public func getEmployee(forKey key: String, defaultValue: Employee) -> Employee {
-      return getEmployee(forKey: key) ?? defaultValue
-   }
-
-   public func getEmployee(forKey key: String, defaultValue: [Employee]) -> [Employee] {
-      return getDecodable(key) ?? defaultValue
-   }
-
-   public func getEmployee(forKey key: String,  defaultValue: [String : Employee]) -> [String : Employee] {
-      return getEmployee(forKey: key) ?? defaultValue
-   }
-
-   public func setEmployee(value: Employee, forKey key: String) {
-      set(value.encode(), forKey: key)
-   }
-
-   public func setEmployee(value: [Employee], forKey key: String) {
-      set(value.map { $0.encode() }, forKey: key)
-   }
-
-   public func setEmployee(value: [String : Employee], forKey key: String) {
-      set(value.map { $0.encode() }, forKey: key)
-   }
-}
-
-//****************************************************************************//
-// MARK: KVStore support
-//****************************************************************************//
-extension KVStore {
-
-   public func getEmployee(forKey key: String) -> Employee? {
-      return getValue(forKey: key)
-   }
-
-   public func getEmployee(forKey key: String, defaultValue: Employee) -> Employee {
-      return getEmployee(forKey: key) ?? defaultValue
-   }
-
-   public func getEmployees(forKey key: String) -> [Employee]? {
-      return getValue(forKey: key)
-   }
-
-   public func getEmployees(forKey key: String, defaultValue: [Employee]) -> [Employee] {
-      return getEmployees(forKey: key) ?? defaultValue
-   }
-
-   public func getEmployeeDictionary(forKey key: String) -> [String : Employee]? {
-      return getValue(forKey: key)
-   }
-
-   public func getEmployeeDictionary(forKey key: String, defaultValue: [String : Employee]) -> [String : Employee] {
-      return getEmployeeDictionary(forKey: key) ?? defaultValue
-   }
 }
 

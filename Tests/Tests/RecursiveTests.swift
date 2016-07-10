@@ -17,8 +17,8 @@ class RecursiveTests: Test {
         player.teamates = players
         player.teamates[3].fillins = innerPlayers
         
-        player.save(.plist, path: tempPathFor("player.plist"))
-        let resultPlayer = Player(.plist, path: tempPathFor("player.plist"))
+        _ = player.write(to: tempURLFor("player.plist"), format: .plist)
+        let resultPlayer = Player(file: tempURLFor("player.plist"), format: .plist)
         
         XCTAssert(resultPlayer != nil)
         XCTAssert(resultPlayer?.teamates.count == 10)

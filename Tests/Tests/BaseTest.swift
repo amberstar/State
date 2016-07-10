@@ -46,12 +46,21 @@ class Test : XCTestCase {
         return Bundle(for: Test.self ).pathForResource(file , ofType:type)
     }
     
+    func bundleURLFor(_ file: String, ofType type: String) -> URL? {
+        guard let path = bundlePathFor(file, ofType: type) else { return nil }
+        return URL(fileURLWithPath: path)
+    }
+    
      func tempPathFor(_ file: String) -> String {
         return NSString.path(withComponents: [NSTemporaryDirectory(), file])
     }
     
+    func tempURLFor(_ file: String) -> URL {
+        return URL(fileURLWithPath: tempPathFor(file))
+    }
+    
      func clearTempData() {
-        let fileManager = FileManager.default()
+        let fileManager = FileManager.default
         let enumerator = fileManager.enumerator(atPath: NSTemporaryDirectory())
         while let file = enumerator?.nextObject() as? String {
             do {

@@ -1,11 +1,13 @@
 import XCTest
+@testable
 import State
 
 class EncodingTests: Test {
         func testEncodingBools() {
-        let bools_in = BasicTypes<Bool>.decode(plistData["Bool"])
-        let bools_data = bools_in!.encode()
-        let bools = BasicTypes<Bool>.decode(bools_data)
+        let bools_in = BasicTypes<Bool>.read(from: DataStore(data: plistData["Bool"]))
+        var store: Store = DataStore()
+        bools_in!.write(to: &store)
+        let bools = BasicTypes<Bool>.read(from: store)
         
         /// Bools
         XCTAssert(bools != nil)
@@ -29,9 +31,10 @@ class EncodingTests: Test {
     }
     
     func testEncodingInts() {
-        let ints_in =  BasicTypes<Int>.decode(plistData["Int"])
-        let ints_data = ints_in!.encode()
-        let ints =  BasicTypes<Int>.decode(ints_data)
+        let ints_in =  BasicTypes<Int>.read(from: DataStore(data: plistData["Int"]))
+        var store : Store = DataStore()
+        ints_in!.write(to: &store)
+        let ints =  BasicTypes<Int>(with: store)
         
         /// Ints
         XCTAssert(ints != nil)
@@ -55,9 +58,10 @@ class EncodingTests: Test {
     }
 
     func testEncodingDoubles() {
-        let doubles_in = BasicTypes<Double>.decode(plistData["Double"])
-        let doubles_data = doubles_in!.encode()
-        let doubles =  BasicTypes<Double>.decode(doubles_data)
+        let doubles_in = BasicTypes<Double>.read(from: DataStore(data: plistData["Double"]))
+        var store: Store = DataStore()
+        doubles_in!.write(to: &store)
+        let doubles =  BasicTypes<Double>(with: store)
 
         /// Doubles
         XCTAssert(doubles != nil)
@@ -81,9 +85,10 @@ class EncodingTests: Test {
     }
     
     func testEncodingFloats() {
-        let floats_in =  BasicTypes<Float>.decode(plistData["Float"])
-        let floats_data = floats_in!.encode()
-        let floats = BasicTypes<Float>.decode(floats_data)
+        let floats_in =  BasicTypes<Float>.read(from: DataStore(data: plistData["Float"]))
+        var store: Store = DataStore()
+        floats_in!.write(to: &store)
+        let floats = BasicTypes<Float>(with: store)
         
         /// Floats
         XCTAssert(floats != nil)
@@ -107,9 +112,10 @@ class EncodingTests: Test {
     }
     
     func testEncodingStringTypes() {
-        let strings_in = StringTypes.decode(plistData["String"])
-        let strings_data = strings_in!.encode()
-        let strings = StringTypes.decode(strings_data)
+        let strings_in = StringTypes.read(from: DataStore(data: plistData["String"]))
+        var store: Store = DataStore()
+        strings_in!.write(to: &store)
+        let strings = StringTypes(with: store)
         
         /// Strings
         XCTAssert(strings != nil)
@@ -133,9 +139,10 @@ class EncodingTests: Test {
     }
 
     func testEncodingAnyObjectTypes() {
-        let objects_in = AnyObjectTypes.decode(plistData["Object"])
-        let objects_data = objects_in!.encode()
-        let objects = AnyObjectTypes.decode(objects_data)
+        let objects_in = AnyObjectTypes.read(from: DataStore(data: plistData["Object"]))
+        var store: Store = DataStore()
+        objects_in?.write(to: &store)
+        let objects = AnyObjectTypes(with: store)
     
         /// AnyObjects
         XCTAssert(objects != nil)

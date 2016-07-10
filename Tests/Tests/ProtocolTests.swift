@@ -1,6 +1,5 @@
 import XCTest
 
-
 class TestProtocols : Test {
 
     func testCodingProtocols() {
@@ -11,13 +10,11 @@ class TestProtocols : Test {
         let testConformer2 = TestProtocolConformer2(name: "Test Conformer", ss_number: "1111111")
         let testProtocolContainer = TestProtocolContainter(testProtocol: testConformer1, testProtocols: [testConformer1, testConformer2], testProtocolsDict: ["Conformer 1" : testConformer1, "Conformer 2" : testConformer2])
         
-        testProtocolContainer.save(.plist, path: tempPathFor("testProtocol.plist"))
+        _ = testProtocolContainer.write(to: tempURLFor("testProtocol.plist"), format: .plist)
         print(tempPathFor("testProtocol.plist"))
-        let inTestProtocolContainer = TestProtocolContainter(.plist, path: tempPathFor("testProtocol.plist"))
+        let inTestProtocolContainer = TestProtocolContainter(file: tempURLFor("testProtocol.plist"), format: .plist)
         
         XCTAssertNotNil(inTestProtocolContainer)
         
     }
-    
-    
 }

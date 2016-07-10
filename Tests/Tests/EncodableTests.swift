@@ -1,14 +1,15 @@
 import XCTest
+@testable
 import State
 
 class EncodableTests: Test {
     
     func testEcodingToAndFromJSON() {
-        let inUsers =  UserTypes.decode(jsonData)
+        let inUsers =  UserTypes.read(from: DataStore(data: jsonData))
         if let inUsers = inUsers {
-            inUsers.save(.json, path: tempPathFor("temp.json"))
+            _ = inUsers.write(to: tempURLFor("temp.json"), format: .json)
         }
-        let users =  UserTypes(.json, path: tempPathFor("temp.json"))
+        let users =  UserTypes(file: tempURLFor("temp.json"), format: .json)
         XCTAssert(users != nil)
         XCTAssert(users?.tArr.count == 3)
         XCTAssert(users?.tImp.name == "John Doe")
@@ -18,11 +19,11 @@ class EncodableTests: Test {
     }
 
     func testEcodingToAndFromPlist() {
-        let inUsers = UserTypes.decode(plistData["Users"])
+        let inUsers = UserTypes.read(from: DataStore(data: plistData["Users"]))
         if let inUsers = inUsers {
-            inUsers.save(.plist, path: tempPathFor("temp.plist"))
+            _ = inUsers.write(to: tempURLFor("temp.plist"), format: .plist)
         }
-        let users =  UserTypes(.plist, path: tempPathFor("temp.plist"))
+        let users =  UserTypes(file: tempURLFor("temp.plist"), format: .plist)
         XCTAssert(users != nil)
         XCTAssert(users?.tArr.count == 3)
         XCTAssert(users?.tImp.name == "John Doe")
