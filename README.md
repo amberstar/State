@@ -48,7 +48,6 @@ let person = Person(.JSON, path: "person.json")
 
 ```
 
-
 State is built on three protocols, `Encodeable`, `Decodable` and `Migratable`.  Together these protocols define the `Model` protocol.
 
 ![<Protocol Oriented>](Docs/Resources/diag2.png)

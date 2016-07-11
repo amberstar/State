@@ -112,7 +112,7 @@ class ConverterTests: Test {
     func testParsingJSONFromString() {
         testJSONWasReadCorrectly()
         let json = JSONFormatter()
-        let testString : String? = bundlePathFor("Data", ofType: "json") >>- json.read >>- json.makeString
+        let testString : String? = bundleURLFor("Data", ofType: "json") >>- json.read >>- json.makeString
         testJSON = nil
         testJSON = json.read(testString!)
         testJSONWasReadCorrectly()
@@ -121,7 +121,7 @@ class ConverterTests: Test {
     func testParsingPlistFromString() {
         testPlistWasReadCorrectly()
         let plist = PlistFormatter()
-        let testString : String? = bundlePathFor("Data", ofType: "plist") >>- plist.read >>- plist.makeString
+        let testString : String? = bundleURLFor("Data", ofType: "plist") >>- plist.read >>- plist.makeString
         testPlist = nil
         testPlist = plist.read(testString!)
         testPlistWasReadCorrectly()
@@ -130,7 +130,7 @@ class ConverterTests: Test {
     func testWritingPlistString() {
         testPlistWasReadCorrectly()
         let plist = PlistFormatter()
-        let baseString : String? = bundlePathFor("Data", ofType: "plist") >>- plist.read >>- plist.makeString
+        let baseString : String? = bundleURLFor("Data", ofType: "plist") >>- plist.read >>- plist.makeString
         var testString: String = ""
         _ = testPlist >>- plist.makeString >>- { testString = $0 }
         XCTAssert(testString == baseString!)
@@ -139,7 +139,7 @@ class ConverterTests: Test {
     func testWritingJSONString() {
         testJSONWasReadCorrectly()
         let json = JSONFormatter()
-        let baseString : String? = bundlePathFor("Data", ofType: "json") >>- json.read >>- json.makeString
+        let baseString : String? = bundleURLFor("Data", ofType: "json") >>- json.read >>- json.makeString
         var testString: String = ""
         _ = testJSON >>- json.makeString >>- { testString = $0 }
         XCTAssert(testString == baseString)

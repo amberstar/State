@@ -17,29 +17,6 @@
 
 import Foundation
 
-/// data formats for storage.
-public enum Format {
-    /// binary plist format
-    case binary
-    /// xml plist format
-    case plist
-    /// json format
-    case json
-
-    /// returns a formatter that can
-    /// read and write to the current format.
-    var formatter : Formatter {
-        switch self {
-        case .binary:
-            return Formatter()
-        case .plist:
-            return PlistFormatter()
-        case .json:
-            return JSONFormatter()
-        }
-    }
-}
-
 /// A generalization for writing and reading keyed values.
 public protocol Store {
 
