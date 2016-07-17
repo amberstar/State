@@ -13,12 +13,12 @@ public struct TestDefaultsChild : Model {
 
 extension TestDefaultsChild  {
 
-   public static func read(from store: Store) -> TestDefaultsChild? {
+    public static func read(from store: Store) -> TestDefaultsChild? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = TestDefaultsChild.migrateIfNeeded(with: inStore)
+        let store = TestDefaultsChild.migrate(from: inStore)
 
          guard
             let name: String = store.value(forKey: "name")
@@ -31,7 +31,7 @@ extension TestDefaultsChild  {
     public func write(to store: inout Store) {
         store.set(name, forKey: "name")
 
-        TestDefaultsChild.writeVersion(with: store)
+        TestDefaultsChild.writeVersion(to: store)
         finishWriting(to: &store)
     }
 }

@@ -31,7 +31,6 @@ public enum Format {
     }
 }
 
-
 /// A base formatter that provides the binary format.
 class Formatter {
     

@@ -15,12 +15,12 @@ public struct TestTransient : Model {
 
 extension TestTransient  {
 
-   public static func read(from store: Store) -> TestTransient? {
+    public static func read(from store: Store) -> TestTransient? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = TestTransient.migrateIfNeeded(with: inStore)
+        let store = TestTransient.migrate(from: inStore)
 
          guard
             let myNonTransient: String = store.value(forKey: "myNonTransient")
@@ -33,7 +33,7 @@ extension TestTransient  {
     public func write(to store: inout Store) {
         store.set(myNonTransient, forKey: "myNonTransient")
 
-        TestTransient.writeVersion(with: store)
+        TestTransient.writeVersion(to: store)
         finishWriting(to: &store)
     }
 }

@@ -14,12 +14,12 @@ public struct TestProtocolConformer2 : TestParentProtocol {
 
 extension TestProtocolConformer2  {
 
-   public static func read(from store: Store) -> TestProtocolConformer2? {
+    public static func read(from store: Store) -> TestProtocolConformer2? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = TestProtocolConformer2.migrateIfNeeded(with: inStore)
+        let store = TestProtocolConformer2.migrate(from: inStore)
 
          guard
             let name: String = store.value(forKey: "name"),
@@ -36,7 +36,7 @@ extension TestProtocolConformer2  {
         store.set(ss_number, forKey: "ss_number")
 
         store.set("TestProtocolConformer2", forKey: "TestParentProtocol")
-        TestProtocolConformer2.writeVersion(with: store)
+        TestProtocolConformer2.writeVersion(to: store)
         finishWriting(to: &store)
     }
 }

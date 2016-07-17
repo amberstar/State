@@ -4,8 +4,8 @@ import State
 
 class EncodingTests: Test {
         func testEncodingBools() {
-        let bools_in = BasicTypes<Bool>.read(from: DataStore(data: plistData["Bool"]))
-        var store: Store = DataStore()
+        let bools_in = BasicTypes<Bool>.read(from: Store(data: plistData["Bool"]))
+        var store: Store = Store()
         bools_in!.write(to: &store)
         let bools = BasicTypes<Bool>.read(from: store)
         
@@ -31,8 +31,8 @@ class EncodingTests: Test {
     }
     
     func testEncodingInts() {
-        let ints_in =  BasicTypes<Int>.read(from: DataStore(data: plistData["Int"]))
-        var store : Store = DataStore()
+        let ints_in =  BasicTypes<Int>.read(from: Store(data: plistData["Int"]))
+        var store : Store = Store()
         ints_in!.write(to: &store)
         let ints =  BasicTypes<Int>(with: store)
         
@@ -58,8 +58,8 @@ class EncodingTests: Test {
     }
 
     func testEncodingDoubles() {
-        let doubles_in = BasicTypes<Double>.read(from: DataStore(data: plistData["Double"]))
-        var store: Store = DataStore()
+        let doubles_in = BasicTypes<Double>.read(from: Store(data: plistData["Double"]))
+        var store: Store = Store()
         doubles_in!.write(to: &store)
         let doubles =  BasicTypes<Double>(with: store)
 
@@ -85,8 +85,8 @@ class EncodingTests: Test {
     }
     
     func testEncodingFloats() {
-        let floats_in =  BasicTypes<Float>.read(from: DataStore(data: plistData["Float"]))
-        var store: Store = DataStore()
+        let floats_in =  BasicTypes<Float>.read(from: Store(data: plistData["Float"]))
+        var store: Store = Store()
         floats_in!.write(to: &store)
         let floats = BasicTypes<Float>(with: store)
         
@@ -112,8 +112,8 @@ class EncodingTests: Test {
     }
     
     func testEncodingStringTypes() {
-        let strings_in = StringTypes.read(from: DataStore(data: plistData["String"]))
-        var store: Store = DataStore()
+        let strings_in = StringTypes.read(from: Store(data: plistData["String"]))
+        var store: Store = Store()
         strings_in!.write(to: &store)
         let strings = StringTypes(with: store)
         
@@ -139,8 +139,8 @@ class EncodingTests: Test {
     }
 
     func testEncodingAnyObjectTypes() {
-        let objects_in = AnyObjectTypes.read(from: DataStore(data: plistData["Object"]))
-        var store: Store = DataStore()
+        let objects_in = AnyObjectTypes.read(from: Store(data: plistData["Object"]))
+        var store: Store = Store()
         objects_in?.write(to: &store)
         let objects = AnyObjectTypes(with: store)
     

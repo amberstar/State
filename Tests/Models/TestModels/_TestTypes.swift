@@ -20,12 +20,12 @@ public struct TestTypes : Model {
 
 extension TestTypes  {
 
-   public static func read(from store: Store) -> TestTypes? {
+    public static func read(from store: Store) -> TestTypes? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = TestTypes.migrateIfNeeded(with: inStore)
+        let store = TestTypes.migrate(from: inStore)
 
          guard
             let myDate: NSDate = store.value(forKey: "myDate"),
@@ -59,7 +59,7 @@ extension TestTypes  {
         store.set(myDecimal, forKey: "myDecimal")
         store.set(myInt, forKey: "myInt")
 
-        TestTypes.writeVersion(with: store)
+        TestTypes.writeVersion(to: store)
         finishWriting(to: &store)
     }
 }

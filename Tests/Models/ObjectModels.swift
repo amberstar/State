@@ -22,7 +22,7 @@ struct UserTypes: Model {
 
 extension UserTypes {
    
-   static func read(from store: Store) -> UserTypes? {
+    static func read(from store: Store) -> UserTypes? {
       return self.init(with: store)
    }
    

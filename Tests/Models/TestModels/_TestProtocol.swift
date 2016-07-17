@@ -18,17 +18,69 @@ public protocol TestProtocol : TestParentProtocol  {
 
 }
 
-public extension TestProtocol {
+extension Store {
 
-    public static func read(from store: Store) -> TestProtocol? {
-        guard let typeKey: String = store.value(forKey: "TestProtocol") else { return nil }
-        if let t = type(forKey: typeKey) {
-            return t.read(from: store)
+    public func value(forKey key: String) -> TestProtocol? {
+        guard let data : [String : AnyObject] = value(forKey: key) else { return nil }
+        return _decodeTestProtocol(data: data)
+    }
+
+    public func value(forKey key: String) -> [TestProtocol]? {
+        guard let arrayv : [[String : AnyObject]] = value(forKey: key) else { return nil }
+        return sequence(arrayv.map { _decodeTestProtocol(data:$0) })
+    }
+
+    public func value(forKey key: String) -> [String : TestProtocol]? {
+        guard let data : [String : [String : AnyObject]] = value(forKey: key) else { return nil }
+        return sequence(data.map { self._decodeTestProtocol(data:$0) })
+    }
+
+    public mutating func set(_ value: TestProtocol?, forKey key: String) {
+        guard let value = value else { return }
+        var vstore = Store()
+        value.write(to: &vstore)
+        set(vstore.data, forKey: key)
+    }
+
+    /// Add or update the value at key.
+    public mutating func set(_ value: [TestProtocol]?, forKey key: String) {
+        guard let value = value else { return }
+
+        let data  = value.reduce([[String : AnyObject]](), combine: { (data, value) -> [[String: AnyObject]] in
+            var vstore = Store()
+            var vdata = data
+            value.write(to: &vstore )
+            vdata.append(vstore.data)
+            return vdata
+        })
+
+        set(data , forKey: key)
+    }
+
+    /// Add or update the value at key.
+    public mutating func set(_ value: [String : TestProtocol]?, forKey key: String) {
+
+        guard let value = value else { return }
+        let data = value.reduce([String : [String : AnyObject]](), combine: { (data, element) -> [String : [String : AnyObject]] in
+            var vstore = Store()
+            var vdata = data
+            element.value.write(to: &vstore)
+            vdata[element.key] = vstore.data
+            return vdata
+        })
+
+        set(data, forKey: key)
+    }
+
+    private func _decodeTestProtocol(data: [String : AnyObject]) -> TestProtocol? {
+        guard let typeKey = data["TestParentProtocol"] as? String else { return nil }
+        if let t = TestProtocolType(forKey: typeKey) {
+            return t.read(from: Store(data: data))
         }
         return nil
     }
 
-    private static func type(forKey key: String) -> TestProtocol.Type? {
+    private func TestProtocolType(forKey key: String) -> TestProtocol.Type? {
         switch key {
 
         case "TestProtocolConformer":
@@ -38,6 +90,5 @@ public extension TestProtocol {
             return nil
         }
     }
-
 }
 

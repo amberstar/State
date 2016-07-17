@@ -14,12 +14,12 @@ public struct Employee : Model {
 
 extension Employee  {
 
-   public static func read(from store: Store) -> Employee? {
+    public static func read(from store: Store) -> Employee? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = Employee.migrateIfNeeded(with: inStore)
+        let store = Employee.migrate(from: inStore)
 
          guard
             let name: String = store.value(forKey: "name")
@@ -36,7 +36,7 @@ extension Employee  {
         store.set(name, forKey: "name")
         store.set(title, forKey: "title")
 
-        Employee.writeVersion(with: store)
+        Employee.writeVersion(to: store)
         finishWriting(to: &store)
     }
 }

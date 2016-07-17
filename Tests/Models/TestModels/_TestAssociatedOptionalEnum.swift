@@ -25,12 +25,12 @@ public enum TestAssociatedOptionalEnum  : Model {
 
 extension TestAssociatedOptionalEnum {
 
-   public static func read(from store: Store) -> TestAssociatedOptionalEnum? {
+    public static func read(from store: Store) -> TestAssociatedOptionalEnum? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = TestAssociatedOptionalEnum.migrateIfNeeded(with: inStore)
+        let store = TestAssociatedOptionalEnum.migrate(from: inStore)
 
         guard let type: String = store.value(forKey: "TestAssociatedOptionalEnum") else { return nil }
         switch type {
@@ -123,7 +123,7 @@ self = TestAssociatedOptionalEnum.decodableToOneType(value)
 
         }
 
-            TestAssociatedOptionalEnum.writeVersion(with: store)
+            TestAssociatedOptionalEnum.writeVersion(to: store)
             finishWriting(to: &store)
     }
 }

@@ -14,12 +14,12 @@ public struct TestMigrationV2 : Model {
 
 extension TestMigrationV2  {
 
-   public static func read(from store: Store) -> TestMigrationV2? {
+    public static func read(from store: Store) -> TestMigrationV2? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = TestMigrationV2.migrateIfNeeded(with: inStore)
+        let store = TestMigrationV2.migrate(from: inStore)
 
          guard
             let name: String = store.value(forKey: "name")
@@ -36,7 +36,7 @@ extension TestMigrationV2  {
         store.set(age, forKey: "age")
         store.set(name, forKey: "name")
 
-        TestMigrationV2.writeVersion(with: store)
+        TestMigrationV2.writeVersion(to: store)
         finishWriting(to: &store)
     }
 }

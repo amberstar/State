@@ -16,12 +16,12 @@ public struct TestChild : Model {
 
 extension TestChild  {
 
-   public static func read(from store: Store) -> TestChild? {
+    public static func read(from store: Store) -> TestChild? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = TestChild.migrateIfNeeded(with: inStore)
+        let store = TestChild.migrate(from: inStore)
 
         let age: Int? = store.value(forKey: "age")
         let name: String? = store.value(forKey: "name")
@@ -41,7 +41,7 @@ extension TestChild  {
         store.set(myChildren, forKey: "myChildren")
         store.set(gender, forKey: "gender")
 
-        TestChild.writeVersion(with: store)
+        TestChild.writeVersion(to: store)
         finishWriting(to: &store)
     }
 }

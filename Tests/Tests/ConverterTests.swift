@@ -173,7 +173,7 @@ class ConverterTests: Test {
     }
     
     func testReadingJSONAndWritingPlist() {
-        let users_out = UserTypes.read(from: DataStore(data: jsonData))
+        let users_out = UserTypes.read(from: Store(data: jsonData))
         _ = users_out!.write(to: tempURLFor("users.plist"), format: .plist)
         let users = UserTypes(file: tempURLFor("users.plist"), format:.plist)
         XCTAssert(users != nil)

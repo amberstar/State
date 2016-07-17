@@ -59,17 +59,17 @@ extension <$typeName$> {
 extension UserDefaults {
 
    public func get<$typeName$>(forKey key: String) -> <$typeName$>? {
-      guard let dictionary = dictionary(forKey: key) else { return nil }
+      guard let dictionary = value(forKey: key) else { return nil }
       return <$typeName$>.decode(dictionary)
    }
 
    public func get<$typeName$>(forKey key: String) -> [<$typeName$>]? {
-      guard let array = array(forKey: key) else { return nil }
+      guard let array = value(forKey: key) else { return nil }
       return sequence(array.map(<$typeName$>.decode))
    }
 
    public func get<$typeName$>(forKey key: String) -> [String : <$typeName$>]? {
-      guard let dictionary = dictionary(forKey: key) else { return nil }
+      guard let dictionary = value(forKey: key) else { return nil }
       return sequence(dictionary.map { <$typeName$>.decode($0) })
    }
 
@@ -141,17 +141,17 @@ extension KVStore {
 extension UserDefaults {
 
    public func get<$typeName$>(forKey key: String) -> <$typeName$>? {
-      guard let dictionary = dictionary(forKey: key) else { return nil }
+      guard let dictionary = value(forKey: key) else { return nil }
       return decode<$typeName$>(dictionary)
    }
 
    public func get<$typeName$>(forKey key: String) -> [<$typeName$>]? {
-      guard let array = array(forKey: key) else { return nil }
+      guard let array = value(forKey: key) else { return nil }
       return sequence(array.map(decode<$typeName$>))
    }
 
    public func get<$typeName$>(forKey key: String) -> [String : <$typeName$>]? {
-      guard let dictionary = dictionary(forKey: key) else { return nil }
+      guard let dictionary = value(forKey: key) else { return nil }
       return sequence(dictionary.map { decode<$typeName$>($0) })
    }
 
@@ -261,7 +261,7 @@ extension KVStore {
 <$endprocedure$>
 
 <$procedure writeEncodingVersioningBlock$>
-        <$typeName$>.writeVersion(with: store)
+        <$typeName$>.writeVersion(to: store)
         <$endprocedure$>
 
 
@@ -279,12 +279,12 @@ public struct <$typeName$> : <$superTypeName$> {
 
 extension <$typeName$>  {
 
-   public static func read(from store: Store) -> <$typeName$>? {
+    public static func read(from store: Store) -> <$typeName$>? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = <$typeName$>.migrateIfNeeded(with: inStore)
+        let store = <$typeName$>.migrate(from: inStore)
 
 <$setlocal hasNonOptionals = 0 $>
 <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$><$if !Attribute.isOptional$><$setlocal hasNonOptionals = 1$><$endif$><$endif$><$endforeach do$>
@@ -312,7 +312,7 @@ extension <$typeName$>  {
         <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient && Relationship.userInfo.State.ProtocolRequirementType != get$>store.set(<$Relationship.name$>, forKey: "<$Relationship.name$>")
         <$endif$><$endforeach do$>
         <$if hasSuperentity$>store.set("<$typeName$>", forKey: "<$rootTypeName$>")<$endif$>
-        <$typeName$>.writeVersion(with: store)
+        <$typeName$>.writeVersion(to: store)
         finishWriting(to: &store)
     }
 }
@@ -411,12 +411,12 @@ public enum <$typeName$> <$if userInfo.State.Type$> : <$userInfo.State.Type$>, M
 
 extension <$typeName$> {
 
-   public static func read(from store: Store) -> <$typeName$>? {
+    public static func read(from store: Store) -> <$typeName$>? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = <$typeName$>.migrateIfNeeded(with: inStore)
+        let store = <$typeName$>.migrate(from: inStore)
 
 <$if ! userInfo.State.Type$>
         guard let type: String = store.value(forKey: "<$typeName$>") else { return nil }
@@ -439,7 +439,7 @@ extension <$typeName$> {
             <$endforeach do$>
         }
 <$else$>        store.set(self.rawValue, forKey: "value")<$endif$>
-            <$typeName$>.writeVersion(with: store)
+            <$typeName$>.writeVersion(to: store)
             finishWriting(to: &store)
     }
 }
@@ -478,25 +478,75 @@ public protocol <$typeName$><$if hasSuperentity$> : <$superentity.managedObjectC
 
 }
 
-public extension <$typeName$> {
+extension Store {
+    
+    public func value(forKey key: String) -> <$typeName$>? {
+        guard let data : [String : AnyObject] = value(forKey: key) else { return nil }
+        return _decode<$typeName$>(data: data)
+    }
+    
+    public func value(forKey key: String) -> [<$typeName$>]? {
+        guard let arrayv : [[String : AnyObject]] = value(forKey: key) else { return nil }
+        return sequence(arrayv.map { _decode<$typeName$>(data:$0) })
+    }
+    
+    public func value(forKey key: String) -> [String : <$typeName$>]? {
+        guard let data : [String : [String : AnyObject]] = value(forKey: key) else { return nil }
+        return sequence(data.map { self._decode<$typeName$>(data:$0) })
+    }
+    
+    public mutating func set(_ value: <$typeName$>?, forKey key: String) {
+        guard let value = value else { return }
+        var vstore = Store()
+        value.write(to: &vstore)
+        set(vstore.data, forKey: key)
+    }
+    
+    /// Add or update the value at key.
+    public mutating func set(_ value: [<$typeName$>]?, forKey key: String) {
+        guard let value = value else { return }
+        
+        let data  = value.reduce([[String : AnyObject]](), combine: { (data, value) -> [[String: AnyObject]] in
+            var vstore = Store()
+            var vdata = data
+            value.write(to: &vstore )
+            vdata.append(vstore.data)
+            return vdata
+        })
+        
+        set(data , forKey: key)
+    }
 
-    public static func read(from store: Store) -> <$typeName$>? {
-        guard let typeKey: String = store.value(forKey: "<$typeName$>") else { return nil }
-        if let t = type(forKey: typeKey) {
-            return t.read(from: store)
+    /// Add or update the value at key.
+    public mutating func set(_ value: [String : <$typeName$>]?, forKey key: String) {
+        
+        guard let value = value else { return }
+        let data = value.reduce([String : [String : AnyObject]](), combine: { (data, element) -> [String : [String : AnyObject]] in
+            var vstore = Store()
+            var vdata = data
+            element.value.write(to: &vstore)
+            vdata[element.key] = vstore.data
+            return vdata
+        })
+        
+        set(data, forKey: key)
+    }
+
+    private func _decode<$typeName$>(data: [String : AnyObject]) -> <$typeName$>? {
+        guard let typeKey = data["<$rootTypeName$>"] as? String else { return nil }
+        if let t = <$typeName$>Type(forKey: typeKey) {
+            return t.read(from: Store(data: data))
         }
         return nil
     }
     
-    private static func type(forKey key: String) -> <$typeName$>.Type? {
+    private func <$typeName$>Type(forKey key: String) -> <$typeName$>.Type? {
         switch key {
 <$call writeCasesForTypes subentities$>
         default:
             return nil
         }
     }
-
-
 }
 
 <$comment writeUserDefaultsProtocolSupportBlock$>

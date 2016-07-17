@@ -15,12 +15,12 @@ public struct TestProtocolContainter : Model {
 
 extension TestProtocolContainter  {
 
-   public static func read(from store: Store) -> TestProtocolContainter? {
+    public static func read(from store: Store) -> TestProtocolContainter? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = TestProtocolContainter.migrateIfNeeded(with: inStore)
+        let store = TestProtocolContainter.migrate(from: inStore)
 
          guard
             let testProtocol: TestProtocol = store.value(forKey: "testProtocol"),
@@ -39,7 +39,7 @@ extension TestProtocolContainter  {
         store.set(testProtocols, forKey: "testProtocols")
         store.set(testProtocolsDict, forKey: "testProtocolsDict")
 
-        TestProtocolContainter.writeVersion(with: store)
+        TestProtocolContainter.writeVersion(to: store)
         finishWriting(to: &store)
     }
 }

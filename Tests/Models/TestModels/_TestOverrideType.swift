@@ -14,12 +14,12 @@ public struct TestOverrideType : Model {
 
 extension TestOverrideType  {
 
-   public static func read(from store: Store) -> TestOverrideType? {
+    public static func read(from store: Store) -> TestOverrideType? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = TestOverrideType.migrateIfNeeded(with: inStore)
+        let store = TestOverrideType.migrate(from: inStore)
 
         let myURL: NSURL? = store.value(forKey: "myURL")
         let myArrayOfString: [String]? = store.value(forKey: "myArrayOfString")
@@ -33,7 +33,7 @@ extension TestOverrideType  {
         store.set(myURL, forKey: "myURL")
         store.set(myArrayOfString, forKey: "myArrayOfString")
 
-        TestOverrideType.writeVersion(with: store)
+        TestOverrideType.writeVersion(to: store)
         finishWriting(to: &store)
     }
 }

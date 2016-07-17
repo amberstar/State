@@ -5,7 +5,7 @@ import State
 class DecodingTests: Test {
        
     func testDecodingBools() {
-        let bools = BasicTypes<Bool>.read(from: DataStore(data: plistData["Bool"]))
+        let bools = BasicTypes<Bool>.read(from: Store(data: plistData["Bool"]))
         ///  Bools
         XCTAssert(bools != nil)
         XCTAssert(bools?.t == true)
@@ -28,7 +28,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingIntTypes() {
-        let ints = BasicTypes<Int>.read(from: DataStore(data: plistData["Int"]))
+        let ints = BasicTypes<Int>.read(from: Store(data: plistData["Int"]))
         
         /// Ints
         XCTAssert(ints != nil)
@@ -52,7 +52,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingDoubles() {
-        let doubles = BasicTypes<Double>.read(from: DataStore(data: plistData["Double"]))
+        let doubles = BasicTypes<Double>.read(from: Store(data: plistData["Double"]))
         
         /// Doubles
         XCTAssert(doubles != nil)
@@ -76,7 +76,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingFloats() {
-        let floats = BasicTypes<Float>.read(from: DataStore(data: plistData["Float"]))
+        let floats = BasicTypes<Float>.read(from: Store(data: plistData["Float"]))
         
         /// Floats
         XCTAssert(floats != nil)
@@ -100,7 +100,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingStrings() {
-        let strings = StringTypes.read(from: DataStore(data: plistData["String"]))
+        let strings = StringTypes.read(from: Store(data: plistData["String"]))
         
         /// Strings
         XCTAssert(strings != nil)
@@ -124,7 +124,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingAnyObjects() {
-        let objects = AnyObjectTypes.read(from: DataStore(data: plistData["Object"]))
+        let objects = AnyObjectTypes.read(from: Store(data: plistData["Object"]))
         
         /// AnyObjects
         XCTAssert(objects != nil)

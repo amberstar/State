@@ -15,12 +15,12 @@ public struct TestCollections : Model {
 
 extension TestCollections  {
 
-   public static func read(from store: Store) -> TestCollections? {
+    public static func read(from store: Store) -> TestCollections? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = TestCollections.migrateIfNeeded(with: inStore)
+        let store = TestCollections.migrate(from: inStore)
 
          guard
             let arrayOfStrings: [String] = store.value(forKey: "arrayOfStrings"),
@@ -39,7 +39,7 @@ extension TestCollections  {
         store.set(dicOfInts, forKey: "dicOfInts")
         store.set(setOfStrings, forKey: "setOfStrings")
 
-        TestCollections.writeVersion(with: store)
+        TestCollections.writeVersion(to: store)
         finishWriting(to: &store)
     }
 }

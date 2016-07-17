@@ -15,12 +15,12 @@ public enum Gender  : String, Model {
 
 extension Gender {
 
-   public static func read(from store: Store) -> Gender? {
+    public static func read(from store: Store) -> Gender? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = Gender.migrateIfNeeded(with: inStore)
+        let store = Gender.migrate(from: inStore)
 
         guard let value: String = store.value(forKey: "value") else { return nil }
         self.init(rawValue: value)
@@ -28,7 +28,7 @@ extension Gender {
 
     public func write(to store: inout Store) {
         store.set(self.rawValue, forKey: "value")
-            Gender.writeVersion(with: store)
+            Gender.writeVersion(to: store)
             finishWriting(to: &store)
     }
 }

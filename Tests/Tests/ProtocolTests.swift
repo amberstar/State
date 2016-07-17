@@ -15,6 +15,5 @@ class TestProtocols : Test {
         let inTestProtocolContainer = TestProtocolContainter(file: tempURLFor("testProtocol.plist"), format: .plist)
         
         XCTAssertNotNil(inTestProtocolContainer)
-        
     }
 }

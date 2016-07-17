@@ -25,12 +25,12 @@ public enum TestAssociatedEnum  : Model {
 
 extension TestAssociatedEnum {
 
-   public static func read(from store: Store) -> TestAssociatedEnum? {
+    public static func read(from store: Store) -> TestAssociatedEnum? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = TestAssociatedEnum.migrateIfNeeded(with: inStore)
+        let store = TestAssociatedEnum.migrate(from: inStore)
 
         guard let type: String = store.value(forKey: "TestAssociatedEnum") else { return nil }
         switch type {
@@ -133,7 +133,7 @@ extension TestAssociatedEnum {
 
         }
 
-            TestAssociatedEnum.writeVersion(with: store)
+            TestAssociatedEnum.writeVersion(to: store)
             finishWriting(to: &store)
     }
 }

@@ -5,7 +5,7 @@ import State
 class EncodableTests: Test {
     
     func testEcodingToAndFromJSON() {
-        let inUsers =  UserTypes.read(from: DataStore(data: jsonData))
+        let inUsers =  UserTypes.read(from: Store(data: jsonData))
         if let inUsers = inUsers {
             _ = inUsers.write(to: tempURLFor("temp.json"), format: .json)
         }
@@ -19,7 +19,7 @@ class EncodableTests: Test {
     }
 
     func testEcodingToAndFromPlist() {
-        let inUsers = UserTypes.read(from: DataStore(data: plistData["Users"]))
+        let inUsers = UserTypes.read(from: Store(data: plistData["Users"]))
         if let inUsers = inUsers {
             _ = inUsers.write(to: tempURLFor("temp.plist"), format: .plist)
         }

@@ -16,12 +16,12 @@ public struct TestTransformable : Model {
 
 extension TestTransformable  {
 
-   public static func read(from store: Store) -> TestTransformable? {
+    public static func read(from store: Store) -> TestTransformable? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = TestTransformable.migrateIfNeeded(with: inStore)
+        let store = TestTransformable.migrate(from: inStore)
 
          guard
             let myTransformable: NSURL = store.value(forKey: "myTransformable"),
@@ -44,7 +44,7 @@ extension TestTransformable  {
         store.set(myTransformableImmutableOptional, forKey: "myTransformableImmutableOptional")
         store.set(myTransformableOptional, forKey: "myTransformableOptional")
 
-        TestTransformable.writeVersion(with: store)
+        TestTransformable.writeVersion(to: store)
         finishWriting(to: &store)
     }
 }

@@ -20,12 +20,12 @@ public struct TestImmutableTypes : Model {
 
 extension TestImmutableTypes  {
 
-   public static func read(from store: Store) -> TestImmutableTypes? {
+    public static func read(from store: Store) -> TestImmutableTypes? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = TestImmutableTypes.migrateIfNeeded(with: inStore)
+        let store = TestImmutableTypes.migrate(from: inStore)
 
          guard
             let myDate: NSDate = store.value(forKey: "myDate"),
@@ -59,7 +59,7 @@ extension TestImmutableTypes  {
         store.set(myDecimal, forKey: "myDecimal")
         store.set(myInt, forKey: "myInt")
 
-        TestImmutableTypes.writeVersion(with: store)
+        TestImmutableTypes.writeVersion(to: store)
         finishWriting(to: &store)
     }
 }

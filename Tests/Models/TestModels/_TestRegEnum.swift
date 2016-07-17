@@ -15,12 +15,12 @@ public enum TestRegEnum  : Model {
 
 extension TestRegEnum {
 
-   public static func read(from store: Store) -> TestRegEnum? {
+    public static func read(from store: Store) -> TestRegEnum? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = TestRegEnum.migrateIfNeeded(with: inStore)
+        let store = TestRegEnum.migrate(from: inStore)
 
         guard let type: String = store.value(forKey: "TestRegEnum") else { return nil }
         switch type {
@@ -45,7 +45,7 @@ extension TestRegEnum {
 
         }
 
-            TestRegEnum.writeVersion(with: store)
+            TestRegEnum.writeVersion(to: store)
             finishWriting(to: &store)
     }
 }

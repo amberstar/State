@@ -15,12 +15,12 @@ public struct TestRelationships : Model {
 
 extension TestRelationships  {
 
-   public static func read(from store: Store) -> TestRelationships? {
+    public static func read(from store: Store) -> TestRelationships? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = TestRelationships.migrateIfNeeded(with: inStore)
+        let store = TestRelationships.migrate(from: inStore)
 
         let myChildren: [TestChild]? = store.value(forKey: "myChildren")
         let myGrandChildren: [Grandchild]? = store.value(forKey: "myGrandChildren")
@@ -37,7 +37,7 @@ extension TestRelationships  {
         store.set(myGrandChildren, forKey: "myGrandChildren")
         store.set(myOneChild, forKey: "myOneChild")
 
-        TestRelationships.writeVersion(with: store)
+        TestRelationships.writeVersion(to: store)
         finishWriting(to: &store)
     }
 }

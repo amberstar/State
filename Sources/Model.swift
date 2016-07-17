@@ -69,7 +69,7 @@ public protocol Model {
     /// a store is complete to give the model
     /// an opertunity to write version information
     /// to the store for migration purporses.
-    static func writeVersion(with: Store)
+    static func writeVersion(to: Store)
     
     /// migrates a store to the current version if needed.
     ///
@@ -77,16 +77,15 @@ public protocol Model {
     /// models can update the store to the current version
     /// by adding, removing, and changing keys ans values in the
     /// store, and return the updated store.
-    static func migrateIfNeeded(with: Store) -> Store
+    static func migrate(from: Store) -> Store
 }
 
 extension Model {
   
-   
     /// Initialize a `Model` from a file
     public init?(file: URL, format: Format) {
         guard let data = format.formatter.read(file) else { return nil }
-        guard let instance = Self.read(from: DataStore(data: data)) else { return nil }
+        guard let instance = Self.read(from: Store(data: data)) else { return nil }
         self = instance
     }
     
@@ -94,19 +93,47 @@ extension Model {
     ///
     /// - Returns: `true` if succeeded otherwise `false`
     public func write(to file: URL, format: Format) -> Bool {
-        var vstore : Store = DataStore()
+        var vstore = Store()
         self.write(to: &vstore)
-        return format.formatter.write((vstore as! DataStore).data, to: file)
+        return format.formatter.write(vstore.data, to: file)
     }
     
     // The following default implementations do nothing to provide them as optional.
     
-    public static func migrateIfNeeded(with store: Store) -> Store {
-        return store
-    }
-    
-    public static func writeVersion(with: Store) { } // default implementation does nothing
+    public static func migrate(from source: Store) -> Store {  return source }
+    public static func writeVersion(to: Store) { } // default implementation does nothing
     public func finishReading(from: Store)  { } // default implementation does nothing
     public func finishWriting(to: inout Store) { } // default implementation does nothing
-
 }
+
+import UIKit
+
+extension UIColor : Model {
+    
+    public static func read(from store: Store) -> Self? {
+        
+        if let
+            red: CGFloat  = store.value(forKey: "red"),
+            green: CGFloat = store.value(forKey: "green"),
+            blue:  CGFloat  = store.value(forKey: "blue"),
+            alpha: CGFloat = store.value(forKey: "alpha") {
+            
+            return self.init(red: red, green: green, blue: blue, alpha: alpha)
+        }
+        else {
+            return nil
+        }
+    }
+    
+    public func write(to store: inout Store) {
+        var red, green, blue, alpha  : CGFloat
+        red = 0; green = 0; blue = 0; alpha = 0
+        self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        
+        store.set(red, forKey: "red")
+        store.set(green, forKey: "green")
+        store.set(blue, forKey: "blue")
+        store.set(alpha, forKey: "alpha")
+    }
+}
+

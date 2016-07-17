@@ -20,12 +20,12 @@ public struct TestOptionalTypes : Model {
 
 extension TestOptionalTypes  {
 
-   public static func read(from store: Store) -> TestOptionalTypes? {
+    public static func read(from store: Store) -> TestOptionalTypes? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = TestOptionalTypes.migrateIfNeeded(with: inStore)
+        let store = TestOptionalTypes.migrate(from: inStore)
 
         let myDate: NSDate? = store.value(forKey: "myDate")
         let myFloat: Float? = store.value(forKey: "myFloat")
@@ -57,7 +57,7 @@ extension TestOptionalTypes  {
         store.set(myDecimal, forKey: "myDecimal")
         store.set(myInt, forKey: "myInt")
 
-        TestOptionalTypes.writeVersion(with: store)
+        TestOptionalTypes.writeVersion(to: store)
         finishWriting(to: &store)
     }
 }

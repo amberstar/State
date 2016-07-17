@@ -16,12 +16,12 @@ public struct Company : Model {
 
 extension Company  {
 
-   public static func read(from store: Store) -> Company? {
+    public static func read(from store: Store) -> Company? {
       return self.init(with: store)
    }
 
     public init?(with inStore: Store) {
-        let store = Company.migrateIfNeeded(with: inStore)
+        let store = Company.migrate(from: inStore)
 
          guard
             let name: String = store.value(forKey: "name"),
@@ -44,7 +44,7 @@ extension Company  {
         store.set(phoneNumber, forKey: "phoneNumber")
         store.set(employees, forKey: "employees")
 
-        Company.writeVersion(with: store)
+        Company.writeVersion(to: store)
         finishWriting(to: &store)
     }
 }
