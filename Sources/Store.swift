@@ -1,19 +1,19 @@
 //
-// State: Sources/Storage.swift
+// State: Store.swift
 // Copyright © 2016 SIMPLETOUCH LLC. All rights reserved.
 //
 // Licensed under The MIT License (MIT)
 //
 
-/*
-1. A `Store` is a light weight wrapper around a `Dictionary` to make
-   it convienient to encode and decode models, and save them to files.
+import Foundation
 
+/*
+1. A `Store` is an abstract key-value property store for
+    reading a writing values. 
+ 
 2. A`Formatter` is used internally by a Store to read and write it's
    data to files, strings, data.
 */
-
-import Foundation
 
 public struct Store {
     
@@ -27,98 +27,80 @@ public struct Store {
         self.data = data as? [String : AnyObject] ?? [:]
     }
     
-//===----------------------------------------------------------------------===//
-    
-// MARK: - Decoding
-
-//===----------------------------------------------------------------------===//
+// MARK: - Generic Values
     
     public func value<V>(forKey key: String) -> V? {
         return data[key] as? V
     }
-    
-    /// Return a value at key or nil if not found.
-    public func value<Value: Model>(forKey key: String) -> Value? {
-        guard let data = data[key] as? [String : AnyObject] else { return nil }
-        return Value.read(from: Store(data: data))
-    }
-    
-    /// Return a value at key or nil if not found.
-    public func value<Value: Model>(forKey key: String) -> [Value]? {
-        guard let data = data[key] as? [[String : AnyObject]] else { return nil }
-        return sequence(data.map { Value.read(from: Store(data: $0)) })
-    }
-    
-    /// Return a value at key or nil if not found.
-    public func value<Value: Model>(forKey key: String) -> [String : Value]? {
-        guard let data = data[key] as?  [String : [String : AnyObject]] else { return nil }
-        return sequence(data.map { Value.read(from: Store(data: $0))})
-    }
-    
-    public func store(forKey key: String) -> Store? {
-        guard let data = data[key] as? [String : AnyObject] else { return nil }
-        return Store(data: data)
-    }
-    
-//===----------------------------------------------------------------------===//
-    
-// MARK: - Encoding
-    
-//===----------------------------------------------------------------------===//
     
     public mutating func set<V>(_ value: V?, forKey key: String) {
         guard let value = value else { return }
         data[key] = value as? AnyObject
     }
     
-    /// Add or update the value at key.
-    public mutating func set<Value: Model>(_ value: Value?, forKey key: String ) {
-        guard let value = value else  { return }
-        var vstore = Store()
-        value.write(to: &vstore)
-        data[key] = vstore.data
+// MARK: - Typed Values
+    
+    public func bool(forKey key: String) -> Bool? {
+        return value(forKey: key)
     }
     
-    /// Add or update the value at key.
-    public mutating func set<Value: Model>(_ value: [Value]?, forKey key: String) {
-        guard let value = value else { return }
-        
-        let data  = value.reduce([[String : AnyObject]](), combine: { (data, value) -> [[String: AnyObject]] in
-            var vstore = Store()
-            var vdata = data
-            value.write(to: &vstore )
-            vdata.append(vstore.data)
-            return vdata
-        })
-        
-        self.data[key] = data
+    public func bool(forKey key: String, defaultValue: Bool) -> Bool {
+        return bool(forKey: key) ?? defaultValue
     }
     
-    /// Add or update the value at key.
-    public mutating func set<Value: Model>(_ value: [String : Value]?, forKey key: String) {
-        
-        guard let value = value else { return }
-        let data = value.reduce([String : [String : AnyObject]](), combine: { (data, element) -> [String : [String : AnyObject]] in
-            var vstore = Store()
-            var vdata = data
-            element.value.write(to: &vstore)
-            vdata[element.key] = vstore.data
-            return vdata
-        })
-        
-        self.data[key] =  data
+    public func set(_ value: Bool, forKey key: String) {
+        set(value, forKey: key)
+    }
+    
+// MARK: - Keyed Stores
+    
+    public func store(forKey key: String) -> Store? {
+        guard let data = data[key] as? [String : AnyObject] else { return nil }
+        return Store(data: data)
     }
     
     public mutating func set(_ store: Store, forKey key: String) {
         data[key] = store.data
     }
+    
+// MARK: FILE
+    
+    /// Initialize a `Store` from a file
+    public init?(file: URL, format: Format) {
+        guard let data = format.formatter.read(file) as? [String : AnyObject] else { return nil }
+        self.data = data
+    }
+    
+    /// Writes a store to a file
+    ///
+    /// - Returns: `true` if succeeded otherwise `false`
+    public func write(to file: URL, format: Format) -> Bool {
+        return format.formatter.write(data, to: file)
+    }
+    
+// MARK: STRING
+    public func makeString(format: Format) -> String? {
+        return format.formatter.makeString(from: data)
+    }
+    
+    public init?(content: String, format: Format) {
+        guard let data = format.formatter.read(content) as? [String : AnyObject] else { return nil }
+        self.data = data
+    }
+    
+// MARK: DATA
+    
+    public init?(content: Data, format: Format) {
+        guard let data = format.formatter.read(content) as? [String : AnyObject] else { return nil }
+        self.data = data
+    }
+    
+    public func makeData(format: Format) -> Data? {
+        return format.formatter.makeData(from: data, prettyPrint: true)
+    }
 }
 
-//----------------------------------------------------------------------------//
-
 // MARK: - Utility
-
-//----------------------------------------------------------------------------//
 
 public func sequence<T>(_ array: [T?]) -> [T]? {
     return  array.reduce(.some([])) { accum, elem in
@@ -146,3 +128,4 @@ extension Dictionary {
         }
     }
 }
+

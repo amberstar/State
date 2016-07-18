@@ -21,8 +21,6 @@ func >>-<T, U>(a: T?, f: @noescape (T) -> U?) -> U? {
    return a.flatMap(f)
 }
 
-
-
 class ConverterTests: Test {
     var testPlist : [String : AnyObject]?
     var testJSON  : [String : AnyObject]?

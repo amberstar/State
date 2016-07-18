@@ -1,10 +1,15 @@
 //
-//  Formatter.swift
-//  State
+//  State/Sources/Format.swift
 //
-//  Created by Amber Star on 7/9/16.
+//  Created by Amber Star on 7/17/16.
 //  Copyright © 2016 Amber Star. All rights reserved.
 //
+
+/// Format - File formats for Storage
+///
+/// This file implements the formats available
+/// for saving and loading stores and models.
+
 
 import Foundation
 
@@ -31,12 +36,14 @@ public enum Format {
     }
 }
 
+// MARK: - Formatter
+
 /// A base formatter that provides the binary format.
 class Formatter {
     
     /// write data to a file
     /// - returns: true if succeeded, false if failed
-    func write(_ object: [String : AnyObject], to url: URL) -> Bool  {
+    func write(_ object: AnyObject, to url: URL) -> Bool  {
         if let data = makeData(from: object, prettyPrint: true) {
             return ((try? data.write(to: url, options: [.atomic] )) != nil)
         }
@@ -47,14 +54,14 @@ class Formatter {
     
     /// write data to  NSData
     /// - returns: NSData or nil if failed
-    func makeData(from object: [String : AnyObject],
+    func makeData(from object: AnyObject,
                   prettyPrint: Bool) -> Data?  {
         return NSKeyedArchiver.archivedData(withRootObject: object)
     }
     
     /// write data to String
     /// - returns: a string or nil if failed
-    func makeString(from object: [String : AnyObject]) -> String? {
+    func makeString(from object: AnyObject) -> String? {
         if let data = makeData(from: object, prettyPrint: true) {
             return NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String
         } else {
@@ -64,13 +71,14 @@ class Formatter {
     
     /// Read data from NSData
     /// - returns: a data object or nil
-    func read(_ data: Data) -> [String : AnyObject]? {
+    func read(_ data: Data) -> AnyObject? {
         return NSKeyedUnarchiver.unarchiveObject(with: data) as? [String : AnyObject]
     }
     
+    
     /// Read file from a URL
     /// - returns: a data object or nil
-    func read(_ url: URL) -> [String : AnyObject]? {
+    func read(_ url: URL) -> AnyObject? {
         if let data = try? Data(contentsOf: url) {
             return read(data)
         }
@@ -79,7 +87,7 @@ class Formatter {
     
     /// Read data from a string
     /// - returns: a data object or nil
-    func read(_ content: String) -> [String : AnyObject]? {
+    func read(_ content: String) -> AnyObject? {
         guard let data = makeData(from: content) else { return nil }
         return read(data)
     }
@@ -93,18 +101,18 @@ class Formatter {
 /// JSON serialization format
 final class JSONFormatter: Formatter {
     
-    override func read(_ data: Data) -> [String : AnyObject]? {
+    override func read(_ data: Data) -> AnyObject? {
         do {
             let o: AnyObject =  try JSONSerialization.jsonObject(
                 with: data, options: JSONSerialization.ReadingOptions.allowFragments)
-            return o as? [String : AnyObject]
+            return o
         } catch let error as NSError {
             Swift.print(error)
             return nil
         }
     }
     
-    override func makeData(from object: [String : AnyObject],
+    override func makeData(from object: AnyObject,
                            prettyPrint: Bool) -> Data?  {
         
         guard JSONSerialization.isValidJSONObject(object) else {
@@ -129,7 +137,7 @@ final class JSONFormatter: Formatter {
 /// XML Plist serialization format
 final class PlistFormatter: Formatter {
     
-    override func read(_ data: Data) -> [String : AnyObject]? {
+    override func read(_ data: Data) -> AnyObject? {
         
         do {
             let o: AnyObject =
@@ -137,7 +145,7 @@ final class PlistFormatter: Formatter {
                     from: data, options:[.mutableContainersAndLeaves], format:nil
             )
             
-            return o as? [String : AnyObject]
+            return o
         } catch let error as NSError {
             
             Swift.print(error)
@@ -145,13 +153,13 @@ final class PlistFormatter: Formatter {
         }
     }
     
-    override func read(_ content: String) -> [String : AnyObject]? {
+    override func read(_ content: String) -> AnyObject? {
         let s = content as NSString
-        return s.propertyList() as? [String : AnyObject]
+        return s.propertyList()
     }
     
     
-    override func makeData(from object: [String : AnyObject],
+    override func makeData(from object: AnyObject,
                            prettyPrint: Bool) -> Data?  {
         
         guard PropertyListSerialization.propertyList(

@@ -81,8 +81,8 @@
 		96712B9C1D2DA0B100C7E1C5 /* _TestTransient2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96712B7F1D2DA0B100C7E1C5 /* _TestTransient2.swift */; };
 		96712B9D1D2DA0B100C7E1C5 /* _TestTransient3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96712B801D2DA0B100C7E1C5 /* _TestTransient3.swift */; };
 		96712B9E1D2DA0B100C7E1C5 /* _TestTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96712B811D2DA0B100C7E1C5 /* _TestTypes.swift */; };
-		96712BA21D31173E00C7E1C5 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96712BA11D31173E00C7E1C5 /* Formatter.swift */; };
 		9690A0651C942C9100924F4C /* TestProtocolConformer2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0631C942C9100924F4C /* TestProtocolConformer2.swift */; };
+		96930D991D3BCFD5001F9565 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96930D981D3BCFD5001F9565 /* Format.swift */; };
 		96960A5D1C90F00B00D4E6D0 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A4D1C90F00B00D4E6D0 /* Model.swift */; };
 		96960A681C90F07700D4E6D0 /* State.h in Headers */ = {isa = PBXBuildFile; fileRef = 96960A651C90F07700D4E6D0 /* State.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		96A543611B63C6C8009A2B2D /* TestDictionaryComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A5435E1B63C6C8009A2B2D /* TestDictionaryComposition.swift */; };
@@ -206,9 +206,9 @@
 		96712B7F1D2DA0B100C7E1C5 /* _TestTransient2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestTransient2.swift; path = Tests/Models/TestModels/_TestTransient2.swift; sourceTree = "<group>"; };
 		96712B801D2DA0B100C7E1C5 /* _TestTransient3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestTransient3.swift; path = Tests/Models/TestModels/_TestTransient3.swift; sourceTree = "<group>"; };
 		96712B811D2DA0B100C7E1C5 /* _TestTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestTypes.swift; path = Tests/Models/TestModels/_TestTypes.swift; sourceTree = "<group>"; };
-		96712BA11D31173E00C7E1C5 /* Formatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		9690A0601C9429A300924F4C /* ProtocolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProtocolTests.swift; path = Tests/Tests/ProtocolTests.swift; sourceTree = "<group>"; };
 		9690A0631C942C9100924F4C /* TestProtocolConformer2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocolConformer2.swift; path = Tests/Models/TestModels/TestProtocolConformer2.swift; sourceTree = "<group>"; };
+		96930D981D3BCFD5001F9565 /* Format.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		96960A4D1C90F00B00D4E6D0 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		96960A651C90F07700D4E6D0 /* State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; };
 		96960A661C90F07700D4E6D0 /* StateInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = StateInfo.plist; sourceTree = "<group>"; };
@@ -389,7 +389,7 @@
 		96960A431C90F00B00D4E6D0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				96712BA11D31173E00C7E1C5 /* Formatter.swift */,
+				96930D981D3BCFD5001F9565 /* Format.swift */,
 				9622DF921C9C8A61009C1E6B /* Store.swift */,
 				96960A4D1C90F00B00D4E6D0 /* Model.swift */,
 			);
@@ -549,8 +549,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96712BA21D31173E00C7E1C5 /* Formatter.swift in Sources */,
 				96239BD01D1DA94700C27329 /* Store.swift in Sources */,
+				96930D991D3BCFD5001F9565 /* Format.swift in Sources */,
 				96960A5D1C90F00B00D4E6D0 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
