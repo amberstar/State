@@ -26,12 +26,16 @@ Add a new data model file to the project, but do not link it to any targets. In 
 | Attribute    | property \| enum: case |
 | Relationship | property \| enum associated value <ul> <li>if source is enum: target is associated value </li><li>if target is enum: enum property</li><li>if one-to-many, property is collection.</li></ul>|
 
-The following tables show the keys and values you can enter into the user-info section of the data modeler inspector window to use the options described.
+The following tables show the keys and values you can enter into the user-info section of the data modeler inspector window to use the options described. You only need to add these settings when you require them to be other than the default.
+
+
+
+
 ### Entity Settings
 | Key                              | Description                | Values            |
 | -------------------------------- | -------------------------- | :----------------:|
-| `State.Enum` | sets entity to enum. | `YES`, `NO` |
-| `State.Protocol` | set entity to protocol.  | `YES`, `NO` |
+| `State.Enum` | sets entity to enum. | `YES`, no-key = `NO` |
+| `State.Protocol` | set entity to protocol.  | `YES`, no-key = `NO` |
 | `State.Type`       | if State.Enum sets enum to a raw value enum, and sets raw value type. if State.Protocol sets protocol inheritance.  |**for enum:** The exact type **-or**  **for protocol:** comma separated list of inherited protocols |
 | `State.Model`       | Used for raw value enums, sets raw value type as a model type.  |`Model`, `ModelArray`, `ModelDictionary`  |
 
@@ -39,14 +43,14 @@ The following tables show the keys and values you can enter into the user-info s
 
 | Key                              | Description                | Values            |
 | -------------------------------- | -------------------------- | :----------------:|
-| `State.Immutable`    | use `let` instead of `var` for the property | `YES`, `NO` |
+| `State.Immutable`    | set use `let` instead of `var` for property | `YES`, no-key = `NO` |
 | `State.Type`       | set type for the attribute. For example, `[String : Int]` would specify to use a Dictionary of String, Ints for this property **-or-** sets associated value type for enum cases.| The exact type  |
-| `State.Func`       | Used on protocol attributes with a requirement type of `func`. sets the function signature for the requirement| The exact signature of the function requirement  |
-| `State.Mutating`       | use on protocols attributes with a requirement type of `func`  specifies the function is `mutating` | `YES`, `NO`  |
-| `State.ProtocolRequirementType`       | use on protocol attributes. sets requirement type. **note: if not specified `var` is assumed, use `get` to generate a get only variable requirement| `func`, `var`, `get`  |
+| `State.Func`       | use on protocol attributes with a requirement type of `func`. sets the function signature for the requirement| The exact signature of the function requirement  |
+| `State.Mutating`       | use on protocols function requirements. sets the function is `mutating` | `YES`, No-key = `NO`  |
+| `State.ProtocolRequirementType`       | use on protocol attributes. sets requirement type. **note: if not specified `var` is assumed, use `get` to generate a get only variable requirement| `func`, no-key = `var`, `get`  |
 | `State.Value`	| sets a default value for a property. (only supported for non-optional properties) **-or-**  sets the raw value of an enum case. | The exact value
-| `State.Import`	| Useful when you need to import a module in the generated source for the particular attribute type  | The exact module name
-| `State.CompositionType`       | used with one-to-many relationships. sets the type of collection to use for a one to many relationship.|Dictionary, Array  |
+| `State.Import`	| use to import a module in the generated source for the particular attribute type  | The exact module name
+| `State.CompositionType`       | used with one-to-many relationships. sets the type of collection to use for a one to many relationship.|Dictionary,  no-key = Array  |
 
 ## Structs
 Entities are structs by default.
