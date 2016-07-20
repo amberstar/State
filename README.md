@@ -32,24 +32,30 @@ The following tables show the keys and values you can enter into the user-info s
 ### Entity Settings
 | Key                              | Description                | Values            |
 | -------------------------------- | -------------------------- | :----------------:|
-| `State.Enum` | sets entity to enum. | `YES`, **`NO`** |
-| `State.Protocol` | set entity to protocol.  | `YES`, **`NO`** |
-| `State.Type`       | enums: sets enum to a raw value enum, and sets raw value type. <br> protocol: sets protocol inheritance.  |enum: The exact type <br> **-or** <br>  protocol: comma separated list of inherited protocols |
-| `State.Model`       | raw value enums: sets raw value type as a model type  |`Model`, `ModelArray`, `ModelDictionary`  |
+| `State.Enum` | set entity is enum | `YES`, **`NO`** |
+| `State.Protocol` | set entity is protocol  | `YES`, **`NO`** |
+| `State.Type`       | enum: set enum is raw value enum, and raw value type. <br> protocol: set protocol inheritance.  |enum: The exact type <br> **-or** <br>  protocol: comma separated list of inherited protocols |
+| `State.Model`       | raw value enums: set raw value is model type  |`Model`, `ModelArray`, `ModelDictionary`  |
 **values in bold = default when no value is present.**
 
 ### Attribute Settings
 
 | Key                              | Description                | Values            |
 | -------------------------------- | -------------------------- | :----------------:|
-| `State.Immutable`    | set use `let` instead of `var` for property | `YES`, **`NO`** |
-| `State.Type`       | set type for the attribute. For example, `[String : Int]` would specify to use a Dictionary of String, Ints for this property <br>**-or-**<br> sets associated value type for enum cases.| The exact type  |
-| `State.Func`       | use on protocol attributes with a requirement type of `func`. sets the function signature for the requirement| The exact signature of the function requirement  |
-| `State.Mutating`       | use on protocol function requirements - sets the function is `mutating` | `YES`, **`NO`**  |
-| `State.ProtocolRequirementType`       | use on protocol attributes - sets requirement type <br> **note: if not specified `var` is assumed, use `get` to generate a get only variable requirement| `func`, **`var`**, `get`  |
-| `State.Value`	| sets a default value for a property  (only supported for non-optional properties) <br>**-or-**<br>  raw value enum: sets the raw value of a case. | The exact value
-| `State.Import`	| use to import a module in the generated source for the particular attribute type  | The exact module name
-| `State.CompositionType`       | used with one-to-many relationships - sets the type of collection to use for a one to many relationship|Dictionary,  **Array**  |
+| `State.Immutable`    | set is read-only, (use `let` instead of `var` for property) | `YES`, **`NO`** |
+| `State.Type`       | set type for property or associated value | The exact type  |
+| `State.Func`       | set the function signature for a protocol function requirement| The exact signature of the function requirement  |
+| `State.Mutating`       | set a protocol function requirement is `mutating` | `YES`, **`NO`**  |
+| `State.ProtocolRequirementType`       | set protocol requirement type (get = readonly property) | `func`, **`var`**, `get`  |
+| `State.Value`	| set default value for a property  (only supported for non-optional properties) <br>**-or-**<br>  raw value enum: sets the raw value of a case. | The exact value
+| `State.Import`	| import a module in the generated source associated with the particular attribute  | The exact module name
+
+
+### Relationship Settings
+| Key                              | Description                | Values            |
+| -------------------------------- | -------------------------- | :----------------:|
+| `State.CompositionType`       | set the collection type for a one-to-many relationship|Dictionary,  **Array**  |
+
 **values in bold = default when no value is present.**
 
 ## Structs
