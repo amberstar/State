@@ -30,17 +30,17 @@ The following tables show the keys and values you can enter into the user-info s
 
 
 ### Entity Settings
-| Key                              | Description                | Values            |
+| Key                              | Description                | Values <br>**bold = default when no key-value setting is present.**                |
 | -------------------------------- | -------------------------- | :----------------:|
 | `State.Enum` | set entity is enum | `YES`, **`NO`** |
 | `State.Protocol` | set entity is protocol  | `YES`, **`NO`** |
 | `State.Type`       | enum: set enum is raw value enum, and raw value type. <br> protocol: set protocol inheritance.  |enum: The exact type <br> **-or** <br>  protocol: comma separated list of inherited protocols |
 | `State.Model`       | set raw value model type for a raw value enum.  |`Model`, `ModelArray`, `ModelDictionary`  |
-**values in bold = default when no value is present.**
+
 
 ### Attribute Settings
 
-| Key                              | Description                | Values            |
+| Key                              | Description                | Values <br>**bold = default when no key-value setting is present.**           |
 | -------------------------------- | -------------------------- | :----------------:|
 | `State.Immutable`    | set is read-only, (use `let` instead of `var` for property) | `YES`, **`NO`** |
 | `State.Type`       | set type for property or associated value | The exact type  |
@@ -50,13 +50,11 @@ The following tables show the keys and values you can enter into the user-info s
 | `State.Value`	| set default value for a property  (only supported for non-optional properties) <br>**-or-**<br>  raw value enum: sets the raw value of a case. | The exact value
 | `State.Import`	| import a module in the generated source associated with the particular attribute  | The exact module name
 
-
 ### Relationship Settings
-| Key                              | Description                | Values            |
+| Key                              | Description                | Values <br>**bold = default when no key-value setting is present.**                |
 | -------------------------------- | -------------------------- | :----------------:|
 | `State.CompositionType`       | set the collection type for a one-to-many relationship|Dictionary,  **Array**  |
 
-**values in bold = default when no value is present.**
 
 ## Structs
 Entities are structs by default.
