@@ -28,7 +28,7 @@ extension TestDefaults  {
    }
 
     public init?(with inStore: Store) {
-        let store = TestDefaults.migrate(from: inStore)
+        let store = TestDefaults.migrate(source: inStore)
 
          guard
             let defaultManualString: String = store.value(forKey: "defaultManualString"),

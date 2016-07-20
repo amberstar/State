@@ -20,7 +20,7 @@ extension TestTransient  {
    }
 
     public init?(with inStore: Store) {
-        let store = TestTransient.migrate(from: inStore)
+        let store = TestTransient.migrate(source: inStore)
 
          guard
             let myNonTransient: String = store.value(forKey: "myNonTransient")

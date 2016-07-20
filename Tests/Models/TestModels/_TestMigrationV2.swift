@@ -19,7 +19,7 @@ extension TestMigrationV2  {
    }
 
     public init?(with inStore: Store) {
-        let store = TestMigrationV2.migrate(from: inStore)
+        let store = TestMigrationV2.migrate(source: inStore)
 
          guard
             let name: String = store.value(forKey: "name")

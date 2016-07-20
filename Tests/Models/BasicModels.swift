@@ -28,9 +28,13 @@ extension BasicTypes : Model {
    }
     
     init?(with store: Store) {
-        guard let t: T = store.value(forKey: "t"),
-            tArr : [T] = store.value(forKey: "t_arr"),
-            tDic : [String : T] = store.value(forKey: "t_dic") else { return nil }
+        guard
+            let t: T = store.value(forKey: "t"),
+            let tArr : [T] = store.value(forKey: "t_arr"),
+            let tDic : [String : T] = store.value(forKey: "t_dic")
+        else {
+            return nil
+        }
         
         let tOpt: T?  = store.value(forKey: "t_opt")
         let tImp : T! = store.value(forKey: "t_imp")
@@ -91,9 +95,13 @@ extension StringTypes : Model {
    }
     
     init?(with store: Store) {
-        guard let t: String = store.value(forKey: "t"),
-            tArr : [String] = store.value(forKey: "t_arr"),
-            tDic : [String : String] = store.value(forKey: "t_dic") else { return nil }
+        guard
+            let t: String = store.value(forKey: "t"),
+            let tArr : [String] = store.value(forKey: "t_arr"),
+            let tDic : [String : String] = store.value(forKey: "t_dic")
+        else {
+            return nil
+        }
         
         let tOpt: String?  = store.value(forKey: "t_opt")
         let tImp : String! = store.value(forKey: "t_imp")
@@ -154,16 +162,21 @@ extension AnyObjectTypes : Model {
    }
    
    init?(with store: Store) {
-    guard let t: AnyObject = store.value(forKey: "t"),
-        tArr : [AnyObject] = store.value(forKey: "t_arr"),
-        tDic : [String : AnyObject] = store.value(forKey: "t_dic") else { return nil }
+    
+    guard
+        let t: AnyObject = store.object(forKey: "t"),
+        let tArr : [AnyObject] = store.array(forKey: "t_arr"),
+        let tDic : [String : AnyObject] = store.dictionary(forKey: "t_dic")
+    else {
+        return nil
+    }
       
-    let tOpt: AnyObject?  = store.value(forKey: "t_opt")
-    let tImp : AnyObject! = store.value(forKey: "t_imp")
-    let tArrOpt : [AnyObject]? = store.value(forKey: "t_arr_opt")
-    let tArrImp : [AnyObject]! = store.value(forKey: "t_arr_imp")
-    let tDicOpt : [String : AnyObject]? = store.value(forKey: "t_dic_opt")
-    let tDictImp : [String : AnyObject]! = store.value(forKey: "t_dic_imp")
+    let tOpt: AnyObject?  = store.object(forKey: "t_opt")
+    let tImp : AnyObject! = store.object(forKey: "t_imp")
+    let tArrOpt : [AnyObject]? = store.array(forKey: "t_arr_opt")
+    let tArrImp : [AnyObject]! = store.array(forKey: "t_arr_imp")
+    let tDicOpt : [String : AnyObject]? = store.dictionary(forKey: "t_dic_opt")
+    let tDictImp : [String : AnyObject]! = store.dictionary(forKey: "t_dic_imp")
       
       self.t = t
       self.tOpt = tOpt

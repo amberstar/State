@@ -21,7 +21,7 @@ extension Company  {
    }
 
     public init?(with inStore: Store) {
-        let store = Company.migrate(from: inStore)
+        let store = Company.migrate(source: inStore)
 
          guard
             let name: String = store.value(forKey: "name"),

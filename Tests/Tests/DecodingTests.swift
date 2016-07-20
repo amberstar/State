@@ -5,7 +5,7 @@ import State
 class DecodingTests: Test {
        
     func testDecodingBools() {
-        let bools = BasicTypes<Bool>.read(from: Store(data: plistData["Bool"]))
+        let bools = BasicTypes<Bool>.read(from: Store(data: plistData["Bool"] as! [String : AnyObject]))
         ///  Bools
         XCTAssert(bools != nil)
         XCTAssert(bools?.t == true)
@@ -28,7 +28,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingIntTypes() {
-        let ints = BasicTypes<Int>.read(from: Store(data: plistData["Int"]))
+        let ints = BasicTypes<Int>.read(from: Store(data: plistData["Int"] as! [String : AnyObject]))
         
         /// Ints
         XCTAssert(ints != nil)
@@ -52,7 +52,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingDoubles() {
-        let doubles = BasicTypes<Double>.read(from: Store(data: plistData["Double"]))
+        let doubles = BasicTypes<Double>.read(from: Store(data: plistData["Double"] as! [String : AnyObject]))
         
         /// Doubles
         XCTAssert(doubles != nil)
@@ -76,7 +76,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingFloats() {
-        let floats = BasicTypes<Float>.read(from: Store(data: plistData["Float"]))
+        let floats = BasicTypes<Float>.read(from: Store(data: plistData["Float"] as! [String : AnyObject]))
         
         /// Floats
         XCTAssert(floats != nil)
@@ -100,7 +100,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingStrings() {
-        let strings = StringTypes.read(from: Store(data: plistData["String"]))
+        let strings = StringTypes.read(from: Store(data: plistData["String"] as! [String : AnyObject]))
         
         /// Strings
         XCTAssert(strings != nil)
@@ -124,7 +124,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingAnyObjects() {
-        let objects = AnyObjectTypes.read(from: Store(data: plistData["Object"]))
+        let objects = AnyObjectTypes.read(from: Store(data: plistData["Object"] as! [String : AnyObject]))
         
         /// AnyObjects
         XCTAssert(objects != nil)

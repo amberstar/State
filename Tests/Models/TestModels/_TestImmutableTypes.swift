@@ -25,7 +25,7 @@ extension TestImmutableTypes  {
    }
 
     public init?(with inStore: Store) {
-        let store = TestImmutableTypes.migrate(from: inStore)
+        let store = TestImmutableTypes.migrate(source: inStore)
 
          guard
             let myDate: NSDate = store.value(forKey: "myDate"),

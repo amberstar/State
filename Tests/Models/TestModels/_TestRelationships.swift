@@ -20,7 +20,7 @@ extension TestRelationships  {
    }
 
     public init?(with inStore: Store) {
-        let store = TestRelationships.migrate(from: inStore)
+        let store = TestRelationships.migrate(source: inStore)
 
         let myChildren: [TestChild]? = store.value(forKey: "myChildren")
         let myGrandChildren: [Grandchild]? = store.value(forKey: "myGrandChildren")

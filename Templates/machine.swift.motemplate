@@ -36,21 +36,6 @@ import State
 
 <$procedure getPropertyDeclarationForRelationship Relationship$><$if Relationship.userInfo.State.Immutable == YES$>public let<$else$>public var<$endif$> <$Relationship.name$><$if !Relationship.isOptional && Relationship.userInfo.State.Value$> <$call getDefaultExpressionForRelationship Relationship$><$else$>: <$if Relationship.isToMany$>[<$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$><$endif$><$endProcedure$>
 
-<$procedure writeVersionHashExtension$>
-extension <$typeName$> {
-
-    /// These are provided from the data model designer
-    /// and can be used to determine if the model is
-    /// a different version.
-    public static func modelVersionHash() -> String {
-        return "<$versionHash$>"
-    }
-
-    public static func modelVersionHashModifier() -> String? {
-        return <$if versionHashModifier$>"<$versionHashModifier$>"<$else$>nil<$endif$>
-    }
-}<$endprocedure$>
-
 
 <$procedure writeUserDefaultsSupportBlock$>
 //****************************************************************************//
@@ -132,139 +117,9 @@ extension KVStore {
 }
 <$endprocedure$>
 
-<$procedure writeUserDefaultsProtocolSupportBlock$>
-
-//****************************************************************************//
-// MARK: UserDefault Support
-//****************************************************************************//
-
-extension UserDefaults {
-
-   public func get<$typeName$>(forKey key: String) -> <$typeName$>? {
-      guard let dictionary = value(forKey: key) else { return nil }
-      return decode<$typeName$>(dictionary)
-   }
-
-   public func get<$typeName$>(forKey key: String) -> [<$typeName$>]? {
-      guard let array = value(forKey: key) else { return nil }
-      return sequence(array.map(decode<$typeName$>))
-   }
-
-   public func get<$typeName$>(forKey key: String) -> [String : <$typeName$>]? {
-      guard let dictionary = value(forKey: key) else { return nil }
-      return sequence(dictionary.map { decode<$typeName$>($0) })
-   }
-
-   public func get<$typeName$>(forKey key: String, defaultValue: <$typeName$>) -> <$typeName$> {
-      return get<$typeName$>(forKey: key) ?? defaultValue
-   }
-
-   public func get<$typeName$>(forKey key: String, defaultValue: [<$typeName$>]) -> [<$typeName$>] {
-      return get<$typeName$>(forKey: key) ?? defaultValue
-   }
-
-   public func get<$typeName$>(forKey key: String,  defaultValue: [String : <$typeName$>]
-   ) -> [String : <$typeName$>] {
-      return get<$typeName$>(forKey: key) ?? defaultValue
-   }
-
-   public func set<$typeName$>(value: <$typeName$>, forKey key: String) {
-      set(value.encode(), forKey: key)
-   }
-
-   public func set<$typeName$>(value: [<$typeName$>], forKey key: String) {
-      set(value.map { $0.encode() }, forKey: key)
-   }
-
-   public func set<$typeName$>(value: [String : <$typeName$>], forKey key: String) {
-      set(value.map { $0.encode() }, forKey: key)
-   }
-}
-<$endprocedure$>
-
-
-<$procedure writeKVStoreProtocolSupportBlock$>
-//****************************************************************************//
-// MARK: KVStore support
-//****************************************************************************//
-extension KVStore {
-   public func get<$typeName$>(forKey key: String) -> <$typeName$>? {
-      let keys = seperateKeypath(key)
-      let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
-
-      if let targetKey = targetKey {
-        return targetKey.decode<$typeName$>(keys.valueName)
-      }
-      else {
-         return nil
-      }
-   }
-
-   public func get<$typeName$>(forKey key: String, defaultValue: <$typeName$>) -> <$typeName$> {
-      return get<$typeName$>(forKey: key) ?? defaultValue
-   }
-
-   public func get<$typeName$>s(forKey key: String) -> [<$typeName$>]? {
-      let keys = seperateKeypath(key)
-      let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
-
-      if let targetKey = targetKey {
-        return targetKey.decode<$typeName$>(keys.valueName)
-      }
-      else {
-         return nil
-      }
-   }
-
-   public func get<$typeName$>s(forKey key: String, defaultValue: [<$typeName$>]) -> [<$typeName$>] {
-      return get<$typeName$>s(forKey: key) ?? defaultValue
-   }
-
-   public func get<$typeName$>Dictionary(forKey key: String) -> [String : <$typeName$>]? {
-      let keys = seperateKeypath(key)
-      let targetKey = keys.keypath == nil ? self : getKey(keys.keypath!)
-
-      if let targetKey = targetKey {
-        return targetKey.decode<$typeName$>(keys.valueName)
-      }
-      else {
-         return nil
-      }
-   }
-
-   public func get<$typeName$>Dictionary(forKey key: String, defaultValue: [String : <$typeName$>]) -> [String : <$typeName$>] {
-      return get<$typeName$>Dictionary(forKey: key) ?? defaultValue
-   }
-
-   public func setValue(value: <$typeName$>, forKey: String) {
-      let keys = seperateKeypath(forKey)
-
-      let targetKey = keys.keypath == nil  ? self : addKey(keys.keypath!)
-      targetKey.encode(value, keys.valueName)
-   }
-
-   public func setValue(value: [<$typeName$>], forKey: String) {
-      let keys = seperateKeypath(forKey)
-
-      let targetKey = keys.keypath == nil  ? self : addKey(keys.keypath!)
-      targetKey.encode(value, keys.valueName)
-   }
-
-   public func setValue(value: [String : <$typeName$>], forKey: String) {
-      let keys = seperateKeypath(forKey)
-
-      let targetKey = keys.keypath == nil  ? self : addKey(keys.keypath!)
-      targetKey.encode(value, keys.valueName)
-   }
-
-}
-<$endprocedure$>
-
 <$procedure writeEncodingVersioningBlock$>
         <$typeName$>.writeVersion(to: store)
         <$endprocedure$>
-
-
 
 <$procedure Struct$>
 
@@ -284,7 +139,7 @@ extension <$typeName$>  {
    }
 
     public init?(with inStore: Store) {
-        let store = <$typeName$>.migrate(from: inStore)
+        let store = <$typeName$>.migrate(source: inStore)
 
 <$setlocal hasNonOptionals = 0 $>
 <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$><$if !Attribute.isOptional$><$setlocal hasNonOptionals = 1$><$endif$><$endif$><$endforeach do$>
@@ -317,9 +172,6 @@ extension <$typeName$>  {
     }
 }
 
-<$comment writeVersionHashExtension $>
-<$comment writeUserDefaultsSupportBlock$>
-<$comment writeKVStoreSupportBlock$>
 <$endprocedure$>
 
 
@@ -416,7 +268,7 @@ extension <$typeName$> {
    }
 
     public init?(with inStore: Store) {
-        let store = <$typeName$>.migrate(from: inStore)
+        let store = <$typeName$>.migrate(source: inStore)
 
 <$if ! userInfo.State.Type$>
         guard let type: String = store.value(forKey: "<$typeName$>") else { return nil }
@@ -444,9 +296,6 @@ extension <$typeName$> {
     }
 }
 
-<$comment writeVersionHashExtension $>
-<$comment writeUserDefaultsSupportBlock$>
-<$comment writeKVStoreSupportBlock$>
 <$endprocedure$>
 
 <$procedure writeAttributeProtocolFunctionRequirement Attribute$>   <$if Attribute.userInfo.State.Mutating == YES$>mutating <$endif$>func <$Attribute.userInfo.State.Func$><$endprocedure$>
@@ -474,7 +323,6 @@ public protocol <$typeName$><$if hasSuperentity$> : <$superentity.managedObjectC
 <$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$call writeRelationshipProtocolRequirement Relationship$><$endforeach do$>
 <$foreach Attribute noninheritedAttributes do$><$if Attribute.userInfo.State.ProtocolRequirementType == func$><$call writeAttributeProtocolFunctionRequirement Attribute$>
 <$endif$><$endforeach do$>
-
 
 }
 
@@ -548,9 +396,6 @@ extension Store {
         }
     }
 }
-
-<$comment writeUserDefaultsProtocolSupportBlock$>
-<$comment writeKVStoreProtocolSupportBlock$>
 <$endprocedure$>
 
 <$if userInfo.State.Enum == YES$><$call Enum$><$elseif isAbstract || userInfo.State.Protocol == YES$><$call Protocol$><$else$><$call Struct$>

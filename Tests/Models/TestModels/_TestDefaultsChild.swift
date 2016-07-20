@@ -18,7 +18,7 @@ extension TestDefaultsChild  {
    }
 
     public init?(with inStore: Store) {
-        let store = TestDefaultsChild.migrate(from: inStore)
+        let store = TestDefaultsChild.migrate(source: inStore)
 
          guard
             let name: String = store.value(forKey: "name")

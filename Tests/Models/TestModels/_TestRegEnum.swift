@@ -20,7 +20,7 @@ extension TestRegEnum {
    }
 
     public init?(with inStore: Store) {
-        let store = TestRegEnum.migrate(from: inStore)
+        let store = TestRegEnum.migrate(source: inStore)
 
         guard let type: String = store.value(forKey: "TestRegEnum") else { return nil }
         switch type {

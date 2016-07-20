@@ -1,5 +1,5 @@
 //
-//  State/Sources/Format.swift
+//  State: Format.swift
 //
 //  Created by Amber Star on 7/17/16.
 //  Copyright © 2016 Amber Star. All rights reserved.
@@ -9,7 +9,6 @@
 ///
 /// This file implements the formats available
 /// for saving and loading stores and models.
-
 
 import Foundation
 

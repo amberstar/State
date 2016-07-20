@@ -20,7 +20,7 @@ extension TestCollections  {
    }
 
     public init?(with inStore: Store) {
-        let store = TestCollections.migrate(from: inStore)
+        let store = TestCollections.migrate(source: inStore)
 
          guard
             let arrayOfStrings: [String] = store.value(forKey: "arrayOfStrings"),

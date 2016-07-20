@@ -20,7 +20,7 @@ extension TestTransient2  {
    }
 
     public init?(with inStore: Store) {
-        let store = TestTransient2.migrate(from: inStore)
+        let store = TestTransient2.migrate(source: inStore)
 
         let myNonTransient: Gender? = store.value(forKey: "myNonTransient")
 

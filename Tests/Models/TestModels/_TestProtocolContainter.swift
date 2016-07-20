@@ -20,7 +20,7 @@ extension TestProtocolContainter  {
    }
 
     public init?(with inStore: Store) {
-        let store = TestProtocolContainter.migrate(from: inStore)
+        let store = TestProtocolContainter.migrate(source: inStore)
 
          guard
             let testProtocol: TestProtocol = store.value(forKey: "testProtocol"),

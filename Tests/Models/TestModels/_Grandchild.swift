@@ -20,7 +20,7 @@ extension Grandchild  {
    }
 
     public init?(with inStore: Store) {
-        let store = Grandchild.migrate(from: inStore)
+        let store = Grandchild.migrate(source: inStore)
 
         let age: Int? = store.value(forKey: "age")
         let name: String? = store.value(forKey: "name")

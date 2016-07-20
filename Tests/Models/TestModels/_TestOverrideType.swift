@@ -19,7 +19,7 @@ extension TestOverrideType  {
    }
 
     public init?(with inStore: Store) {
-        let store = TestOverrideType.migrate(from: inStore)
+        let store = TestOverrideType.migrate(source: inStore)
 
         let myURL: NSURL? = store.value(forKey: "myURL")
         let myArrayOfString: [String]? = store.value(forKey: "myArrayOfString")

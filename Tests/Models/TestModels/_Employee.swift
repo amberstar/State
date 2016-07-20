@@ -19,7 +19,7 @@ extension Employee  {
    }
 
     public init?(with inStore: Store) {
-        let store = Employee.migrate(from: inStore)
+        let store = Employee.migrate(source: inStore)
 
          guard
             let name: String = store.value(forKey: "name")

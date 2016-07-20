@@ -12,7 +12,7 @@ import UIKit
 /*
  
  `Models`, and collections of them can be
-  written and read to json and plist files, `Store`s, `UserDefaults`,
+  written and read to json and plist files,
   `Strings`, or `Data`. They have methods
   to support migration and versioning.
  
@@ -26,7 +26,7 @@ import UIKit
 
   * implement `static func migrate(from: Store) -> Store`
 
-     this function should be called in the `read(from:)` method
+     this method should be called in the `read(from:)` method
      before reading any values from the store to give the model 
      an opertunity to migrate the store. Here the model should:
 
@@ -73,54 +73,58 @@ public protocol Model {
     /// models can update the store to the current version
     /// by adding, removing, and changing keys ans values in the
     /// store, and return the updated store.
-    static func migrate(from: Store) -> Store
+    static func migrate(source: Store) -> Store
 }
 
 extension Model {
   
-    /// Initialize a `Model` from a file
+    /// Create a model from a file in the specified format.
     public init?(file: URL, format: Format) {
         guard let data = format.formatter.read(file) else { return nil }
-        guard let instance = Self.read(from: Store(data: data)) else { return nil }
+        guard let instance = Self.read(from: Store(data: data as! [String : AnyObject])) else { return nil }
         self = instance
     }
     
+    /// Create a model from a string in the specified format.
     public init?(content: String, format: Format) {
         guard let data = format.formatter.read(content) else { return nil }
-        guard let instance = Self.read(from: Store(data: data)) else { return nil }
+        guard let instance = Self.read(from: Store(data: data as! [String : AnyObject])) else { return nil }
         self = instance
     }
     
+    /// Create a model from data in the specified format.
     public init?(content: Data, format: Format) {
         guard let data = format.formatter.read(content) else { return nil }
-        guard let instance = Self.read(from: Store(data: data)) else { return nil }
+        guard let instance = Self.read(from: Store(data: data as! [String : AnyObject])) else { return nil }
         self = instance
     }
     
-    /// Writes a model to a file
+    /// Write the store content to a file in the specified format.
     ///
     /// - Returns: `true` if succeeded otherwise `false`
-    public func write(to file: URL, format: Format) -> Bool {
+    public func write(to location: URL, format: Format) -> Bool {
         var vstore = Store()
         self.write(to: &vstore)
-        return format.formatter.write(vstore.data, to: file)
+        return format.formatter.write(vstore.data, to: location)
     }
     
+    /// Convert and return the content as a string in the specified format.
     public func makeString(format: Format) -> String? {
         var vstore = Store()
         self.write(to: &vstore)
         return format.formatter.makeString(from: vstore.data)
     }
     
+    /// Convert and return the content as data in the specified format.
     public func makeData(format: Format) -> Data? {
         var vstore = Store()
         self.write(to: &vstore)
         return format.formatter.makeData(from: vstore.data, prettyPrint: true)
     }
     
-    // The following default implementations do nothing to provide them as optional.
+    // These default implementations do nothing to provide them as optional.
     
-    public static func migrate(from source: Store) -> Store {  return source }
+    public static func migrate(source: Store) -> Store {  return source }
     public static func writeVersion(to: Store) { } // default implementation does nothing
     public func finishReading(from: Store)  { } // default implementation does nothing
     public func finishWriting(to: inout Store) { } // default implementation does nothing
@@ -130,26 +134,26 @@ extension Model {
 // TODO: Refactor these collections to reduce repeating
 
 extension Array where Element: Model {
-    
+    /// Create an array of models from a file in the specified format.
     public init?(file: URL, format: Format) {
         guard let data = format.formatter.read(file) as? [[String : AnyObject]] else { return nil }
         guard let instance =  sequence(data.map { Element.read(from: Store(data: $0)) }) else  { return nil }
         self = instance
     }
     
-    /// Writes a model to a file
+    /// Writes the model array to a file in the specified format.
     ///
     /// - Returns: `true` if succeeded otherwise `false`
-    public func write(to file: URL, format: Format) -> Bool {
-        return format.formatter.write(encodeToData(), to: file)
+    public func write(to location: URL, format: Format) -> Bool {
+        return format.formatter.write(encodeToData(), to: location)
     }
     
-    // make string
+    /// Return the model array content as a string in the specified format.
     public func makeString(format: Format) -> String? {
         return format.formatter.makeString(from: encodeToData())
     }
     
-    // make data
+   /// Return the model array content as data in the specified format.
     public func makeData(format: Format) -> Data? {
         return format.formatter.makeData(from: encodeToData(), prettyPrint: true)
     }
@@ -168,12 +172,13 @@ extension Array where Element: Model {
 
 extension Dictionary where Key: AnyObject, Value: Model {
     
+    /// Create a dictionary of models from a file in the specified format.
     public init?(file: URL, format: Format) {
         guard let fileData = format.formatter.read(file) as? [Key : [String : AnyObject]] else { return nil }
         let data : [Key : Value?] = fileData.map { Value.read(from: Store(data: $0)) }
         
         guard let instance : [Key : Value] = data.reduce(.some([:]), combine: { accum, elem in
-            guard let accum = accum, value = elem.1 else { return nil }
+            guard let accum = accum, let value = elem.1 else { return nil }
             var result = accum
             result[elem.0] = value
             return result
@@ -183,14 +188,19 @@ extension Dictionary where Key: AnyObject, Value: Model {
        self = instance
     }
     
+    /// Writes the model dictionary to a file in the specified format.
+    ///
+    /// - Returns: `true` if succeeded otherwise `false`
     public func write(to file: URL, format: Format) -> Bool  {
         return format.formatter.write(encodeToData(), to: file)
     }
     
+    /// Return the model dictionary content as a string in the specified format.
     public func makeString(format: Format) -> String? {
         return format.formatter.makeString(from: encodeToData())
     }
     
+    /// Return the model dictionary content as data in the specified format.
     public func makeData(format: Format) -> Data? {
         return format.formatter.makeData(from: encodeToData(), prettyPrint: true)
     }
@@ -208,25 +218,26 @@ extension Dictionary where Key: AnyObject, Value: Model {
 
 extension Set where Element: Model {
     
+    /// Create a set of models from a file in the specified format.
     public init?(file: URL, format: Format) {
         guard let data = format.formatter.read(file) as? [[String : AnyObject]] else { return nil }
         guard let instance =  sequence(data.map { Element.read(from: Store(data: $0)) }) else  { return nil }
         self = Set(instance)
     }
 
-    /// Writes a model to a file
+    /// Writes the model set to a file in the specified format.
     ///
     /// - Returns: `true` if succeeded otherwise `false`
     public func write(to file: URL, format: Format) -> Bool {
         return format.formatter.write(encodeToData(), to: file)
     }
     
-    // make string
+    /// Return the model set content as a string in the specified format.
     public func makeString(format: Format) -> String? {
         return format.formatter.makeString(from: encodeToData())
     }
     
-    // make data
+    /// Return the model set content as a data in the specified format.
     public func makeData(format: Format) -> Data? {
         return format.formatter.makeData(from: encodeToData(), prettyPrint: true)
     }
@@ -240,35 +251,6 @@ extension Set where Element: Model {
             vaccum.append(vstore.data)
             return vaccum
         }
-    }
-}
-
-extension UIColor : Model {
-    
-    public static func read(from store: Store) -> Self? {
-    
-        if let
-            red: CGFloat  = store.value(forKey: "red"),
-            green: CGFloat = store.value(forKey: "green"),
-            blue:  CGFloat  = store.value(forKey: "blue"),
-            alpha: CGFloat = store.value(forKey: "alpha") {
-            
-            return self.init(red: red, green: green, blue: blue, alpha: alpha)
-        }
-        else {
-            return nil
-        }
-    }
-    
-    public func write(to store: inout Store) {
-        var red, green, blue, alpha  : CGFloat
-        red = 0; green = 0; blue = 0; alpha = 0
-        self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-        
-        store.set(red, forKey: "red")
-        store.set(green, forKey: "green")
-        store.set(blue, forKey: "blue")
-        store.set(alpha, forKey: "alpha")
     }
 }
 

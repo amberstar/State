@@ -31,9 +31,9 @@ class ConverterTests: Test {
     
         let plist = PlistFormatter()
         let json = JSONFormatter()
-        self.testPlist = plist.read(bundleURLFor("Data", ofType: "plist")!)
-        self.testData = plist.read(bundleURLFor("Data", ofType: "plist")!)
-        self.testJSON = json.read(bundleURLFor("Data", ofType: "json")!)
+        self.testPlist = plist.read(bundleURLFor("Data", ofType: "plist")!) as? [String : AnyObject]
+        self.testData = plist.read(bundleURLFor("Data", ofType: "plist")!) as? [String : AnyObject]
+        self.testJSON = json.read(bundleURLFor("Data", ofType: "json")!) as? [String : AnyObject]
     }
     
     func testPlistWasReadCorrectly() {
@@ -112,7 +112,7 @@ class ConverterTests: Test {
         let json = JSONFormatter()
         let testString : String? = bundleURLFor("Data", ofType: "json") >>- json.read >>- json.makeString
         testJSON = nil
-        testJSON = json.read(testString!)
+        testJSON = json.read(testString!) as? [String : AnyObject]
         testJSONWasReadCorrectly()
     }
     
@@ -121,7 +121,7 @@ class ConverterTests: Test {
         let plist = PlistFormatter()
         let testString : String? = bundleURLFor("Data", ofType: "plist") >>- plist.read >>- plist.makeString
         testPlist = nil
-        testPlist = plist.read(testString!)
+        testPlist = plist.read(testString!) as? [String : AnyObject]
         testPlistWasReadCorrectly()
     }
     
@@ -137,10 +137,9 @@ class ConverterTests: Test {
     func testWritingJSONString() {
         testJSONWasReadCorrectly()
         let json = JSONFormatter()
-        let baseString : String? = bundleURLFor("Data", ofType: "json") >>- json.read >>- json.makeString
-        var testString: String = ""
-        _ = testJSON >>- json.makeString >>- { testString = $0 }
-        XCTAssert(testString == baseString)
+        let baseString : String? = bundleURLFor("Data", ofType: "json") >>- json.read  >>- { json.makeString(from: $0 as![String : AnyObject]) }
+        let testString: String? = (testJSON  >>- json.makeString)
+        XCTAssert(testString! == baseString!, "testString:\(testString), baseString:\(baseString)")
     }
     
     func testReadingAndWritingPlistData() {
@@ -148,7 +147,7 @@ class ConverterTests: Test {
         let plist = PlistFormatter()
         let testData: Data? = plist.makeData(from: testPlist!, prettyPrint: true)
         testPlist = nil
-        _ = testData >>- plist.read >>- { self.testPlist = $0 }
+        _ = testData >>- plist.read >>- { self.testPlist = $0 as? [String : AnyObject] }
         testPlistWasReadCorrectly()
     }
     
@@ -157,7 +156,7 @@ class ConverterTests: Test {
         let json = JSONFormatter()
         let testData: Data? = json.makeData(from: testJSON!, prettyPrint:  true)
         testJSON = nil
-        _ = testData >>- json.read >>- { self.testJSON = $0 }
+        _ = testData >>- json.read >>- { self.testJSON = $0 as? [String : AnyObject] }
         testJSONWasReadCorrectly()
     }
     
@@ -166,7 +165,7 @@ class ConverterTests: Test {
         let binary = State.Formatter()
         let testNSData: Data? = binary.makeData(from: testData!, prettyPrint: true)
         testData = nil
-        _ = testNSData >>- binary.read >>- { self.testData = $0 }
+        _ = testNSData >>- binary.read >>- { self.testData = $0 as? [String : AnyObject] }
         testDataWasReadCorrectly()
     }
     
@@ -192,7 +191,7 @@ class ConverterTests: Test {
     private func readPlistDataFromTempFile() {
         let path = tempURLFor("test.plist")
         let plist = PlistFormatter()
-        _ = path >>- { self.testPlist  = plist.read($0) }
+        _ = path >>- { self.testPlist  = plist.read($0) as? [String : AnyObject] }
     }
     
     private func writeJSONDataOutToTempFile() {
@@ -204,7 +203,7 @@ class ConverterTests: Test {
     private func readJSONDataFromTempFile() {
         let path = tempURLFor("temp.json")
         let json = JSONFormatter()
-        _ = path >>- { self.testJSON = json.read($0) }
+        _ = path >>- { self.testJSON = json.read($0) as? [String : AnyObject] }
     }
         
     private func writeDataOutToTempFile() {
@@ -216,6 +215,6 @@ class ConverterTests: Test {
     private func readDataFromTempFile() {
         let binary = State.Formatter()
         let path = tempURLFor("temp.data")
-        _ = path >>- { self.testData = binary.read($0) }
+        _ = path >>- { self.testData = binary.read($0) as? [String : AnyObject] }
     }
 }

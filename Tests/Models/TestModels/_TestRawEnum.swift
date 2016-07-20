@@ -21,7 +21,7 @@ extension TestRawEnum {
    }
 
     public init?(with inStore: Store) {
-        let store = TestRawEnum.migrate(from: inStore)
+        let store = TestRawEnum.migrate(source: inStore)
 
         guard let value: String = store.value(forKey: "value") else { return nil }
         self.init(rawValue: value)

@@ -20,7 +20,7 @@ extension TestTransient3  {
    }
 
     public init?(with inStore: Store) {
-        let store = TestTransient3.migrate(from: inStore)
+        let store = TestTransient3.migrate(source: inStore)
 
         let myNonTransient1: Double? = store.value(forKey: "myNonTransient1")
         let myNonTransient2: String? = store.value(forKey: "myNonTransient2")

@@ -18,7 +18,7 @@ extension TestDictionaryComposition  {
    }
 
     public init?(with inStore: Store) {
-        let store = TestDictionaryComposition.migrate(from: inStore)
+        let store = TestDictionaryComposition.migrate(source: inStore)
 
          guard
             let employees: [String : Employee] = store.value(forKey: "employees")

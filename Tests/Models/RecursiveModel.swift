@@ -36,12 +36,15 @@ struct Player: Model {
    
    init?(with store: Store) {
       
-    guard let id: Int  = store.value(forKey: "id"),
-        name: String = store.value(forKey: "name"),
-        age: Int = store.value(forKey: "age"),
-        MVP: Bool = store.value(forKey: "mvp"),
-        teamates: [Player] = store.value(forKey: "teamates")
-         else { return nil }
+    guard
+        let id: Int  = store.value(forKey: "id"),
+        let name: String = store.value(forKey: "name"),
+        let age: Int = store.value(forKey: "age"),
+        let MVP: Bool = store.value(forKey: "mvp"),
+        let teamates: [Player] = store.value(forKey: "teamates")
+    else {
+        return nil
+    }
       
     let email : String? = store.value(forKey: "email")
     let height : Float? = store.value(forKey: "height")

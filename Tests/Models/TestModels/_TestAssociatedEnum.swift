@@ -30,7 +30,7 @@ extension TestAssociatedEnum {
    }
 
     public init?(with inStore: Store) {
-        let store = TestAssociatedEnum.migrate(from: inStore)
+        let store = TestAssociatedEnum.migrate(source: inStore)
 
         guard let type: String = store.value(forKey: "TestAssociatedEnum") else { return nil }
         switch type {

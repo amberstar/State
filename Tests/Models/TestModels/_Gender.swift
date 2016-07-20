@@ -20,7 +20,7 @@ extension Gender {
    }
 
     public init?(with inStore: Store) {
-        let store = Gender.migrate(from: inStore)
+        let store = Gender.migrate(source: inStore)
 
         guard let value: String = store.value(forKey: "value") else { return nil }
         self.init(rawValue: value)

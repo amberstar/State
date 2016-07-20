@@ -21,7 +21,7 @@ extension TestTransformable  {
    }
 
     public init?(with inStore: Store) {
-        let store = TestTransformable.migrate(from: inStore)
+        let store = TestTransformable.migrate(source: inStore)
 
          guard
             let myTransformable: NSURL = store.value(forKey: "myTransformable"),

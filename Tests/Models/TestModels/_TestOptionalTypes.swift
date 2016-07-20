@@ -25,7 +25,7 @@ extension TestOptionalTypes  {
    }
 
     public init?(with inStore: Store) {
-        let store = TestOptionalTypes.migrate(from: inStore)
+        let store = TestOptionalTypes.migrate(source: inStore)
 
         let myDate: NSDate? = store.value(forKey: "myDate")
         let myFloat: Float? = store.value(forKey: "myFloat")

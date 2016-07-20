@@ -25,7 +25,7 @@ extension TestTypes  {
    }
 
     public init?(with inStore: Store) {
-        let store = TestTypes.migrate(from: inStore)
+        let store = TestTypes.migrate(source: inStore)
 
          guard
             let myDate: NSDate = store.value(forKey: "myDate"),

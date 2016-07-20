@@ -19,7 +19,7 @@ extension TestProtocolConformer2  {
    }
 
     public init?(with inStore: Store) {
-        let store = TestProtocolConformer2.migrate(from: inStore)
+        let store = TestProtocolConformer2.migrate(source: inStore)
 
          guard
             let name: String = store.value(forKey: "name"),

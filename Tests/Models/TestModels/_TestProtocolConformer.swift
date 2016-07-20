@@ -23,7 +23,7 @@ extension TestProtocolConformer  {
    }
 
     public init?(with inStore: Store) {
-        let store = TestProtocolConformer.migrate(from: inStore)
+        let store = TestProtocolConformer.migrate(source: inStore)
 
          guard
             let ss_number: String = store.value(forKey: "ss_number"),

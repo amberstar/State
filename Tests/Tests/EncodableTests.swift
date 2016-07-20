@@ -19,7 +19,7 @@ class EncodableTests: Test {
     }
 
     func testEcodingToAndFromPlist() {
-        let inUsers = UserTypes.read(from: Store(data: plistData["Users"]))
+        let inUsers = UserTypes.read(from: Store(data: plistData["Users"] as! [String : AnyObject]))
         if let inUsers = inUsers {
             _ = inUsers.write(to: tempURLFor("temp.plist"), format: .plist)
         }
