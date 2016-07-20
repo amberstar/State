@@ -14,40 +14,39 @@
 - Xcode 8.0
 - iOS 8.0
 - Mogenerator 1.28
+
 ---
 
 # Designing Models in the Xcode Data Modeler
 Add a new data model file to the project, but do not link it to any targets. In the modeler elements correspond to the model as follows:
 
-|    Data Model Type    |          Swift Model Type          |
+|    Data Model Type    |          Swift Generated Type          |
 |-------------------|----------------------------------|
 | Entity              | struct \| enum                      |
 | Attribute    | property \| enum: case |
 | Relationship | property \| enum associated value <ul> <li>if source is enum: target is associated value </li><li>if target is enum: enum property</li><li>if one-to-many, property is collection.</li></ul>|
 
 The following tables show the keys and values you can enter into the user-info section of the data modeler inspector window to use the options described.
-## Entity Settings
+### Entity Settings
 | Key                              | Description                | Values            |
 | -------------------------------- | -------------------------- | :----------------:|
-| `State.Enum` | Specify entity is an enum. All attributes are considered cases of the enum. Specify raw value type with `State.Type` . *required for enums. | `YES`, `NO` |
-| `State.Protocol` | Specify entity is a protocol. (**note:** you can also check the abstract checkbox) | `YES`, `NO` |
-| `State.Type`       | When used on `Enum` entities, declares the enum as a raw value enum, and specifies it's raw value type. When used on `Protocol` entities specifies protocol inheritance.  |**For Enums:** The exact type for `Enum` **-or**  **For Protocols:** comma separated list of protocols to inherit  |
-| `State.Model`       | Used for raw value enums, and specifies it's raw value type as a model type.  |`Model`, `ModelArray`, `ModelDictionary`  |
-| `State.Transformable`       | Used for raw value enums, and specifies it's raw value type as transformable.  |The exact name of the transform type to use. |
+| `State.Enum` | sets entity to enum. | `YES`, `NO` |
+| `State.Protocol` | set entity to protocol.  | `YES`, `NO` |
+| `State.Type`       | if State.Enum sets enum to a raw value enum, and sets raw value type. if State.Protocol sets protocol inheritance.  |**for enum:** The exact type **-or**  **for protocol:** comma separated list of inherited protocols |
+| `State.Model`       | Used for raw value enums, sets raw value type as a model type.  |`Model`, `ModelArray`, `ModelDictionary`  |
 
-## Attribute Settings
+### Attribute Settings
 
 | Key                              | Description                | Values            |
 | -------------------------------- | -------------------------- | :----------------:|
-| `State.Immutable`    | Specify an attribute is immutable (code will use `let` instead of `var` for the property) | `YES`, `NO` |
-| `State.Type`       | Specify a type for the attribute. For example, `[String : Int]` would specify to use a Dictionary of String, Ints for this property **-or-** Specifies the associated value type for enum cases.| The exact type  |
-| `State.Func`       | Used on `State.Protocol` entities with a requirement type of `func` specifies the function signature for the requirement| The exact signature of the function requirement  |
-| `State.Mutating`       | Used on `State.Protocol` entities with a requirement type of `func`  specifies the function is `mutating` | `YES`, `NO`  |
-| `State.ProtocolRequirementType`       | Used on State.Protocol entities. Specifies attribute requirement type for the protocol. **note: if not specified `var` is assumed, use `get` to generate a get only variable requirement| `func`, `var`, `get`  |
-| `State.Value`	| Specify a default value for a property. (only supported for non-optional properties) **-or-** The raw value of an enum case. | The exact value
+| `State.Immutable`    | use `let` instead of `var` for the property | `YES`, `NO` |
+| `State.Type`       | set type for the attribute. For example, `[String : Int]` would specify to use a Dictionary of String, Ints for this property **-or-** sets associated value type for enum cases.| The exact type  |
+| `State.Func`       | Used on protocol attributes with a requirement type of `func`. sets the function signature for the requirement| The exact signature of the function requirement  |
+| `State.Mutating`       | use on protocols attributes with a requirement type of `func`  specifies the function is `mutating` | `YES`, `NO`  |
+| `State.ProtocolRequirementType`       | use on protocol attributes. sets requirement type. **note: if not specified `var` is assumed, use `get` to generate a get only variable requirement| `func`, `var`, `get`  |
+| `State.Value`	| sets a default value for a property. (only supported for non-optional properties) **-or-**  sets the raw value of an enum case. | The exact value
 | `State.Import`	| Useful when you need to import a module in the generated source for the particular attribute type  | The exact module name
-| `State.CompositionType`       | Used with one-to-many relationships. Type of collection to use for a one to many compositions.|Dictionary, Array  |
-| `State.Transformable`       | Used on relationships, Specify a relationship to a model item uses a transform  |The exact name of the transform type to use. |
+| `State.CompositionType`       | used with one-to-many relationships. sets the type of collection to use for a one to many relationship.|Dictionary, Array  |
 
 ## Structs
 Entities are structs by default.
@@ -92,7 +91,7 @@ To create a protocol:
 1. create an entity, give it name and a class name in the property inspector.
 2. Add the `State.Protocol` key to the user info section, or check the abstract checkbox in the inspector.
 
-### Adding function requirements
+### Function requirements
 Use the `State.ProtocolRequirementType` and the `State.Func` key on the protocol entities attributes.
 
 **Note:** an empty implementation is added to the **manual** file only the first time it is generated. If you already generated code before adding this requirement
@@ -102,7 +101,7 @@ On the protocol requirement attribute:
 - Set State.ProtocolRequirementType to Func
 - Set State.Func to the exact function signature of the requirement
 
-### Adding read-only property requirements
+### Read-only property requirements
 
 Use the `State.ProtocolRequirementType` with a value of `get` on protocol attributes and relationships.
 
@@ -119,7 +118,7 @@ to also inherit from `CustomStringConvertible` and `CustomDebugStringConvertible
 
 **Note:** you can use these two methods in combination if needed
 
-### Protocol Conformance
+### Protocol conformance
 To specify a model item has conformance to a protocol, set the protocol as the parent entity of a model item.
 
 **Note:** Only structs can conform at this time. You do not need to re-specify the protocols requirements in your conforming entity, they will be inherited and implemented automatically.
@@ -251,7 +250,7 @@ Versioning and migration is opt-in. Models do not version or migrate by default.
 
 To support versioning and migration implement the following methods in your model extension:
 
-  * `static func writeVersion(with: Store)`
+  * `static func writeVersion(with: inout Store)`
 
      This method is called before writing a model is finished to give the model an
      opportunity to write version information to the output.
@@ -267,6 +266,8 @@ To support versioning and migration implement the following methods in your mode
     -  return the updated store
 
 ## Automatic code generation setup.
+
+If you want to automaticly update the model code each time you build your project do the following.
 
 1. In your Xcode project, select `file > new > target`, and under OS X select other. Choose "External Build System" and click next.
 

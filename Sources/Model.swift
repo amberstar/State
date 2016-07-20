@@ -23,6 +23,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ---
+ 
+*/
 
 import Foundation
 import UIKit
@@ -83,7 +85,7 @@ public protocol Model {
     /// a store is complete to give the model
     /// an opertunity to write version information
     /// to the store for migration purporses.
-    static func writeVersion(to: Store)
+    static func writeVersion(to: inout Store)
 
     /// migrates a store to the current version if needed.
     ///
@@ -143,7 +145,7 @@ extension Model {
     // These default implementations do nothing to provide them as optional.
 
     public static func migrate(source: Store) -> Store {  return source }
-    public static func writeVersion(to: Store) { } // default implementation does nothing
+    public static func writeVersion(to: inout Store) { } // default implementation does nothing
     public func finishReading(from: Store)  { } // default implementation does nothing
     public func finishWriting(to: inout Store) { } // default implementation does nothing
 }
