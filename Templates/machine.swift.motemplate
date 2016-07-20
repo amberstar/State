@@ -84,45 +84,6 @@ extension UserDefaults {
 }
 <$endprocedure$>
 
-<$procedure writeKVStoreSupportBlock$>
-
-//****************************************************************************//
-// MARK: KVStore support
-//****************************************************************************//
-extension KVStore {
-
-   public func get<$typeName$>(forKey key: String) -> <$typeName$>? {
-      return getValue(forKey: key)
-   }
-
-   public func get<$typeName$>(forKey key: String, defaultValue: <$typeName$>) -> <$typeName$> {
-      return get<$typeName$>(forKey: key) ?? defaultValue
-   }
-
-   public func get<$typeName$>s(forKey key: String) -> [<$typeName$>]? {
-      return getValue(forKey: key)
-   }
-
-   public func get<$typeName$>s(forKey key: String, defaultValue: [<$typeName$>]) -> [<$typeName$>] {
-      return get<$typeName$>s(forKey: key) ?? defaultValue
-   }
-
-   public func get<$typeName$>Dictionary(forKey key: String) -> [String : <$typeName$>]? {
-      return getValue(forKey: key)
-   }
-
-   public func get<$typeName$>Dictionary(forKey key: String, defaultValue: [String : <$typeName$>]) -> [String : <$typeName$>] {
-      return get<$typeName$>Dictionary(forKey: key) ?? defaultValue
-   }
-}
-<$endprocedure$>
-
-<$procedure writeEncodingVersioningBlock$>
-        <$typeName$>.writeVersion(to: store)
-        <$endprocedure$>
-
-<$procedure Struct$>
-
 <$setmerge typeName = <$managedObjectClassName$>$>
 <$setmerge superTypeName = <$if hasSuperentity$><$superentity.managedObjectClassName$><$else$>Model<$endif$>$>
 
