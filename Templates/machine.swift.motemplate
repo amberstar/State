@@ -36,53 +36,7 @@ import State
 
 <$procedure getPropertyDeclarationForRelationship Relationship$><$if Relationship.userInfo.State.Immutable == YES$>public let<$else$>public var<$endif$> <$Relationship.name$><$if !Relationship.isOptional && Relationship.userInfo.State.Value$> <$call getDefaultExpressionForRelationship Relationship$><$else$>: <$if Relationship.isToMany$>[<$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$><$endif$><$endProcedure$>
 
-
-<$procedure writeUserDefaultsSupportBlock$>
-//****************************************************************************//
-// MARK: UserDefaults support
-//****************************************************************************//
-extension UserDefaults {
-
-   public func get<$typeName$>(forKey key: String) -> <$typeName$>? {
-      guard let dictionary = value(forKey: key) else { return nil }
-      return <$typeName$>.decode(dictionary)
-   }
-
-   public func get<$typeName$>(forKey key: String) -> [<$typeName$>]? {
-      guard let array = value(forKey: key) else { return nil }
-      return sequence(array.map(<$typeName$>.decode))
-   }
-
-   public func get<$typeName$>(forKey key: String) -> [String : <$typeName$>]? {
-      guard let dictionary = value(forKey: key) else { return nil }
-      return sequence(dictionary.map { <$typeName$>.decode($0) })
-   }
-
-   public func get<$typeName$>(forKey key: String, defaultValue: <$typeName$>) -> <$typeName$> {
-      return get<$typeName$>(forKey: key) ?? defaultValue
-   }
-
-   public func get<$typeName$>(forKey key: String, defaultValue: [<$typeName$>]) -> [<$typeName$>] {
-      return getDecodable(key) ?? defaultValue
-   }
-
-   public func get<$typeName$>(forKey key: String,  defaultValue: [String : <$typeName$>]) -> [String : <$typeName$>] {
-      return get<$typeName$>(forKey: key) ?? defaultValue
-   }
-
-   public func set<$typeName$>(value: <$typeName$>, forKey key: String) {
-      set(value.encode(), forKey: key)
-   }
-
-   public func set<$typeName$>(value: [<$typeName$>], forKey key: String) {
-      set(value.map { $0.encode() }, forKey: key)
-   }
-
-   public func set<$typeName$>(value: [String : <$typeName$>], forKey key: String) {
-      set(value.map { $0.encode() }, forKey: key)
-   }
-}
-<$endprocedure$>
+<$procedure Struct$>
 
 <$setmerge typeName = <$managedObjectClassName$>$>
 <$setmerge superTypeName = <$if hasSuperentity$><$superentity.managedObjectClassName$><$else$>Model<$endif$>$>
@@ -128,7 +82,7 @@ extension <$typeName$>  {
         <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient && Relationship.userInfo.State.ProtocolRequirementType != get$>store.set(<$Relationship.name$>, forKey: "<$Relationship.name$>")
         <$endif$><$endforeach do$>
         <$if hasSuperentity$>store.set("<$typeName$>", forKey: "<$rootTypeName$>")<$endif$>
-        <$typeName$>.writeVersion(to: store)
+        <$typeName$>.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }
@@ -169,7 +123,7 @@ extension <$typeName$>  {
                    <$if Attribute.userInfo.State.Type$><$call writeAttributeDecodeAssociatedSwitchCaseForEnum Attribute$><$else$><$call writeAttributeDecodeBasicSwitchCaseForEnum Attribute$><$endif$><$endprocedure$>
 
 <$procedure writeRelationshipDecodeAssociatedSwitchCaseForEnumOptional Relationship$>let value: <$if Relationship.isToMany$>[<$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$>? = store.value(forKey: "value")
-self = <$typeName$>.<$Relationship.name$>(value)
+                self = <$typeName$>.<$Relationship.name$>(value)
 <$endprocedure$>
 
 <$procedure writeRelationshipDecodeAssociatedSwitchCaseForEnumNonOptional Relationship$>if let value: <$if Relationship.isToMany$>[<$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$> = store.value(forKey: "value") {
@@ -252,7 +206,7 @@ extension <$typeName$> {
             <$endforeach do$>
         }
 <$else$>        store.set(self.rawValue, forKey: "value")<$endif$>
-            <$typeName$>.writeVersion(to: store)
+            <$typeName$>.writeVersion(to: &store)
             finishWriting(to: &store)
     }
 }

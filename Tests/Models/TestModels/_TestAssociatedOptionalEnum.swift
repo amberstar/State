@@ -72,11 +72,11 @@ extension TestAssociatedOptionalEnum {
 
                 case "decodableToManyType":
                     let value: [Employee]? = store.value(forKey: "value")
-self = TestAssociatedOptionalEnum.decodableToManyType(value)
+                self = TestAssociatedOptionalEnum.decodableToManyType(value)
 
                 case "decodableToOneType":
                     let value: Employee? = store.value(forKey: "value")
-self = TestAssociatedOptionalEnum.decodableToOneType(value)
+                self = TestAssociatedOptionalEnum.decodableToOneType(value)
 
                 default:
                     return nil
@@ -123,7 +123,7 @@ self = TestAssociatedOptionalEnum.decodableToOneType(value)
 
         }
 
-            TestAssociatedOptionalEnum.writeVersion(to: store)
+            TestAssociatedOptionalEnum.writeVersion(to: &store)
             finishWriting(to: &store)
     }
 }

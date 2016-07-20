@@ -59,7 +59,7 @@ extension TestTypes  {
         store.set(myDecimal, forKey: "myDecimal")
         store.set(myInt, forKey: "myInt")
 
-        TestTypes.writeVersion(to: store)
+        TestTypes.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }

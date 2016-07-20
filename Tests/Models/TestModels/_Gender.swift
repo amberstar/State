@@ -28,7 +28,7 @@ extension Gender {
 
     public func write(to store: inout Store) {
         store.set(self.rawValue, forKey: "value")
-            Gender.writeVersion(to: store)
+            Gender.writeVersion(to: &store)
             finishWriting(to: &store)
     }
 }

@@ -74,7 +74,7 @@ extension TestDefaults  {
         store.set(noDefaultChild, forKey: "noDefaultChild")
         store.set(noDefaultChildren, forKey: "noDefaultChildren")
 
-        TestDefaults.writeVersion(to: store)
+        TestDefaults.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }

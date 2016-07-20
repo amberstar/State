@@ -39,7 +39,7 @@ extension TestCollections  {
         store.set(dicOfInts, forKey: "dicOfInts")
         store.set(setOfStrings, forKey: "setOfStrings")
 
-        TestCollections.writeVersion(to: store)
+        TestCollections.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }

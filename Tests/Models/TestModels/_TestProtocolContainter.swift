@@ -39,7 +39,7 @@ extension TestProtocolContainter  {
         store.set(testProtocols, forKey: "testProtocols")
         store.set(testProtocolsDict, forKey: "testProtocolsDict")
 
-        TestProtocolContainter.writeVersion(to: store)
+        TestProtocolContainter.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }

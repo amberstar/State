@@ -28,7 +28,7 @@ class PerfTests: Test {
         let player = self.generateModelOfSize(500, y:10 )
         
         measureBlock() {
-           player.encode()
+            player.encode()
         }
     }
     
@@ -42,19 +42,19 @@ class PerfTests: Test {
     }
     
     func testTimeParsingJSON() {
-        measureBlock {
-             var _ = JSON.read(self.bundlePathFor("Big_data", ofType: "json")!)
+        measure {
+            var _ = JSON.read(self.bundlePathFor("Big_data", ofType: "json")!)
         }
     }
     
     func testTimeParsingPlist() {
-        measureBlock {
+        measure {
             var _ = Plist.read(self.bundlePathFor("Big_data", ofType: "plist")!)
         }
     }
     
     func testTimeParsingBinaryPlist() {
-        measureBlock {
+        measure {
             var _ = Binary.read(self.bundlePathFor("Big_data-bin", ofType: "plist")!)
         }
     }
@@ -67,7 +67,7 @@ class PerfTests: Test {
     }
     
     func testTimeWritingPlist() {
-         let data = Plist.read(self.bundlePathFor("Big_data", ofType: "plist")!)
+        let data = Plist.read(self.bundlePathFor("Big_data", ofType: "plist")!)
         measureBlock {
             Plist.write(data, path: self.tempPathFor("Big_data.plist"))
         }

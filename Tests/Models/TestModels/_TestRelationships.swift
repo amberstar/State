@@ -37,7 +37,7 @@ extension TestRelationships  {
         store.set(myGrandChildren, forKey: "myGrandChildren")
         store.set(myOneChild, forKey: "myOneChild")
 
-        TestRelationships.writeVersion(to: store)
+        TestRelationships.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }

@@ -41,7 +41,7 @@ extension TestChild  {
         store.set(myChildren, forKey: "myChildren")
         store.set(gender, forKey: "gender")
 
-        TestChild.writeVersion(to: store)
+        TestChild.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }

@@ -88,9 +88,9 @@ public struct Store {
     }
 
     /// Sets the value of the specified key to the specified url value.
-    public mutating func set(_ value: URL, forKey key: String) {
+    public mutating func set(_ value: URL?, forKey key: String) {
         
-        guard let urlString : String  = value.absoluteString
+        guard let urlString : String  = value?.absoluteString
             else {
                 return
         }
@@ -117,7 +117,11 @@ public struct Store {
     }
 
     /// Sets the value of the specified key to the specified color value.
-    public mutating func set(_ value: UIColor, forKey key: String) {
+    public mutating func set(_ value: UIColor?, forKey key: String) {
+        guard let value = value
+            else {
+                return
+        }
         var red, green, blue, alpha  : CGFloat
         red = 0; green = 0; blue = 0; alpha = 0
         value.getRed(&red, green: &green, blue: &blue, alpha: &alpha)

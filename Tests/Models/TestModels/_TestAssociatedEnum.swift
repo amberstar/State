@@ -133,7 +133,7 @@ extension TestAssociatedEnum {
 
         }
 
-            TestAssociatedEnum.writeVersion(to: store)
+            TestAssociatedEnum.writeVersion(to: &store)
             finishWriting(to: &store)
     }
 }

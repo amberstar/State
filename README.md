@@ -178,7 +178,7 @@ To generate the model code files:
 mogenerator --model <$path to the .xcdatamodeld file> --swift --template-path <$path to the state templates directory> <$path to the output directory>
 ```
 
-## Code files
+## Generated files
 
 Two files for each entity in the model design are generated when you run Mogenerator.
 - _Model.swift

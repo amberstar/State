@@ -59,7 +59,7 @@ extension TestImmutableTypes  {
         store.set(myDecimal, forKey: "myDecimal")
         store.set(myInt, forKey: "myInt")
 
-        TestImmutableTypes.writeVersion(to: store)
+        TestImmutableTypes.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }

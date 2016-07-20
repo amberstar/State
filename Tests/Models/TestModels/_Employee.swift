@@ -36,7 +36,7 @@ extension Employee  {
         store.set(name, forKey: "name")
         store.set(title, forKey: "title")
 
-        Employee.writeVersion(to: store)
+        Employee.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }

@@ -36,7 +36,7 @@ extension TestProtocolConformer2  {
         store.set(ss_number, forKey: "ss_number")
 
         store.set("TestProtocolConformer2", forKey: "TestParentProtocol")
-        TestProtocolConformer2.writeVersion(to: store)
+        TestProtocolConformer2.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }

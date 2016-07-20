@@ -34,7 +34,7 @@ extension TestTransient3  {
         store.set(myNonTransient1, forKey: "myNonTransient1")
         store.set(myNonTransient2, forKey: "myNonTransient2")
 
-        TestTransient3.writeVersion(to: store)
+        TestTransient3.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }

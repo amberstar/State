@@ -31,7 +31,7 @@ extension TestDefaultsChild  {
     public func write(to store: inout Store) {
         store.set(name, forKey: "name")
 
-        TestDefaultsChild.writeVersion(to: store)
+        TestDefaultsChild.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }

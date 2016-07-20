@@ -45,7 +45,7 @@ extension TestRegEnum {
 
         }
 
-            TestRegEnum.writeVersion(to: store)
+            TestRegEnum.writeVersion(to: &store)
             finishWriting(to: &store)
     }
 }

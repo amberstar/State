@@ -44,7 +44,7 @@ extension Company  {
         store.set(phoneNumber, forKey: "phoneNumber")
         store.set(employees, forKey: "employees")
 
-        Company.writeVersion(to: store)
+        Company.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }

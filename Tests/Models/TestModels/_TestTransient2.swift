@@ -31,7 +31,7 @@ extension TestTransient2  {
     public func write(to store: inout Store) {
         store.set(myNonTransient, forKey: "myNonTransient")
 
-        TestTransient2.writeVersion(to: store)
+        TestTransient2.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }

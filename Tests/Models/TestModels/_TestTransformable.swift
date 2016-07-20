@@ -44,7 +44,7 @@ extension TestTransformable  {
         store.set(myTransformableImmutableOptional, forKey: "myTransformableImmutableOptional")
         store.set(myTransformableOptional, forKey: "myTransformableOptional")
 
-        TestTransformable.writeVersion(to: store)
+        TestTransformable.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }

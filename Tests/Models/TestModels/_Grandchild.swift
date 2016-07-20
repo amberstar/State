@@ -37,7 +37,7 @@ extension Grandchild  {
         store.set(name, forKey: "name")
         store.set(gender, forKey: "gender")
 
-        Grandchild.writeVersion(to: store)
+        Grandchild.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }

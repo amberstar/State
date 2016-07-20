@@ -57,7 +57,7 @@ extension TestOptionalTypes  {
         store.set(myDecimal, forKey: "myDecimal")
         store.set(myInt, forKey: "myInt")
 
-        TestOptionalTypes.writeVersion(to: store)
+        TestOptionalTypes.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }

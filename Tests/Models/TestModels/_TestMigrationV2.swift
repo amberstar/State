@@ -36,7 +36,7 @@ extension TestMigrationV2  {
         store.set(age, forKey: "age")
         store.set(name, forKey: "name")
 
-        TestMigrationV2.writeVersion(to: store)
+        TestMigrationV2.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }

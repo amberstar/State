@@ -7,14 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		041817871B124AB4002CA532 /* BaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817781B124AB4002CA532 /* BaseTest.swift */; };
-		041817891B124AB4002CA532 /* ConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817791B124AB4002CA532 /* ConverterTests.swift */; };
-		0418178B1B124AB4002CA532 /* DecodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418177A1B124AB4002CA532 /* DecodableTests.swift */; };
-		0418178F1B124AB4002CA532 /* DefaultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418177C1B124AB4002CA532 /* DefaultTests.swift */; };
-		041817911B124AB4002CA532 /* EncodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418177D1B124AB4002CA532 /* EncodableTests.swift */; };
-		041817951B124AB4002CA532 /* EnumTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418177F1B124AB4002CA532 /* EnumTests.swift */; };
-		0418179B1B124AB4002CA532 /* RecursiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817821B124AB4002CA532 /* RecursiveTests.swift */; };
-		0418179F1B124AB4002CA532 /* TemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817841B124AB4002CA532 /* TemplateTests.swift */; };
+		041817871B124AB4002CA532 /* StateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817781B124AB4002CA532 /* StateTests.swift */; };
 		044F88121AE5D02900FAB475 /* ObjectModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AC61AE132AE006DAC19 /* ObjectModels.swift */; };
 		044F88131AE5D02900FAB475 /* RecursiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AC71AE132AE006DAC19 /* RecursiveModel.swift */; };
 		044F88961AE69BD900FAB475 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88881AE69BD900FAB475 /* Company.swift */; };
@@ -33,9 +26,6 @@
 		0485AA221AFE9BDE008E89D6 /* TestMigrationV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0485AA1E1AFE9BDE008E89D6 /* TestMigrationV2.swift */; };
 		04925EC01AE9967500BF1D88 /* TestDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04925EBF1AE9967500BF1D88 /* TestDefaults.swift */; };
 		04B46BE21B2EF44F00ED20BF /* BasicModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04012AC51AE132AE006DAC19 /* BasicModels.swift */; };
-		04B46BE41B2EF89400ED20BF /* RelationshipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041817831B124AB4002CA532 /* RelationshipTests.swift */; };
-		04B46BE51B2EFAE000ED20BF /* EncodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418177E1B124AB4002CA532 /* EncodingTests.swift */; };
-		04B46BE71B2EFAE800ED20BF /* DecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418177B1B124AB4002CA532 /* DecodingTests.swift */; };
 		04BD1AD01AE9A6E4008F576C /* TestDefaultsChild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BD1ACE1AE9A6E4008F576C /* TestDefaultsChild.swift */; };
 		04BD1AF01AEACF75008F576C /* TestRegEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BD1AEE1AEACF75008F576C /* TestRegEnum.swift */; };
 		04BD1AF41AEACF86008F576C /* TestRawEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BD1AF21AEACF86008F576C /* TestRawEnum.swift */; };
@@ -86,7 +76,6 @@
 		96960A5D1C90F00B00D4E6D0 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96960A4D1C90F00B00D4E6D0 /* Model.swift */; };
 		96960A681C90F07700D4E6D0 /* State.h in Headers */ = {isa = PBXBuildFile; fileRef = 96960A651C90F07700D4E6D0 /* State.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		96A543611B63C6C8009A2B2D /* TestDictionaryComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A5435E1B63C6C8009A2B2D /* TestDictionaryComposition.swift */; };
-		96B8A8FC1C9ADFCF0086619F /* ProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690A0601C9429A300924F4C /* ProtocolTests.swift */; };
 		96B8A8FE1C9ADFDB0086619F /* TestProtocolContainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8602F1B4B304A006A5ABE /* TestProtocolContainter.swift */; };
 		96B8A9091C9AFA390086619F /* (null) in Sources */ = {isa = PBXBuildFile; };
 		96C86BFD1BC2E81800D6F0F3 /* TestProtocolConformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C86BFB1BC2E7F500D6F0F3 /* TestProtocolConformer.swift */; };
@@ -130,18 +119,8 @@
 		04012AC61AE132AE006DAC19 /* ObjectModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ObjectModels.swift; path = Tests/Models/ObjectModels.swift; sourceTree = "<group>"; };
 		04012AC71AE132AE006DAC19 /* RecursiveModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecursiveModel.swift; path = Tests/Models/RecursiveModel.swift; sourceTree = "<group>"; };
 		041817621B1239C4002CA532 /* TestModels.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestModels.xcdatamodel; sourceTree = "<group>"; };
-		041817781B124AB4002CA532 /* BaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseTest.swift; path = Tests/Tests/BaseTest.swift; sourceTree = SOURCE_ROOT; };
-		041817791B124AB4002CA532 /* ConverterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConverterTests.swift; path = Tests/Tests/ConverterTests.swift; sourceTree = SOURCE_ROOT; };
-		0418177A1B124AB4002CA532 /* DecodableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DecodableTests.swift; path = Tests/Tests/DecodableTests.swift; sourceTree = SOURCE_ROOT; };
-		0418177B1B124AB4002CA532 /* DecodingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DecodingTests.swift; path = Tests/Tests/DecodingTests.swift; sourceTree = SOURCE_ROOT; };
-		0418177C1B124AB4002CA532 /* DefaultTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultTests.swift; path = Tests/Tests/DefaultTests.swift; sourceTree = SOURCE_ROOT; };
-		0418177D1B124AB4002CA532 /* EncodableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EncodableTests.swift; path = Tests/Tests/EncodableTests.swift; sourceTree = SOURCE_ROOT; };
-		0418177E1B124AB4002CA532 /* EncodingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EncodingTests.swift; path = Tests/Tests/EncodingTests.swift; sourceTree = SOURCE_ROOT; };
-		0418177F1B124AB4002CA532 /* EnumTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnumTests.swift; path = Tests/Tests/EnumTests.swift; sourceTree = SOURCE_ROOT; };
-		041817811B124AB4002CA532 /* PerfTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PerfTests.swift; path = Tests/Tests/PerfTests.swift; sourceTree = SOURCE_ROOT; };
-		041817821B124AB4002CA532 /* RecursiveTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecursiveTests.swift; path = Tests/Tests/RecursiveTests.swift; sourceTree = SOURCE_ROOT; };
-		041817831B124AB4002CA532 /* RelationshipTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RelationshipTests.swift; path = Tests/Tests/RelationshipTests.swift; sourceTree = SOURCE_ROOT; };
-		041817841B124AB4002CA532 /* TemplateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemplateTests.swift; path = Tests/Tests/TemplateTests.swift; sourceTree = SOURCE_ROOT; };
+		041817781B124AB4002CA532 /* StateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StateTests.swift; path = Tests/Tests/StateTests.swift; sourceTree = SOURCE_ROOT; };
+		041817811B124AB4002CA532 /* StatePerfTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatePerfTests.swift; path = Tests/Tests/StatePerfTests.swift; sourceTree = SOURCE_ROOT; };
 		0443C9D01AE7F0F1008299E5 /* human.swift.motemplate */ = {isa = PBXFileReference; lastKnownFileType = text; name = human.swift.motemplate; path = Templates/human.swift.motemplate; sourceTree = SOURCE_ROOT; };
 		0443C9D11AE7F0F1008299E5 /* machine.swift.motemplate */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = machine.swift.motemplate; path = Templates/machine.swift.motemplate; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		044F88881AE69BD900FAB475 /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Company.swift; path = Tests/Models/TestModels/Company.swift; sourceTree = "<group>"; };
@@ -167,7 +146,6 @@
 		04BD1AF71AEAD2B9008F576C /* TestAssociatedEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestAssociatedEnum.swift; path = Tests/Models/TestModels/TestAssociatedEnum.swift; sourceTree = "<group>"; };
 		04BD1AFE1AEBA549008F576C /* TestAssociatedOptionalEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestAssociatedOptionalEnum.swift; path = Tests/Models/TestModels/TestAssociatedOptionalEnum.swift; sourceTree = "<group>"; };
 		04C1B93D1AE93D9800A85730 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		04C1B93E1AE93DA100A85730 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		04C3C6D81AFA73E600C95039 /* TestTransient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestTransient.swift; path = Tests/Models/TestModels/TestTransient.swift; sourceTree = "<group>"; };
 		04C3C6DE1AFA77E300C95039 /* TestTransient2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestTransient2.swift; path = Tests/Models/TestModels/TestTransient2.swift; sourceTree = "<group>"; };
 		04C3C6E41AFA7E2400C95039 /* TestTransient3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestTransient3.swift; path = Tests/Models/TestModels/TestTransient3.swift; sourceTree = "<group>"; };
@@ -206,7 +184,6 @@
 		96712B7F1D2DA0B100C7E1C5 /* _TestTransient2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestTransient2.swift; path = Tests/Models/TestModels/_TestTransient2.swift; sourceTree = "<group>"; };
 		96712B801D2DA0B100C7E1C5 /* _TestTransient3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestTransient3.swift; path = Tests/Models/TestModels/_TestTransient3.swift; sourceTree = "<group>"; };
 		96712B811D2DA0B100C7E1C5 /* _TestTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _TestTypes.swift; path = Tests/Models/TestModels/_TestTypes.swift; sourceTree = "<group>"; };
-		9690A0601C9429A300924F4C /* ProtocolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProtocolTests.swift; path = Tests/Tests/ProtocolTests.swift; sourceTree = "<group>"; };
 		9690A0631C942C9100924F4C /* TestProtocolConformer2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestProtocolConformer2.swift; path = Tests/Models/TestModels/TestProtocolConformer2.swift; sourceTree = "<group>"; };
 		96930D981D3BCFD5001F9565 /* Format.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		96960A4D1C90F00B00D4E6D0 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -263,19 +240,8 @@
 			isa = PBXGroup;
 			children = (
 				04012AB91AE13274006DAC19 /* Inputs */,
-				041817781B124AB4002CA532 /* BaseTest.swift */,
-				041817791B124AB4002CA532 /* ConverterTests.swift */,
-				0418177A1B124AB4002CA532 /* DecodableTests.swift */,
-				0418177B1B124AB4002CA532 /* DecodingTests.swift */,
-				0418177C1B124AB4002CA532 /* DefaultTests.swift */,
-				0418177D1B124AB4002CA532 /* EncodableTests.swift */,
-				0418177E1B124AB4002CA532 /* EncodingTests.swift */,
-				0418177F1B124AB4002CA532 /* EnumTests.swift */,
-				041817811B124AB4002CA532 /* PerfTests.swift */,
-				041817821B124AB4002CA532 /* RecursiveTests.swift */,
-				041817831B124AB4002CA532 /* RelationshipTests.swift */,
-				041817841B124AB4002CA532 /* TemplateTests.swift */,
-				9690A0601C9429A300924F4C /* ProtocolTests.swift */,
+				041817781B124AB4002CA532 /* StateTests.swift */,
+				041817811B124AB4002CA532 /* StatePerfTests.swift */,
 				04012AC41AE13290006DAC19 /* Models */,
 				04012A851AE12FA6006DAC19 /* Supporting Files */,
 			);
@@ -397,7 +363,6 @@
 		96960A641C90F07700D4E6D0 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				04C1B93E1AE93DA100A85730 /* LICENSE */,
 				96960A651C90F07700D4E6D0 /* State.h */,
 				96960A661C90F07700D4E6D0 /* StateInfo.plist */,
 				96960A671C90F07700D4E6D0 /* StateTestsInfo.plist */,
@@ -561,21 +526,16 @@
 				96712B9D1D2DA0B100C7E1C5 /* _TestTransient3.swift in Sources */,
 				96712B9C1D2DA0B100C7E1C5 /* _TestTransient2.swift in Sources */,
 				96712B901D2DA0B100C7E1C5 /* _TestOptionalTypes.swift in Sources */,
-				041817871B124AB4002CA532 /* BaseTest.swift in Sources */,
+				041817871B124AB4002CA532 /* StateTests.swift in Sources */,
 				96712B871D2DA0B100C7E1C5 /* _TestAssociatedOptionalEnum.swift in Sources */,
 				044F88971AE69BD900FAB475 /* Employee.swift in Sources */,
 				96712B941D2DA0B100C7E1C5 /* _TestProtocolConformer.swift in Sources */,
-				04B46BE41B2EF89400ED20BF /* RelationshipTests.swift in Sources */,
 				96712B891D2DA0B100C7E1C5 /* _TestCollections.swift in Sources */,
 				96712B861D2DA0B100C7E1C5 /* _TestAssociatedEnum.swift in Sources */,
 				04C3C6E21AFA77E300C95039 /* TestTransient2.swift in Sources */,
 				04925EC01AE9967500BF1D88 /* TestDefaults.swift in Sources */,
-				041817891B124AB4002CA532 /* ConverterTests.swift in Sources */,
-				0418178F1B124AB4002CA532 /* DefaultTests.swift in Sources */,
-				0418178B1B124AB4002CA532 /* DecodableTests.swift in Sources */,
 				96712B8C1D2DA0B100C7E1C5 /* _TestDictionaryComposition.swift in Sources */,
 				96C86BFD1BC2E81800D6F0F3 /* TestProtocolConformer.swift in Sources */,
-				0418179B1B124AB4002CA532 /* RecursiveTests.swift in Sources */,
 				96712B971D2DA0B100C7E1C5 /* _TestRawEnum.swift in Sources */,
 				04C3C6DC1AFA73E600C95039 /* TestTransient.swift in Sources */,
 				044F889B1AE69BD900FAB475 /* TestCollections.swift in Sources */,
@@ -590,30 +550,25 @@
 				044F88981AE69BD900FAB475 /* Gender.swift in Sources */,
 				0485AA221AFE9BDE008E89D6 /* TestMigrationV2.swift in Sources */,
 				044F88121AE5D02900FAB475 /* ObjectModels.swift in Sources */,
-				041817951B124AB4002CA532 /* EnumTests.swift in Sources */,
 				044F88961AE69BD900FAB475 /* Company.swift in Sources */,
 				04B46BE21B2EF44F00ED20BF /* BasicModels.swift in Sources */,
 				96712B831D2DA0B100C7E1C5 /* _Employee.swift in Sources */,
 				04BD1AF01AEACF75008F576C /* TestRegEnum.swift in Sources */,
 				04BD1AF41AEACF86008F576C /* TestRawEnum.swift in Sources */,
 				044F889A1AE69BD900FAB475 /* TestChild.swift in Sources */,
-				04B46BE71B2EFAE800ED20BF /* DecodingTests.swift in Sources */,
 				96712B881D2DA0B100C7E1C5 /* _TestChild.swift in Sources */,
 				960072DC1BA8590E00AFD3C5 /* TestParentProtocol.swift in Sources */,
 				044F88A21AE69BD900FAB475 /* TestTransformable.swift in Sources */,
 				96712B961D2DA0B100C7E1C5 /* _TestProtocolContainter.swift in Sources */,
 				96712B951D2DA0B100C7E1C5 /* _TestProtocolConformer2.swift in Sources */,
-				04B46BE51B2EFAE000ED20BF /* EncodingTests.swift in Sources */,
 				96712B8D1D2DA0B100C7E1C5 /* _TestImmutableOptionalTypes.swift in Sources */,
 				96712B8F1D2DA0B100C7E1C5 /* _TestMigrationV2.swift in Sources */,
-				041817911B124AB4002CA532 /* EncodableTests.swift in Sources */,
 				96712B931D2DA0B100C7E1C5 /* _TestProtocol.swift in Sources */,
 				04BD1AD01AE9A6E4008F576C /* TestDefaultsChild.swift in Sources */,
 				96712B9A1D2DA0B100C7E1C5 /* _TestTransformable.swift in Sources */,
 				9690A0651C942C9100924F4C /* TestProtocolConformer2.swift in Sources */,
 				96712B851D2DA0B100C7E1C5 /* _Grandchild.swift in Sources */,
 				96712B921D2DA0B100C7E1C5 /* _TestParentProtocol.swift in Sources */,
-				96B8A8FC1C9ADFCF0086619F /* ProtocolTests.swift in Sources */,
 				96712B9E1D2DA0B100C7E1C5 /* _TestTypes.swift in Sources */,
 				044F88131AE5D02900FAB475 /* RecursiveModel.swift in Sources */,
 				96712B8A1D2DA0B100C7E1C5 /* _TestDefaults.swift in Sources */,
@@ -629,7 +584,6 @@
 				044F88991AE69BD900FAB475 /* Grandchild.swift in Sources */,
 				04BD1AF81AEAD2B9008F576C /* TestAssociatedEnum.swift in Sources */,
 				044F889D1AE69BD900FAB475 /* TestImmutableOptionalTypes.swift in Sources */,
-				0418179F1B124AB4002CA532 /* TemplateTests.swift in Sources */,
 				04C3C6E81AFA7E2400C95039 /* TestTransient3.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

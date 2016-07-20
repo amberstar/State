@@ -29,7 +29,7 @@ extension TestRawEnum {
 
     public func write(to store: inout Store) {
         store.set(self.rawValue, forKey: "value")
-            TestRawEnum.writeVersion(to: store)
+            TestRawEnum.writeVersion(to: &store)
             finishWriting(to: &store)
     }
 }

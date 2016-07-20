@@ -51,7 +51,7 @@ extension TestProtocolConformer  {
         store.set(children, forKey: "children")
 
         store.set("TestProtocolConformer", forKey: "TestParentProtocol")
-        TestProtocolConformer.writeVersion(to: store)
+        TestProtocolConformer.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }

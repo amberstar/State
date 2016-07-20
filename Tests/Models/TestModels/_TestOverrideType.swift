@@ -33,7 +33,7 @@ extension TestOverrideType  {
         store.set(myURL, forKey: "myURL")
         store.set(myArrayOfString, forKey: "myArrayOfString")
 
-        TestOverrideType.writeVersion(to: store)
+        TestOverrideType.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }
