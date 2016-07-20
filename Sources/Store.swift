@@ -78,13 +78,23 @@ public struct Store {
 
     /// Returns the url associated with the specified key.
     public func value(forKey key: String) -> URL? {
-        guard let urlString : String  = value(forKey: key) else { return nil }
+        
+        guard let urlString : String  = value(forKey: key)
+            else {
+                return nil
+        }
+        
         return URL(string: urlString)
     }
 
     /// Sets the value of the specified key to the specified url value.
     public mutating func set(_ value: URL, forKey key: String) {
-        guard let urlString : String  = value.absoluteString else { return }
+        
+        guard let urlString : String  = value.absoluteString
+            else {
+                return
+        }
+        
         data[key] = urlString
     }
 
@@ -92,6 +102,7 @@ public struct Store {
 
     /// Returns the color associated with the specified key.
     public func value(forKey key: String) -> UIColor? {
+        
         guard
             let cStore = store(forKey: key),
             let red: Float = cStore.value(forKey: "red"),
@@ -120,7 +131,6 @@ public struct Store {
         set(cStore, forKey: key)
     }
 
-
 // MARK: - Bool
 
     /// Returns the bool value associated with the specified key.
@@ -134,13 +144,16 @@ public struct Store {
         return bool(forKey: key) ?? defaultValue
     }
 
-// TODO: GYB other types.
-
 // MARK: - Sub Stores
 
     /// Returns the sub store associated with the specified key.
     public func store(forKey key: String) -> Store? {
-        guard let data = data[key] as? [String : AnyObject] else { return nil }
+        
+        guard let data = data[key] as? [String : AnyObject]
+            else {
+                return nil
+        }
+        
         return Store(data: data)
     }
 
@@ -153,7 +166,11 @@ public struct Store {
 
     /// Create a store with file content in the specified format.
     public init?(file: URL, format: Format) {
-        guard let data = format.formatter.read(file) as? [String : AnyObject] else { return nil }
+        guard let data = format.formatter.read(file) as? [String : AnyObject]
+            else {
+                return nil
+        }
+        
         self.data = data
     }
 
@@ -174,7 +191,11 @@ public struct Store {
 
     /// Create a store with a string in the specified format.
     public init?(content: String, format: Format) {
-        guard let data = format.formatter.read(content) as? [String : AnyObject] else { return nil }
+        guard let data = format.formatter.read(content) as? [String : AnyObject]
+            else {
+                return nil
+        }
+        
         self.data = data
     }
 
@@ -182,7 +203,12 @@ public struct Store {
 
     /// Create a store with data in the specified format.
     public init?(content: Data, format: Format) {
-        guard let data = format.formatter.read(content) as? [String : AnyObject] else { return nil }
+        
+        guard let data = format.formatter.read(content) as? [String : AnyObject]
+            else {
+                return nil
+        }
+        
         self.data = data
     }
 
@@ -203,14 +229,24 @@ public struct Store {
 
 public func sequence<T>(_ array: [T?]) -> [T]? {
     return  array.reduce(.some([])) { accum, elem in
-        guard let accum = accum, let elem = elem else { return nil }
+        
+        guard let accum = accum, let elem = elem
+            else {
+                return nil
+        }
+        
         return accum + [elem]
     }
 }
 
 public func sequence<T>(_ dictionary: [String: T?]) -> [String: T]? {
     return dictionary.reduce(.some([:])) { accum, elem in
-        guard let accum = accum, let value = elem.1 else { return nil }
+        
+        guard let accum = accum, let value = elem.1
+            else {
+                return nil
+        }
+        
         var result = accum
         result[elem.0] = value
         return result

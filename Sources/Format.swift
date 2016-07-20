@@ -43,6 +43,7 @@ public enum Format {
     /// returns a formatter that can
     /// read and write to the current format.
     var formatter : Formatter {
+        
         switch self {
         case .binary:
             return Formatter()
@@ -62,6 +63,7 @@ class Formatter {
     /// write data to a file
     /// - returns: true if succeeded, false if failed
     func write(_ object: AnyObject, to url: URL) -> Bool  {
+        
         if let data = makeData(from: object, prettyPrint: true) {
             return ((try? data.write(to: url, options: [.atomic] )) != nil)
         }
@@ -80,6 +82,7 @@ class Formatter {
     /// write data to String
     /// - returns: a string or nil if failed
     func makeString(from object: AnyObject) -> String? {
+        
         if let data = makeData(from: object, prettyPrint: true) {
             return NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String
         } else {
@@ -97,6 +100,7 @@ class Formatter {
     /// Read file from a URL
     /// - returns: a data object or nil
     func read(_ url: URL) -> AnyObject? {
+        
         if let data = try? Data(contentsOf: url) {
             return read(data)
         }
@@ -106,7 +110,12 @@ class Formatter {
     /// Read data from a string
     /// - returns: a data object or nil
     func read(_ content: String) -> AnyObject? {
-        guard let data = makeData(from: content) else { return nil }
+        
+        guard let data = makeData(from: content)
+            else {
+                return nil
+        }
+        
         return read(data)
     }
 
@@ -133,8 +142,9 @@ final class JSONFormatter: Formatter {
     override func makeData(from object: AnyObject,
                            prettyPrint: Bool) -> Data?  {
 
-        guard JSONSerialization.isValidJSONObject(object) else {
-            return nil
+        guard JSONSerialization.isValidJSONObject(object)
+            else {
+                return nil
         }
 
         let options: JSONSerialization.WritingOptions = prettyPrint ? .prettyPrinted : []
@@ -181,7 +191,8 @@ final class PlistFormatter: Formatter {
                            prettyPrint: Bool) -> Data?  {
 
         guard PropertyListSerialization.propertyList(
-            object, isValidFor: PropertyListSerialization.PropertyListFormat.xml) else {
+            object, isValidFor: PropertyListSerialization.PropertyListFormat.xml)
+            else {
                 return nil
         }
 

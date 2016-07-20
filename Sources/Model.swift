@@ -100,22 +100,47 @@ extension Model {
 
     /// Create a model from a file in the specified format.
     public init?(file: URL, format: Format) {
-        guard let data = format.formatter.read(file) else { return nil }
-        guard let instance = Self.read(from: Store(data: data as! [String : AnyObject])) else { return nil }
+        guard let data = format.formatter.read(file)
+            else {
+                return nil
+        }
+        
+        guard let instance = Self.read(from: Store(data: data as! [String : AnyObject]))
+            else {
+                return nil
+        }
+        
         self = instance
     }
 
     /// Create a model from a string in the specified format.
     public init?(content: String, format: Format) {
-        guard let data = format.formatter.read(content) else { return nil }
-        guard let instance = Self.read(from: Store(data: data as! [String : AnyObject])) else { return nil }
+        
+        guard let data = format.formatter.read(content)
+            else {
+                return nil
+        }
+        
+        guard let instance = Self.read(from: Store(data: data as! [String : AnyObject]))
+            else {
+                return nil
+        }
+        
         self = instance
     }
 
     /// Create a model from data in the specified format.
     public init?(content: Data, format: Format) {
-        guard let data = format.formatter.read(content) else { return nil }
-        guard let instance = Self.read(from: Store(data: data as! [String : AnyObject])) else { return nil }
+        guard let data = format.formatter.read(content)
+            else {
+                return nil
+        }
+        
+        guard let instance = Self.read(from: Store(data: data as! [String : AnyObject]))
+            else {
+                return nil
+        }
+        
         self = instance
     }
 
@@ -144,10 +169,18 @@ extension Model {
 
     // These default implementations do nothing to provide them as optional.
 
-    public static func migrate(source: Store) -> Store {  return source }
-    public static func writeVersion(to: inout Store) { } // default implementation does nothing
-    public func finishReading(from: Store)  { } // default implementation does nothing
-    public func finishWriting(to: inout Store) { } // default implementation does nothing
+    public static func migrate(source: Store) -> Store {
+        return source
+    }
+    
+    // default implementation does nothing
+    public static func writeVersion(to: inout Store) { }
+    
+    // default implementation does nothing
+    public func finishReading(from: Store)  { }
+    
+    // default implementation does nothing
+    public func finishWriting(to: inout Store) { }
 }
 
 
@@ -156,8 +189,17 @@ extension Model {
 extension Array where Element: Model {
     /// Create an array of models from a file in the specified format.
     public init?(file: URL, format: Format) {
-        guard let data = format.formatter.read(file) as? [[String : AnyObject]] else { return nil }
-        guard let instance =  sequence(data.map { Element.read(from: Store(data: $0)) }) else  { return nil }
+        
+        guard let data = format.formatter.read(file) as? [[String : AnyObject]]
+            else {
+                return nil
+        }
+        
+        guard let instance =  sequence(data.map { Element.read(from: Store(data: $0)) })
+            else  {
+                return nil
+        }
+        
         self = instance
     }
 
@@ -194,16 +236,28 @@ extension Dictionary where Key: AnyObject, Value: Model {
 
     /// Create a dictionary of models from a file in the specified format.
     public init?(file: URL, format: Format) {
-        guard let fileData = format.formatter.read(file) as? [Key : [String : AnyObject]] else { return nil }
+        
+        guard let fileData = format.formatter.read(file) as? [Key : [String : AnyObject]]
+            else {
+                return nil
+        }
+        
         let data : [Key : Value?] = fileData.map { Value.read(from: Store(data: $0)) }
 
         guard let instance : [Key : Value] = data.reduce(.some([:]), combine: { accum, elem in
-            guard let accum = accum, let value = elem.1 else { return nil }
+            
+            guard let accum = accum, let value = elem.1
+                else {
+                    return nil
+            }
+            
             var result = accum
             result[elem.0] = value
             return result
             })
-            else { return nil }
+            else {
+                return nil
+        }
 
        self = instance
     }
@@ -226,7 +280,8 @@ extension Dictionary where Key: AnyObject, Value: Model {
     }
 
     func encodeToData() -> AnyObject {
-        return self.reduce( [Key : [String : AnyObject]]()) { (accum, elem) -> [Key : [String : AnyObject]] in
+        return self.reduce( [Key : [String : AnyObject]]())
+        { (accum, elem) -> [Key : [String : AnyObject]] in
             var vaccum = accum
             var vstore = Store()
             elem.value.write(to: &vstore)
@@ -240,8 +295,16 @@ extension Set where Element: Model {
 
     /// Create a set of models from a file in the specified format.
     public init?(file: URL, format: Format) {
-        guard let data = format.formatter.read(file) as? [[String : AnyObject]] else { return nil }
-        guard let instance =  sequence(data.map { Element.read(from: Store(data: $0)) }) else  { return nil }
+        guard let data = format.formatter.read(file) as? [[String : AnyObject]]
+            else {
+                return nil
+        }
+        
+        guard let instance =  sequence(data.map { Element.read(from: Store(data: $0)) })
+            else  {
+                return nil
+        }
+        
         self = Set(instance)
     }
 
@@ -264,7 +327,8 @@ extension Set where Element: Model {
 
     func encodeToData() -> AnyObject {
 
-        return self.reduce([[String :  AnyObject]]()) { (accum, elem) -> [[String : AnyObject]] in
+        return self.reduce([[String :  AnyObject]]())
+        { (accum, elem) -> [[String : AnyObject]] in
             var vaccum = accum
             var vstore = Store()
             elem.write(to: &vstore)
@@ -278,7 +342,12 @@ extension Store {
 
     /// Return a value at key or nil if not found.
     public func value<Value: Model>(forKey key: String) -> Value? {
-        guard let data = data[key] as? [String : AnyObject] else { return nil }
+        
+        guard let data = data[key] as? [String : AnyObject]
+            else {
+                return nil
+        }
+        
         return Value.read(from: Store(data: data))
     }
 
@@ -289,7 +358,12 @@ extension Store {
 
     /// Return a value at key or nil if not found.
     public func value<Value: Model>(forKey key: String) -> [Value]? {
-        guard let data = data[key] as? [[String : AnyObject]] else { return nil }
+        
+        guard let data = data[key] as? [[String : AnyObject]]
+            else {
+                return nil
+        }
+        
         return sequence(data.map { Value.read(from: Store(data: $0)) })
     }
 
@@ -299,13 +373,23 @@ extension Store {
 
     /// Return a value at key or nil if not found.
     public func value<Value: Model>(forKey key: String) -> [String : Value]? {
-        guard let data = data[key] as?  [String : [String : AnyObject]] else { return nil }
+        
+        guard let data = data[key] as?  [String : [String : AnyObject]]
+            else {
+                return nil
+        }
+        
         return sequence(data.map { Value.read(from: Store(data: $0))})
     }
 
     /// Add or update the value at key.
     public mutating func set<Value: Model>(_ value: Value?, forKey key: String ) {
-        guard let value = value else  { return }
+        
+        guard let value = value
+            else  {
+                return
+        }
+        
         var vstore = Store()
         value.write(to: &vstore)
         data[key] = vstore.data
@@ -313,9 +397,14 @@ extension Store {
 
     /// Add or update the value at key.
     public mutating func set<Value: Model>(_ value: [Value]?, forKey key: String) {
-        guard let value = value else { return }
+        
+        guard let value = value
+            else {
+                return
+        }
 
-        let data  = value.reduce([[String : AnyObject]](), combine: { (data, value) -> [[String: AnyObject]] in
+        let data  = value.reduce([[String : AnyObject]](), combine:
+            { (data, value) -> [[String: AnyObject]] in
             var vstore = Store()
             var vdata = data
             value.write(to: &vstore )
@@ -329,7 +418,11 @@ extension Store {
     /// Add or update the value at key.
     public mutating func set<Value: Model>(_ value: [String : Value]?, forKey key: String) {
 
-        guard let value = value else { return }
+        guard let value = value
+            else {
+                return
+        }
+        
         let data = value.reduce([String : [String : AnyObject]](), combine: { (data, element) -> [String : [String : AnyObject]] in
             var vstore = Store()
             var vdata = data
