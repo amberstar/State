@@ -1,31 +1,22 @@
 # State Model Framework
 
-[Designing Models in the Xcode data modeler] (#Designing-Models-in-the-Xcode-data-modeler)
-
-[Struct Models](#Structs)
-
-[Enum Models](#Enums)
-
-[Protocol Models](#Protocols)
-
-[Generating code](#Generating-Code)
-
-[Reading and Writing Models](#Reading-and-Writing-Models)
-
-[Version and Migration](#Versioning-and-Migration )
+- [Designing Models in the Xcode Data Modeler] (#Designing-Models-in-the-Xcode-data-modeler)
+- [Struct Models](#Structs)
+- [Enum Models](#Enums)
+- [Protocol Models](#Protocols)
+- [Generating code](#Generating-Code)
+- [Reading and Writing Models](#Reading-and-Writing-Models)
+- [Version and Migration](#Versioning-and-Migration )
 
 
-Requirements
-
+**Requirements**
 - Swift 3.0
 - Xcode 8.0
 - iOS 8.0
 - Mogenerator 1.28
-
-
 ---
 
-# Designing Models in the Xcode data modeler
+# Designing Models in the Xcode Data Modeler
 Add a new data model file to the project, but do not link it to any targets. In the modeler elements correspond to the model as follows:
 
 |    Data Model Type    |          Swift Model Type          |
@@ -61,27 +52,16 @@ The following tables show the keys and values you can enter into the user-info s
 ## Structs
 Entities are structs by default.
 
-To create a struct in the modeler:
-
-1. Create an Entity, give it a name, and set a class name in the property inspector.
+1. Create an entity, give it a name, and set a class name in the property inspector.
 2. Create attributes, and relationships as required.
 
 ## Enums
-The following types of enums are supported:
-* enums
-* raw value enums
-* enums with cases that have associated values
-
-To create an enum in the modeler:
-
 1. Add the key `State.Enum` and the value `YES` to an entity in the user info area of the inspector to specify an entity as an enum.
-
 2. Add attributes to create cases for the enum. The name of the attribute becomes the name of the case.
 
 ### Associated values
-To specify the associated value type of an enum case:
 
-* Add the key `State.Type` to the user info section of the inspector for the attribute and specify the
+*  Add the key `State.Type` to the user info section of the inspector for the attribute and specify the
 type in the value field.
 
 *-or-*
@@ -89,11 +69,10 @@ type in the value field.
 *  Create a relationship to another model entity to specify the destination entity type as the associated value type.
 
 ### Raw value enums
-Raw value enums are enums that have a type, and each case has a value called the raw value. To create raw value enums in the modeler:
 
-1. Specify an entity as an enum as described in the enum section
+1. Specify an entity as an enum as described above
 
-2. Add the `State.Type` key  to **Entity** in the user-info part of the inspector
+2. Add the `State.Type` key to the **Entity** in the user-info part of the inspector
 
 3. Specify a type in the value field of the `State.Type`.
 
@@ -103,7 +82,7 @@ Raw value enums are enums that have a type, and each case has a value called the
 
 Notes:
 * Raw values enum types can be any type including other model entities
-* Optionals and transforms are not supported for raw value types
+* Optionals are not supported for raw value types
 * Raw value enums cannot have associated value types in the cases
 
 ## Protocols
@@ -111,10 +90,11 @@ Notes:
 To create a protocol:
 
 1. create an entity, give it name and a class name in the property inspector.
-2. Add the `State.Protocol` key to the user info section, or checking the abstract checkbox in the inspector.
+2. Add the `State.Protocol` key to the user info section, or check the abstract checkbox in the inspector.
 
 ### Adding function requirements
-You can specify function requirements on protocols using the `State.ProtocolRequirementType` and the `State.Func` key on the protocol entities attributes.
+Use the `State.ProtocolRequirementType` and the `State.Func` key on the protocol entities attributes.
+
 **Note:** an empty implementation is added to the **manual** file only the first time it is generated. If you already generated code before adding this requirement
 you may have to manually add it to the manual file.
 
@@ -123,7 +103,9 @@ On the protocol requirement attribute:
 - Set State.Func to the exact function signature of the requirement
 
 ### Adding read-only property requirements
-You can specify a variable requirement as readonly using the `State.ProtocolRequirementType` with a value of `get` on protocol attributes and relationships.
+
+Use the `State.ProtocolRequirementType` with a value of `get` on protocol attributes and relationships.
+
 **Note:** an empty implementation is added to the **manual** file only the first time it is generated. If you already generated code before adding this requirement
 you may have to manually add it to the manual file.
 
@@ -163,11 +145,12 @@ Notes
 Select the optional check box for an attribute in the data modeler inspector window and the property will be implemented as an optional type.
 
 ## Default Values
-You can specify a default value in the inspector window, or use `State.Value` in the user info section to give a property a default value. **Note:** because of swift 1.2 bugs, default values are not fully supported. Current limitations are:
-1. Not supported for optional types
-2. Some type inference problems can occur but will be caught at compile time if so.
+You can specify a default value in the inspector window, or use `State.Value` in the user info section to give a property a default value.
 
-## Transients (experimental)
+Current limitations are:
+1. not supported for optional types
+
+## Transients
 There is preliminary support for transient properties. Mark the attribute as transient in the inspector. Transients MUST be optional OR have a default value.
 
 ## Data Modeler Notes / Gotchas
@@ -180,9 +163,9 @@ There is preliminary support for transient properties. Mark the attribute as tra
 
 # Generating Code
 You must have mogenerator installed and it must be the version specified
-in the system requirements section. (newer versions of mogenerator are not supported).
+in the requirements. (newer versions of mogenerator are not supported).
 
-Type the following in to terminal to generate the model code files.
+To generate the model code files:
 
 ```
 mogenerator --model <$path to the .xcdatamodeld file> --swift --template-path <$path to the state templates directory> <$path to the output directory>
@@ -239,8 +222,8 @@ for up to date installation instructions.
 
 # Reading and Writing Models
 
-`Models`, and collections of them can be
-  written and read to files, `Strings`, or `Data`.
+Models, and collections of models can be
+  written to and read from files, `Strings`, or `Data`.
 
 ```swift
 // save person to JSON
@@ -264,7 +247,7 @@ let person = Person(content: dataPerson)
 ```
 
 # Versioning and Migration
-Versioning and migration is opt-in. By default models do not version or migrate.
+Versioning and migration is opt-in. Models do not version or migrate by default.
 
 To support versioning and migration implement the following methods in your model extension:
 
@@ -284,9 +267,6 @@ To support versioning and migration implement the following methods in your mode
     -  return the updated store
 
 ## Automatic code generation setup.
-To set up to automatically generate code every time you build the project:
-
-If you do not have State framework, or mogenerator installed do that first.
 
 1. In your Xcode project, select `file > new > target`, and under OS X select other. Choose "External Build System" and click next.
 
@@ -303,12 +283,9 @@ Build Tool: `/usr/local/bin/mogenerator`
 Arguments:
 	--model `<path to your .xcdatamodeld file>` --swift --template-path `<path to states template folder>` --output-dir `<path to save model code files>`
 
-example:
-If state is installed in a subdirectory of your project, and you had a models folder for your models, it would look something like this: --model $(SRCROOT)/ProjectName/Models/Model.xcdatamodeld --swift --template-path $(SRCROOT)/../State/Templates --output-dir $(SRCROOT)/ProjectName/Models/
-
 5. Select the target that you want to use the model entities in, and select `Build Phases` and twist open the `Target Dependencies` section at the top.
 
-6. Click the plus to add a dependency and select the GenerateModels target you just created earlier.
+6. Click plus to add a dependency, select the GenerateModels target.
 	This will tell Xcode to build your GenerateModels target before building the host target.
 
 7. The first time you generate the code files you will have to manually add them to the project.
