@@ -29,16 +29,14 @@ Add a new data model file to the project, but do not link it to any targets. In 
 The following tables show the keys and values you can enter into the user-info section of the data modeler inspector window to use the options described. You only need to add these settings when you require them to be other than the default.
 
 
-
-
 ### Entity Settings
 | Key                              | Description                | Values            |
 | -------------------------------- | -------------------------- | :----------------:|
 | `State.Enum` | sets entity to enum. | `YES`, **`NO`** |
 | `State.Protocol` | set entity to protocol.  | `YES`, **`NO`** |
-| `State.Type`       | if State.Enum sets enum to a raw value enum, and sets raw value type. if State.Protocol sets protocol inheritance.  |**for enum:** The exact type **-or**  **for protocol:** comma separated list of inherited protocols |
+| `State.Type`       | if State.Enum sets enum to a raw value enum, and sets raw value type. if State.Protocol sets protocol inheritance.  |enum: The exact type /n **-or** /n  protocol: comma separated list of inherited protocols |
 | `State.Model`       | Used for raw value enums, sets raw value type as a model type.  |`Model`, `ModelArray`, `ModelDictionary`  |
-** values in bold = default when no value is present.**
+**values in bold = default when no value is present.**
 
 ### Attribute Settings
 
@@ -51,8 +49,8 @@ The following tables show the keys and values you can enter into the user-info s
 | `State.ProtocolRequirementType`       | use on protocol attributes. sets requirement type. **note: if not specified `var` is assumed, use `get` to generate a get only variable requirement| `func`, **`var`**, `get`  |
 | `State.Value`	| sets a default value for a property. (only supported for non-optional properties) **-or-**  sets the raw value of an enum case. | The exact value
 | `State.Import`	| use to import a module in the generated source for the particular attribute type  | The exact module name
-| `State.CompositionType`       | used with one-to-many relationships. sets the type of collection to use for a one to many relationship.|Dictionary,  ** Array**  |
-** values in bold = default when no value is present.**
+| `State.CompositionType`       | used with one-to-many relationships. sets the type of collection to use for a one to many relationship.|Dictionary,  **Array**  |
+**values in bold = default when no value is present.**
 
 ## Structs
 Entities are structs by default.
