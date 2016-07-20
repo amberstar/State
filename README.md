@@ -15,6 +15,16 @@
 [Version and Migration](#Versioning-and-Migration )
 
 
+Requirements
+
+- Swift 3.0
+- Xcode 8.0
+- iOS 8.0
+- Mogenerator 1.28
+
+
+---
+
 # Designing Models in the Xcode data modeler
 Add a new data model file to the project, but do not link it to any targets. In the modeler elements correspond to the model as follows:
 
@@ -68,7 +78,7 @@ To create an enum in the modeler:
 
 2. Add attributes to create cases for the enum. The name of the attribute becomes the name of the case.
 
-### Associated values :
+### Associated values
 To specify the associated value type of an enum case:
 
 * Add the key `State.Type` to the user info section of the inspector for the attribute and specify the
@@ -78,7 +88,7 @@ type in the value field.
 
 *  Create a relationship to another model entity to specify the destination entity type as the associated value type.
 
-### Raw value enums:
+### Raw value enums
 Raw value enums are enums that have a type, and each case has a value called the raw value. To create raw value enums in the modeler:
 
 1. Specify an entity as an enum as described in the enum section
@@ -138,21 +148,21 @@ You can use protocols as types just like struct and enum types. A protocol exten
 
 You can compose with protocols. For example, one model item can have a one to many composition to a protocol type. This allows you to add any conforming type into the composition collection of the containing model type.
 
-#### Example:
+#### Example
 The following shows a valid model design for an AssetLibrary. AssetGroup has assets which is a one-to-many relationship to the `Asset protocol type`. `FileAsset` is protocol that inherits from `Asset`. ColorAsset, ImageAsset, and SoundAsset are all conforming model types.
 
 You can add any of the conforming types to the assets of `AssetGroup`. When AssetGroup is serialized and de-serialized, each type contained in the assets composition will be restored.
 
 ![<Protocol Example>](Resources/protocol_1.png)
 
-Notes:
+Notes
 * Protocol requirements can include other model items
 * Model items can have relationships to protocol types.
 
-## Optionals:
+## Optionals
 Select the optional check box for an attribute in the data modeler inspector window and the property will be implemented as an optional type.
 
-## Default Values:
+## Default Values
 You can specify a default value in the inspector window, or use `State.Value` in the user info section to give a property a default value. **Note:** because of swift 1.2 bugs, default values are not fully supported. Current limitations are:
 1. Not supported for optional types
 2. Some type inference problems can occur but will be caught at compile time if so.
@@ -160,7 +170,7 @@ You can specify a default value in the inspector window, or use `State.Value` in
 ## Transients (experimental)
 There is preliminary support for transient properties. Mark the attribute as transient in the inspector. Transients MUST be optional OR have a default value.
 
-## Data Modeler Notes / Gotchas:
+## Data Modeler Notes / Gotchas
 
 - You must always enter a class name in the entities property inspector or no code will be generated
 - Int16, Int32 or Int64 are all currently implemented as Int.
@@ -304,15 +314,3 @@ If state is installed in a subdirectory of your project, and you had a models fo
 7. The first time you generate the code files you will have to manually add them to the project.
 
 You should now be able to add entities to the data modeler, and the code files should generate each time you build. If not, check the issue or report navigator to investigate the cause.
-
-
-# System Requirements
-
-- Swift 3.0
-- Xcode 8.0
-- iOS 8.0
-- Mogenerator 1.28
-
-# License
-
-State is released under the MIT license.
