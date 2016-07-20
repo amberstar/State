@@ -24,7 +24,7 @@ Add a new data model file to the project, but do not link it to any targets. In 
 |-------------------|----------------------------------|
 | Entity              | struct \| enum                      |
 | Attribute    | property \| enum: case |
-| Relationship | property \| enum associated value <ul> <li>if source is enum: target is associated value </li><li>if target is enum: enum property</li><li>if one-to-many, property is collection.</li></ul>|
+| Relationship | property \| enum associated value <br><ul> <li>if source == enum -> target == associated value </li><li>if target == enum -> enum property</li><li>if one-to-many -> property is collection</li></ul>|
 
 The following tables show the keys and values you can enter into the user-info section of the data modeler inspector window to use the options described. You only need to add these settings when you require them to be other than the default.
 
@@ -35,7 +35,7 @@ The following tables show the keys and values you can enter into the user-info s
 | `State.Enum` | set entity is enum | `YES`, **`NO`** |
 | `State.Protocol` | set entity is protocol  | `YES`, **`NO`** |
 | `State.Type`       | enum: set enum is raw value enum, and raw value type. <br> protocol: set protocol inheritance.  |enum: The exact type <br> **-or** <br>  protocol: comma separated list of inherited protocols |
-| `State.Model`       | raw value enums: set raw value is model type  |`Model`, `ModelArray`, `ModelDictionary`  |
+| `State.Model`       | set raw value model type for a raw value enum.  |`Model`, `ModelArray`, `ModelDictionary`  |
 **values in bold = default when no value is present.**
 
 ### Attribute Settings
