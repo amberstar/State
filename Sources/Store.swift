@@ -83,7 +83,6 @@ public struct Store {
             else {
                 return nil
         }
-        
         return URL(string: urlString)
     }
 
@@ -94,7 +93,6 @@ public struct Store {
             else {
                 return
         }
-        
         data[key] = urlString
     }
 
@@ -135,19 +133,6 @@ public struct Store {
         set(cStore, forKey: key)
     }
 
-// MARK: - Bool
-
-    /// Returns the bool value associated with the specified key.
-    public func bool(forKey key: String) -> Bool? {
-        return value(forKey: key)
-    }
-
-    /// Returns the bool value associated with the specified key
-    /// or the specified defaultValue if key is not found.
-    public func bool(forKey key: String, defaultValue: Bool) -> Bool {
-        return bool(forKey: key) ?? defaultValue
-    }
-
 // MARK: - Sub Stores
 
     /// Returns the sub store associated with the specified key.
@@ -157,7 +142,6 @@ public struct Store {
             else {
                 return nil
         }
-        
         return Store(data: data)
     }
 
@@ -174,7 +158,6 @@ public struct Store {
             else {
                 return nil
         }
-        
         self.data = data
     }
 
@@ -199,7 +182,6 @@ public struct Store {
             else {
                 return nil
         }
-        
         self.data = data
     }
 
@@ -212,7 +194,6 @@ public struct Store {
             else {
                 return nil
         }
-        
         self.data = data
     }
 
@@ -238,7 +219,6 @@ public func sequence<T>(_ array: [T?]) -> [T]? {
             else {
                 return nil
         }
-        
         return accum + [elem]
     }
 }
@@ -250,7 +230,6 @@ public func sequence<T>(_ dictionary: [String: T?]) -> [String: T]? {
             else {
                 return nil
         }
-        
         var result = accum
         result[elem.0] = value
         return result

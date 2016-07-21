@@ -96,7 +96,6 @@ class Formatter {
         return NSKeyedUnarchiver.unarchiveObject(with: data) as? [String : AnyObject]
     }
 
-
     /// Read file from a URL
     /// - returns: a data object or nil
     func read(_ url: URL) -> AnyObject? {

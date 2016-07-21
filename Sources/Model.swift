@@ -183,14 +183,45 @@ extension Model {
     public func finishWriting(to: inout Store) { }
 }
 
-
-// TODO: Refactor these collections to reduce repeating
+// TODO: Refactor these collections to reduce repeat code
 
 extension Array where Element: Model {
     /// Create an array of models from a file in the specified format.
     public init?(file: URL, format: Format) {
         
         guard let data = format.formatter.read(file) as? [[String : AnyObject]]
+            else {
+                return nil
+        }
+        
+        guard let instance =  sequence(data.map { Element.read(from: Store(data: $0)) })
+            else  {
+                return nil
+        }
+        
+        self = instance
+    }
+    
+    /// Create an array of models from a string in the specified format.
+    public init?(content: String, format: Format) {
+        
+        guard let data = format.formatter.read(content) as? [[String : AnyObject]]
+            else {
+                return nil
+        }
+        
+        guard let instance =  sequence(data.map { Element.read(from: Store(data: $0)) })
+            else  {
+                return nil
+        }
+        
+        self = instance
+    }
+    
+    /// Create an array of models from data in the specified format.
+    public init?(content: Data, format: Format) {
+        
+        guard let data = format.formatter.read(content) as? [[String : AnyObject]]
             else {
                 return nil
         }
@@ -232,111 +263,6 @@ extension Array where Element: Model {
     }
 }
 
-extension Dictionary where Key: AnyObject, Value: Model {
-
-    /// Create a dictionary of models from a file in the specified format.
-    public init?(file: URL, format: Format) {
-        
-        guard let fileData = format.formatter.read(file) as? [Key : [String : AnyObject]]
-            else {
-                return nil
-        }
-        
-        let data : [Key : Value?] = fileData.map { Value.read(from: Store(data: $0)) }
-
-        guard let instance : [Key : Value] = data.reduce(.some([:]), combine: { accum, elem in
-            
-            guard let accum = accum, let value = elem.1
-                else {
-                    return nil
-            }
-            
-            var result = accum
-            result[elem.0] = value
-            return result
-            })
-            else {
-                return nil
-        }
-
-       self = instance
-    }
-
-    /// Writes the model dictionary to a file in the specified format.
-    ///
-    /// - Returns: `true` if succeeded otherwise `false`
-    public func write(to file: URL, format: Format) -> Bool  {
-        return format.formatter.write(encodeToData(), to: file)
-    }
-
-    /// Return the model dictionary content as a string in the specified format.
-    public func makeString(format: Format) -> String? {
-        return format.formatter.makeString(from: encodeToData())
-    }
-
-    /// Return the model dictionary content as data in the specified format.
-    public func makeData(format: Format) -> Data? {
-        return format.formatter.makeData(from: encodeToData(), prettyPrint: true)
-    }
-
-    func encodeToData() -> AnyObject {
-        return self.reduce( [Key : [String : AnyObject]]())
-        { (accum, elem) -> [Key : [String : AnyObject]] in
-            var vaccum = accum
-            var vstore = Store()
-            elem.value.write(to: &vstore)
-            vaccum[elem.key] = vstore.data
-            return vaccum
-        }
-    }
-}
-
-extension Set where Element: Model {
-
-    /// Create a set of models from a file in the specified format.
-    public init?(file: URL, format: Format) {
-        guard let data = format.formatter.read(file) as? [[String : AnyObject]]
-            else {
-                return nil
-        }
-        
-        guard let instance =  sequence(data.map { Element.read(from: Store(data: $0)) })
-            else  {
-                return nil
-        }
-        
-        self = Set(instance)
-    }
-
-    /// Writes the model set to a file in the specified format.
-    ///
-    /// - Returns: `true` if succeeded otherwise `false`
-    public func write(to file: URL, format: Format) -> Bool {
-        return format.formatter.write(encodeToData(), to: file)
-    }
-
-    /// Return the model set content as a string in the specified format.
-    public func makeString(format: Format) -> String? {
-        return format.formatter.makeString(from: encodeToData())
-    }
-
-    /// Return the model set content as a data in the specified format.
-    public func makeData(format: Format) -> Data? {
-        return format.formatter.makeData(from: encodeToData(), prettyPrint: true)
-    }
-
-    func encodeToData() -> AnyObject {
-
-        return self.reduce([[String :  AnyObject]]())
-        { (accum, elem) -> [[String : AnyObject]] in
-            var vaccum = accum
-            var vstore = Store()
-            elem.write(to: &vstore)
-            vaccum.append(vstore.data)
-            return vaccum
-        }
-    }
-}
 
 extension Store {
 
@@ -351,11 +277,6 @@ extension Store {
         return Value.read(from: Store(data: data))
     }
 
-    /// Return a value at key or default value if not found.
-    public func value<Value: Model>(forKey key: String, defaultValue: Value) -> Value {
-        return value(forKey: key) ?? defaultValue
-    }
-
     /// Return a value at key or nil if not found.
     public func value<Value: Model>(forKey key: String) -> [Value]? {
         
@@ -365,10 +286,6 @@ extension Store {
         }
         
         return sequence(data.map { Value.read(from: Store(data: $0)) })
-    }
-
-    public func value<Value: Model>(forKey key: String, defaultValue: [Value]) -> [Value] {
-        return value(forKey: key) ?? defaultValue
     }
 
     /// Return a value at key or nil if not found.
