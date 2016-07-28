@@ -9,218 +9,122 @@ import UIKit
 
 public enum TestAssociatedOptionalEnum  : Model {
 
-    case BinaryType (NSData?)
-    case BooleanType (Bool?)
-    case DateType (NSDate?)
-    case DecimalType (NSDecimalNumber?)
-    case DoubleType (Double?)
-    case FloatType (Float?)
-    case IntType (Int?)
-    case StringType (String?)
-    case TransformableColorType (UIColor?)
-    case DecodableToManyType ([Employee]?)
-    case DecodableToOneType (Employee?)
+    case binaryType (NSData?)
+    case booleanType (Bool?)
+    case dateType (NSDate?)
+    case decimalType (NSDecimalNumber?)
+    case doubleType (Double?)
+    case floatType (Float?)
+    case intType (Int?)
+    case stringType (String?)
+    case transformableColorType (UIColor?)
+    case decodableToManyType ([Employee]?)
+    case decodableToOneType (Employee?)
 
 }
 
-extension TestAssociatedOptionalEnum: Decodable {
+extension TestAssociatedOptionalEnum {
 
-   public static func decode(decoder: Decoder) -> TestAssociatedOptionalEnum? {
-      return self.init(decoder: decoder)
+    public static func read(from store: Store) -> TestAssociatedOptionalEnum? {
+      return self.init(with: store)
    }
 
-    public init?(decoder d: Decoder) {
-        var decoder = d
-        decoder = TestAssociatedOptionalEnum.performMigrationIfNeeded(decoder)
+    public init?(with inStore: Store) {
+        let store = TestAssociatedOptionalEnum.migrate(source: inStore)
 
-        guard let type: String = decoder.decode("TestAssociatedOptionalEnum") else { return nil }
+        guard let type: String = store.value(forKey: "TestAssociatedOptionalEnum") else { return nil }
         switch type {
-                case "BinaryType":
-                   let value: NSData? = decoder.decode("value")
-self = TestAssociatedOptionalEnum.BinaryType(value)
+                case "binaryType":
+                   let value: NSData? = store.value(forKey: "value")
+                self = TestAssociatedOptionalEnum.binaryType(value)
 
-                case "BooleanType":
-                   let value: Bool? = decoder.decode("value")
-self = TestAssociatedOptionalEnum.BooleanType(value)
+                case "booleanType":
+                   let value: Bool? = store.value(forKey: "value")
+                self = TestAssociatedOptionalEnum.booleanType(value)
 
-                case "DateType":
-                   let value: NSDate? = decoder.decode("value")
-self = TestAssociatedOptionalEnum.DateType(value)
+                case "dateType":
+                   let value: NSDate? = store.value(forKey: "value")
+                self = TestAssociatedOptionalEnum.dateType(value)
 
-                case "DecimalType":
-                   let value: NSDecimalNumber? = decoder.decode("value")
-self = TestAssociatedOptionalEnum.DecimalType(value)
+                case "decimalType":
+                   let value: NSDecimalNumber? = store.value(forKey: "value")
+                self = TestAssociatedOptionalEnum.decimalType(value)
 
-                case "DoubleType":
-                   let value: Double? = decoder.decode("value")
-self = TestAssociatedOptionalEnum.DoubleType(value)
+                case "doubleType":
+                   let value: Double? = store.value(forKey: "value")
+                self = TestAssociatedOptionalEnum.doubleType(value)
 
-                case "FloatType":
-                   let value: Float? = decoder.decode("value")
-self = TestAssociatedOptionalEnum.FloatType(value)
+                case "floatType":
+                   let value: Float? = store.value(forKey: "value")
+                self = TestAssociatedOptionalEnum.floatType(value)
 
-                case "IntType":
-                   let value: Int? = decoder.decode("value")
-self = TestAssociatedOptionalEnum.IntType(value)
+                case "intType":
+                   let value: Int? = store.value(forKey: "value")
+                self = TestAssociatedOptionalEnum.intType(value)
 
-                case "StringType":
-                   let value: String? = decoder.decode("value")
-self = TestAssociatedOptionalEnum.StringType(value)
+                case "stringType":
+                   let value: String? = store.value(forKey: "value")
+                self = TestAssociatedOptionalEnum.stringType(value)
 
-                case "TransformableColorType":
-                   let value: UIColor? = decoder.decode("value")
-self = TestAssociatedOptionalEnum.TransformableColorType(value)
+                case "transformableColorType":
+                   let value: UIColor? = store.value(forKey: "value")
+                self = TestAssociatedOptionalEnum.transformableColorType(value)
 
-                case "DecodableToManyType":
-                    let value: [Employee]? = decoder.decode("value")
-self = TestAssociatedOptionalEnum.DecodableToManyType(value)
+                case "decodableToManyType":
+                    let value: [Employee]? = store.value(forKey: "value")
+                self = TestAssociatedOptionalEnum.decodableToManyType(value)
 
-                case "DecodableToOneType":
-                    let value: Employee? = decoder.decode("value")
-self = TestAssociatedOptionalEnum.DecodableToOneType(value)
+                case "decodableToOneType":
+                    let value: Employee? = store.value(forKey: "value")
+                self = TestAssociatedOptionalEnum.decodableToOneType(value)
 
                 default:
                     return nil
         }
 
     }
-}
 
-extension TestAssociatedOptionalEnum: Encodable {
-
-    public func encode(encoder: Encoder) {
+    public func write(to store: inout Store) {
 
         switch self {
-            case let .BinaryType(value):
-                encoder.encode("BinaryType", "TestAssociatedOptionalEnum")
-                encoder.encode(value, "value")
-            case let .BooleanType(value):
-                encoder.encode("BooleanType", "TestAssociatedOptionalEnum")
-                encoder.encode(value, "value")
-            case let .DateType(value):
-                encoder.encode("DateType", "TestAssociatedOptionalEnum")
-                encoder.encode(value, "value")
-            case let .DecimalType(value):
-                encoder.encode("DecimalType", "TestAssociatedOptionalEnum")
-                encoder.encode(value, "value")
-            case let .DoubleType(value):
-                encoder.encode("DoubleType", "TestAssociatedOptionalEnum")
-                encoder.encode(value, "value")
-            case let .FloatType(value):
-                encoder.encode("FloatType", "TestAssociatedOptionalEnum")
-                encoder.encode(value, "value")
-            case let .IntType(value):
-                encoder.encode("IntType", "TestAssociatedOptionalEnum")
-                encoder.encode(value, "value")
-            case let .StringType(value):
-                encoder.encode("StringType", "TestAssociatedOptionalEnum")
-                encoder.encode(value, "value")
-            case let .TransformableColorType(value):
-                encoder.encode("TransformableColorType", "TestAssociatedOptionalEnum")
-                encoder.encode(value, "value")
-            case let .DecodableToManyType(value):
-                encoder.encode("DecodableToManyType", "TestAssociatedOptionalEnum")
-                encoder.encode(value, "value")
-            case let .DecodableToOneType(value):
-                encoder.encode("DecodableToOneType", "TestAssociatedOptionalEnum")
-                encoder.encode(value, "value")
+            case let .binaryType(value):
+                store.set("binaryType", forKey: "TestAssociatedOptionalEnum")
+                store.set(value, forKey: "value")
+            case let .booleanType(value):
+                store.set("booleanType", forKey: "TestAssociatedOptionalEnum")
+                store.set(value, forKey: "value")
+            case let .dateType(value):
+                store.set("dateType", forKey: "TestAssociatedOptionalEnum")
+                store.set(value, forKey: "value")
+            case let .decimalType(value):
+                store.set("decimalType", forKey: "TestAssociatedOptionalEnum")
+                store.set(value, forKey: "value")
+            case let .doubleType(value):
+                store.set("doubleType", forKey: "TestAssociatedOptionalEnum")
+                store.set(value, forKey: "value")
+            case let .floatType(value):
+                store.set("floatType", forKey: "TestAssociatedOptionalEnum")
+                store.set(value, forKey: "value")
+            case let .intType(value):
+                store.set("intType", forKey: "TestAssociatedOptionalEnum")
+                store.set(value, forKey: "value")
+            case let .stringType(value):
+                store.set("stringType", forKey: "TestAssociatedOptionalEnum")
+                store.set(value, forKey: "value")
+            case let .transformableColorType(value):
+                store.set("transformableColorType", forKey: "TestAssociatedOptionalEnum")
+                store.set(value, forKey: "value")
+            case let .decodableToManyType(value):
+                store.set("decodableToManyType", forKey: "TestAssociatedOptionalEnum")
+                store.set(value, forKey: "value")
+            case let .decodableToOneType(value):
+                store.set("decodableToOneType", forKey: "TestAssociatedOptionalEnum")
+                store.set(value, forKey: "value")
 
         }
 
-        TestAssociatedOptionalEnum.encodeVersionIfNeeded(encoder)
-        self.willFinishEncodingWithEncoder(encoder)
+            TestAssociatedOptionalEnum.writeVersion(to: &store)
+            finishWriting(to: &store)
     }
-}
-
-extension TestAssociatedOptionalEnum {
-
-    /// These are provided from the data model designer
-    /// and can be used to determine if the model is
-    /// a different version.
-    public static func modelVersionHash() -> String {
-        return "<91a6ba56 f3ff3271 c6a947d9 d59ab16f 03cfe13e 869a8894 de84a78a dcfe623f>"
-    }
-
-    public static func modelVersionHashModifier() -> String? {
-        return nil
-    }
-}
-
-extension NSUserDefaults {
-
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestAssociatedOptionalEnum(key: String) -> TestAssociatedOptionalEnum? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
-      return TestAssociatedOptionalEnum.decode(dictionary)
-   }
-
-   public func getTestAssociatedOptionalEnum(key: String) -> [TestAssociatedOptionalEnum]? {
-      guard let array = arrayForKey(key) else { return nil }
-      return sequence(array.map(TestAssociatedOptionalEnum.decode))
-   }
-
-   public func getTestAssociatedOptionalEnum(key: String) -> [String : TestAssociatedOptionalEnum]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
-      return sequence(dictionary.map { TestAssociatedOptionalEnum.decode($0) })
-   }
-
-   public func getTestAssociatedOptionalEnum(key: String, defaultValue: TestAssociatedOptionalEnum) -> TestAssociatedOptionalEnum {
-      return getTestAssociatedOptionalEnum(key) ?? defaultValue
-   }
-
-   public func getTestAssociatedOptionalEnum(key: String, defaultValue: [TestAssociatedOptionalEnum]) -> [TestAssociatedOptionalEnum] {
-      return getDecodable(key) ?? defaultValue
-   }
-
-   public func getTestAssociatedOptionalEnum(key: String,  defaultValue: [String : TestAssociatedOptionalEnum]
-   ) -> [String : TestAssociatedOptionalEnum] {
-      return getTestAssociatedOptionalEnum(key) ?? defaultValue
-   }
-
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
-   public func setTestAssociatedOptionalEnum(value: TestAssociatedOptionalEnum, forKey key: String) {
-      setObject(value.encode(), forKey: key)
-   }
-
-   public func setTestAssociatedOptionalEnum(value: [TestAssociatedOptionalEnum], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
-   }
-
-   public func setTestAssociatedOptionalEnum(value: [String : TestAssociatedOptionalEnum], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
-   }
-}
-
-extension KVStore {
-
-   public func getTestAssociatedOptionalEnum(key: String) -> TestAssociatedOptionalEnum? {
-      return getValue(key)
-   }
-
-   public func getTestAssociatedOptionalEnum(key: String, defaultValue: TestAssociatedOptionalEnum) -> TestAssociatedOptionalEnum {
-      return getTestAssociatedOptionalEnum(key) ?? defaultValue
-   }
-
-   public func getTestAssociatedOptionalEnums(key: String) -> [TestAssociatedOptionalEnum]? {
-      return getValue(key)
-   }
-
-   public func getTestAssociatedOptionalEnums(key: String, defaultValue: [TestAssociatedOptionalEnum]) -> [TestAssociatedOptionalEnum] {
-      return getTestAssociatedOptionalEnums(key) ?? defaultValue
-   }
-
-   public func getTestAssociatedOptionalEnumDictionary(key: String) -> [String : TestAssociatedOptionalEnum]? {
-      return getValue(key)
-   }
-
-   public func getTestAssociatedOptionalEnumDictionary(key: String, defaultValue: [String : TestAssociatedOptionalEnum]) -> [String : TestAssociatedOptionalEnum] {
-      return getTestAssociatedOptionalEnumDictionary(key) ?? defaultValue
-   }
 }
 

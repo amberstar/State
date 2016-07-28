@@ -48,7 +48,7 @@ extension TestMigrationV2 {
 
     Note: the data version will automatically be updated the next time the model is encoded.
     */
-   public static func migrateDataForDecoding(data: [String : AnyObject], dataVersion: AnyObject) -> [String : AnyObject] {
+   public static func migrateDataForDecoding(_ data: [String : AnyObject], dataVersion: AnyObject) -> [String : AnyObject] {
         var newData = data
         newData.updateValue(10, forKey: "age")
         return newData

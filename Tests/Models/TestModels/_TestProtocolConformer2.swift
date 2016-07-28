@@ -12,130 +12,32 @@ public struct TestProtocolConformer2 : TestParentProtocol {
 
 }
 
-extension TestProtocolConformer2 : Decodable {
+extension TestProtocolConformer2  {
 
-   public static func decode(decoder: Decoder) -> TestProtocolConformer2? {
-      return self.init(decoder: decoder)
+    public static func read(from store: Store) -> TestProtocolConformer2? {
+      return self.init(with: store)
    }
 
-    public init?(decoder d: Decoder) {
-        var decoder = d
-        decoder = TestProtocolConformer2.performMigrationIfNeeded(decoder)
+    public init?(with inStore: Store) {
+        let store = TestProtocolConformer2.migrate(source: inStore)
 
          guard
-            let name: String = decoder.decode("name"),
-            let ss_number: String = decoder.decode("ss_number")
+            let name: String = store.value(forKey: "name"),
+            let ss_number: String = store.value(forKey: "ss_number")
          else { return  nil }
 
         self.name = name
         self.ss_number = ss_number
-        didFinishDecodingWithDecoder(decoder)
-    }
-}
-
-extension TestProtocolConformer2 : Encodable {
-
-    public func encode(encoder: Encoder) {
-        encoder.encode(name, "name")
-        encoder.encode(ss_number, "ss_number")
-
-        encoder.encode("TestProtocolConformer2", "TestParentProtocol")
-
-        TestProtocolConformer2.encodeVersionIfNeeded(encoder)
-
-        self.willFinishEncodingWithEncoder(encoder)
-    }
-}
-
-extension TestProtocolConformer2 {
-
-    /// These are provided from the data model designer
-    /// and can be used to determine if the model is
-    /// a different version.
-    public static func modelVersionHash() -> String {
-        return "<b03219a4 91869ac1 514d01f7 d3a1fca3 a52a8792 70710403 99f3e557 9da2f273>"
+        finishReading(from: store)
     }
 
-    public static func modelVersionHashModifier() -> String? {
-        return nil
+    public func write(to store: inout Store) {
+        store.set(name, forKey: "name")
+        store.set(ss_number, forKey: "ss_number")
+
+        store.set("TestProtocolConformer2", forKey: "TestParentProtocol")
+        TestProtocolConformer2.writeVersion(to: &store)
+        finishWriting(to: &store)
     }
-}
-
-extension NSUserDefaults {
-
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestProtocolConformer2(key: String) -> TestProtocolConformer2? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
-      return TestProtocolConformer2.decode(dictionary)
-   }
-
-   public func getTestProtocolConformer2(key: String) -> [TestProtocolConformer2]? {
-      guard let array = arrayForKey(key) else { return nil }
-      return sequence(array.map(TestProtocolConformer2.decode))
-   }
-
-   public func getTestProtocolConformer2(key: String) -> [String : TestProtocolConformer2]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
-      return sequence(dictionary.map { TestProtocolConformer2.decode($0) })
-   }
-
-   public func getTestProtocolConformer2(key: String, defaultValue: TestProtocolConformer2) -> TestProtocolConformer2 {
-      return getTestProtocolConformer2(key) ?? defaultValue
-   }
-
-   public func getTestProtocolConformer2(key: String, defaultValue: [TestProtocolConformer2]) -> [TestProtocolConformer2] {
-      return getDecodable(key) ?? defaultValue
-   }
-
-   public func getTestProtocolConformer2(key: String,  defaultValue: [String : TestProtocolConformer2]
-   ) -> [String : TestProtocolConformer2] {
-      return getTestProtocolConformer2(key) ?? defaultValue
-   }
-
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
-   public func setTestProtocolConformer2(value: TestProtocolConformer2, forKey key: String) {
-      setObject(value.encode(), forKey: key)
-   }
-
-   public func setTestProtocolConformer2(value: [TestProtocolConformer2], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
-   }
-
-   public func setTestProtocolConformer2(value: [String : TestProtocolConformer2], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
-   }
-}
-
-extension KVStore {
-
-   public func getTestProtocolConformer2(key: String) -> TestProtocolConformer2? {
-      return getValue(key)
-   }
-
-   public func getTestProtocolConformer2(key: String, defaultValue: TestProtocolConformer2) -> TestProtocolConformer2 {
-      return getTestProtocolConformer2(key) ?? defaultValue
-   }
-
-   public func getTestProtocolConformer2s(key: String) -> [TestProtocolConformer2]? {
-      return getValue(key)
-   }
-
-   public func getTestProtocolConformer2s(key: String, defaultValue: [TestProtocolConformer2]) -> [TestProtocolConformer2] {
-      return getTestProtocolConformer2s(key) ?? defaultValue
-   }
-
-   public func getTestProtocolConformer2Dictionary(key: String) -> [String : TestProtocolConformer2]? {
-      return getValue(key)
-   }
-
-   public func getTestProtocolConformer2Dictionary(key: String, defaultValue: [String : TestProtocolConformer2]) -> [String : TestProtocolConformer2] {
-      return getTestProtocolConformer2Dictionary(key) ?? defaultValue
-   }
 }
 

@@ -17,7 +17,7 @@ extension TestMigrationV1 {
      :Discussion: This method is called right before encoding finishes.
      It provides a chance to encode any further data with the encoder.
      */
-    public func willFinishEncodingWithEncoder(encoder: Encoder) {
+    public func willFinishEncodingWithEncoder(_ encoder: Encoder) {
         encoder.encode("Hello World", "migration_test")
     }
 
@@ -55,7 +55,7 @@ extension TestMigrationV1 {
     given the dataVersion parameter, this method should determine if the data being decoded is a different version
     than the current version, and needs to be migrated.
     */
-    public static func needsMigration(dataVersion: AnyObject) -> Bool {
+    public static func needsMigration(_ dataVersion: AnyObject) -> Bool {
         if let dataVersion = dataVersion as? String,
             currentVersion = version( modelVersionHash, modelVersionHashModifier: modelVersionHashModifier) as? String {
             return dataVersion != currentVersion
@@ -81,7 +81,7 @@ extension TestMigrationV1 {
 
     Note: the data version will automatically be updated the next time the model is encoded.
     */
-   public static func migrateDataForDecoding(data: [String : AnyObject], dataVersion: AnyObject) -> [String : AnyObject] {
+   public static func migrateDataForDecoding(_ data: [String : AnyObject], dataVersion: AnyObject) -> [String : AnyObject] {
         return data
     }
 }

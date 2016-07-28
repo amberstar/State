@@ -13,129 +13,32 @@ public struct TestRelationships : Model {
 
 }
 
-extension TestRelationships : Decodable {
+extension TestRelationships  {
 
-   public static func decode(decoder: Decoder) -> TestRelationships? {
-      return self.init(decoder: decoder)
+    public static func read(from store: Store) -> TestRelationships? {
+      return self.init(with: store)
    }
 
-    public init?(decoder d: Decoder) {
-        var decoder = d
-        decoder = TestRelationships.performMigrationIfNeeded(decoder)
+    public init?(with inStore: Store) {
+        let store = TestRelationships.migrate(source: inStore)
 
-        let myChildren: [TestChild]? = decoder.decode("myChildren")
-        let myGrandChildren: [Grandchild]? = decoder.decode("myGrandChildren")
-        let myOneChild: TestChild? = decoder.decode("myOneChild")
+        let myChildren: [TestChild]? = store.value(forKey: "myChildren")
+        let myGrandChildren: [Grandchild]? = store.value(forKey: "myGrandChildren")
+        let myOneChild: TestChild? = store.value(forKey: "myOneChild")
 
         self.myChildren = myChildren
         self.myGrandChildren = myGrandChildren
         self.myOneChild = myOneChild
-        didFinishDecodingWithDecoder(decoder)
-    }
-}
-
-extension TestRelationships : Encodable {
-
-    public func encode(encoder: Encoder) {
-        encoder.encode(myChildren, "myChildren")
-        encoder.encode(myGrandChildren, "myGrandChildren")
-        encoder.encode(myOneChild, "myOneChild")
-
-        TestRelationships.encodeVersionIfNeeded(encoder)
-
-        self.willFinishEncodingWithEncoder(encoder)
-    }
-}
-
-extension TestRelationships {
-
-    /// These are provided from the data model designer
-    /// and can be used to determine if the model is
-    /// a different version.
-    public static func modelVersionHash() -> String {
-        return "<4086c709 08537ea3 c28164b3 9e9cbdbf e9d83f02 72d9cd8f cd10f5c7 101fbcbb>"
+        finishReading(from: store)
     }
 
-    public static func modelVersionHashModifier() -> String? {
-        return nil
+    public func write(to store: inout Store) {
+        store.set(myChildren, forKey: "myChildren")
+        store.set(myGrandChildren, forKey: "myGrandChildren")
+        store.set(myOneChild, forKey: "myOneChild")
+
+        TestRelationships.writeVersion(to: &store)
+        finishWriting(to: &store)
     }
-}
-
-extension NSUserDefaults {
-
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestRelationships(key: String) -> TestRelationships? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
-      return TestRelationships.decode(dictionary)
-   }
-
-   public func getTestRelationships(key: String) -> [TestRelationships]? {
-      guard let array = arrayForKey(key) else { return nil }
-      return sequence(array.map(TestRelationships.decode))
-   }
-
-   public func getTestRelationships(key: String) -> [String : TestRelationships]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
-      return sequence(dictionary.map { TestRelationships.decode($0) })
-   }
-
-   public func getTestRelationships(key: String, defaultValue: TestRelationships) -> TestRelationships {
-      return getTestRelationships(key) ?? defaultValue
-   }
-
-   public func getTestRelationships(key: String, defaultValue: [TestRelationships]) -> [TestRelationships] {
-      return getDecodable(key) ?? defaultValue
-   }
-
-   public func getTestRelationships(key: String,  defaultValue: [String : TestRelationships]
-   ) -> [String : TestRelationships] {
-      return getTestRelationships(key) ?? defaultValue
-   }
-
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
-   public func setTestRelationships(value: TestRelationships, forKey key: String) {
-      setObject(value.encode(), forKey: key)
-   }
-
-   public func setTestRelationships(value: [TestRelationships], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
-   }
-
-   public func setTestRelationships(value: [String : TestRelationships], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
-   }
-}
-
-extension KVStore {
-
-   public func getTestRelationships(key: String) -> TestRelationships? {
-      return getValue(key)
-   }
-
-   public func getTestRelationships(key: String, defaultValue: TestRelationships) -> TestRelationships {
-      return getTestRelationships(key) ?? defaultValue
-   }
-
-   public func getTestRelationshipss(key: String) -> [TestRelationships]? {
-      return getValue(key)
-   }
-
-   public func getTestRelationshipss(key: String, defaultValue: [TestRelationships]) -> [TestRelationships] {
-      return getTestRelationshipss(key) ?? defaultValue
-   }
-
-   public func getTestRelationshipsDictionary(key: String) -> [String : TestRelationships]? {
-      return getValue(key)
-   }
-
-   public func getTestRelationshipsDictionary(key: String, defaultValue: [String : TestRelationships]) -> [String : TestRelationships] {
-      return getTestRelationshipsDictionary(key) ?? defaultValue
-   }
 }
 

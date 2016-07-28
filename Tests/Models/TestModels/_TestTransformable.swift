@@ -14,135 +14,38 @@ public struct TestTransformable : Model {
 
 }
 
-extension TestTransformable : Decodable {
+extension TestTransformable  {
 
-   public static func decode(decoder: Decoder) -> TestTransformable? {
-      return self.init(decoder: decoder)
+    public static func read(from store: Store) -> TestTransformable? {
+      return self.init(with: store)
    }
 
-    public init?(decoder d: Decoder) {
-        var decoder = d
-        decoder = TestTransformable.performMigrationIfNeeded(decoder)
+    public init?(with inStore: Store) {
+        let store = TestTransformable.migrate(source: inStore)
 
          guard
-            let myTransformable: NSURL = decoder.decode("myTransformable"),
-            let myTransformableImmutable: NSURL = decoder.decode("myTransformableImmutable")
+            let myTransformable: NSURL = store.value(forKey: "myTransformable"),
+            let myTransformableImmutable: NSURL = store.value(forKey: "myTransformableImmutable")
          else { return  nil }
 
-        let myTransformableImmutableOptional: NSURL? = decoder.decode("myTransformableImmutableOptional")
-        let myTransformableOptional: NSURL? = decoder.decode("myTransformableOptional")
+        let myTransformableImmutableOptional: NSURL? = store.value(forKey: "myTransformableImmutableOptional")
+        let myTransformableOptional: NSURL? = store.value(forKey: "myTransformableOptional")
 
         self.myTransformable = myTransformable
         self.myTransformableImmutable = myTransformableImmutable
         self.myTransformableImmutableOptional = myTransformableImmutableOptional
         self.myTransformableOptional = myTransformableOptional
-        didFinishDecodingWithDecoder(decoder)
-    }
-}
-
-extension TestTransformable : Encodable {
-
-    public func encode(encoder: Encoder) {
-        encoder.encode(myTransformable, "myTransformable")
-        encoder.encode(myTransformableImmutable, "myTransformableImmutable")
-        encoder.encode(myTransformableImmutableOptional, "myTransformableImmutableOptional")
-        encoder.encode(myTransformableOptional, "myTransformableOptional")
-
-        TestTransformable.encodeVersionIfNeeded(encoder)
-
-        self.willFinishEncodingWithEncoder(encoder)
-    }
-}
-
-extension TestTransformable {
-
-    /// These are provided from the data model designer
-    /// and can be used to determine if the model is
-    /// a different version.
-    public static func modelVersionHash() -> String {
-        return "<ab73b735 b1201428 cbab765c 5357fbe9 b413a176 90618f51 b3efae27 d31a5116>"
+        finishReading(from: store)
     }
 
-    public static func modelVersionHashModifier() -> String? {
-        return nil
+    public func write(to store: inout Store) {
+        store.set(myTransformable, forKey: "myTransformable")
+        store.set(myTransformableImmutable, forKey: "myTransformableImmutable")
+        store.set(myTransformableImmutableOptional, forKey: "myTransformableImmutableOptional")
+        store.set(myTransformableOptional, forKey: "myTransformableOptional")
+
+        TestTransformable.writeVersion(to: &store)
+        finishWriting(to: &store)
     }
-}
-
-extension NSUserDefaults {
-
-   //****************************************************************************//
-   // MARK: NSUserDefault Getters
-   //****************************************************************************//
-
-   public func getTestTransformable(key: String) -> TestTransformable? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
-      return TestTransformable.decode(dictionary)
-   }
-
-   public func getTestTransformable(key: String) -> [TestTransformable]? {
-      guard let array = arrayForKey(key) else { return nil }
-      return sequence(array.map(TestTransformable.decode))
-   }
-
-   public func getTestTransformable(key: String) -> [String : TestTransformable]? {
-      guard let dictionary = dictionaryForKey(key) else { return nil }
-      return sequence(dictionary.map { TestTransformable.decode($0) })
-   }
-
-   public func getTestTransformable(key: String, defaultValue: TestTransformable) -> TestTransformable {
-      return getTestTransformable(key) ?? defaultValue
-   }
-
-   public func getTestTransformable(key: String, defaultValue: [TestTransformable]) -> [TestTransformable] {
-      return getDecodable(key) ?? defaultValue
-   }
-
-   public func getTestTransformable(key: String,  defaultValue: [String : TestTransformable]
-   ) -> [String : TestTransformable] {
-      return getTestTransformable(key) ?? defaultValue
-   }
-
-   //****************************************************************************//
-   // MARK: NSUserDefault Setters
-   //****************************************************************************//
-
-   public func setTestTransformable(value: TestTransformable, forKey key: String) {
-      setObject(value.encode(), forKey: key)
-   }
-
-   public func setTestTransformable(value: [TestTransformable], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
-   }
-
-   public func setTestTransformable(value: [String : TestTransformable], forKey key: String) {
-      setObject(value.map { $0.encode() }, forKey: key)
-   }
-}
-
-extension KVStore {
-
-   public func getTestTransformable(key: String) -> TestTransformable? {
-      return getValue(key)
-   }
-
-   public func getTestTransformable(key: String, defaultValue: TestTransformable) -> TestTransformable {
-      return getTestTransformable(key) ?? defaultValue
-   }
-
-   public func getTestTransformables(key: String) -> [TestTransformable]? {
-      return getValue(key)
-   }
-
-   public func getTestTransformables(key: String, defaultValue: [TestTransformable]) -> [TestTransformable] {
-      return getTestTransformables(key) ?? defaultValue
-   }
-
-   public func getTestTransformableDictionary(key: String) -> [String : TestTransformable]? {
-      return getValue(key)
-   }
-
-   public func getTestTransformableDictionary(key: String, defaultValue: [String : TestTransformable]) -> [String : TestTransformable] {
-      return getTestTransformableDictionary(key) ?? defaultValue
-   }
 }
 
