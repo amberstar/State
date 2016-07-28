@@ -1,12 +1,12 @@
 # State Model Framework
 
-- [Designing Models in the Xcode Data Modeler] (#Designing-Models-in-the-Xcode-data-modeler)
-- [Struct Models](#Structs)
-- [Enum Models](#Enums)
-- [Protocol Models](#Protocols)
-- [Generating code](#Generating-Code)
-- [Reading and Writing Models](#Reading-and-Writing-Models)
-- [Version and Migration](#Versioning-and-Migration )
+- [Designing Models in the Xcode Data Modeler] (#designing-models-in-the-xcode-data-modeler)
+- [Struct Models](#structs)
+- [Enum Models](#enums)
+- [Protocol Models](#protocols)
+- [Generating code](#generating-code)
+- [Reading and Writing Models](#reading-and-writing-models)
+- [Version and Migration](#versioning-and-migration )
 
 
 **Requirements**
