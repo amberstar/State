@@ -46,7 +46,7 @@ extension Store {
     public mutating func set(_ value: [TestProtocol]?, forKey key: String) {
         guard let value = value else { return }
 
-        let data  = value.reduce([[String : AnyObject]](), combine: { (data, value) -> [[String: AnyObject]] in
+        let data  = value.reduce([[String : AnyObject]](), { (data, value) -> [[String: AnyObject]] in
             var vstore = Store()
             var vdata = data
             value.write(to: &vstore )
@@ -61,7 +61,7 @@ extension Store {
     public mutating func set(_ value: [String : TestProtocol]?, forKey key: String) {
 
         guard let value = value else { return }
-        let data = value.reduce([String : [String : AnyObject]](), combine: { (data, element) -> [String : [String : AnyObject]] in
+        let data = value.reduce([String : [String : AnyObject]](), { (data, element) -> [String : [String : AnyObject]] in
             var vstore = Store()
             var vdata = data
             element.value.write(to: &vstore)

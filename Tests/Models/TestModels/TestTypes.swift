@@ -19,7 +19,7 @@ extension TestTypes {
     }
     
     private static func createBinary() -> Data? {
-        if let path = Bundle(for: Test.self).pathForResource("Data", ofType: "plist") {
+        if let path = Bundle(for: Test.self).path(forResource: "Data", ofType: "plist") {
             return  (try? Data(contentsOf: URL(fileURLWithPath: path)))
         }
         return nil

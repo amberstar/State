@@ -426,7 +426,7 @@ class EnumTests: Test {
     func testAssociatedEnum() {
         
         func createBinary() -> Data? {
-            if let path = Bundle(for: Test.self).pathForResource("Data", ofType: "plist") {
+            if let path = Bundle(for: Test.self).path(forResource: "Data", ofType: "plist") {
                 return  (try? Data(contentsOf: URL(fileURLWithPath: path)))
             }
             return nil
@@ -455,7 +455,7 @@ class EnumTests: Test {
                 case let .dateType(d):
                     XCTAssert(d == Date(timeIntervalSince1970: 10000), message)
                 case let .transformableColorType(t):
-                    XCTAssert(t == UIColor.blue(), message)
+                    XCTAssert(t == UIColor.blue, message)
                 default:
                     XCTFail()
                 }
@@ -471,7 +471,7 @@ class EnumTests: Test {
         performTestFor(TestAssociatedEnum.binaryType(createBinary()!), message: "Binary should not be nil")
         performTestFor(TestAssociatedEnum.decimalType(NSDecimalNumber(value: 0.8976)), message: "DecimalType should equal 0.8976")
         performTestFor(TestAssociatedEnum.dateType(Date(timeIntervalSince1970: 10000)), message: "DateType should equal 10000 since 1970")
-        performTestFor(TestAssociatedEnum.transformableColorType(UIColor.blue()), message: "Color should be blue")
+        performTestFor(TestAssociatedEnum.transformableColorType(UIColor.blue), message: "Color should be blue")
     }
     
     func testAssociatedDecodeableToManyEnum() {
@@ -509,7 +509,7 @@ class EnumTests: Test {
     func testAssociatedOptionalEnum() {
         
         func createBinary() -> Data? {
-            if let path = Bundle(for: Test.self).pathForResource("Data", ofType: "plist") {
+            if let path = Bundle(for: Test.self).path(forResource: "Data", ofType: "plist") {
                 return  (try? Data(contentsOf: URL(fileURLWithPath: path)))
             }
             return nil
@@ -538,7 +538,7 @@ class EnumTests: Test {
                 case let .dateType(d):
                     XCTAssert(d == Date(timeIntervalSince1970: 10000), message)
                 case let .transformableColorType(t):
-                    XCTAssert(t == UIColor.blue(), message)
+                    XCTAssert(t == UIColor.blue, message)
                 default:
                     XCTFail("no case found")
                 }
@@ -553,7 +553,7 @@ class EnumTests: Test {
         performTestFor(TestAssociatedOptionalEnum.binaryType(createBinary()!), message: "Binary should not be nil")
         performTestFor(TestAssociatedOptionalEnum.decimalType(NSDecimalNumber(value: 0.8976)), message: "DecimalType should equal 0.8976")
         performTestFor(TestAssociatedOptionalEnum.dateType(Date(timeIntervalSince1970: 10000)), message: "DateType should equal 10000 since 1970")
-        performTestFor(TestAssociatedOptionalEnum.transformableColorType(UIColor.blue()), message: "Color should be blue")
+        performTestFor(TestAssociatedOptionalEnum.transformableColorType(UIColor.blue), message: "Color should be blue")
     }
     
     func testAssociatedDecodeableOptionalToManyEnum() {

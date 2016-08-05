@@ -36,7 +36,7 @@ class Test : XCTestCase {
     var jsonData : [String : AnyObject] = [:]
     
     class func plist(fromFile file: String) -> AnyObject? {
-        let path = Bundle(for: self).pathForResource(file, ofType: "plist")
+        let path = Bundle(for: self).path(forResource: file, ofType: "plist")
         
         if let p = path {
             if let dict = NSDictionary(contentsOfFile: p) {
@@ -50,7 +50,7 @@ class Test : XCTestCase {
     }
     
     class func JSON(fromFile file: String) -> AnyObject? {
-        let path = Bundle(for: self).pathForResource(file, ofType: "json")
+        let path = Bundle(for: self).path(forResource: file, ofType: "json")
         
         if path != nil {
             if let data = try? Data(contentsOf: URL(fileURLWithPath: path!)) {
@@ -65,7 +65,7 @@ class Test : XCTestCase {
     }
     
     func bundlePathFor(_ file: String, ofType type: String) -> String?  {
-        return Bundle(for: Test.self ).pathForResource(file , ofType:type)
+        return Bundle(for: Test.self ).path(forResource: file , ofType:type)
     }
     
     func bundleURLFor(_ file: String, ofType type: String) -> URL? {
