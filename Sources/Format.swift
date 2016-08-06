@@ -6,50 +6,25 @@
 
 import Foundation
 
-
-/// Format - File formats for Storage
-///
-/// This file implements the formats available
-/// for saving and loading stores and models.
-
-
-/// data formats for storage.
-public enum Format {
-    /// binary plist format
-    case binary
-    /// xml plist format
-    case plist
-    /// json format
-    case json
-    
-    /// returns a formatter that can
-    /// read and write to the current format.
-    var formatter : Formatter {
-        
-        switch self {
-        case .binary:
-            return Formatter()
-        case .plist:
-            return PlistFormatter()
-        case .json:
-            return JSONFormatter()
-        }
+/// Used internally by a stores to read and write it's
+/// content to files, strings, data. etc.
+public class Format {
+    static var binary: Format {
+        return Format()
     }
-}
-
-/// A base formatter that provides the binary format.
-class Formatter {
-    
+    static var json: Format {
+        return JSONFormat()
+    }
+    static var plist: Format {
+        return PlistFormat()
+    }
     /// write data to a file
     /// - returns: true if succeeded, false if failed
     func write(_ object: AnyObject, to url: URL) -> Bool  {
-        
         if let data = makeData(from: object, prettyPrint: true) {
             return ((try? data.write(to: url, options: [.atomic] )) != nil)
         }
-        else {
-            return false
-        }
+        else { return false }
     }
     
     /// write data to  NSData
@@ -62,12 +37,9 @@ class Formatter {
     /// write data to String
     /// - returns: a string or nil if failed
     func makeString(from object: AnyObject) -> String? {
-        
         if let data = makeData(from: object, prettyPrint: true) {
             return NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String
-        } else {
-            return nil
-        }
+        } else { return nil }
     }
     
     /// Read data from NSData
@@ -79,7 +51,6 @@ class Formatter {
     /// Read file from a URL
     /// - returns: a data object or nil
     func read(_ url: URL) -> AnyObject? {
-        
         if let data = try? Data(contentsOf: url) {
             return read(data)
         }
@@ -89,25 +60,17 @@ class Formatter {
     /// Read data from a string
     /// - returns: a data object or nil
     func read(_ content: String) -> AnyObject? {
-        
         guard let data = makeData(from: content)
-            else {
-                return nil
-        }
-        
+            else { return nil }
         return read(data)
     }
     
     func makeData(from string : String) -> Data? {
-        return string.data(using: String.Encoding.utf8,
-                           allowLossyConversion: true)
+        return string.data(using: String.Encoding.utf8, allowLossyConversion: true)
     }
 }
 
-//===---JSON----------------------------------------------------------------===//
-
-final class JSONFormatter: Formatter {
-    
+final class JSONFormat: Format {
     override func read(_ data: Data) -> AnyObject? {
         do {
             let o: AnyObject =  try JSONSerialization.jsonObject(
@@ -119,14 +82,10 @@ final class JSONFormatter: Formatter {
         }
     }
     
-    override func makeData(from object: AnyObject,
-                           prettyPrint: Bool) -> Data?  {
+    override func makeData(from object: AnyObject, prettyPrint: Bool) -> Data?  {
         
         guard JSONSerialization.isValidJSONObject(object)
-            else {
-                return nil
-        }
-        
+            else { return nil }
         let options: JSONSerialization.WritingOptions = prettyPrint ? .prettyPrinted : []
         let data: Data?
         
@@ -134,7 +93,6 @@ final class JSONFormatter: Formatter {
             data = try JSONSerialization.data(withJSONObject: object, options: options)
         }
         catch let error as NSError {
-            
             Swift.print(error)
             data = nil
         }
@@ -142,22 +100,13 @@ final class JSONFormatter: Formatter {
     }
 }
 
-//===---XML----------------------------------------------------------------===//
-
-
-final class PlistFormatter: Formatter {
-    
+final class PlistFormat: Format {
     override func read(_ data: Data) -> AnyObject? {
-        
         do {
             let o: AnyObject =
-                try PropertyListSerialization.propertyList(
-                    from: data, options:[.mutableContainersAndLeaves], format:nil
-            )
-            
+                try PropertyListSerialization.propertyList(from: data, options:[.mutableContainersAndLeaves], format:nil)
             return o
         } catch let error as NSError {
-            
             Swift.print(error)
             return nil
         }
@@ -171,21 +120,14 @@ final class PlistFormatter: Formatter {
     
     override func makeData(from object: AnyObject,
                            prettyPrint: Bool) -> Data?  {
-        
         guard PropertyListSerialization.propertyList(
             object, isValidFor: PropertyListSerialization.PropertyListFormat.xml)
-            else {
-                return nil
-        }
-        
+            else { return nil }
         do {
             let data: Data? = try PropertyListSerialization.data(
-                fromPropertyList: object, format: PropertyListSerialization.PropertyListFormat.xml, options: .allZeros
-            )
-            
+                fromPropertyList: object, format: PropertyListSerialization.PropertyListFormat.xml, options: .allZeros )
             return data
         } catch let error as NSError {
-            
             Swift.print(error)
         }
         return nil

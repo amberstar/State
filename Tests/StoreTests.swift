@@ -2,7 +2,6 @@ import Foundation
 import XCTest
 @testable import State
 
-
 class StoreTests: Test {
     
     var testPlist : [String : AnyObject]?
@@ -12,8 +11,8 @@ class StoreTests: Test {
     override func setUp() {
         super.setUp()
         
-        let plist = PlistFormatter()
-        let json = JSONFormatter()
+        let plist = PlistFormat()
+        let json = JSONFormat()
         self.testPlist = plist.read(bundleURLFor("Data", ofType: "plist")!) as? [String : AnyObject]
         self.testData = plist.read(bundleURLFor("Data", ofType: "plist")!) as? [String : AnyObject]
         self.testJSON = json.read(bundleURLFor("Data", ofType: "json")!) as? [String : AnyObject]

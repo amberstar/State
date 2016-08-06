@@ -10,8 +10,8 @@ class FormatTests: Test {
     override func setUp() {
         super.setUp()
         
-        let plist = PlistFormatter()
-        let json = JSONFormatter()
+        let plist = PlistFormat()
+        let json = JSONFormat()
         self.testPlist = plist.read(bundleURLFor("Data", ofType: "plist")!) as? [String : AnyObject]
         self.testData = plist.read(bundleURLFor("Data", ofType: "plist")!) as? [String : AnyObject]
         self.testJSON = json.read(bundleURLFor("Data", ofType: "json")!) as? [String : AnyObject]
@@ -90,7 +90,7 @@ class FormatTests: Test {
     
     func testParsingJSONFromString() {
         testJSONWasReadCorrectly()
-        let json = JSONFormatter()
+        let json = JSONFormat()
         let testString : String? = bundleURLFor("Data", ofType: "json") >>- json.read >>- json.makeString
         testJSON = nil
         testJSON = json.read(testString!) as? [String : AnyObject]
@@ -99,7 +99,7 @@ class FormatTests: Test {
     
     func testParsingPlistFromString() {
         testPlistWasReadCorrectly()
-        let plist = PlistFormatter()
+        let plist = PlistFormat()
         let testString : String? = bundleURLFor("Data", ofType: "plist") >>- plist.read >>- plist.makeString
         testPlist = nil
         testPlist = plist.read(testString!) as? [String : AnyObject]
@@ -108,7 +108,7 @@ class FormatTests: Test {
     
     func testWritingPlistString() {
         testPlistWasReadCorrectly()
-        let plist = PlistFormatter()
+        let plist = PlistFormat()
         let baseString : String? = bundleURLFor("Data", ofType: "plist") >>- plist.read >>- plist.makeString
         var testString: String = ""
         _ = testPlist >>- plist.makeString >>- { testString = $0 }
@@ -117,7 +117,7 @@ class FormatTests: Test {
     
     func testWritingJSONString() {
         testJSONWasReadCorrectly()
-        let json = JSONFormatter()
+        let json = JSONFormat()
         let baseString : String? = bundleURLFor("Data", ofType: "json") >>- json.read  >>- { json.makeString(from: $0 as![String : AnyObject]) }
         let testString: String? = (testJSON  >>- json.makeString)
         XCTAssert(testString! == baseString!, "testString:\(testString), baseString:\(baseString)")
@@ -125,7 +125,7 @@ class FormatTests: Test {
     
     func testReadingAndWritingPlistData() {
         testPlistWasReadCorrectly()
-        let plist = PlistFormatter()
+        let plist = PlistFormat()
         let testData: Data? = plist.makeData(from: testPlist!, prettyPrint: true)
         testPlist = nil
         _ = testData >>- plist.read >>- { self.testPlist = $0 as? [String : AnyObject] }
@@ -134,7 +134,7 @@ class FormatTests: Test {
     
     func testReadingAndWritingJSONData() {
         testJSONWasReadCorrectly()
-        let json = JSONFormatter()
+        let json = JSONFormat()
         let testData: Data? = json.makeData(from: testJSON!, prettyPrint:  true)
         testJSON = nil
         _ = testData >>- json.read >>- { self.testJSON = $0 as? [String : AnyObject] }
@@ -143,7 +143,7 @@ class FormatTests: Test {
     
     func testReadingAndWritingData() {
         testDataWasReadCorrectly()
-        let binary = State.Formatter()
+        let binary = State.Format()
         let testNSData: Data? = binary.makeData(from: testData!, prettyPrint: true)
         testData = nil
         _ = testNSData >>- binary.read >>- { self.testData = $0 as? [String : AnyObject] }
@@ -165,36 +165,36 @@ class FormatTests: Test {
     ///MARK: - PRIVATE
     private func writePlistDataOutToTempFile() {
         let path = tempURLFor("test.plist")
-        let plist = PlistFormatter()
+        let plist = PlistFormat()
         _ = testPlist >>- { plist.write($0, to: path) }
     }
     
     private func readPlistDataFromTempFile() {
         let path = tempURLFor("test.plist")
-        let plist = PlistFormatter()
+        let plist = PlistFormat()
         _ = path >>- { self.testPlist  = plist.read($0) as? [String : AnyObject] }
     }
     
     private func writeJSONDataOutToTempFile() {
         let path = tempURLFor("temp.json")
-        let json = JSONFormatter()
+        let json = JSONFormat()
         _ = testJSON >>- { json.write($0, to: path) }
     }
     
     private func readJSONDataFromTempFile() {
         let path = tempURLFor("temp.json")
-        let json = JSONFormatter()
+        let json = JSONFormat()
         _ = path >>- { self.testJSON = json.read($0) as? [String : AnyObject] }
     }
     
     private func writeDataOutToTempFile() {
         let path = tempURLFor("temp.data")
-        let binary = State.Formatter()
+        let binary = State.Format()
         _ = testData >>- { binary.write($0, to: path) }
     }
     
     private func readDataFromTempFile() {
-        let binary = State.Formatter()
+        let binary = State.Format()
         let path = tempURLFor("temp.data")
         _ = path >>- { self.testData = binary.read($0) as? [String : AnyObject] }
     }

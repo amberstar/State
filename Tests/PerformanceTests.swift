@@ -46,40 +46,40 @@ class PerfTests: Test {
     func testTimeParsingJSON() {
     
         measure {
-            var _ : AnyObject? = Format.json.formatter.read(self.bundleURLFor("Big_data", ofType: "json")!)
+            var _ : AnyObject? = Format.json.read(self.bundleURLFor("Big_data", ofType: "json")!)
         }
     }
     
     func testTimeParsingPlist() {
         measure {
-            var _ = Format.plist.formatter.read(self.bundlePathFor("Big_data", ofType: "plist")!)
+            var _ = Format.plist.read(self.bundlePathFor("Big_data", ofType: "plist")!)
         }
     }
     
     func testTimeParsingBinaryPlist() {
         measure {
-            var _ = Format.binary.formatter.read(self.bundlePathFor("Big_data-bin", ofType: "plist")!)
+            var _ = Format.binary.read(self.bundlePathFor("Big_data-bin", ofType: "plist")!)
         }
     }
     
     func testTimeWritingJSON() {
-        let data = Format.json.formatter.read(self.bundleURLFor("Big_data", ofType: "json")!)
+        let data = Format.json.read(self.bundleURLFor("Big_data", ofType: "json")!)
         measure {
-           _ = Format.json.formatter.write(data!, to: self.tempURLFor("Big_data.json"))
+           _ = Format.json.write(data!, to: self.tempURLFor("Big_data.json"))
         }
     }
     
     func testTimeWritingPlist() {
-        let data = Format.plist.formatter.read(self.bundleURLFor("Big_data", ofType: "plist")!)
+        let data = Format.plist.read(self.bundleURLFor("Big_data", ofType: "plist")!)
         measure {
-            _ = Format.plist.formatter.write(data!, to: self.tempURLFor("Big_data.plist"))
+            _ = Format.plist.write(data!, to: self.tempURLFor("Big_data.plist"))
         }
     }
     
     func testTimeWritingBinaryPlist() {
-        let data = Format.binary.formatter.read(self.bundleURLFor("Big_data-bin", ofType: "plist")!)
+        let data = Format.binary.read(self.bundleURLFor("Big_data-bin", ofType: "plist")!)
         measure {
-            _ = Format.binary.formatter.write(data!, to: self.tempURLFor("Big_data-bin.plist"))
+            _ = Format.binary.write(data!, to: self.tempURLFor("Big_data-bin.plist"))
         }
     }
 }
