@@ -73,7 +73,6 @@ extension Model {
     public init?(file: URL, format: Format) {
         guard let data = format.read(file)
             else { return nil }
-        
         guard let instance = Self.read(from: Store(data: data as! [String : AnyObject]))
             else { return nil }
         self = instance
@@ -84,7 +83,6 @@ extension Model {
         
         guard let data = format.read(content)
             else { return nil }
-        
         guard let instance = Self.read(from: Store(data: data as! [String : AnyObject]))
             else { return nil }
         self = instance
@@ -94,7 +92,6 @@ extension Model {
     public init?(content: Data, format: Format) {
         guard let data = format.read(content)
             else { return nil }
-        
         guard let instance = Self.read(from: Store(data: data as! [String : AnyObject]))
             else { return nil }
         self = instance
