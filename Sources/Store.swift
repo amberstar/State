@@ -7,8 +7,13 @@
 import Foundation
 import UIKit
 
-///  An abstract key-value property store for
-///     reading a writing values.
+///  Abstract key-value property storage for
+///  reading a writing arbritrary values and models.
+///
+/// Stores are an intermediate in-memory container for
+/// encoding and decoding, but they are also useful
+/// for grouping together models, and values.
+
 public struct Store {
     /// The contents of the store.
     public var data : [String : AnyObject]
