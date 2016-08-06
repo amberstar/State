@@ -18,8 +18,6 @@ public struct Store {
         self.data = data
     }
 
-// MARK: - Values
-
     /// Returns the value associated with the specified key.
     public func value<V>(forKey key: String) -> V? {
         return data[key] as? V
@@ -106,8 +104,6 @@ public struct Store {
         data[key] = store.data
     }
 
-// MARK: File
-
     /// Create a store with file content in the specified format.
     public init?(file: URL, format: Format) {
         guard let data = format.read(file) as? [String : AnyObject]
@@ -122,8 +118,6 @@ public struct Store {
         return format.write(data, to: file)
     }
 
-// MARK: String
-
     /// Returns the stores content as a string in the
     /// specified format.
     public func makeString(format: Format) -> String? {
@@ -136,8 +130,6 @@ public struct Store {
             else { return nil }
         self.data = data
     }
-
-// MARK: Data
 
     /// Create a store with data in the specified format.
     public init?(content: Data, format: Format) {

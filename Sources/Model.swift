@@ -141,6 +141,7 @@ extension Model {
 
 // TODO: Refactor these collections to reduce repeat code
 extension Array where Element: Model {
+    
     /// Create an array of models from a file in the specified format.
     public init?(file: URL, format: Format) {
         guard let data = format.read(file) as? [[String : AnyObject]]
@@ -163,7 +164,6 @@ extension Array where Element: Model {
     public init?(content: Data, format: Format) {
         guard let data = format.read(content) as? [[String : AnyObject]]
             else { return nil }
-        
         guard let instance =  sequence(data.map { Element.read(from: Store(data: $0)) })
             else  { return nil }
         self = instance

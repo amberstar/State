@@ -6,7 +6,7 @@
 
 import Foundation
 
-/// Used internally by a stores to read and write it's
+/// Used internally by a store to read and write it's
 /// content to files, strings, data. etc.
 public class Format {
     static var binary: Format {
@@ -83,7 +83,6 @@ final class JSONFormat: Format {
     }
     
     override func makeData(from object: AnyObject, prettyPrint: Bool) -> Data?  {
-        
         guard JSONSerialization.isValidJSONObject(object)
             else { return nil }
         let options: JSONSerialization.WritingOptions = prettyPrint ? .prettyPrinted : []
@@ -116,7 +115,6 @@ final class PlistFormat: Format {
         let s = content as NSString
         return s.propertyList()
     }
-    
     
     override func makeData(from object: AnyObject,
                            prettyPrint: Bool) -> Data?  {
