@@ -1,6 +1,6 @@
 # State Model Framework
 
-A model framework for Swift that generates code from and Xcode data model file.
+A model framework for Swift that generates code from an Xcode data model file.
 
 - [Designing Models in the Xcode Data Modeler] (#designing-models-in-the-xcode-data-modeler)
 - [Struct Models](#structs)
