@@ -13,7 +13,6 @@ import UIKit
 /// Stores are an intermediate in-memory container for
 /// encoding and decoding, but they are also useful
 /// for grouping together models, and values.
-
 public struct Store {
     /// The contents of the store.
     public var data : [String : AnyObject]

@@ -1,3 +1,8 @@
+
+//
+// <$managedObjectClassName$>.swift
+//
+
 import State
 <$setmerge typeName = <$managedObjectClassName$>$>
 

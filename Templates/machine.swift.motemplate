@@ -1,8 +1,9 @@
-/************************************************
 
-        WARNING: MACHINE GENERATED FILE
+// AUTO GENERATED FILE
+//
+// _<$managedObjectClassName$>.swift
+//
 
- ************************************************/
 import Foundation
 import State
 <$foreach Attribute noninheritedAttributes do$><$if Attribute.userInfo.State.Import$>import <$Attribute.userInfo.State.Import$>
@@ -89,7 +90,6 @@ extension <$typeName$>  {
 
 <$endprocedure$>
 
-
 <$procedure writeRawValueCaseForAttribute Attribute$><$if Attribute.userInfo.State.Value$> = <$if userInfo.State.Type == String$>"<$endif$><$ Attribute.userInfo.State.Value$><$if userInfo.State.Type == String$>"<$endif$><$endif$><$endprocedure$>
 
 <$procedure writeAssociatedValueCaseForAttribute Attribute$><$if Attribute.userInfo.State.Type$>(<$Attribute.userInfo.State.Type$><$if Attribute.isOptional$>?<$endif$>)<$endif$><$endprocedure$>
@@ -112,7 +112,6 @@ extension <$typeName$>  {
                      self = <$typeName$>.<$Attribute.name$>(value)
                    } else { return nil }<$endprocedure$>
 
-
 <$procedure writeAttributeDecodeAssociatedSwitchCaseForEnum Attribute$><$if Attribute.isOptional$><$call writeAttributeDecodeAssociatedSwitchCaseForEnumOptional Attribute$><$else$><$call writeAttributeDecodeAssociatedSwitchCaseForEnumNonOptional Attribute$><$endif$>
 <$endprocedure$>
 
@@ -129,7 +128,6 @@ extension <$typeName$>  {
 <$procedure writeRelationshipDecodeAssociatedSwitchCaseForEnumNonOptional Relationship$>if let value: <$if Relationship.isToMany$>[<$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$> = store.value(forKey: "value") {
                         self = <$typeName$>.<$Relationship.name$>(value)
                     } else { return nil }<$endprocedure$>
-
 
 <$procedure writeRelationshipDecodeAssociatedSwitchCaseForEnum Relationship$><$if Relationship.isOptional$><$call writeRelationshipDecodeAssociatedSwitchCaseForEnumOptional Relationship$><$else$><$call writeRelationshipDecodeAssociatedSwitchCaseForEnumNonOptional Relationship$> <$endif$><$endprocedure$>
 
@@ -169,7 +167,6 @@ extension <$typeName$>  {
 <$procedure Enum$>
 <$setmerge typeName = <$managedObjectClassName$>$>
 public enum <$typeName$> <$if userInfo.State.Type$> : <$userInfo.State.Type$>, Model<$else$> : Model<$endif$> {
-
 
     <$foreach Attribute noninheritedAttributes do$><$call writeEnumCaseForAttribute Attribute$>
     <$endforeach do$><$foreach Relationship noninheritedRelationships do$><$call writeEnumCaseForRelationship Relationship$>
@@ -238,7 +235,6 @@ public protocol <$typeName$><$if hasSuperentity$> : <$superentity.managedObjectC
 <$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$call writeRelationshipProtocolRequirement Relationship$><$endforeach do$>
 <$foreach Attribute noninheritedAttributes do$><$if Attribute.userInfo.State.ProtocolRequirementType == func$><$call writeAttributeProtocolFunctionRequirement Attribute$>
 <$endif$><$endforeach do$>
-
 }
 
 extension Store {
