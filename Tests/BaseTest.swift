@@ -2,8 +2,13 @@ import Foundation
 import XCTest
 @testable import State
 
-infix operator >>- { associativity left precedence 100 }
-infix operator -<< { associativity right precedence 100 }
+precedencegroup ChainingPrecedence {
+    associativity: left
+    higherThan: TernaryPrecedence
+}
+
+infix operator >>- : ChainingPrecedence
+infix operator -<< : ChainingPrecedence
 
 /**
  flatMap a function over an optional value (left associative)
@@ -16,7 +21,7 @@ infix operator -<< { associativity right precedence 100 }
  
  - returns: A value of type Optional<U>
  */
-public func >>-<T, U>(a: T?, f: @noescape (T) -> U?) -> U? {
+public func >>-<T, U>(a: T?, f: (T) -> U?) -> U? {
     return a.flatMap(f)
 }
 
@@ -32,7 +37,7 @@ public extension Optional {
 class Test : XCTestCase {
     let plistFile: AnyObject? = Test.plist(fromFile: "Data")
     var plistData : [String : AnyObject] = [:]
-    let jsonFile: AnyObject? = Test.JSON(fromFile: "Data")
+    let jsonFile: Any? = Test.JSON(fromFile: "Data")
     var jsonData : [String : AnyObject] = [:]
     
     class func plist(fromFile file: String) -> AnyObject? {
@@ -49,7 +54,7 @@ class Test : XCTestCase {
         return .none
     }
     
-    class func JSON(fromFile file: String) -> AnyObject? {
+    class func JSON(fromFile file: String) -> Any? {
         let path = Bundle(for: self).path(forResource: file, ofType: "json")
         
         if path != nil {

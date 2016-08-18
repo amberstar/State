@@ -1,15 +1,16 @@
-/************************************************
 
-        WARNING: MACHINE GENERATED FILE
+//
+// AUTO GENERATED FILE
+// _TestImmutableTypes.swift
+//
 
- ************************************************/
 import Foundation
 import State
 
 public struct TestImmutableTypes : Model {
-    public let myDate: NSDate
+    public let myDate: Date
     public let myFloat: Float
-    public let myBinary: NSData
+    public let myBinary: Data
     public let myDouble: Double
     public let myString: String
     public let myBoolean: Bool
@@ -28,9 +29,9 @@ extension TestImmutableTypes  {
         let store = TestImmutableTypes.migrate(source: inStore)
 
          guard
-            let myDate: NSDate = store.value(forKey: "myDate"),
+            let myDate: Date = store.value(forKey: "myDate"),
             let myFloat: Float = store.value(forKey: "myFloat"),
-            let myBinary: NSData = store.value(forKey: "myBinary"),
+            let myBinary: Data = store.value(forKey: "myBinary"),
             let myDouble: Double = store.value(forKey: "myDouble"),
             let myString: String = store.value(forKey: "myString"),
             let myBoolean: Bool = store.value(forKey: "myBoolean"),

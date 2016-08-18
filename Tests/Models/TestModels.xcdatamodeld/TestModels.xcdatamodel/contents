@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11147.23" systemVersion="15F34" minimumToolsVersion="Xcode 4.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11224.2" systemVersion="15G31" minimumToolsVersion="Xcode 4.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="Company" representedClassName="Company" syncable="YES">
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
@@ -38,7 +38,7 @@
     <entity name="TestAssociatedEnum" representedClassName="TestAssociatedEnum" syncable="YES">
         <attribute name="binaryType" attributeType="Binary" syncable="YES">
             <userInfo>
-                <entry key="State.Type" value="NSData"/>
+                <entry key="State.Type" value="Data"/>
             </userInfo>
         </attribute>
         <attribute name="booleanType" attributeType="Boolean" usesScalarValueType="NO" syncable="YES">
@@ -48,7 +48,7 @@
         </attribute>
         <attribute name="dateType" attributeType="Date" usesScalarValueType="NO" syncable="YES">
             <userInfo>
-                <entry key="State.Type" value="NSDate"/>
+                <entry key="State.Type" value="Date"/>
             </userInfo>
         </attribute>
         <attribute name="decimalType" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
@@ -91,7 +91,7 @@
     <entity name="TestAssociatedOptionalEnum" representedClassName="TestAssociatedOptionalEnum" syncable="YES">
         <attribute name="binaryType" optional="YES" attributeType="Binary" syncable="YES">
             <userInfo>
-                <entry key="State.Type" value="NSData"/>
+                <entry key="State.Type" value="Data"/>
             </userInfo>
         </attribute>
         <attribute name="booleanType" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES">
@@ -101,7 +101,7 @@
         </attribute>
         <attribute name="dateType" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES">
             <userInfo>
-                <entry key="State.Type" value="NSDate"/>
+                <entry key="State.Type" value="Date"/>
             </userInfo>
         </attribute>
         <attribute name="decimalType" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
@@ -214,6 +214,7 @@
         <attribute name="myBinary" optional="YES" attributeType="Binary" syncable="YES">
             <userInfo>
                 <entry key="State.Immutable" value="YES"/>
+                <entry key="State.Type" value="Data"/>
             </userInfo>
         </attribute>
         <attribute name="myBoolean" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES">
@@ -224,6 +225,7 @@
         <attribute name="myDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="State.Immutable" value="YES"/>
+                <entry key="State.Type" value="Date"/>
             </userInfo>
         </attribute>
         <attribute name="myDecimal" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
@@ -256,6 +258,7 @@
         <attribute name="myBinary" attributeType="Binary" syncable="YES">
             <userInfo>
                 <entry key="State.Immutable" value="YES"/>
+                <entry key="State.Type" value="Data"/>
             </userInfo>
         </attribute>
         <attribute name="myBoolean" attributeType="Boolean" usesScalarValueType="NO" syncable="YES">
@@ -266,6 +269,7 @@
         <attribute name="myDate" attributeType="Date" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="State.Immutable" value="YES"/>
+                <entry key="State.Type" value="Date"/>
             </userInfo>
         </attribute>
         <attribute name="myDecimal" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
@@ -299,9 +303,17 @@
         <attribute name="name" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="TestOptionalTypes" representedClassName="TestOptionalTypes" syncable="YES">
-        <attribute name="myBinary" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="myBinary" optional="YES" attributeType="Binary" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="Data"/>
+            </userInfo>
+        </attribute>
         <attribute name="myBoolean" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="myDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="myDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="Date"/>
+            </userInfo>
+        </attribute>
         <attribute name="myDecimal" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <attribute name="myDouble" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="myFloat" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
@@ -316,7 +328,7 @@
         </attribute>
         <attribute name="myURL" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
-                <entry key="State.Type" value="NSURL"/>
+                <entry key="State.Type" value="URL"/>
             </userInfo>
         </attribute>
     </entity>
@@ -407,24 +419,24 @@
     <entity name="TestTransformable" representedClassName="TestTransformable" syncable="YES">
         <attribute name="myTransformable" attributeType="Transformable" valueTransformerName="URLTransform" syncable="YES">
             <userInfo>
-                <entry key="State.Type" value="NSURL"/>
+                <entry key="State.Type" value="URL"/>
             </userInfo>
         </attribute>
         <attribute name="myTransformableImmutable" attributeType="Transformable" valueTransformerName="URLTransform" syncable="YES">
             <userInfo>
                 <entry key="State.Immutable" value="YES"/>
-                <entry key="State.Type" value="NSURL"/>
+                <entry key="State.Type" value="URL"/>
             </userInfo>
         </attribute>
         <attribute name="myTransformableImmutableOptional" optional="YES" attributeType="Transformable" valueTransformerName="URLTransform" syncable="YES">
             <userInfo>
                 <entry key="State.Immutable" value="YES"/>
-                <entry key="State.Type" value="NSURL"/>
+                <entry key="State.Type" value="URL"/>
             </userInfo>
         </attribute>
         <attribute name="myTransformableOptional" optional="YES" attributeType="Transformable" valueTransformerName="URLTransform" syncable="YES">
             <userInfo>
-                <entry key="State.Type" value="NSURL"/>
+                <entry key="State.Type" value="URL"/>
             </userInfo>
         </attribute>
         <userInfo>
@@ -451,9 +463,17 @@
         <relationship name="myTransientRelationship" optional="YES" transient="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Gender" syncable="YES"/>
     </entity>
     <entity name="TestTypes" representedClassName="TestTypes" syncable="YES">
-        <attribute name="myBinary" attributeType="Binary" syncable="YES"/>
+        <attribute name="myBinary" attributeType="Binary" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="Data"/>
+            </userInfo>
+        </attribute>
         <attribute name="myBoolean" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="myDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="myDate" attributeType="Date" usesScalarValueType="NO" syncable="YES">
+            <userInfo>
+                <entry key="State.Type" value="Date"/>
+            </userInfo>
+        </attribute>
         <attribute name="myDecimal" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <attribute name="myDouble" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="myFloat" attributeType="Float" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>

@@ -1,17 +1,18 @@
-/************************************************
 
-        WARNING: MACHINE GENERATED FILE
+//
+// AUTO GENERATED FILE
+// _TestAssociatedEnum.swift
+//
 
- ************************************************/
 import Foundation
 import State
 import UIKit
 
 public enum TestAssociatedEnum  : Model {
 
-    case binaryType (NSData)
+    case binaryType (Data)
     case booleanType (Bool)
-    case dateType (NSDate)
+    case dateType (Date)
     case decimalType (NSDecimalNumber)
     case doubleType (Double)
     case floatType (Float)
@@ -35,7 +36,7 @@ extension TestAssociatedEnum {
         guard let type: String = store.value(forKey: "TestAssociatedEnum") else { return nil }
         switch type {
                 case "binaryType":
-                   if let value: NSData = store.value(forKey: "value") {
+                   if let value: Data = store.value(forKey: "value") {
                      self = TestAssociatedEnum.binaryType(value)
                    } else { return nil }
 
@@ -45,7 +46,7 @@ extension TestAssociatedEnum {
                    } else { return nil }
 
                 case "dateType":
-                   if let value: NSDate = store.value(forKey: "value") {
+                   if let value: Date = store.value(forKey: "value") {
                      self = TestAssociatedEnum.dateType(value)
                    } else { return nil }
 

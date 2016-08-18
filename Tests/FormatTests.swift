@@ -3,20 +3,20 @@ import XCTest
 @testable import State
 
 class FormatTests: Test {
-    var testPlist : [String : AnyObject]?
-    var testJSON  : [String : AnyObject]?
-    var testData  : [String : AnyObject]?
+    var testPlist : [String : Any]?
+    var testJSON  : [String : Any]?
+    var testData  : [String : Any]?
     
     override func setUp() {
         super.setUp()
         
         let plist = PlistFormat()
         let json = JSONFormat()
-        self.testPlist = plist.read(bundleURLFor("Data", ofType: "plist")!) as? [String : AnyObject]
-        self.testData = plist.read(bundleURLFor("Data", ofType: "plist")!) as? [String : AnyObject]
-        self.testJSON = json.read(bundleURLFor("Data", ofType: "json")!) as? [String : AnyObject]
+        self.testPlist = plist.read(bundleURLFor("Data", ofType: "plist")!) as? [String : Any]
+        self.testData = plist.read(bundleURLFor("Data", ofType: "plist")!) as? [String : Any]
+        self.testJSON = json.read(bundleURLFor("Data", ofType: "json")!) as? [String : Any]
     }
-    
+
     func testPlistWasReadCorrectly() {
         XCTAssert(testPlist?.count == 9, "Plist Count should be 9 , is \(testPlist?.count)")
         if let floatData = testPlist?["Float"] as? [String : AnyObject],
@@ -58,12 +58,13 @@ class FormatTests: Test {
         testJSONWasReadCorrectly()
         XCTAssert(testJSON != nil)
     }
-    
+
+
     func testReadingDataFileShouldProduceData() {
         testDataWasReadCorrectly()
         XCTAssert(testData != nil)
     }
-    
+
     func testWritingPlistFile() {
         testPlistWasReadCorrectly()
         writePlistDataOutToTempFile()
@@ -93,7 +94,7 @@ class FormatTests: Test {
         let json = JSONFormat()
         let testString : String? = bundleURLFor("Data", ofType: "json") >>- json.read >>- json.makeString
         testJSON = nil
-        testJSON = json.read(testString!) as? [String : AnyObject]
+        testJSON = json.read(testString!) as? [String : Any]
         testJSONWasReadCorrectly()
     }
     
@@ -102,7 +103,7 @@ class FormatTests: Test {
         let plist = PlistFormat()
         let testString : String? = bundleURLFor("Data", ofType: "plist") >>- plist.read >>- plist.makeString
         testPlist = nil
-        testPlist = plist.read(testString!) as? [String : AnyObject]
+        testPlist = plist.read(testString!) as? [String : Any]
         testPlistWasReadCorrectly()
     }
     
@@ -110,16 +111,15 @@ class FormatTests: Test {
         testPlistWasReadCorrectly()
         let plist = PlistFormat()
         let baseString : String? = bundleURLFor("Data", ofType: "plist") >>- plist.read >>- plist.makeString
-        var testString: String = ""
-        _ = testPlist >>- plist.makeString >>- { testString = $0 }
-        XCTAssert(testString == baseString!)
+        let testString: String? = plist.makeString(from: testPlist! )
+        XCTAssert(testString == baseString)
     }
     
     func testWritingJSONString() {
         testJSONWasReadCorrectly()
         let json = JSONFormat()
-        let baseString : String? = bundleURLFor("Data", ofType: "json") >>- json.read  >>- { json.makeString(from: $0 as![String : AnyObject]) }
-        let testString: String? = (testJSON  >>- json.makeString)
+        let baseString : String? = bundleURLFor("Data", ofType: "json") >>- json.read  >>- { json.makeString(from: $0 as![String : Any]) }
+        let testString: String? = json.makeString(from: testJSON!)
         XCTAssert(testString! == baseString!, "testString:\(testString), baseString:\(baseString)")
     }
     

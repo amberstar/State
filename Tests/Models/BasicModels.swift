@@ -143,15 +143,15 @@ a  model for testing 'AnyObject' types
 
 ///MARK: - AnyObjectTypes
 struct AnyObjectTypes {
-    let t: AnyObject
-    let tOpt: AnyObject?
-    let tImp: AnyObject!
-    let tArr: [AnyObject]
-    let tArrOpt: [AnyObject]?
-    let tArrImp: [AnyObject]!
-    let tDic: [String : AnyObject]
-    let tDicOpt: [String : AnyObject]?
-    let tDictImp: [String : AnyObject]!
+    let t: Any
+    let tOpt: Any?
+    let tImp: Any!
+    let tArr: [Any]
+    let tArrOpt: [Any]?
+    let tArrImp: [Any]!
+    let tDic: [String : Any]
+    let tDicOpt: [String : Any]?
+    let tDictImp: [String : Any]!
 
 }
 
@@ -164,19 +164,19 @@ extension AnyObjectTypes : Model {
    init?(with store: Store) {
     
     guard
-        let t: AnyObject = store.object(forKey: "t"),
-        let tArr : [AnyObject] = store.array(forKey: "t_arr"),
-        let tDic : [String : AnyObject] = store.dictionary(forKey: "t_dic")
+        let t: Any = store.object(forKey: "t"),
+        let tArr : [Any] = store.array(forKey: "t_arr"),
+        let tDic : [String : Any] = store.dictionary(forKey: "t_dic")
     else {
         return nil
     }
       
-    let tOpt: AnyObject?  = store.object(forKey: "t_opt")
-    let tImp : AnyObject! = store.object(forKey: "t_imp")
-    let tArrOpt : [AnyObject]? = store.array(forKey: "t_arr_opt")
-    let tArrImp : [AnyObject]! = store.array(forKey: "t_arr_imp")
-    let tDicOpt : [String : AnyObject]? = store.dictionary(forKey: "t_dic_opt")
-    let tDictImp : [String : AnyObject]! = store.dictionary(forKey: "t_dic_imp")
+    let tOpt: Any?  = store.object(forKey: "t_opt")
+    let tImp : Any! = store.object(forKey: "t_imp")
+    let tArrOpt : [Any]? = store.array(forKey: "t_arr_opt")
+    let tArrImp : [Any]! = store.array(forKey: "t_arr_imp")
+    let tDicOpt : [String : Any]? = store.dictionary(forKey: "t_dic_opt")
+    let tDictImp : [String : Any]! = store.dictionary(forKey: "t_dic_imp")
       
       self.t = t
       self.tOpt = tOpt

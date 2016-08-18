@@ -46,7 +46,7 @@ class PerfTests: Test {
     func testTimeParsingJSON() {
     
         measure {
-            var _ : AnyObject? = Format.json.read(self.bundleURLFor("Big_data", ofType: "json")!)
+            var _ : Any? = Format.json.read(self.bundleURLFor("Big_data", ofType: "json")!)
         }
     }
     

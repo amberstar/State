@@ -1,16 +1,17 @@
-/************************************************
 
-        WARNING: MACHINE GENERATED FILE
+//
+// AUTO GENERATED FILE
+// _TestTransformable.swift
+//
 
- ************************************************/
 import Foundation
 import State
 
 public struct TestTransformable : Model {
-    public var myTransformable: NSURL
-    public let myTransformableImmutable: NSURL
-    public let myTransformableImmutableOptional: NSURL?
-    public var myTransformableOptional: NSURL?
+    public var myTransformable: URL
+    public let myTransformableImmutable: URL
+    public let myTransformableImmutableOptional: URL?
+    public var myTransformableOptional: URL?
 
 }
 
@@ -24,12 +25,12 @@ extension TestTransformable  {
         let store = TestTransformable.migrate(source: inStore)
 
          guard
-            let myTransformable: NSURL = store.value(forKey: "myTransformable"),
-            let myTransformableImmutable: NSURL = store.value(forKey: "myTransformableImmutable")
+            let myTransformable: URL = store.value(forKey: "myTransformable"),
+            let myTransformableImmutable: URL = store.value(forKey: "myTransformableImmutable")
          else { return  nil }
 
-        let myTransformableImmutableOptional: NSURL? = store.value(forKey: "myTransformableImmutableOptional")
-        let myTransformableOptional: NSURL? = store.value(forKey: "myTransformableOptional")
+        let myTransformableImmutableOptional: URL? = store.value(forKey: "myTransformableImmutableOptional")
+        let myTransformableOptional: URL? = store.value(forKey: "myTransformableOptional")
 
         self.myTransformable = myTransformable
         self.myTransformableImmutable = myTransformableImmutable

@@ -103,21 +103,21 @@ extension Model {
     public func write(to location: URL, format: Format) -> Bool {
         var vstore = Store()
         self.write(to: &vstore)
-        return format.write(vstore.data, to: location)
+        return format.write(vstore.data as NSDictionary, to: location)
     }
 
     /// Convert and return the content as a string in the specified format.
     public func makeString(format: Format) -> String? {
         var vstore = Store()
         self.write(to: &vstore)
-        return format.makeString(from: vstore.data)
+        return format.makeString(from: vstore.data as NSDictionary)
     }
 
     /// Convert and return the content as data in the specified format.
     public func makeData(format: Format) -> Data? {
         var vstore = Store()
         self.write(to: &vstore)
-        return format.makeData(from: vstore.data, prettyPrint: true)
+        return format.makeData(from: vstore.data as NSDictionary, prettyPrint: true)
     }
 
     // note: these default implementations do nothing
@@ -170,21 +170,21 @@ extension Array where Element: Model {
     ///
     /// - Returns: `true` if succeeded otherwise `false`
     public func write(to location: URL, format: Format) -> Bool {
-        return format.write(encodeToData(), to: location)
+        return format.write(encodeToData() as AnyObject, to: location)
     }
 
     /// Return the model array content as a string in the specified format.
     public func makeString(format: Format) -> String? {
-        return format.makeString(from: encodeToData())
+        return format.makeString(from: encodeToData() as AnyObject)
     }
 
    /// Return the model array content as data in the specified format.
     public func makeData(format: Format) -> Data? {
-        return format.makeData(from: encodeToData(), prettyPrint: true)
+        return format.makeData(from: encodeToData() as AnyObject, prettyPrint: true)
     }
 
-    func encodeToData() -> AnyObject {
-       return self.reduce([[String :  AnyObject]]()) { (accum, elem) -> [[String : AnyObject]] in
+    func encodeToData() -> Any {
+       return self.reduce([[String :  Any]]()) { (accum, elem) -> [[String : Any]] in
             var vaccum = accum
             var vstore = Store()
             elem.write(to: &vstore)
@@ -230,7 +230,7 @@ extension Store {
     public mutating func set<Value: Model>(_ value: [Value]?, forKey key: String) {
         guard let value = value
             else { return }
-        let data  = value.reduce([[String : AnyObject]](), { (data, value) -> [[String: AnyObject]] in
+        let data  = value.reduce([[String : Any]](), { (data, value) -> [[String: Any]] in
             var vstore = Store()
             var vdata = data
             value.write(to: &vstore )
@@ -244,7 +244,7 @@ extension Store {
     public mutating func set<Value: Model>(_ value: [String : Value]?, forKey key: String) {
         guard let value = value
             else { return }
-        let data = value.reduce([String : [String : AnyObject]](), { (data, element) -> [String : [String : AnyObject]] in
+        let data = value.reduce([String : [String : Any]](), { (data, element) -> [String : [String : Any]] in
             var vstore = Store()
             var vdata = data
             element.value.write(to: &vstore)

@@ -1,8 +1,9 @@
-/************************************************
 
-        WARNING: MACHINE GENERATED FILE
+//
+// AUTO GENERATED FILE
+// _TestProtocolConformer.swift
+//
 
- ************************************************/
 import Foundation
 import State
 

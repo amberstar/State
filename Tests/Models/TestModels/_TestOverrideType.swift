@@ -1,13 +1,14 @@
-/************************************************
 
-        WARNING: MACHINE GENERATED FILE
+//
+// AUTO GENERATED FILE
+// _TestOverrideType.swift
+//
 
- ************************************************/
 import Foundation
 import State
 
 public struct TestOverrideType : Model {
-    public var myURL: NSURL?
+    public var myURL: URL?
     public var myArrayOfString: [String]?
 
 }
@@ -21,7 +22,7 @@ extension TestOverrideType  {
     public init?(with inStore: Store) {
         let store = TestOverrideType.migrate(source: inStore)
 
-        let myURL: NSURL? = store.value(forKey: "myURL")
+        let myURL: URL? = store.value(forKey: "myURL")
         let myArrayOfString: [String]? = store.value(forKey: "myArrayOfString")
 
         self.myURL = myURL

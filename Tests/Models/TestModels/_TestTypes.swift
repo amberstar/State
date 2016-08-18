@@ -1,15 +1,16 @@
-/************************************************
 
-        WARNING: MACHINE GENERATED FILE
+//
+// AUTO GENERATED FILE
+// _TestTypes.swift
+//
 
- ************************************************/
 import Foundation
 import State
 
 public struct TestTypes : Model {
-    public var myDate: NSDate
+    public var myDate: Date
     public var myFloat: Float
-    public var myBinary: NSData
+    public var myBinary: Data
     public var myDouble: Double
     public var myString: String
     public var myBoolean: Bool
@@ -28,9 +29,9 @@ extension TestTypes  {
         let store = TestTypes.migrate(source: inStore)
 
          guard
-            let myDate: NSDate = store.value(forKey: "myDate"),
+            let myDate: Date = store.value(forKey: "myDate"),
             let myFloat: Float = store.value(forKey: "myFloat"),
-            let myBinary: NSData = store.value(forKey: "myBinary"),
+            let myBinary: Data = store.value(forKey: "myBinary"),
             let myDouble: Double = store.value(forKey: "myDouble"),
             let myString: String = store.value(forKey: "myString"),
             let myBoolean: Bool = store.value(forKey: "myBoolean"),

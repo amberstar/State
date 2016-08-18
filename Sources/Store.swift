@@ -15,10 +15,10 @@ import UIKit
 /// for grouping together models, and values.
 public struct Store {
     /// The contents of the store.
-    public var data : [String : AnyObject]
+    public var data : [String : Any]
 
     /// Create an instance with initial data.
-    public init(data: [String : AnyObject] = [:]) {
+    public init(data: [String : Any] = [:]) {
         self.data = data
     }
 
@@ -28,24 +28,24 @@ public struct Store {
     }
 
     /// Returns the object associated with the specified key.
-    public func object(forKey key: String) -> AnyObject? {
+    public func object(forKey key: String) -> Any? {
         return data[key]
     }
 
     /// Returns the array associated with the specified key.
-    public func array(forKey key: String) -> [AnyObject]? {
-        return data[key] as? [AnyObject]
+    public func array(forKey key: String) -> [Any]? {
+        return data[key] as? [Any]
     }
 
     /// Returns the dictionary associated with the specified key.
-    public func dictionary(forKey key: String) -> [String : AnyObject]? {
+    public func dictionary(forKey key: String) -> [String : Any]? {
         return data[key] as? [String : AnyObject]
     }
 
     /// Sets the value of the specified key to the specified value.
     public mutating func set<V>(_ value: V?, forKey key: String) {
         guard let value = value else { return }
-        data[key] = value as? AnyObject
+        data[key] = value
     }
 
     /// Returns the url associated with the specified key.
@@ -59,7 +59,7 @@ public struct Store {
     public mutating func set(_ value: URL?, forKey key: String) {
         guard let urlString : String  = value?.absoluteString
             else { return }
-        data[key] = urlString
+        data[key] = urlString as NSString
     }
 
     /// Returns the color associated with the specified key.
@@ -92,7 +92,7 @@ public struct Store {
     
     /// Removes and returns the value at the specified key
     /// or .none if not found.
-    public mutating func remove(key: String) -> AnyObject? {
+    public mutating func remove(key: String) -> Any? {
         return data.removeValue(forKey: key)
     }
 
@@ -119,13 +119,13 @@ public struct Store {
     ///
     /// - Returns: `true` if succeeded otherwise `false`
     public func write(to file: URL, format: Format) -> Bool {
-        return format.write(data, to: file)
+        return format.write(data as AnyObject, to: file)
     }
 
     /// Returns the stores content as a string in the
     /// specified format.
     public func makeString(format: Format) -> String? {
-        return format.makeString(from: data)
+        return format.makeString(from: data as AnyObject)
     }
 
     /// Create a store with a string in the specified format.
@@ -143,7 +143,7 @@ public struct Store {
     }
 
     public func makeData(format: Format) -> Data? {
-        return format.makeData(from: data, prettyPrint: true)
+        return format.makeData(from: data as AnyObject, prettyPrint: true)
     }
 }
 

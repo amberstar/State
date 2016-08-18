@@ -1,8 +1,9 @@
-/************************************************
 
-        WARNING: MACHINE GENERATED FILE
+//
+// AUTO GENERATED FILE
+// _TestParentProtocol.swift
+//
 
- ************************************************/
 import Foundation
 import State
 
@@ -15,17 +16,17 @@ public protocol TestParentProtocol : Model  {
 extension Store {
 
     public func value(forKey key: String) -> TestParentProtocol? {
-        guard let data : [String : AnyObject] = value(forKey: key) else { return nil }
+        guard let data : [String : Any] = value(forKey: key) else { return nil }
         return _decodeTestParentProtocol(data: data)
     }
 
     public func value(forKey key: String) -> [TestParentProtocol]? {
-        guard let arrayv : [[String : AnyObject]] = value(forKey: key) else { return nil }
+        guard let arrayv : [[String : Any]] = value(forKey: key) else { return nil }
         return sequence(arrayv.map { _decodeTestParentProtocol(data:$0) })
     }
 
     public func value(forKey key: String) -> [String : TestParentProtocol]? {
-        guard let data : [String : [String : AnyObject]] = value(forKey: key) else { return nil }
+        guard let data : [String : [String : Any]] = value(forKey: key) else { return nil }
         return sequence(data.map { self._decodeTestParentProtocol(data:$0) })
     }
 
@@ -40,7 +41,7 @@ extension Store {
     public mutating func set(_ value: [TestParentProtocol]?, forKey key: String) {
         guard let value = value else { return }
 
-        let data  = value.reduce([[String : AnyObject]](), { (data, value) -> [[String: AnyObject]] in
+        let data  = value.reduce([[String : Any]](), { (data, value) -> [[String: Any]] in
             var vstore = Store()
             var vdata = data
             value.write(to: &vstore )
@@ -55,7 +56,7 @@ extension Store {
     public mutating func set(_ value: [String : TestParentProtocol]?, forKey key: String) {
 
         guard let value = value else { return }
-        let data = value.reduce([String : [String : AnyObject]](), { (data, element) -> [String : [String : AnyObject]] in
+        let data = value.reduce([String : [String : Any]](), { (data, element) -> [String : [String : Any]] in
             var vstore = Store()
             var vdata = data
             element.value.write(to: &vstore)
@@ -66,7 +67,7 @@ extension Store {
         set(data, forKey: key)
     }
 
-    private func _decodeTestParentProtocol(data: [String : AnyObject]) -> TestParentProtocol? {
+    private func _decodeTestParentProtocol(data: [String : Any]) -> TestParentProtocol? {
         guard let typeKey = data["TestParentProtocol"] as? String else { return nil }
         if let t = TestParentProtocolType(forKey: typeKey) {
             return t.read(from: Store(data: data))

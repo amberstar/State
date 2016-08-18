@@ -20,7 +20,7 @@ public class Format {
     }
     /// write data to a file
     /// - returns: true if succeeded, false if failed
-    func write(_ object: AnyObject, to url: URL) -> Bool  {
+    func write(_ object: Any, to url: URL) -> Bool  {
         if let data = makeData(from: object, prettyPrint: true) {
             return ((try? data.write(to: url, options: [.atomic] )) != nil)
         }
@@ -29,28 +29,31 @@ public class Format {
     
     /// write data to  NSData
     /// - returns: NSData or nil if failed
-    func makeData(from object: AnyObject,
+    func makeData(from object: Any,
                   prettyPrint: Bool) -> Data?  {
         return NSKeyedArchiver.archivedData(withRootObject: object)
     }
     
     /// write data to String
     /// - returns: a string or nil if failed
-    func makeString(from object: AnyObject) -> String? {
-        if let data = makeData(from: object, prettyPrint: true) {
-            return NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String
-        } else { return nil }
+    func makeString(from object: Any) -> String? {
+        if let data = makeData(from: object,  prettyPrint: true) {
+            return String(data: data, encoding: .utf8)
+        } else {
+            print("Could not make data")
+            return nil
+        }
     }
     
     /// Read data from NSData
     /// - returns: a data object or nil
-    func read(_ data: Data) -> AnyObject? {
-        return NSKeyedUnarchiver.unarchiveObject(with: data) as? [String : AnyObject]
+    func read(_ data: Data) -> Any? {
+        return NSKeyedUnarchiver.unarchiveObject(with: data)
     }
     
     /// Read file from a URL
     /// - returns: a data object or nil
-    func read(_ url: URL) -> AnyObject? {
+    func read(_ url: URL) -> Any? {
         if let data = try? Data(contentsOf: url) {
             return read(data)
         }
@@ -59,21 +62,21 @@ public class Format {
     
     /// Read data from a string
     /// - returns: a data object or nil
-    func read(_ content: String) -> AnyObject? {
+    func read(_ content: String) -> Any? {
         guard let data = makeData(from: content)
             else { return nil }
         return read(data)
     }
     
     func makeData(from string : String) -> Data? {
-        return string.data(using: String.Encoding.utf8, allowLossyConversion: true)
+        return string.data(using: .utf8, allowLossyConversion: true)
     }
 }
 
 final class JSONFormat: Format {
-    override func read(_ data: Data) -> AnyObject? {
+    override func read(_ data: Data) -> Any? {
         do {
-            let o: AnyObject =  try JSONSerialization.jsonObject(
+            let o: Any =  try JSONSerialization.jsonObject(
                 with: data, options: JSONSerialization.ReadingOptions.allowFragments)
             return o
         } catch let error as NSError {
@@ -82,7 +85,7 @@ final class JSONFormat: Format {
         }
     }
     
-    override func makeData(from object: AnyObject, prettyPrint: Bool) -> Data?  {
+    override func makeData(from object: Any, prettyPrint: Bool) -> Data?  {
         guard JSONSerialization.isValidJSONObject(object)
             else { return nil }
         let options: JSONSerialization.WritingOptions = prettyPrint ? .prettyPrinted : []
@@ -100,9 +103,9 @@ final class JSONFormat: Format {
 }
 
 final class PlistFormat: Format {
-    override func read(_ data: Data) -> AnyObject? {
+    override func read(_ data: Data) -> Any? {
         do {
-            let o: AnyObject =
+            let o: Any =
                 try PropertyListSerialization.propertyList(from: data, options:[.mutableContainersAndLeaves], format:nil)
             return o
         } catch let error as NSError {
@@ -111,16 +114,19 @@ final class PlistFormat: Format {
         }
     }
     
-    override func read(_ content: String) -> AnyObject? {
+    override func read(_ content: String) -> Any? {
         let s = content as NSString
         return s.propertyList()
     }
     
-    override func makeData(from object: AnyObject,
+    override func makeData(from object: Any,
                            prettyPrint: Bool) -> Data?  {
         guard PropertyListSerialization.propertyList(
             object, isValidFor: PropertyListSerialization.PropertyListFormat.xml)
-            else { return nil }
+            else {
+                print("Object is invalid for property list serialization")
+                return nil
+            }
         do {
             let data: Data? = try PropertyListSerialization.data(
                 fromPropertyList: object, format: PropertyListSerialization.PropertyListFormat.xml, options: .allZeros )

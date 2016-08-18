@@ -1,8 +1,9 @@
-/************************************************
 
-        WARNING: MACHINE GENERATED FILE
+//
+// AUTO GENERATED FILE
+// _TestDefaults.swift
+//
 
- ************************************************/
 import Foundation
 import State
 
