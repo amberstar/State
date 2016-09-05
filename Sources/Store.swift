@@ -74,6 +74,52 @@ public struct Store {
         else { return nil }
         return UIColor(colorLiteralRed: red, green: green, blue: blue, alpha: alpha)
     }
+    
+    /// Sets the value of the specified key to the specified Int8 value.
+    public mutating func set(_ value: Int8, forKey key: String) {
+        set(Int(value), forKey: key)
+    }
+    
+    /// Sets the value of the specified key to the specified Int16 value.
+    public mutating func set(_ value: Int16, forKey key: String) {
+        set(Int(value), forKey: key)
+    }
+    
+    /// Sets the value of the specified key to the specified Int32 value.
+    public mutating func set(_ value: Int32, forKey key: String) {
+        set(Int(value), forKey: key)
+    }
+    
+    /// Sets the value of the specified key to the specified Int64 value.
+    public mutating func set(_ value: Int64, forKey key: String) {
+        set(Int(value), forKey: key)
+    }
+    
+    /// Sets the value of the specified key to the specified UInt value.
+    public mutating func set(_ value: UInt, forKey key: String) {
+        set(Int(value), forKey: key)
+    }
+    
+    /// Sets the value of the specified key to the specified UInt8 value.
+    public mutating func set(_ value: UInt8, forKey key: String) {
+        set(Int(value), forKey: key)
+    }
+
+    /// Sets the value of the specified key to the specified UInt16 value.
+    public mutating func set(_ value: UInt16, forKey key: String) {
+        set(Int(value), forKey: key)
+    }
+    
+    /// Sets the value of the specified key to the specified UInt32 value.
+    public mutating func set(_ value: UInt32, forKey key: String) {
+        set(Int(value), forKey: key)
+    }
+
+    
+    /// Sets the value of the specified key to the specified UInt64 value.
+    public mutating func set(_ value: UInt64, forKey key: String) {
+        set(Int(value), forKey: key)
+    }
 
     /// Sets the value of the specified key to the specified color value.
     public mutating func set(_ value: UIColor?, forKey key: String) {
