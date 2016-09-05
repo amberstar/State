@@ -21,12 +21,87 @@ public struct Store {
     public init(data: [String : Any] = [:]) {
         self.data = data
     }
-
+    
     /// Returns the value associated with the specified key.
     public func value<V>(forKey key: String) -> V? {
-        return data[key] as? V
+        guard let result = data[key] as? V else {
+            return nil
+        }
+        return result
+    }
+    
+    /// Returns the value associated with the specified key.
+    public func value(forKey key: String) -> Int8? {
+        guard let result = data[key] as? Int else {
+            return nil
+        }
+        return Int8(result)
+    }
+    
+    /// Returns the value associated with the specified key.
+    public func value(forKey key: String) -> Int16? {
+        guard let result = data[key] as? Int else {
+            return nil
+        }
+        return Int16(result)
+    }
+    
+    /// Returns the value associated with the specified key.
+    public func value(forKey key: String) -> Int32? {
+        guard let result = data[key] as? Int else {
+            return nil
+        }
+        return Int32(result)
+    }
+    
+    /// Returns the value associated with the specified key.
+    public func value(forKey key: String) -> Int64? {
+        guard let result = data[key] as? Int else {
+            return nil
+        }
+        return Int64(result)
+    }
+    
+    /// Returns the value associated with the specified key.
+    public func value(forKey key: String) -> UInt? {
+        guard let result = data[key] as? Int else {
+            return nil
+        }
+        return UInt(result)
+    }
+    
+    /// Returns the value associated with the specified key.
+    public func value(forKey key: String) -> UInt8? {
+        guard let result = data[key] as? Int else {
+            return nil
+        }
+        return UInt8(result)
     }
 
+    /// Returns the value associated with the specified key.
+    public func value(forKey key: String) -> UInt16? {
+        guard let result = data[key] as? Int else {
+            return nil
+        }
+        return UInt16(result)
+    }
+
+    /// Returns the value associated with the specified key.
+    public func value(forKey key: String) -> UInt32? {
+        guard let result = data[key] as? Int else {
+            return nil
+        }
+        return UInt32(result)
+    }
+    
+    /// Returns the value associated with the specified key.
+    public func value(forKey key: String) -> UInt64? {
+        guard let result = data[key] as? Int else {
+            return nil
+        }
+        return UInt64(result)
+    }
+    
     /// Returns the object associated with the specified key.
     public func object(forKey key: String) -> Any? {
         return data[key]
