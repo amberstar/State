@@ -96,6 +96,13 @@ extension Model {
             else { return nil }
         self = instance
     }
+    
+    /// Create a model from a dictionary representation 
+    public init?(content: [String : Any]) {
+        guard let instance = Self.read(from: Store(data: content))
+            else { return nil }
+        self = instance
+    }
 
     /// Write the store content to a file in the specified format.
     ///
@@ -119,6 +126,13 @@ extension Model {
         self.write(to: &vstore)
         return format.makeData(from: vstore.data as NSDictionary, prettyPrint: true)
     }
+    
+    /// Convert and return a dictionary representation 
+    public func makeDictionary() -> [String : Any] {
+        var vstore = Store()
+        self.write(to: &vstore)
+        return vstore.data
+    }
 
     // note: these default implementations do nothing
 
@@ -138,6 +152,13 @@ extension Model {
 
 // TODO: Refactor these collections to reduce repeat code
 extension Array where Element: Model {
+    
+    /// Create an array of models from an array of dictionaries 
+    public init?(data: [[String : Any]] ) {
+        guard let instance =  sequence(data.map { Element.read(from: Store(data: $0)) })
+            else  { return nil }
+        self = instance
+    }
     
     /// Create an array of models from a file in the specified format.
     public init?(file: URL, format: Format) {
@@ -181,6 +202,11 @@ extension Array where Element: Model {
    /// Return the model array content as data in the specified format.
     public func makeData(format: Format) -> Data? {
         return format.makeData(from: encodeToData() as AnyObject, prettyPrint: true)
+    }
+    
+    /// Return the model array content as a dictionary array
+    public func makeDictionaryArray() -> [[String : Any]] {
+        return self.encodeToData() as! [[String : Any]]
     }
 
     func encodeToData() -> Any {
