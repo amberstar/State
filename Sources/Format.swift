@@ -9,13 +9,13 @@ import Foundation
 /// Used internally by a store to read and write it's
 /// content to files, strings, data. etc.
 public class Format {
-    static var binary: Format {
+   public  static var binary: Format {
         return Format()
     }
-    static var json: Format {
+    public static var json: Format {
         return JSONFormat()
     }
-    static var plist: Format {
+   public  static var plist: Format {
         return PlistFormat()
     }
     /// write data to a file
