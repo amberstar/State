@@ -1,7 +1,7 @@
 
 //
 // Format.swift
-// Copyright © 2016 SIMPLETOUCH LLC. All rights reserved.
+// Copyright © 2016 Amber Star. All rights reserved.
 //
 
 import Foundation
