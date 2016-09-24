@@ -6,6 +6,12 @@
 
 import Foundation
 
+public protocol Serializable {
+    serialize
+    
+}
+
+
 /// Used internally by a store to read and write it's
 /// content to files, strings, data. etc.
 public class Format {

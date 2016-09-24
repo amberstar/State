@@ -4,7 +4,7 @@
 // Copyright © 2016 Amber Star. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 ///  A type that can be encoded and decoded to various
 ///  data types.
@@ -37,21 +37,7 @@ import UIKit
 /// 
 ///    In the `read(from:)` method use the migrated store to read
 ///    and instantiate the model instance.
-public protocol Model {
-    /// creates a `Model` instance from
-    /// a store.
-    static func read(from: Store) -> Self?
-    /// called after reading is finished
-    /// to give a model an opertunity
-    /// to prepare or to read extra values
-    /// from the store before instantiation
-    func finishReading(from: Store)
-    /// Writes the`Model` to a `Store`
-    func write(to: inout Store)
-    /// called before writing is finished
-    /// to give the model an opertunity
-    /// to write extra values to the store
-    func finishWriting(to: inout Store)
+public protocol Model: Storable {
     /// writes the model version to the store.
     /// 
     /// This is called before writing a model to
@@ -144,11 +130,7 @@ extension Model {
     // default implementation does nothing
     public static func writeVersion(to: inout Store) {}
 
-    // default implementation does nothing
-    public func finishReading(from: Store) {}
-
-    // default implementation does nothing
-    public func finishWriting(to: inout Store) {}
+    
 }
 
 // TODO: Refactor these collections to reduce repeat code
