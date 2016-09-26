@@ -19,12 +19,8 @@ public struct TestProtocolConformer : TestProtocol {
 
 extension TestProtocolConformer  {
 
-    public static func read(from store: Store) -> TestProtocolConformer? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = TestProtocolConformer.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = TestProtocolConformer.migrate(source: source)
 
          guard
             let ss_number: String = store.value(forKey: "ss_number"),

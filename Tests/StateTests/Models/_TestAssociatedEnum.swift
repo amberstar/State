@@ -26,12 +26,8 @@ public enum TestAssociatedEnum  : Model {
 
 extension TestAssociatedEnum {
 
-    public static func read(from store: Store) -> TestAssociatedEnum? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = TestAssociatedEnum.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = TestAssociatedEnum.migrate(source: source)
 
         guard let type: String = store.value(forKey: "TestAssociatedEnum") else { return nil }
         switch type {

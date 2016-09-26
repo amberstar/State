@@ -16,12 +16,8 @@ public enum TestRegEnum  : Model {
 
 extension TestRegEnum {
 
-    public static func read(from store: Store) -> TestRegEnum? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = TestRegEnum.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = TestRegEnum.migrate(source: source)
 
         guard let type: String = store.value(forKey: "TestRegEnum") else { return nil }
         switch type {

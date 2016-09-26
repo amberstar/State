@@ -17,12 +17,8 @@ public struct Company : Model {
 
 extension Company  {
 
-    public static func read(from store: Store) -> Company? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = Company.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = Company.migrate(source: source)
 
          guard
             let name: String = store.value(forKey: "name"),

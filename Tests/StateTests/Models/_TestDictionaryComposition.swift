@@ -14,12 +14,8 @@ public struct TestDictionaryComposition : Model {
 
 extension TestDictionaryComposition  {
 
-    public static func read(from store: Store) -> TestDictionaryComposition? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = TestDictionaryComposition.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = TestDictionaryComposition.migrate(source: source)
 
          guard
             let employees: [String : Employee] = store.value(forKey: "employees")

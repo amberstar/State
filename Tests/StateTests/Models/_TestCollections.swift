@@ -16,12 +16,8 @@ public struct TestCollections : Model {
 
 extension TestCollections  {
 
-    public static func read(from store: Store) -> TestCollections? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = TestCollections.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = TestCollections.migrate(source: source)
 
          guard
             let arrayOfStrings: [String] = store.value(forKey: "arrayOfStrings"),

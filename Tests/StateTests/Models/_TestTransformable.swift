@@ -17,12 +17,8 @@ public struct TestTransformable : Model {
 
 extension TestTransformable  {
 
-    public static func read(from store: Store) -> TestTransformable? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = TestTransformable.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = TestTransformable.migrate(source: source)
 
          guard
             let myTransformable: URL = store.value(forKey: "myTransformable"),

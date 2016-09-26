@@ -17,12 +17,8 @@ public enum TestRawEnum  : String, Model {
 
 extension TestRawEnum {
 
-    public static func read(from store: Store) -> TestRawEnum? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = TestRawEnum.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = TestRawEnum.migrate(source: source)
 
         guard let value: String = store.value(forKey: "value") else { return nil }
         self.init(rawValue: value)

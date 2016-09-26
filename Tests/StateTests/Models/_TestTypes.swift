@@ -21,12 +21,8 @@ public struct TestTypes : Model {
 
 extension TestTypes  {
 
-    public static func read(from store: Store) -> TestTypes? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = TestTypes.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = TestTypes.migrate(source: source)
 
          guard
             let myDate: Date = store.value(forKey: "myDate"),

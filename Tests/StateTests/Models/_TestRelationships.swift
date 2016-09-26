@@ -16,12 +16,8 @@ public struct TestRelationships : Model {
 
 extension TestRelationships  {
 
-    public static func read(from store: Store) -> TestRelationships? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = TestRelationships.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = TestRelationships.migrate(source: source)
 
         let myChildren: [TestChild]? = store.value(forKey: "myChildren")
         let myGrandChildren: [Grandchild]? = store.value(forKey: "myGrandChildren")
