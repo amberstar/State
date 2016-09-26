@@ -13,6 +13,8 @@ import Foundation
 public typealias PropertyList = [String : Any]
 
 // TODO: CustomDebugStringConvertible, Mirror?
+// TODO: add overloads with throws, for required props
+// TODO: add overloads with default values
 
 /// A type that can read and write it's properties to a Store.
 public protocol Storable  {
