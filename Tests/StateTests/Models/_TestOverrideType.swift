@@ -15,12 +15,8 @@ public struct TestOverrideType : Model {
 
 extension TestOverrideType  {
 
-    public static func read(from store: Store) -> TestOverrideType? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = TestOverrideType.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = TestOverrideType.migrate(source: source)
 
         let myURL: URL? = store.value(forKey: "myURL")
         let myArrayOfString: [String]? = store.value(forKey: "myArrayOfString")

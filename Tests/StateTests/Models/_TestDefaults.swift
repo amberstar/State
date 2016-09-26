@@ -24,12 +24,8 @@ public struct TestDefaults : Model {
 
 extension TestDefaults  {
 
-    public static func read(from store: Store) -> TestDefaults? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = TestDefaults.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = TestDefaults.migrate(source: source)
 
          guard
             let defaultManualString: String = store.value(forKey: "defaultManualString"),

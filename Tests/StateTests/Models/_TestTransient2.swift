@@ -16,12 +16,8 @@ public struct TestTransient2 : Model {
 
 extension TestTransient2  {
 
-    public static func read(from store: Store) -> TestTransient2? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = TestTransient2.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = TestTransient2.migrate(source: source)
 
         let myNonTransient: Gender? = store.value(forKey: "myNonTransient")
 

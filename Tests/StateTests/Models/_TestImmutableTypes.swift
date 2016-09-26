@@ -21,12 +21,8 @@ public struct TestImmutableTypes : Model {
 
 extension TestImmutableTypes  {
 
-    public static func read(from store: Store) -> TestImmutableTypes? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = TestImmutableTypes.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = TestImmutableTypes.migrate(source: source)
 
          guard
             let myDate: Date = store.value(forKey: "myDate"),

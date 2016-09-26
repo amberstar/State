@@ -16,12 +16,8 @@ public struct TestProtocolContainter : Model {
 
 extension TestProtocolContainter  {
 
-    public static func read(from store: Store) -> TestProtocolContainter? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = TestProtocolContainter.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = TestProtocolContainter.migrate(source: source)
 
          guard
             let testProtocol: TestProtocol = store.value(forKey: "testProtocol"),

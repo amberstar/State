@@ -16,12 +16,8 @@ public enum Gender  : String, Model {
 
 extension Gender {
 
-    public static func read(from store: Store) -> Gender? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = Gender.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = Gender.migrate(source: source)
 
         guard let value: String = store.value(forKey: "value") else { return nil }
         self.init(rawValue: value)

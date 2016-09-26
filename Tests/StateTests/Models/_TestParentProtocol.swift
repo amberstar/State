@@ -16,25 +16,23 @@ public protocol TestParentProtocol : Model  {
 extension Store {
 
     public func value(forKey key: String) -> TestParentProtocol? {
-        guard let data : [String : Any] = value(forKey: key) else { return nil }
+        guard let data : PropertyList = value(forKey: key) else { return nil }
         return _decodeTestParentProtocol(data: data)
     }
 
     public func value(forKey key: String) -> [TestParentProtocol]? {
-        guard let arrayv : [[String : Any]] = value(forKey: key) else { return nil }
+        guard let arrayv : [PropertyList] = value(forKey: key) else { return nil }
         return sequence(arrayv.map { _decodeTestParentProtocol(data:$0) })
     }
 
     public func value(forKey key: String) -> [String : TestParentProtocol]? {
-        guard let data : [String : [String : Any]] = value(forKey: key) else { return nil }
+        guard let data : [String : PropertyList] = value(forKey: key) else { return nil }
         return sequence(data.map { self._decodeTestParentProtocol(data:$0) })
     }
 
     public mutating func set(_ value: TestParentProtocol?, forKey key: String) {
         guard let value = value else { return }
-        var vstore = Store()
-        value.write(to: &vstore)
-        set(vstore.data, forKey: key)
+        set(value.propertyList, forKey: key)
     }
 
     /// Add or update the value at key.
@@ -42,11 +40,9 @@ extension Store {
         guard let value = value else { return }
 
         let data  = value.reduce([[String : Any]](), { (data, value) -> [[String: Any]] in
-            var vstore = Store()
-            var vdata = data
-            value.write(to: &vstore )
-            vdata.append(vstore.data)
-            return vdata
+            var d = data
+            d.append(value.propertyList)
+            return d
         })
 
         set(data , forKey: key)
@@ -57,20 +53,18 @@ extension Store {
 
         guard let value = value else { return }
         let data = value.reduce([String : [String : Any]](), { (data, element) -> [String : [String : Any]] in
-            var vstore = Store()
-            var vdata = data
-            element.value.write(to: &vstore)
-            vdata[element.key] = vstore.data
-            return vdata
+            var d = data
+            d[element.key] = element.value.propertyList
+            return d
         })
 
         set(data, forKey: key)
     }
 
-    private func _decodeTestParentProtocol(data: [String : Any]) -> TestParentProtocol? {
+    private func _decodeTestParentProtocol(data: PropertyList) -> TestParentProtocol? {
         guard let typeKey = data["TestParentProtocol"] as? String else { return nil }
         if let t = TestParentProtocolType(forKey: typeKey) {
-            return t.read(from: Store(data: data))
+            return t.init(with: Store(propertyList: data))
         }
         return nil
     }

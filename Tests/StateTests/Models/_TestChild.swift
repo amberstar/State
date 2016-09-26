@@ -17,12 +17,8 @@ public struct TestChild : Model {
 
 extension TestChild  {
 
-    public static func read(from store: Store) -> TestChild? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = TestChild.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = TestChild.migrate(source: source)
 
         let age: Int? = store.value(forKey: "age")
         let name: String? = store.value(forKey: "name")

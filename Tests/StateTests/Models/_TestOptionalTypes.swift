@@ -21,12 +21,8 @@ public struct TestOptionalTypes : Model {
 
 extension TestOptionalTypes  {
 
-    public static func read(from store: Store) -> TestOptionalTypes? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = TestOptionalTypes.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = TestOptionalTypes.migrate(source: source)
 
         let myDate: Date? = store.value(forKey: "myDate")
         let myFloat: Float? = store.value(forKey: "myFloat")

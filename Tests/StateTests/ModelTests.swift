@@ -5,9 +5,9 @@ import XCTest
 class ModelReadingTests: Test {
     
     func testDecodingDecodableFromJSON() {
-        let user = User.read(from: Store(data: jsonData["t"] as! [String : AnyObject]))
-        let userNoEmail  = User.read(from: Store(data: jsonData["u"] as! [String : AnyObject]))
-        let users = UserTypes.read(from: Store(data: jsonData))
+        let user = User.read(from: Store(propertyList: jsonData["t"] as! [String : AnyObject]))
+        let userNoEmail  = User.read(from: Store(propertyList: jsonData["u"] as! [String : AnyObject]))
+        let users = UserTypes.read(from: Store(propertyList: jsonData))
         XCTAssert(user != nil)
         XCTAssert(user?.id == 10)
         XCTAssert(user?.name == "John Doe")
@@ -25,9 +25,9 @@ class ModelReadingTests: Test {
     }
     
     func testDecodingDecodableFromPlist() {
-        let user = User.read(from: Store(data: plistData["User1"] as! [String : AnyObject]))
-        let userNoEmail = User.read(from: Store(data: plistData["User2"] as! [String : AnyObject]))
-        let users = UserTypes.read(from: Store(data: plistData["Users"] as! [String : AnyObject]))
+        let user = User.read(from: Store(propertyList: plistData["User1"] as! [String : AnyObject]))
+        let userNoEmail = User.read(from: Store(propertyList: plistData["User2"] as! [String : AnyObject]))
+        let users = UserTypes.read(from: Store(propertyList: plistData["Users"] as! [String : AnyObject]))
         XCTAssert(user != nil)
         XCTAssert(user?.id == 10)
         XCTAssert(user?.name == "John Doe")
@@ -45,7 +45,7 @@ class ModelReadingTests: Test {
     }
     
     func testDecodingInvalidDecodableShouldFail() {
-        let user = User.read(from: Store(data: jsonData["x"] as! [String : AnyObject]))
+        let user = User.read(from: Store(propertyList: jsonData["x"] as! [String : AnyObject]))
         XCTAssert(user == nil)
     }
 }
@@ -53,7 +53,7 @@ class ModelReadingTests: Test {
 class DecodingTests: Test {
     
     func testDecodingBools() {
-        let bools = BasicTypes<Bool>.read(from: Store(data: plistData["Bool"] as! [String : AnyObject]))
+        let bools = BasicTypes<Bool>(with: Store(propertyList: plistData["Bool"] as! [String : AnyObject]))
         ///  Bools
         XCTAssert(bools != nil)
         XCTAssert(bools?.t == true)
@@ -76,7 +76,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingIntTypes() {
-        let ints = BasicTypes<Int>.read(from: Store(data: plistData["Int"] as! [String : AnyObject]))
+        let ints = BasicTypes<Int>.read(from: Store(propertyList: plistData["Int"] as! [String : AnyObject]))
         
         /// Ints
         XCTAssert(ints != nil)
@@ -100,7 +100,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingDoubles() {
-        let doubles = BasicTypes<Double>.read(from: Store(data: plistData["Double"] as! [String : AnyObject]))
+        let doubles = BasicTypes<Double>.read(from: Store(propertyList: plistData["Double"] as! [String : AnyObject]))
         
         /// Doubles
         XCTAssert(doubles != nil)
@@ -124,7 +124,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingFloats() {
-        let floats = BasicTypes<Float>.read(from: Store(data: plistData["Float"] as! [String : AnyObject]))
+        let floats = BasicTypes<Float>.read(from: Store(propertyList: plistData["Float"] as! [String : AnyObject]))
         
         /// Floats
         XCTAssert(floats != nil)
@@ -148,7 +148,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingStrings() {
-        let strings = StringTypes.read(from: Store(data: plistData["String"] as! [String : AnyObject]))
+        let strings = StringTypes.read(from: Store(propertyList: plistData["String"] as! [String : AnyObject]))
         
         /// Strings
         XCTAssert(strings != nil)
@@ -172,7 +172,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingAnyObjects() {
-        let objects = AnyObjectTypes.read(from: Store(data: plistData["Object"] as! [String : AnyObject]))
+        let objects = AnyObjectTypes.read(from: Store(propertyList: plistData["Object"] as! [String : AnyObject]))
         
         /// AnyObjects
         XCTAssert(objects != nil)
@@ -213,11 +213,11 @@ class DefaultTests: Test {
 class ModelWritingTests: Test {
     
     func testEcodingToAndFromJSON() {
-        let inUsers =  UserTypes.read(from: Store(data: jsonData))
+        let inUsers =  UserTypes(with: Store(propertyList: jsonData))
         if let inUsers = inUsers {
             _ = inUsers.write(to: tempURLFor("temp.json"), format: .json)
         }
-        let users =  UserTypes(file: tempURLFor("temp.json"), format: .json)
+        let users =  UserTypes(jsonFile: tempURLFor("temp.json"))
         XCTAssert(users != nil)
         XCTAssert(users?.tArr.count == 3)
         XCTAssert(users?.tImp.name == "John Doe")
@@ -227,11 +227,11 @@ class ModelWritingTests: Test {
     }
     
     func testEcodingToAndFromPlist() {
-        let inUsers = UserTypes.read(from: Store(data: plistData["Users"] as! [String : AnyObject]))
+        let inUsers = UserTypes.read(from: Store(propertyList: plistData["Users"] as! [String : AnyObject]))
         if let inUsers = inUsers {
             _ = inUsers.write(to: tempURLFor("temp.plist"), format: .plist)
         }
-        let users =  UserTypes(file: tempURLFor("temp.plist"), format: .plist)
+        let users =  UserTypes(plistFile: tempURLFor("temp.plist"))
         XCTAssert(users != nil)
         XCTAssert(users?.tArr.count == 3)
         XCTAssert(users?.tImp.name == "John Doe")
@@ -243,7 +243,7 @@ class ModelWritingTests: Test {
 
 class EncodingTests: Test {
     func testEncodingBools() {
-        let bools_in = BasicTypes<Bool>.read(from: Store(data: plistData["Bool"] as! [String : AnyObject]))
+        let bools_in = BasicTypes<Bool>.read(from: Store(propertyList: plistData["Bool"] as! [String : AnyObject]))
         var store: Store = Store()
         bools_in!.write(to: &store)
         let bools = BasicTypes<Bool>.read(from: store)
@@ -270,7 +270,7 @@ class EncodingTests: Test {
     }
     
     func testEncodingInts() {
-        let ints_in =  BasicTypes<Int>.read(from: Store(data: plistData["Int"] as! [String : AnyObject]))
+        let ints_in =  BasicTypes<Int>.read(from: Store(propertyList: plistData["Int"] as! [String : AnyObject]))
         var store : Store = Store()
         ints_in!.write(to: &store)
         let ints =  BasicTypes<Int>(with: store)
@@ -297,7 +297,7 @@ class EncodingTests: Test {
     }
     
     func testEncodingDoubles() {
-        let doubles_in = BasicTypes<Double>.read(from: Store(data: plistData["Double"] as! [String : AnyObject]))
+        let doubles_in = BasicTypes<Double>.read(from: Store(propertyList: plistData["Double"] as! [String : AnyObject]))
         var store: Store = Store()
         doubles_in!.write(to: &store)
         let doubles =  BasicTypes<Double>(with: store)
@@ -324,7 +324,7 @@ class EncodingTests: Test {
     }
     
     func testEncodingFloats() {
-        let floats_in =  BasicTypes<Float>.read(from: Store(data: plistData["Float"] as! [String : AnyObject]))
+        let floats_in =  BasicTypes<Float>.read(from: Store(propertyList: plistData["Float"] as! [String : AnyObject]))
         var store: Store = Store()
         floats_in!.write(to: &store)
         let floats = BasicTypes<Float>(with: store)
@@ -351,7 +351,7 @@ class EncodingTests: Test {
     }
     
     func testEncodingStringTypes() {
-        let strings_in = StringTypes.read(from: Store(data: plistData["String"] as! [String : AnyObject]))
+        let strings_in = StringTypes.read(from: Store(propertyList: plistData["String"] as! [String : AnyObject]))
         var store: Store = Store()
         strings_in!.write(to: &store)
         let strings = StringTypes(with: store)
@@ -378,7 +378,7 @@ class EncodingTests: Test {
     }
     
     func testEncodingAnyObjectTypes() {
-        let objects_in = AnyObjectTypes.read(from: Store(data: plistData["Object"] as! [String : AnyObject]))
+        let objects_in = AnyObjectTypes.read(from: Store(propertyList: plistData["Object"] as! [String : AnyObject]))
         var store: Store = Store()
         objects_in?.write(to: &store)
         let objects = AnyObjectTypes(with: store)
@@ -410,7 +410,7 @@ class EnumTests: Test {
     func testRawEnum() {
         let test_out = TestRawEnum.ready
         _ = test_out.write(to: tempURLFor("test_raw_enum.plist"), format: .plist)
-        let sut = TestRawEnum(file: tempURLFor("test_raw_enum.plist"), format: .plist)
+        let sut = TestRawEnum(plistFile: tempURLFor("test_raw_enum.plist"))
         XCTAssert(sut != nil)
         XCTAssert(sut == TestRawEnum.ready)
     }
@@ -418,7 +418,7 @@ class EnumTests: Test {
     func testRegEnum() {
         let test_out = TestRegEnum.cold
         _ = test_out.write(to: tempURLFor("test_reg_enum.plist"), format: .plist)
-        let sut = TestRegEnum(file: tempURLFor("test_reg_enum.plist"), format: .plist)
+        let sut = TestRegEnum(plistFile: tempURLFor("test_reg_enum.plist"))
         XCTAssert(sut != nil)
         XCTAssert(sut == TestRegEnum.cold)
     }
@@ -434,7 +434,7 @@ class EnumTests: Test {
         
         func performTestFor(_ testEnum: TestAssociatedEnum, message: String) {
             _ = testEnum.write(to: tempURLFor("test_associated_enum.plist"), format: .binary)
-            let sut = TestAssociatedEnum(file: tempURLFor("test_associated_enum.plist"), format: .binary)
+            let sut = TestAssociatedEnum(binaryFile: tempURLFor("test_associated_enum.plist"))
             XCTAssert(sut != nil)
             if let sut = sut {
                 switch sut {
@@ -479,7 +479,7 @@ class EnumTests: Test {
         let employees = [employee, employee, employee]
         let test_out = TestAssociatedEnum.decodableToManyType(employees)
         _ = test_out.write(to: tempURLFor("test_associated_tomany_enum.plist"), format: .plist)
-        let sut = TestAssociatedEnum(file: tempURLFor("test_associated_tomany_enum.plist"), format: .plist)
+        let sut = TestAssociatedEnum(plistFile: tempURLFor("test_associated_tomany_enum.plist"))
         XCTAssert(sut != nil)
         
         switch sut! {
@@ -495,7 +495,7 @@ class EnumTests: Test {
         let employee = Employee(name: "Joe", title: "Manager")
         let test_out = TestAssociatedEnum.decodableToOneType(employee)
         _ = test_out.write(to: tempURLFor("test_associated_toone_enum.plist"), format: .plist)
-        let sut = TestAssociatedEnum(file: tempURLFor("test_associated_toone_enum.plist"), format: .plist)
+        let sut = TestAssociatedEnum(plistFile: tempURLFor("test_associated_toone_enum.plist"))
         XCTAssert(sut != nil)
         
         switch sut! {
@@ -517,7 +517,7 @@ class EnumTests: Test {
         
         func performTestFor(_ testEnum: TestAssociatedOptionalEnum, message: String) {
             _ = testEnum.write(to: tempURLFor("test_associated_optional_enum.plist"), format: .binary)
-            let sut = TestAssociatedOptionalEnum(file: tempURLFor("test_associated_optional_enum.plist"), format: .binary)
+            let sut = TestAssociatedOptionalEnum(binaryFile: tempURLFor("test_associated_optional_enum.plist"))
             XCTAssert(sut != nil, "system under test is nil")
             if let sut = sut {
                 switch sut {
@@ -561,7 +561,7 @@ class EnumTests: Test {
         let employees = [employee, employee, employee]
         let test_out = TestAssociatedOptionalEnum.decodableToManyType(employees)
         _ = test_out.write(to: tempURLFor("test_associated_optional_tomany_enum.plist"), format: .plist)
-        let sut = TestAssociatedOptionalEnum(file: tempURLFor("test_associated_optional_tomany_enum.plist"), format: .plist)
+        let sut = TestAssociatedOptionalEnum(plistFile: tempURLFor("test_associated_optional_tomany_enum.plist"))
         XCTAssert(sut != nil)
         
         switch sut! {
@@ -577,7 +577,7 @@ class EnumTests: Test {
         let employee = Employee(name: "Joe", title: "Manager")
         let test_out = TestAssociatedOptionalEnum.decodableToOneType(employee)
         _ = test_out.write(to: tempURLFor("test_associated_optional_toone_enum.plist"), format: .plist)
-        let sut = TestAssociatedOptionalEnum(file: tempURLFor("test_associated_optional_toone_enum.plist"), format: .plist)
+        let sut = TestAssociatedOptionalEnum(plistFile: tempURLFor("test_associated_optional_toone_enum.plist"))
         XCTAssert(sut != nil)
         
         switch sut! {
@@ -606,7 +606,7 @@ class RecursiveTests: Test {
         player.teamates[3].fillins = innerPlayers
         
         _ = player.write(to: tempURLFor("player.plist"), format: .plist)
-        let resultPlayer = Player(file: tempURLFor("player.plist"), format: .plist)
+        let resultPlayer = Player(plistFile: tempURLFor("player.plist"))
         
         XCTAssert(resultPlayer != nil)
         XCTAssert(resultPlayer?.teamates.count == 10)
@@ -649,7 +649,7 @@ class RelationshipTests: Test {
         let sampleData = TestRelationships(myChildren: children, myGrandChildren: grandChildren, myOneChild: TestChild(age: 22, name: "Mark", myChildren: nil, gender: Gender.male ))
         _ = sampleData.write(to: tempURLFor("relationship.json"), format: .json)
         
-        let testData = TestRelationships(file: tempURLFor("relationship.json"), format: .json)
+        let testData = TestRelationships(jsonFile: tempURLFor("relationship.json"))
         
         XCTAssert(testData != nil)
         XCTAssert(testData?.myChildren?.count == sampleData.myChildren?.count)
@@ -669,7 +669,7 @@ class RelationshipTests: Test {
         testComposition.employees["John"] = employee2
         _ = testComposition.write(to: tempURLFor("test_composition.plist"), format: .plist)
         
-        let inTestComposition = TestDictionaryComposition(file: tempURLFor("test_composition.plist"), format: .plist)
+        let inTestComposition = TestDictionaryComposition(plistFile: tempURLFor("test_composition.plist"))
         XCTAssert(inTestComposition != nil)
         XCTAssert(inTestComposition?.employees["Jane"]?.title == "Manager")
     }
@@ -682,7 +682,7 @@ class TemplateTests: Test {
         let employee = Employee(name:"Joe", title: "CEO")
         company.employees?.append(employee)
         _ = company.write(to: tempURLFor("company.plist"), format: .plist)
-        let testCompany = Company(file: tempURLFor("company.plist"), format: .plist)
+        let testCompany = Company(plistFile: tempURLFor("company.plist"))
         
         XCTAssert(testCompany != nil)
         XCTAssert(testCompany?.name == "State llc")
@@ -695,7 +695,7 @@ class TemplateTests: Test {
     func testTypes() {
         let test_out = TestTypes()
         _ = test_out.write(to: tempURLFor("test_types.plist"), format: .binary)
-        let sut = TestTypes(file: tempURLFor("test_types.plist"), format: .binary)
+        let sut = TestTypes(binaryFile: tempURLFor("test_types.plist"))
         XCTAssert(sut != nil)
         XCTAssert(sut?.myBinary != nil)
         XCTAssert(sut?.myDate != nil)
@@ -709,7 +709,7 @@ class TemplateTests: Test {
     func testImmutableTypes() {
         let test_out = TestImmutableTypes()
         _ = test_out.write(to: tempURLFor("test_immutable_types.plist"), format: .binary)
-        let sut = TestImmutableTypes(file: tempURLFor("test_immutable_types.plist"), format: .binary)
+        let sut = TestImmutableTypes(binaryFile: tempURLFor("test_immutable_types.plist"))
         XCTAssert(sut != nil)
         XCTAssert(sut?.myBinary != nil)
         XCTAssert(sut?.myDate != nil)
@@ -723,7 +723,7 @@ class TemplateTests: Test {
     func testOptionalTypes() {
         let test_out = TestOptionalTypes.CreateTestInstance()
         _ = test_out.write(to: tempURLFor("test_optional_types.plist"), format: .binary)
-        let sut =  TestOptionalTypes(file: tempURLFor("test_optional_types.plist"), format: .binary)
+        let sut =  TestOptionalTypes(binaryFile: tempURLFor("test_optional_types.plist"))
         XCTAssert(sut != nil)
         XCTAssert(sut?.myBinary != nil)
         XCTAssert(sut?.myDate != nil)
@@ -737,7 +737,7 @@ class TemplateTests: Test {
     func testImmutableOptionalTypes() {
         let test_out = TestImmutableOptionalTypes()
         _ = test_out.write(to: tempURLFor("test_immutable_optional_types.plist"), format: .binary)
-        let sut = TestImmutableOptionalTypes(file: tempURLFor("test_immutable_optional_types.plist"), format: .binary)
+        let sut = TestImmutableOptionalTypes(binaryFile: tempURLFor("test_immutable_optional_types.plist"))
         XCTAssert(sut != nil)
         XCTAssert(sut?.myBinary != nil)
         XCTAssert(sut?.myDate != nil)
@@ -756,7 +756,7 @@ class TemplateTests: Test {
         test_out.dicOfInts["int3"] = 3
         test_out.setOfStrings = ["do", "ray", "me"]
         _ = test_out.write(to: tempURLFor("test_collections.plist"), format: .binary)
-        let sut =  TestCollections(file: tempURLFor("test_collections.plist"), format: .binary)
+        let sut =  TestCollections(binaryFile: tempURLFor("test_collections.plist"))
         
         XCTAssert(sut != nil)
         XCTAssert(sut?.arrayOfStrings.count == 3)
@@ -767,7 +767,7 @@ class TemplateTests: Test {
     func testRawEnum() {
         let test_out = TestRawEnum.ready
         _ = test_out.write(to: tempURLFor("test_enum.plist"), format: .plist)
-        let sut = TestRawEnum(file: tempURLFor("test_enum.plist"), format: .plist)
+        let sut = TestRawEnum(plistFile: tempURLFor("test_enum.plist"))
         XCTAssert(sut != nil)
         XCTAssert(sut == TestRawEnum.ready)
     }
@@ -775,7 +775,7 @@ class TemplateTests: Test {
     func testTransformable() {
         let test_out = TestTransformable( myTransformable: URL(string: "http://facebook.com")!, myTransformableImmutable: URL(string: "http://yahoo.com")!, myTransformableImmutableOptional: nil, myTransformableOptional:URL(string: "http://twitter.com")!)
         _ = test_out.write(to: tempURLFor("test_transformable.plist"), format: .binary)
-        let sut =  TestTransformable(file: tempURLFor("test_transformable.plist"), format: .binary)
+        let sut =  TestTransformable(binaryFile: tempURLFor("test_transformable.plist"))
         XCTAssert(sut != nil)
         XCTAssert(sut?.myTransformable == test_out.myTransformable)
         XCTAssert(sut?.myTransformableImmutable == test_out.myTransformableImmutable)
@@ -801,7 +801,7 @@ class ProtocolTests : Test {
         
         _ = testProtocolContainer.write(to: tempURLFor("testProtocol.plist"), format: .plist)
         print(tempPathFor("testProtocol.plist"))
-        let inTestProtocolContainer = TestProtocolContainter(file: tempURLFor("testProtocol.plist"), format: .plist)
+        let inTestProtocolContainer = TestProtocolContainter(plistFile: tempURLFor("testProtocol.plist"))
         
         XCTAssertNotNil(inTestProtocolContainer)
     }
@@ -810,52 +810,32 @@ class ProtocolTests : Test {
 class ModelTests : Test {
     
     func testMakeDataInitWithData() {
-        let testedSource = Store(data: plistData["Users"] as! [String : AnyObject])
+        let testedSource = Store(propertyList: plistData["Users"] as! [String : AnyObject])
         let testedStore = testedSource.store(forKey: "t")
         let testedUser = User.read(from: testedStore!)
-        let testData = testedUser?.makeData(format: .json)
+        let testData = testedUser?.makeData()
         XCTAssertNotNil(testData)
-        let testUserIn = User(content: testData!, format: .json)
-        XCTAssert(testUserIn?.name == testedUser?.name)
-    }
-    
-    func testMakeStringInitWithString() {
-        let testedSource = Store(data: plistData["Users"] as! [String : AnyObject])
-        let testedStore = testedSource.store(forKey: "t")
-        let testedUser = User.read(from: testedStore!)
-        let testString = testedUser?.makeString(format: .json)
-        XCTAssertNotNil(testString)
-        let testUserIn = User(content: testString!, format: .json)
+        let testUserIn = User(data: testData!)
         XCTAssert(testUserIn?.name == testedUser?.name)
     }
     
     func testWriteToFileInitModelArray() {
         let arraySource : [String : AnyObject] = plistData["Users"] as! [String : AnyObject]
-        let testedStore = Store(data: arraySource)
+        let testedStore = Store(propertyList: arraySource)
         let users : [User]? = testedStore.value(forKey: "t_arr")
         XCTAssertNotNil(users)
         _ = users?.write(to: tempURLFor("testModelArray.json"), format: .json)
-        let usersIn : [User]? = Array<User>(file: tempURLFor("testModelArray.json"), format: .json)
-        XCTAssertNotNil(usersIn)
-        XCTAssert(usersIn?.count == users?.count)
-    }
-    
-    func testMakeFromAndInitWithStringArray() {
-        let arraySource : [String : AnyObject] = plistData["Users"] as! [String : AnyObject]
-        let testedStore = Store(data: arraySource)
-        let users : [User]? = testedStore.value(forKey: "t_arr")
-        let stringUserArray = users?.makeString(format: .json)
-        let usersIn : [User]? = Array<User>(content: stringUserArray!, format: .json)
+        let usersIn : [User]? = Array<User>(jsonFile: tempURLFor("testModelArray.json"))
         XCTAssertNotNil(usersIn)
         XCTAssert(usersIn?.count == users?.count)
     }
     
     func testMakeFromAndInitWithDataArray() {
         let arraySource : [String : AnyObject] = plistData["Users"] as! [String : AnyObject]
-        let testedStore = Store(data: arraySource)
+        let testedStore = Store(propertyList: arraySource)
         let users : [User]? = testedStore.value(forKey: "t_arr")
-        let stringUserArray = users?.makeData(format: .json)
-        let usersIn : [User]? = Array<User>(content: stringUserArray!, format: .json)
+        let stringUserArray = users?.makeData()
+        let usersIn : [User]? = Array<User>(data: stringUserArray!)
         XCTAssertNotNil(usersIn)
         XCTAssert(usersIn?.count == users?.count)
     }

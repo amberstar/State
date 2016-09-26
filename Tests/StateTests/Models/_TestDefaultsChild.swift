@@ -14,12 +14,8 @@ public struct TestDefaultsChild : Model {
 
 extension TestDefaultsChild  {
 
-    public static func read(from store: Store) -> TestDefaultsChild? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = TestDefaultsChild.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = TestDefaultsChild.migrate(source: source)
 
          guard
             let name: String = store.value(forKey: "name")

@@ -15,12 +15,8 @@ public struct TestMigrationV2 : Model {
 
 extension TestMigrationV2  {
 
-    public static func read(from store: Store) -> TestMigrationV2? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = TestMigrationV2.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = TestMigrationV2.migrate(source: source)
 
          guard
             let name: String = store.value(forKey: "name")

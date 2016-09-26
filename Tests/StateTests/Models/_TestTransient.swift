@@ -16,12 +16,8 @@ public struct TestTransient : Model {
 
 extension TestTransient  {
 
-    public static func read(from store: Store) -> TestTransient? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = TestTransient.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = TestTransient.migrate(source: source)
 
          guard
             let myNonTransient: String = store.value(forKey: "myNonTransient")
