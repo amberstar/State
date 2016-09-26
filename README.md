@@ -18,27 +18,23 @@ A `Model` is a `Storable` that can be saved to a `Store`.
 
 ---
 
-
 # Reading and Writing Models
 
 Models, and collections of models can be
   written to and read from files, `Strings`, or `Data`.
 
 ```swift
-// save person to JSON
-person.write(to: fileURL, format: .JSON)
+// write person to JSON
+person.write(to: fileURL, format: .json) // .json, .plist, .binary support
 
-// make a string
-var jsonPerson = person.makeString(format: .JSON))
+// make a json string
+var jsonPerson = person.makeJson()
 
 // make data
-var dataPerson = person.makeData(format: .Plist)
+var dataPerson = person.makeData()
 
-// load person from JSON
-let person = Person(file: fileURL, format: .JSON)
-
-// create person from json string
-let person = Person(content: jsonPerson)
+// create person from JSON
+let person = Person(jsonFile: fileURL)
 
 // create person from plist data
 let person = Person(content: dataPerson)
