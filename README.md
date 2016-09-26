@@ -1,6 +1,6 @@
 # State 
 
-A Swift model framework for structs, enums, and protocols that you can design in Xcode Data Modeler.
+A Swift model framework for structs, enums, and protocol models stored as plist, json, or binary files.
 
 ## 
 
@@ -10,12 +10,10 @@ A Swift model framework for structs, enums, and protocols that you can design in
 - iOS 8.0
 - Mogenerator 1.28
 
----
-
 ## Creating Models
 Code models manually or use the Xcode Data Modeler to generate code. (see [Xcode Data Modeler / Code Generator Docs](https://github.com/amberstar/State/blob/abstract-store/Codegen.md) )
 
-`Models` are `Storables` that read and write it's 'properties to a `Store`.
+### Example model
 
 ```swift
 public struct Employee : Model {
