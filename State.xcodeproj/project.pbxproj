@@ -199,6 +199,7 @@
 		1F2482ED1D9235F7003979C9 /* StoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreTests.swift; sourceTree = "<group>"; };
 		1F2483381D923750003979C9 /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		1F5E18F01D9895ED002D0B4A /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Store.swift; path = State/Store.swift; sourceTree = "<group>"; };
+		1F5E18F21D98AA72002D0B4A /* Codegen.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Codegen.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +225,7 @@
 			children = (
 				1F24829D1D922D6E003979C9 /* Package.swift */,
 				04C1B93D1AE93D9800A85730 /* README.md */,
+				1F5E18F21D98AA72002D0B4A /* Codegen.md */,
 				1F2483371D923750003979C9 /* Configs */,
 				96960A431C90F00B00D4E6D0 /* Sources */,
 				1F24829F1D9235F7003979C9 /* Tests */,
