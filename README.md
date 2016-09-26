@@ -23,28 +23,35 @@ A Swift model framework for structs, enums, and protocols that you can design in
 public struct Employee : Model {
     public var name: String
     public var title: String?
-
 }
 
 extension Employee  {
 
     public init?(with source: Store) {
+        // optionally migrate the store before reading model.
         let store = Employee.migrate(source: source)
 
-        guard let name: String = store.value(forKey: "name") else { return  nil }
+        // in this gaurd block we look for all required properties.
+        guard let 
+            name: String = store.value(forKey: "name") 
+        else { return  nil }
 
         let title: String? = store.value(forKey: "title")
 
         self.name = name
         self.title = title
+
+        // optionally read more meta-data here.
         finishReading(from: store)
     }
 
     public func write(to store: inout Store) {
+
         store.set(name, forKey: "name")
         store.set(title, forKey: "title")
-
         Employee.writeVersion(to: &store)
+
+        // optionally write a version or other meta-data.
         finishWriting(to: &store)
     }
 }
