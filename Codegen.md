@@ -195,39 +195,6 @@ The manual file serves the following purposes:
 
 To add the files to your project drag the model code files in to your project to add them.
 
-# Adding State framework to your project.
-
-## Carthage
-
-[Carthage]: https://github.com/Carthage/Carthage
-
-Add the following to your project's Cartfile:
-
-```
-github "STLabs/State" ~> 0.1
-```
-
-Then run `carthage update`.
-
-Follow the current instructions in [Carthage's README][carthage-installation]
-for up to date installation instructions.
-
-## Submodule
-1. Add State as a submodule by going to your project directory and enter the following:
-	`git submodule add https://github.com/STLabs/State.git`
-2. Open the State folder and drag and drop the State.xcodeproj into the file navigator of your workspace.
-
-3. In Xcode, select the project icon to open the target window and select your host target that will use State.
-
-4. Select the "Build Phases" tab in the target configuration window.
-
-5. Add State as a target dependency to the host target
-
-6. Click on the + button at the top left and select "New Copy Files Phase". Rename this new phase to "Copy Frameworks", set the "Destination" to "Frameworks", and add State.framework.
-
-[carthage-installation]: https://github.com/Carthage/Carthage#adding-frameworks-to-an-application
-
-
 ## Automatic code generation setup.
 
 If you want to automaticly update the model code each time you build your project do the following.
