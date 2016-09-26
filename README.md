@@ -10,7 +10,7 @@ Code Generator Support for:
 - Protocol models and protocol inheritance
 - one-to-one, or one-to-many relationships between models
 
-For more information see:  [Xcode Data Modeler / Code Generator Docs](https://github.com/amberstar/State/blob/abstract-store/Codegen.md) 
+For more information see:  [Xcode Data Modeler / Code Generator Docs](https://github.com/amberstar/State/blob/master/Codegen.md) 
 
 ## 
 
