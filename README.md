@@ -2,9 +2,7 @@
 
 A Swift model framework for structs, enums, and protocols that you can design in Xcode Data Modeler.
 
-
 ## 
-
 
 **Requirements**
 - Swift 3.0
@@ -15,7 +13,7 @@ A Swift model framework for structs, enums, and protocols that you can design in
 ---
 
 ## Creating Models
-- Hand code models OR use the Xcode Data Modeler see [Xcode Data Modeler / Code Generator](CodeGen.md)
+Code models manually or use the Xcode Data Modeler to generate code. (see [Xcode Data Modeler / Code Generator Docs](https://github.com/amberstar/State/blob/abstract-store/Codegen.md) )
 
 `Models` are `Storables` that read and write it's 'properties to a `Store`.
 
@@ -37,7 +35,6 @@ extension Employee  {
         else { return  nil }
 
         let title: String? = store.value(forKey: "title")
-
         self.name = name
         self.title = title
 
@@ -64,20 +61,17 @@ Models, and collections of models can be
   written to and read from files, `Strings`, or `Data`.
 
 ```swift
-// write person to JSON
-person.write(to: fileURL, format: .json) // .json, .plist, .binary support
+// write employee to JSON
+employee.write(to: fileURL, format: .json) // .json, .plist, .binary support
 
 // make a json string
-var jsonPerson = person.makeJson()
+var jsonString = employee.makeJson()
 
 // make data
-var dataPerson = person.makeData()
+var data: Data = employee.makeData()
 
-// create person from JSON
-let person = Person(jsonFile: fileURL)
-
-// create person from plist data
-let person = Person(content: dataPerson)
+// create employee from file
+let employee = Employee(jsonFile: fileURL) // plistFile, binaryFile api also
 
 ```
 
