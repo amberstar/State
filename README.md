@@ -2,19 +2,16 @@
 
 A Swift model framework for struct, enum, and protocol models stored as plist, json, or binary files.
 
-State provides a set of higly custom mogenerator code generation templates that allow models to be designed in Xcodes data modeler.
+State provides a set of higly custom mogenerator code generation templates that allow models to be designed in the Xcode data modeler.
 
 Code Generator Support for: 
-- Struct
-- Enum 
-    Enum support for regular case, raw value and associated values included other models as assocaited values.
-- Protocol
-    Design abstract protocols in the modeler. Protocol inheritance
-    Protocols as models. (one model can have a composed protocol)
-- Relationships
-    Design one-to-one, or one-to-many relationships.
+- Struct models
+- Enums (case, raw value and associated values types including other models as assocaited values.)
+- Protocol models and protocol inheritance
+- Relationships between models
+    Design one-to-one, or one-to-many relationships between the types of models listed above.
 
-for more information see:  [Xcode Data Modeler / Code Generator Docs](https://github.com/amberstar/State/blob/abstract-store/Codegen.md) 
+For more information see:  [Xcode Data Modeler / Code Generator Docs](https://github.com/amberstar/State/blob/abstract-store/Codegen.md) 
 
 ## 
 
@@ -24,10 +21,10 @@ for more information see:  [Xcode Data Modeler / Code Generator Docs](https://gi
 - iOS 8.0
 - Mogenerator 1.28
 
-## Creating Models
+## Models
 Code models manually or use the Xcode Data Modeler to generate code.
 
-### Example model
+### Example 
 
 ```swift
 public struct Employee : Model {
@@ -67,7 +64,7 @@ extension Employee  {
 
 ```
 
-## Reading and Writing Models
+### Reading and Writing Models
 
 Models, and collections of models can be
   written to and read from files, `Strings`, or `Data`.
