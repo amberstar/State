@@ -2,12 +2,8 @@
 
 A Swift model framework for structs, enums, and protocols that you can design in Xcode Data Modeler.
 
-A `Model` is a `Storable` that can be saved to a `Store`.
 
-- [Reading and Writing Models](#reading-and-writing-models)
-- [Version and Migration](#versioning-and-migration )
-- [Xcode Data Modeler / Code Generator](CodeGen.md)
-
+## 
 
 
 **Requirements**
@@ -18,7 +14,44 @@ A `Model` is a `Storable` that can be saved to a `Store`.
 
 ---
 
-# Reading and Writing Models
+## Creating Models
+- Hand code models OR use the Xcode Data Modeler see [Xcode Data Modeler / Code Generator](CodeGen.md)
+
+`Models` are `Storables` that read and write it's 'properties to a `Store`.
+
+```swift
+public struct Employee : Model {
+    public var name: String
+    public var title: String?
+
+}
+
+extension Employee  {
+
+    public init?(with source: Store) {
+        let store = Employee.migrate(source: source)
+
+        guard let name: String = store.value(forKey: "name") else { return  nil }
+
+        let title: String? = store.value(forKey: "title")
+
+        self.name = name
+        self.title = title
+        finishReading(from: store)
+    }
+
+    public func write(to store: inout Store) {
+        store.set(name, forKey: "name")
+        store.set(title, forKey: "title")
+
+        Employee.writeVersion(to: &store)
+        finishWriting(to: &store)
+    }
+}
+
+```
+
+## Reading and Writing Models
 
 Models, and collections of models can be
   written to and read from files, `Strings`, or `Data`.
