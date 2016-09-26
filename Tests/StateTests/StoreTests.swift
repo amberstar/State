@@ -19,28 +19,28 @@ class StoreTests: Test {
     }
     
     func testRemoveKey() {
-        var tested = Store(propertyList: testPlist!)
+        var tested = Store(properties: testPlist!)
         let removed = tested.remove(key: "Float") as! [String : AnyObject]
         XCTAssert(removed.count == 7)
-        XCTAssert(!tested.propertyList.keys.contains("Float"))
+        XCTAssert(!tested.properties.keys.contains("Float"))
     }
     
     func testMakeDataWillInitWithData() {
-        let source = Store(propertyList: testPlist!)
+        let source = Store(properties: testPlist!)
         let tested = source.store(forKey: "Float")
         let data = tested?.makeData()
         XCTAssertNotNil(data)
         let testedIn = Store(data: data!)
-        XCTAssert(testedIn?.propertyList.keys.count == 7)
+        XCTAssert(testedIn?.properties.keys.count == 7)
     }
     
     func testWriteToFileInitWithFile() {
         let testFileURL = tempURLFor("temp_store_write_to_file.plist")
-        let tested = Store(propertyList: testPlist!)
+        let tested = Store(properties: testPlist!)
         let result = tested.write(to: testFileURL , format: .plist)
         XCTAssertTrue(result)
         let testedIn = Store(plistFile: testFileURL)
-        XCTAssert(tested.propertyList.count == testedIn?.propertyList.count)
+        XCTAssert(tested.properties.count == testedIn?.properties.count)
     }
     
     func testURLStorage() {

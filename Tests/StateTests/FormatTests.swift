@@ -151,7 +151,7 @@ class FormatTests: Test {
     }
     
     func testReadingJSONAndWritingPlist() {
-        let users_out = UserTypes.read(from: Store(propertyList: jsonData))
+        let users_out = UserTypes.read(from: Store(properties: jsonData))
         _ = users_out!.write(to: tempURLFor("users.plist"), format: .plist)
         let users = UserTypes(plistFile: tempURLFor("users.plist"))
         XCTAssert(users != nil)

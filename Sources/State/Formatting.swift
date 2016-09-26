@@ -19,8 +19,8 @@ public typealias PropertyList = [String : Any]
 /// A type that can provide it's properties
 /// as a key value property list.
 public protocol PropertyListConvertible {
-    var propertyList: PropertyList { get }
-    init?(propertyList: PropertyList)
+    var properties: PropertyList { get }
+    init?(properties: PropertyList)
 }
 
 public extension PropertyListConvertible {
@@ -28,42 +28,42 @@ public extension PropertyListConvertible {
     /// Create an instance from a plist file.
     init?(plistFile file: URL) {
         guard let p = Format.plist.read(file) as? PropertyList else { return nil }
-        self.init(propertyList: p)
+        self.init(properties: p)
     }
     
     /// Create an instance from a json file.
     init?(jsonFile file: URL) {
         guard let p = Format.json.read(file) as? PropertyList else { return nil }
-        self.init(propertyList: p)
+        self.init(properties: p)
     }
     
     /// Create an instance from a binary file.
     init?(binaryFile file: URL) {
         guard let p = Format.binary.read(file) as? PropertyList else { return nil }
-        self.init(propertyList: p)
+        self.init(properties: p)
     }
 
     /// Create an instance from binary data.
     init?(data: Data) {
         guard let p = Format.binary.read(data) as? PropertyList else { return nil }
-        self.init(propertyList: p)
+        self.init(properties: p)
     }
     
     /// Write the reciever to a file in the specified format.
     ///
     /// - Returns: `true` if succeeded otherwise `false`
     func write(to location: URL, format: Format = .plist) -> Bool {
-        return format.write(propertyList, to: location)
+        return format.write(properties, to: location)
     }
     
     /// Return the reciever formatted to a json string.
     func makeJson() -> String? {
-        return Format.json.makeString(from: propertyList)
+        return Format.json.makeString(from: properties)
     }
     
     /// Return the reciever formatted to binary data.
     func makeData() -> Data? {
-        return Format.binary.makeData(from: propertyList, prettyPrint: true)
+        return Format.binary.makeData(from: properties, prettyPrint: true)
     }
 }
 
@@ -75,8 +75,8 @@ public extension PropertyListConvertible {
 public extension Array where Element: PropertyListConvertible {
     
     /// Create an array of elements from a property list.
-    init?(properyList: [PropertyList]) {
-        guard let instance = sequence(properyList.map { Element(propertyList:$0) })
+    init?(properties: [PropertyList]) {
+        guard let instance = sequence(properties.map { Element(properties:$0) })
             else { return nil }
         self = instance
     }
@@ -85,7 +85,7 @@ public extension Array where Element: PropertyListConvertible {
     private init?(file: URL, format: Format = Format.plist) {
         guard let d = format.read(file) as? [[String: AnyObject]]
             else { return nil }
-        guard let instance = sequence(d.map { Element(propertyList: $0) })
+        guard let instance = sequence(d.map { Element(properties: $0) })
             else { return nil }
         self = instance
     }
@@ -109,7 +109,7 @@ public extension Array where Element: PropertyListConvertible {
     init?(data: Data) {
         guard let d = Format.binary.read(data) as? [[String: AnyObject]]
             else { return nil }
-        guard let instance = sequence(d.map { Element(propertyList: $0) })
+        guard let instance = sequence(d.map { Element(properties: $0) })
             else { return nil }
         self = instance
     }
@@ -135,7 +135,7 @@ public extension Array where Element: PropertyListConvertible {
     func makePropertyList() -> [PropertyList] {
         return self.reduce([PropertyList]()) { (accum, elem) -> [PropertyList] in
             var vaccum = accum
-            vaccum.append(elem.propertyList)
+            vaccum.append(elem.properties)
             return vaccum
         }
     }

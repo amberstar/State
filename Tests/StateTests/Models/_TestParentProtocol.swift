@@ -32,7 +32,7 @@ extension Store {
 
     public mutating func set(_ value: TestParentProtocol?, forKey key: String) {
         guard let value = value else { return }
-        set(value.propertyList, forKey: key)
+        set(value.properties, forKey: key)
     }
 
     /// Add or update the value at key.
@@ -41,7 +41,7 @@ extension Store {
 
         let data  = value.reduce([[String : Any]](), { (data, value) -> [[String: Any]] in
             var d = data
-            d.append(value.propertyList)
+            d.append(value.properties)
             return d
         })
 
@@ -54,7 +54,7 @@ extension Store {
         guard let value = value else { return }
         let data = value.reduce([String : [String : Any]](), { (data, element) -> [String : [String : Any]] in
             var d = data
-            d[element.key] = element.value.propertyList
+            d[element.key] = element.value.properties
             return d
         })
 
@@ -64,7 +64,7 @@ extension Store {
     private func _decodeTestParentProtocol(data: PropertyList) -> TestParentProtocol? {
         guard let typeKey = data["TestParentProtocol"] as? String else { return nil }
         if let t = TestParentProtocolType(forKey: typeKey) {
-            return t.init(with: Store(propertyList: data))
+            return t.init(with: Store(properties: data))
         }
         return nil
     }

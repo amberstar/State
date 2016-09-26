@@ -5,9 +5,9 @@ import XCTest
 class ModelReadingTests: Test {
     
     func testDecodingDecodableFromJSON() {
-        let user = User.read(from: Store(propertyList: jsonData["t"] as! [String : AnyObject]))
-        let userNoEmail  = User.read(from: Store(propertyList: jsonData["u"] as! [String : AnyObject]))
-        let users = UserTypes.read(from: Store(propertyList: jsonData))
+        let user = User.read(from: Store(properties: jsonData["t"] as! [String : AnyObject]))
+        let userNoEmail  = User.read(from: Store(properties: jsonData["u"] as! [String : AnyObject]))
+        let users = UserTypes.read(from: Store(properties: jsonData))
         XCTAssert(user != nil)
         XCTAssert(user?.id == 10)
         XCTAssert(user?.name == "John Doe")
@@ -25,9 +25,9 @@ class ModelReadingTests: Test {
     }
     
     func testDecodingDecodableFromPlist() {
-        let user = User.read(from: Store(propertyList: plistData["User1"] as! [String : AnyObject]))
-        let userNoEmail = User.read(from: Store(propertyList: plistData["User2"] as! [String : AnyObject]))
-        let users = UserTypes.read(from: Store(propertyList: plistData["Users"] as! [String : AnyObject]))
+        let user = User.read(from: Store(properties: plistData["User1"] as! [String : AnyObject]))
+        let userNoEmail = User.read(from: Store(properties: plistData["User2"] as! [String : AnyObject]))
+        let users = UserTypes.read(from: Store(properties: plistData["Users"] as! [String : AnyObject]))
         XCTAssert(user != nil)
         XCTAssert(user?.id == 10)
         XCTAssert(user?.name == "John Doe")
@@ -45,7 +45,7 @@ class ModelReadingTests: Test {
     }
     
     func testDecodingInvalidDecodableShouldFail() {
-        let user = User.read(from: Store(propertyList: jsonData["x"] as! [String : AnyObject]))
+        let user = User.read(from: Store(properties: jsonData["x"] as! [String : AnyObject]))
         XCTAssert(user == nil)
     }
 }
@@ -53,7 +53,7 @@ class ModelReadingTests: Test {
 class DecodingTests: Test {
     
     func testDecodingBools() {
-        let bools = BasicTypes<Bool>(with: Store(propertyList: plistData["Bool"] as! [String : AnyObject]))
+        let bools = BasicTypes<Bool>(with: Store(properties: plistData["Bool"] as! [String : AnyObject]))
         ///  Bools
         XCTAssert(bools != nil)
         XCTAssert(bools?.t == true)
@@ -76,7 +76,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingIntTypes() {
-        let ints = BasicTypes<Int>.read(from: Store(propertyList: plistData["Int"] as! [String : AnyObject]))
+        let ints = BasicTypes<Int>.read(from: Store(properties: plistData["Int"] as! [String : AnyObject]))
         
         /// Ints
         XCTAssert(ints != nil)
@@ -100,7 +100,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingDoubles() {
-        let doubles = BasicTypes<Double>.read(from: Store(propertyList: plistData["Double"] as! [String : AnyObject]))
+        let doubles = BasicTypes<Double>.read(from: Store(properties: plistData["Double"] as! [String : AnyObject]))
         
         /// Doubles
         XCTAssert(doubles != nil)
@@ -124,7 +124,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingFloats() {
-        let floats = BasicTypes<Float>.read(from: Store(propertyList: plistData["Float"] as! [String : AnyObject]))
+        let floats = BasicTypes<Float>.read(from: Store(properties: plistData["Float"] as! [String : AnyObject]))
         
         /// Floats
         XCTAssert(floats != nil)
@@ -148,7 +148,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingStrings() {
-        let strings = StringTypes.read(from: Store(propertyList: plistData["String"] as! [String : AnyObject]))
+        let strings = StringTypes.read(from: Store(properties: plistData["String"] as! [String : AnyObject]))
         
         /// Strings
         XCTAssert(strings != nil)
@@ -172,7 +172,7 @@ class DecodingTests: Test {
     }
     
     func testDecodingAnyObjects() {
-        let objects = AnyObjectTypes.read(from: Store(propertyList: plistData["Object"] as! [String : AnyObject]))
+        let objects = AnyObjectTypes.read(from: Store(properties: plistData["Object"] as! [String : AnyObject]))
         
         /// AnyObjects
         XCTAssert(objects != nil)
@@ -213,7 +213,7 @@ class DefaultTests: Test {
 class ModelWritingTests: Test {
     
     func testEcodingToAndFromJSON() {
-        let inUsers =  UserTypes(with: Store(propertyList: jsonData))
+        let inUsers =  UserTypes(with: Store(properties: jsonData))
         if let inUsers = inUsers {
             _ = inUsers.write(to: tempURLFor("temp.json"), format: .json)
         }
@@ -227,7 +227,7 @@ class ModelWritingTests: Test {
     }
     
     func testEcodingToAndFromPlist() {
-        let inUsers = UserTypes.read(from: Store(propertyList: plistData["Users"] as! [String : AnyObject]))
+        let inUsers = UserTypes.read(from: Store(properties: plistData["Users"] as! [String : AnyObject]))
         if let inUsers = inUsers {
             _ = inUsers.write(to: tempURLFor("temp.plist"), format: .plist)
         }
@@ -243,7 +243,7 @@ class ModelWritingTests: Test {
 
 class EncodingTests: Test {
     func testEncodingBools() {
-        let bools_in = BasicTypes<Bool>.read(from: Store(propertyList: plistData["Bool"] as! [String : AnyObject]))
+        let bools_in = BasicTypes<Bool>.read(from: Store(properties: plistData["Bool"] as! [String : AnyObject]))
         var store: Store = Store()
         bools_in!.write(to: &store)
         let bools = BasicTypes<Bool>.read(from: store)
@@ -270,7 +270,7 @@ class EncodingTests: Test {
     }
     
     func testEncodingInts() {
-        let ints_in =  BasicTypes<Int>.read(from: Store(propertyList: plistData["Int"] as! [String : AnyObject]))
+        let ints_in =  BasicTypes<Int>.read(from: Store(properties: plistData["Int"] as! [String : AnyObject]))
         var store : Store = Store()
         ints_in!.write(to: &store)
         let ints =  BasicTypes<Int>(with: store)
@@ -297,7 +297,7 @@ class EncodingTests: Test {
     }
     
     func testEncodingDoubles() {
-        let doubles_in = BasicTypes<Double>.read(from: Store(propertyList: plistData["Double"] as! [String : AnyObject]))
+        let doubles_in = BasicTypes<Double>.read(from: Store(properties: plistData["Double"] as! [String : AnyObject]))
         var store: Store = Store()
         doubles_in!.write(to: &store)
         let doubles =  BasicTypes<Double>(with: store)
@@ -324,7 +324,7 @@ class EncodingTests: Test {
     }
     
     func testEncodingFloats() {
-        let floats_in =  BasicTypes<Float>.read(from: Store(propertyList: plistData["Float"] as! [String : AnyObject]))
+        let floats_in =  BasicTypes<Float>.read(from: Store(properties: plistData["Float"] as! [String : AnyObject]))
         var store: Store = Store()
         floats_in!.write(to: &store)
         let floats = BasicTypes<Float>(with: store)
@@ -351,7 +351,7 @@ class EncodingTests: Test {
     }
     
     func testEncodingStringTypes() {
-        let strings_in = StringTypes.read(from: Store(propertyList: plistData["String"] as! [String : AnyObject]))
+        let strings_in = StringTypes.read(from: Store(properties: plistData["String"] as! [String : AnyObject]))
         var store: Store = Store()
         strings_in!.write(to: &store)
         let strings = StringTypes(with: store)
@@ -378,7 +378,7 @@ class EncodingTests: Test {
     }
     
     func testEncodingAnyObjectTypes() {
-        let objects_in = AnyObjectTypes.read(from: Store(propertyList: plistData["Object"] as! [String : AnyObject]))
+        let objects_in = AnyObjectTypes.read(from: Store(properties: plistData["Object"] as! [String : AnyObject]))
         var store: Store = Store()
         objects_in?.write(to: &store)
         let objects = AnyObjectTypes(with: store)
@@ -810,7 +810,7 @@ class ProtocolTests : Test {
 class ModelTests : Test {
     
     func testMakeDataInitWithData() {
-        let testedSource = Store(propertyList: plistData["Users"] as! [String : AnyObject])
+        let testedSource = Store(properties: plistData["Users"] as! [String : AnyObject])
         let testedStore = testedSource.store(forKey: "t")
         let testedUser = User.read(from: testedStore!)
         let testData = testedUser?.makeData()
@@ -821,7 +821,7 @@ class ModelTests : Test {
     
     func testWriteToFileInitModelArray() {
         let arraySource : [String : AnyObject] = plistData["Users"] as! [String : AnyObject]
-        let testedStore = Store(propertyList: arraySource)
+        let testedStore = Store(properties: arraySource)
         let users : [User]? = testedStore.value(forKey: "t_arr")
         XCTAssertNotNil(users)
         _ = users?.write(to: tempURLFor("testModelArray.json"), format: .json)
@@ -832,7 +832,7 @@ class ModelTests : Test {
     
     func testMakeFromAndInitWithDataArray() {
         let arraySource : [String : AnyObject] = plistData["Users"] as! [String : AnyObject]
-        let testedStore = Store(propertyList: arraySource)
+        let testedStore = Store(properties: arraySource)
         let users : [User]? = testedStore.value(forKey: "t_arr")
         let stringUserArray = users?.makeData()
         let usersIn : [User]? = Array<User>(data: stringUserArray!)

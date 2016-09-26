@@ -166,7 +166,7 @@ extension AnyObjectTypes : Model {
     guard
         let t: Any = store.anyValue(forKey: "t"),
         let tArr : [Any] = store.array(forKey: "t_arr"),
-        let tDic : [String : Any] = store.propertyList(forKey: "t_dic")
+        let tDic : [String : Any] = store.properties(forKey: "t_dic")
     else {
         return nil
     }
@@ -175,8 +175,8 @@ extension AnyObjectTypes : Model {
     let tImp : Any! = store.anyValue(forKey: "t_imp")
     let tArrOpt : [Any]? = store.array(forKey: "t_arr_opt")
     let tArrImp : [Any]! = store.array(forKey: "t_arr_imp")
-    let tDicOpt : [String : Any]? = store.propertyList(forKey: "t_dic_opt")
-    let tDictImp : [String : Any]! = store.propertyList(forKey: "t_dic_imp")
+    let tDicOpt : [String : Any]? = store.properties(forKey: "t_dic_opt")
+    let tDictImp : [String : Any]! = store.properties(forKey: "t_dic_imp")
       
       self.t = t
       self.tOpt = tOpt
