@@ -146,7 +146,7 @@ public extension Array where Element: PropertyListConvertible {
 
 // TODO: make a protocol to support other types and uses
 
-/// A Format is a can convert property lists to 
+/// A Format can convert property lists to 
 /// some other form. Read and writes to files, strings, data. etc.
 /// current support for JSON, Plists, and Binary.
 public class Format {
