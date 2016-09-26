@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F2482931D9221F6003979C9 /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2482901D9221F6003979C9 /* Formatting.swift */; };
 		1F2482941D9221F6003979C9 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2482911D9221F6003979C9 /* Model.swift */; };
 		1F2482951D9221F6003979C9 /* Storable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2482921D9221F6003979C9 /* Storable.swift */; };
 		1F2482EE1D9235F7003979C9 /* BaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2482A11D9235F7003979C9 /* BaseTest.swift */; };
@@ -119,7 +118,6 @@
 		0443C9D01AE7F0F1008299E5 /* human.swift.motemplate */ = {isa = PBXFileReference; lastKnownFileType = text; name = human.swift.motemplate; path = Templates/human.swift.motemplate; sourceTree = SOURCE_ROOT; };
 		0443C9D11AE7F0F1008299E5 /* machine.swift.motemplate */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = machine.swift.motemplate; path = Templates/machine.swift.motemplate; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		04C1B93D1AE93D9800A85730 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		1F2482901D9221F6003979C9 /* Formatting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Formatting.swift; path = State/Formatting.swift; sourceTree = "<group>"; };
 		1F2482911D9221F6003979C9 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Model.swift; path = State/Model.swift; sourceTree = "<group>"; };
 		1F2482921D9221F6003979C9 /* Storable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Storable.swift; path = State/Storable.swift; sourceTree = "<group>"; };
 		1F24829D1D922D6E003979C9 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
@@ -254,7 +252,6 @@
 		1F24829E1D922EAD003979C9 /* State */ = {
 			isa = PBXGroup;
 			children = (
-				1F2482901D9221F6003979C9 /* Formatting.swift */,
 				1F2482911D9221F6003979C9 /* Model.swift */,
 				1F2482921D9221F6003979C9 /* Storable.swift */,
 			);
@@ -532,7 +529,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F2482951D9221F6003979C9 /* Storable.swift in Sources */,
-				1F2482931D9221F6003979C9 /* Formatting.swift in Sources */,
 				1F2482941D9221F6003979C9 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
