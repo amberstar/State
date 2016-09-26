@@ -49,13 +49,9 @@ public struct <$typeName$> : <$superTypeName$> {
 }
 
 extension <$typeName$>  {
-
-    public static func read(from store: Store) -> <$typeName$>? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = <$typeName$>.migrate(source: inStore)
+    
+    public init?(with source: Store) {
+        let store = <$typeName$>.migrate(source: source)
 
 <$setlocal hasNonOptionals = 0 $>
 <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$><$if !Attribute.isOptional$><$setlocal hasNonOptionals = 1$><$endif$><$endif$><$endforeach do$>
@@ -175,12 +171,8 @@ public enum <$typeName$> <$if userInfo.State.Type$> : <$userInfo.State.Type$>, M
 
 extension <$typeName$> {
 
-    public static func read(from store: Store) -> <$typeName$>? {
-      return self.init(with: store)
-   }
-
-    public init?(with inStore: Store) {
-        let store = <$typeName$>.migrate(source: inStore)
+    public init?(with source: Store) {
+        let store = <$typeName$>.migrate(source: source)
 
 <$if ! userInfo.State.Type$>
         guard let type: String = store.value(forKey: "<$typeName$>") else { return nil }
@@ -240,25 +232,23 @@ public protocol <$typeName$><$if hasSuperentity$> : <$superentity.managedObjectC
 extension Store {
     
     public func value(forKey key: String) -> <$typeName$>? {
-        guard let data : [String : Any] = value(forKey: key) else { return nil }
+        guard let data : PropertyList = value(forKey: key) else { return nil }
         return _decode<$typeName$>(data: data)
     }
     
     public func value(forKey key: String) -> [<$typeName$>]? {
-        guard let arrayv : [[String : Any]] = value(forKey: key) else { return nil }
+        guard let arrayv : [PropertyList] = value(forKey: key) else { return nil }
         return sequence(arrayv.map { _decode<$typeName$>(data:$0) })
     }
     
     public func value(forKey key: String) -> [String : <$typeName$>]? {
-        guard let data : [String : [String : Any]] = value(forKey: key) else { return nil }
+        guard let data : [String : PropertyList] = value(forKey: key) else { return nil }
         return sequence(data.map { self._decode<$typeName$>(data:$0) })
     }
-    
+
     public mutating func set(_ value: <$typeName$>?, forKey key: String) {
         guard let value = value else { return }
-        var vstore = Store()
-        value.write(to: &vstore)
-        set(vstore.data, forKey: key)
+        set(value.propertyList, forKey: key)
     }
     
     /// Add or update the value at key.
@@ -266,11 +256,9 @@ extension Store {
         guard let value = value else { return }
         
         let data  = value.reduce([[String : Any]](), { (data, value) -> [[String: Any]] in
-            var vstore = Store()
-            var vdata = data
-            value.write(to: &vstore )
-            vdata.append(vstore.data)
-            return vdata
+            var d = data
+            d.append(value.propertyList)
+            return d
         })
         
         set(data , forKey: key)
@@ -281,20 +269,18 @@ extension Store {
         
         guard let value = value else { return }
         let data = value.reduce([String : [String : Any]](), { (data, element) -> [String : [String : Any]] in
-            var vstore = Store()
-            var vdata = data
-            element.value.write(to: &vstore)
-            vdata[element.key] = vstore.data
-            return vdata
+            var d = data
+            d[element.key] = element.value.propertyList
+            return d
         })
         
         set(data, forKey: key)
     }
 
-    private func _decode<$typeName$>(data: [String : Any]) -> <$typeName$>? {
+    private func _decode<$typeName$>(data: PropertyList) -> <$typeName$>? {
         guard let typeKey = data["<$rootTypeName$>"] as? String else { return nil }
         if let t = <$typeName$>Type(forKey: typeKey) {
-            return t.read(from: Store(data: data))
+            return t.init(with: Store(propertyList: data))
         }
         return nil
     }
