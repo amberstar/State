@@ -102,6 +102,7 @@ To support versioning and migration implement the following methods in your mode
     -  compare the version information with the "current version"
     -  add, remove, and update keys, and values to the store
     -  return the updated store
+
 # Adding State framework to your project.
 
 ## Carthage
