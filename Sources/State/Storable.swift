@@ -20,7 +20,7 @@ public typealias PropertyList = [String : Any]
 public protocol Storable  {
     
     var properties: PropertyList { get }
-    /// Create an instance from a property.
+    /// Create an instance from a store.
     init?(with: Store)
     /// Writes to the receiver to the given store.
     func write(to: inout Store)
