@@ -209,14 +209,10 @@ public extension Store {
 
 /// A key-value container.
 ///
-/// It is the target and source for
-/// coding storables simillar to an NSCoder.
-/// Storables write their properites to a store
+/// Used for coding storables simillar to an NSCoder.
 ///
-/// A Store can be thought of as general plist,
-/// that is also used as a coder like NSCoder.
-/// It's an in memory container, that can later
-/// be saved to a file or even stored to another store.
+/// A Store can be thought of as a more general plist.
+/// A store can be saved to a file or even stored to another store.
 ///
 /// Currently Store is a concrete implementation
 /// because that is what meets the current needs.
@@ -235,13 +231,15 @@ public struct Store: Storable {
         self.properties = properties
     }
     
-    /// Writes to the receiver to the given store.
+    /// Writes the receiver to the given store.
     public func write(to target: inout Store) {
         for e in properties {
             target.set(e.value, forKey: e.key)
         }
     }
     
+    /// Removes and returns the property at the specified key
+    /// or nil if not found.
     public mutating func remove(key: String) -> Any? {
         return properties.removeValue(forKey: key)
     }
