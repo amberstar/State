@@ -2,11 +2,11 @@
 
 A Swift model framework for struct, enum, and protocol models stored as plist, json, or binary files.
 
-State provides a set of higly custom mogenerator code generation templates that allow models to be designed in the Xcode data modeler.
+State provides a set of highly custom mogenerator code generation templates that allow models to be designed in the Xcode data modeler.
 
 Code Generator Support for: 
 - Struct models
-- Enums (case, raw value and associated values types including other models as assocaited values.)
+- Enums (case, raw value and associated values types including other models as associated values.)
 - Protocol models and protocol inheritance
 - one-to-one, or one-to-many relationships between models
 
