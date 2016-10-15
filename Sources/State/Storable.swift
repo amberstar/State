@@ -11,7 +11,6 @@ import Foundation
 #endif
 
 public typealias PropertyList = [String : Any]
-
 // TODO: CustomDebugStringConvertible, Mirror?
 // TODO: add overloads with throws, for required props
 // TODO: add overloads with default values

@@ -27,13 +27,13 @@ import State
 
 <$procedure writeAttributeDefaultValue Attribute DefaultValue$><$if Attribute.userInfo.State.Type$><$if Attribute.userInfo.State.Type == String$>"<$endif$><$DefaultValue$><$if Attribute.userInfo.State.Type == String$>"<$endif$><$else$><$if Attribute.objectAttributeType == String$>"<$endif$><$DefaultValue$><$if Attribute.objectAttributeType == String$>"<$endif$><$endif$><$endprocedure$>
 
-<$procedure getDefaultExpressionForAttribute Attribute$> <$setlocal default = none$><$if Attribute.userInfo.State.Value$>= <$call writeAttributeDefaultValue Attribute Attribute.userInfo.State.Value$><$elseif Attribute.defaultValue !=$>= <$call writeAttributeDefaultValue Attribute Attribute.defaultValue$><$endif$><$endprocedure$>
+<$procedure getDefaultExpressionForAttribute Attribute$> <$setlocal default = none$><$if Attribute.userInfo.State.Value$>= <$call writeAttributeDefaultValue Attribute Attribute.userInfo.State.Value $><$elseif Attribute.defaultValue$>= <$call writeAttributeDefaultValue Attribute Attribute.defaultValue$><$endif$><$endprocedure$>
 
 <$procedure writeRelationshipDefaultValue Relationship DefaultValue$><$if Relationship.userInfo.State.Type$><$if Relationship.userInfo.State.Type == String$>"<$endif$><$endif$><$DefaultValue$><$if Relationship.userInfo.State.Type$><$if Relationship.userInfo.State.Type == String$>"<$endif$><$endif$><$endprocedure$>
 
 <$procedure getDefaultExpressionForRelationship Relationship$><$if Relationship.userInfo.State.Value$>= <$call writeRelationshipDefaultValue Relationship Relationship.userInfo.State.Value$><$endif$><$endprocedure$>
 
-<$procedure getPropertyDeclarationForAttribute Attribute$><$if Attribute.userInfo.State.Immutable == YES$>public let<$else$>public var<$endif$> <$Attribute.name$><$if  !Attribute.isOptional && (Attribute.userInfo.State.Value || Attribute.defaultValue !=)$><$call getDefaultExpressionForAttribute Attribute$><$else$>: <$call getTypeForAttribute Attribute$><$endif$><$endProcedure$>
+<$procedure getPropertyDeclarationForAttribute Attribute$><$if Attribute.userInfo.State.Access$><$Attribute.userInfo.State.Acess$><$else$>public <$endif$><$if Attribute.userInfo.State.Immutable == YES$>let<$else$>var<$endif$> <$Attribute.name$><$if  !Attribute.isOptional && (Attribute.userInfo.State.Value || Attribute.defaultValue)$><$call getDefaultExpressionForAttribute Attribute$><$else$>: <$call getTypeForAttribute Attribute$><$endif$><$endProcedure$>
 
 <$procedure getPropertyDeclarationForRelationship Relationship$><$if Relationship.userInfo.State.Immutable == YES$>public let<$else$>public var<$endif$> <$Relationship.name$><$if !Relationship.isOptional && Relationship.userInfo.State.Value$> <$call getDefaultExpressionForRelationship Relationship$><$else$>: <$if Relationship.isToMany$>[<$if Relationship.userInfo.State.CompositionType == Dictionary$>String : <$endif$><$endif$><$Relationship.destinationEntity.managedObjectClassName$><$if Relationship.isToMany$>]<$endif$><$if Relationship.isOptional$>?<$endif$><$endif$><$endProcedure$>
 
