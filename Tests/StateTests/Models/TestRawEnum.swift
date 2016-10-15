@@ -1,12 +1,12 @@
-/************************************************
 
-        HUMAN GENERATED FILE
+//
+// TestRawEnum.swift
+//
 
-************************************************/
 import State
 
 extension TestRawEnum {
 
-    // Extend your model entity here.
+    // Extend your entity here.
 }
 

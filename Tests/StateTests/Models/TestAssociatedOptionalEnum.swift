@@ -1,12 +1,12 @@
-/************************************************
 
-        HUMAN GENERATED FILE
+//
+// TestAssociatedOptionalEnum.swift
+//
 
-************************************************/
 import State
 
 extension TestAssociatedOptionalEnum {
 
-    // Extend your model entity here.
+    // Extend your entity here.
 }
 

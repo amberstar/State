@@ -1,20 +1,12 @@
-/************************************************
 
-        HUMAN GENERATED FILE
+//
+// Employee.swift
+//
 
-************************************************/
 import State
 
 extension Employee {
 
-    // Extend your model entity here.
+    // Extend your entity here.
 }
 
-///MARK: Coding
-extension Employee {
-
-    public static func shouldEncodeVersion() -> Bool {
-        return true
-    }
-
-}

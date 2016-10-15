@@ -1,12 +1,12 @@
-/************************************************
 
-        HUMAN GENERATED FILE
+//
+// TestRelationships.swift
+//
 
-************************************************/
 import State
 
 extension TestRelationships {
 
-    // Extend your model entity here.
+    // Extend your entity here.
 }
 

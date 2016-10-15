@@ -1,12 +1,12 @@
-/************************************************
 
-        HUMAN GENERATED FILE
+//
+// Company.swift
+//
 
-************************************************/
 import State
 
 extension Company {
 
-    // Extend your model entity here.
+    // Extend your entity here.
 }
 

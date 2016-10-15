@@ -1,11 +1,12 @@
-/************************************************
 
-        HUMAN GENERATED FILE
+//
+// TestOverrideType.swift
+//
 
-************************************************/
 import State
 
 extension TestOverrideType {
 
-    // Extend your model entity here.
+    // Extend your entity here.
 }
+

@@ -1,12 +1,12 @@
-/************************************************
 
-        HUMAN GENERATED FILE
+//
+// TestChild.swift
+//
 
-************************************************/
 import State
 
 extension TestChild {
 
-    // Extend your model entity here.
+    // Extend your entity here.
 }
 

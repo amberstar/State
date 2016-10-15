@@ -1,12 +1,12 @@
-/************************************************
 
-        HUMAN GENERATED FILE
+//
+// TestTransformable.swift
+//
 
-************************************************/
 import State
 
 extension TestTransformable {
 
-    // Extend your model entity here.
+    // Extend your entity here.
 }
 

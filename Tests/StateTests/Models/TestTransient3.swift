@@ -1,13 +1,12 @@
-/************************************************
 
-        WARNING: HUMAN GENERATED FILE
+//
+// TestTransient3.swift
+//
 
-************************************************/
 import State
 
 extension TestTransient3 {
 
-    // Extend your model entity here.
+    // Extend your entity here.
 }
-
 

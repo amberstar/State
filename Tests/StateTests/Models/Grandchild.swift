@@ -1,12 +1,12 @@
-/************************************************
 
-        HUMAN GENERATED FILE
+//
+// Grandchild.swift
+//
 
-************************************************/
 import State
 
 extension Grandchild {
 
-    // Extend your model entity here.
+    // Extend your entity here.
 }
 

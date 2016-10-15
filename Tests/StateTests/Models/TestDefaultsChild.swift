@@ -1,11 +1,12 @@
-/************************************************
 
-        HUMAN GENERATED FILE
+//
+// TestDefaultsChild.swift
+//
 
-************************************************/
 import State
 
-public extension TestDefaultsChild {
+extension TestDefaultsChild {
 
-
+    // Extend your entity here.
 }
+

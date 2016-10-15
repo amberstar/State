@@ -1,12 +1,12 @@
-/************************************************
 
-        HUMAN GENERATED FILE
+//
+// Gender.swift
+//
 
-************************************************/
 import State
 
 extension Gender {
 
-    // Extend your model entity here.
+    // Extend your entity here.
 }
 

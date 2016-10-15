@@ -1,8 +1,8 @@
-/************************************************
 
-        WARNING: HUMAN GENERATED FILE
+//
+// TestParentProtocol.swift
+//
 
-************************************************/
 import State
 
 extension TestParentProtocol {

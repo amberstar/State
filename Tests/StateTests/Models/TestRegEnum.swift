@@ -1,11 +1,12 @@
-/************************************************
 
-        HUMAN GENERATED FILE
+//
+// TestRegEnum.swift
+//
 
-************************************************/
 import State
 
 extension TestRegEnum {
 
-    // Extend your model entity here.
+    // Extend your entity here.
 }
+
