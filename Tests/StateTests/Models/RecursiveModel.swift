@@ -65,8 +65,14 @@ struct Player: Model {
       self.teamatesByName = teamatesByName
       self.awards = awards
    }
-
-    func write(to store: inout Store) {
+    
+// MARK: - Storeable
+    
+    public static func restore(from store: Store) -> Player? {
+        return self.init(with: store)
+    }
+    
+    func store(to store: inout Store) {
         store.set(id, forKey: "id")
         store.set(name, forKey: "name")
         store.set(email, forKey: "email")

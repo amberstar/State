@@ -32,7 +32,13 @@ extension TestChild  {
         finishReading(from: store)
     }
 
-    public func write(to store: inout Store) {
+// MARK: - Storeable
+
+    public static func restore(from store: Store) -> TestChild? {
+        return self.init(with: store)
+    }
+
+    public func store(to store: inout Store) {
         store.set(age, forKey: "age")
         store.set(name, forKey: "name")
         store.set(myChildren, forKey: "myChildren")

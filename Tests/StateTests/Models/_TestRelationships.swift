@@ -29,7 +29,13 @@ extension TestRelationships  {
         finishReading(from: store)
     }
 
-    public func write(to store: inout Store) {
+// MARK: - Storeable
+
+    public static func restore(from store: Store) -> TestRelationships? {
+        return self.init(with: store)
+    }
+
+    public func store(to store: inout Store) {
         store.set(myChildren, forKey: "myChildren")
         store.set(myGrandChildren, forKey: "myGrandChildren")
         store.set(myOneChild, forKey: "myOneChild")

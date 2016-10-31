@@ -70,7 +70,7 @@ extension Store {
     private func _decodeTestProtocol(data: PropertyList) -> TestProtocol? {
         guard let typeKey = data["TestParentProtocol"] as? String else { return nil }
         if let t = TestProtocolType(forKey: typeKey) {
-            return t.init(with: Store(properties: data))
+            return t.restore(from: Store(properties: data))
         }
         return nil
     }

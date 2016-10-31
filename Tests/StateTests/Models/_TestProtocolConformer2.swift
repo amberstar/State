@@ -28,7 +28,13 @@ extension TestProtocolConformer2  {
         finishReading(from: store)
     }
 
-    public func write(to store: inout Store) {
+// MARK: - Storeable
+
+    public static func restore(from store: Store) -> TestProtocolConformer2? {
+        return self.init(with: store)
+    }
+
+    public func store(to store: inout Store) {
         store.set(name, forKey: "name")
         store.set(ss_number, forKey: "ss_number")
 

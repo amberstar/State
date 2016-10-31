@@ -18,23 +18,28 @@ public typealias PropertyList = [String : Any]
 /// A type that can read and write it's properties to a Store.
 public protocol Storable  {
     
-    var properties: PropertyList { get }
-    /// Create an instance from a store.
-    init?(with: Store)
-    /// Writes to the receiver to the given store.
-    func write(to: inout Store)
+    /// Stores the receiver to the given store.
+    func store(to: inout Store)
+    /// Restores the receiver from the given store.
+    static func restore(from: Store) -> Self?
 }
 
 public extension Storable {
+    
     var properties : PropertyList {
         var s = Store()
-        self.write(to: &s)
+        self.store(to: &s)
         return s.properties
     }
     
     init?(properties: PropertyList) {
         let s = Store(properties: properties)
-        self.init(with: s)
+        if let instance = Self.restore(from: s) {
+            self = instance
+        }
+        else {
+            return nil
+        }
     }
     
     /// Create an instance from a plist file.
@@ -158,19 +163,19 @@ public extension Store {
     /// Return a value at key or nil if not found.
     func value<Value: Storable>(forKey key: String) -> Value? {
         guard let p = properties[key] as? [String: AnyObject] else { return nil }
-        return Value(with: Store(properties: p))
+        return Value.restore(from: Store(properties: p))
     }
     
     /// Return a value at key or nil if not found.
     func value<Value: Storable>(forKey key: String) -> [Value]? {
         guard let p = properties[key] as? [[String: AnyObject]] else { return nil }
-        return sequence(p.map { Value(with: Store(properties: $0)) })
+        return sequence(p.map { Value.restore(from: Store(properties: $0))})
     }
     
     /// Return a value at key or nil if not found.
     func value<Value: Storable>(forKey key: String) -> [String: Value]? {
         guard let data = properties[key] as? [String: [String: AnyObject]] else { return nil }
-        return sequence(data.map { Value(with: Store(properties: $0)) })
+        return sequence(data.map { Value.restore(from: Store(properties: $0))})
     }
     
     /// Add or update the value at key.
@@ -219,6 +224,12 @@ public extension Store {
 /// For example UserDefaults could be a Store.
 public struct Store: Storable {
     
+    
+    public static func restore(from store: Store) -> Store? {
+        let i: Store = Store.init(properties: store.properties)
+        return i
+    }
+    
     public var properties: PropertyList
     
     public init(with store: Store) {
@@ -231,7 +242,7 @@ public struct Store: Storable {
     }
     
     /// Writes the receiver to the given store.
-    public func write(to target: inout Store) {
+    public func store(to target: inout Store) {
         for e in properties {
             target.set(e.value, forKey: e.key)
         }
@@ -340,7 +351,8 @@ public struct Store: Storable {
             let green: Float = d["green"] as? Float,
             let blue: Float = d["blue"] as? Float,
             let alpha: Float = d["alpha"] as? Float
-            else { return nil }
+            else { 
+                return nil }
         return UIColor(colorLiteralRed: red, green: green, blue: blue, alpha: alpha)
     }
     #endif

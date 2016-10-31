@@ -48,8 +48,16 @@ extension UserTypes {
       self.tDicOpt = tDicOpt
       self.tDictImp = tDictImp
    }
+    
+// MARK: - Storeable
+    
+    public static func restore(from store: Store) -> UserTypes? {
+        return self.init(with: store)
+    }
+    
+
    
-    func write(to store: inout Store){
+    func store(to store: inout Store){
         store.set(t, forKey: "t")
         store.set(tOpt, forKey: "t_opt")
         store.set(tImp, forKey: "t_imp")
@@ -91,8 +99,14 @@ extension User: Model {
       self.name = name
       self.email = email
    }
-
-    func write(to store: inout Store) {
+    
+// MARK: - Storeable
+    
+    public static func restore(from store: Store) -> User? {
+        return self.init(with: store)
+    }
+    
+    func store(to store: inout Store) {
         store.set(id, forKey: "id")
         store.set(name, forKey: "name")
         store.set(email, forKey: "email")

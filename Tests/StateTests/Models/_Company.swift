@@ -35,7 +35,13 @@ extension Company  {
         finishReading(from: store)
     }
 
-    public func write(to store: inout Store) {
+// MARK: - Storeable
+
+    public static func restore(from store: Store) -> Company? {
+        return self.init(with: store)
+    }
+
+    public func store(to store: inout Store) {
         store.set(name, forKey: "name")
         store.set(yearFounded, forKey: "yearFounded")
         store.set(phoneNumber, forKey: "phoneNumber")

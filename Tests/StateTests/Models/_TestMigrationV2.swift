@@ -29,7 +29,13 @@ extension TestMigrationV2  {
         finishReading(from: store)
     }
 
-    public func write(to store: inout Store) {
+// MARK: - Storeable
+
+    public static func restore(from store: Store) -> TestMigrationV2? {
+        return self.init(with: store)
+    }
+
+    public func store(to store: inout Store) {
         store.set(age, forKey: "age")
         store.set(name, forKey: "name")
 

@@ -23,7 +23,13 @@ extension Gender {
         self.init(rawValue: value)
     }
 
-    public func write(to store: inout Store) {
+// MARK: - Storeable
+
+    public static func restore(from store: Store) -> Gender? {
+        return self.init(with: store)
+    }
+
+    public func store(to store: inout Store) {
         store.set(self.rawValue, forKey: "value")
             Gender.writeVersion(to: &store)
             finishWriting(to: &store)

@@ -31,7 +31,13 @@ extension TestProtocolContainter  {
         finishReading(from: store)
     }
 
-    public func write(to store: inout Store) {
+// MARK: - Storeable
+
+    public static func restore(from store: Store) -> TestProtocolContainter? {
+        return self.init(with: store)
+    }
+
+    public func store(to store: inout Store) {
         store.set(testProtocol, forKey: "testProtocol")
         store.set(testProtocols, forKey: "testProtocols")
         store.set(testProtocolsDict, forKey: "testProtocolsDict")

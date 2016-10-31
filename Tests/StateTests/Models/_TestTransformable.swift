@@ -35,7 +35,13 @@ extension TestTransformable  {
         finishReading(from: store)
     }
 
-    public func write(to store: inout Store) {
+// MARK: - Storeable
+
+    public static func restore(from store: Store) -> TestTransformable? {
+        return self.init(with: store)
+    }
+
+    public func store(to store: inout Store) {
         store.set(myTransformable, forKey: "myTransformable")
         store.set(myTransformableImmutable, forKey: "myTransformableImmutable")
         store.set(myTransformableImmutableOptional, forKey: "myTransformableImmutableOptional")

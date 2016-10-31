@@ -26,7 +26,13 @@ extension TestOverrideType  {
         finishReading(from: store)
     }
 
-    public func write(to store: inout Store) {
+// MARK: - Storeable
+
+    public static func restore(from store: Store) -> TestOverrideType? {
+        return self.init(with: store)
+    }
+
+    public func store(to store: inout Store) {
         store.set(myURL, forKey: "myURL")
         store.set(myArrayOfString, forKey: "myArrayOfString")
 

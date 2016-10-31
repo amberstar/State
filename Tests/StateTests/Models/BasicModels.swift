@@ -54,7 +54,15 @@ extension BasicTypes : Model {
         self.tDictImp = tDictImp
     }
     
-    func write(to store: inout Store){
+// MARK: - Storeable
+    
+    public static func restore(from store: Store) -> BasicTypes? {
+        return self.init(with: store)
+    }
+    
+
+    
+    func store(to store: inout Store){
         store.set(t, forKey: "t")
         store.set(tOpt, forKey: "t_opt")
         store.set(tImp, forKey: "t_imp")
@@ -121,7 +129,13 @@ extension StringTypes : Model {
         self.tDictImp = tDictImp
     }
     
-    func write(to store: inout Store){
+// MARK: - Storeable
+    
+    public static func restore(from store: Store) -> StringTypes? {
+        return self.init(with: store)
+    }
+    
+    func store(to store: inout Store){
         store.set(t, forKey: "t")
         store.set(tOpt, forKey: "t_opt")
         store.set(tImp, forKey: "t_imp")
@@ -188,8 +202,14 @@ extension AnyObjectTypes : Model {
       self.tDicOpt = tDicOpt
       self.tDictImp = tDictImp
    }
-   
-    func write(to store: inout Store){
+    
+// MARK: - Storeable
+    
+    public static func restore(from store: Store) -> AnyObjectTypes? {
+        return self.init(with: store)
+    }
+    
+    func store(to store: inout Store){
         store.set(t, forKey: "t")
         store.set(tOpt, forKey: "t_opt")
         store.set(tImp, forKey: "t_imp")

@@ -24,7 +24,13 @@ extension TestRawEnum {
         self.init(rawValue: value)
     }
 
-    public func write(to store: inout Store) {
+// MARK: - Storeable
+
+    public static func restore(from store: Store) -> TestRawEnum? {
+        return self.init(with: store)
+    }
+
+    public func store(to store: inout Store) {
         store.set(self.rawValue, forKey: "value")
             TestRawEnum.writeVersion(to: &store)
             finishWriting(to: &store)

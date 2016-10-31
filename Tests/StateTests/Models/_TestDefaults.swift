@@ -58,7 +58,13 @@ extension TestDefaults  {
         finishReading(from: store)
     }
 
-    public func write(to store: inout Store) {
+// MARK: - Storeable
+
+    public static func restore(from store: Store) -> TestDefaults? {
+        return self.init(with: store)
+    }
+
+    public func store(to store: inout Store) {
         store.set(defaultManualString, forKey: "defaultManualString")
         store.set(defaultArray, forKey: "defaultArray")
         store.set(defaultString, forKey: "defaultString")

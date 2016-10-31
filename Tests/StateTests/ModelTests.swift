@@ -245,7 +245,7 @@ class EncodingTests: Test {
     func testEncodingBools() {
         let bools_in = BasicTypes<Bool>.read(from: Store(properties: plistData["Bool"] as! [String : AnyObject]))
         var store: Store = Store()
-        bools_in!.write(to: &store)
+        bools_in!.store(to: &store)
         let bools = BasicTypes<Bool>.read(from: store)
         
         /// Bools
@@ -272,7 +272,7 @@ class EncodingTests: Test {
     func testEncodingInts() {
         let ints_in =  BasicTypes<Int>.read(from: Store(properties: plistData["Int"] as! [String : AnyObject]))
         var store : Store = Store()
-        ints_in!.write(to: &store)
+        ints_in!.store(to: &store)
         let ints =  BasicTypes<Int>(with: store)
         
         /// Ints
@@ -299,7 +299,7 @@ class EncodingTests: Test {
     func testEncodingDoubles() {
         let doubles_in = BasicTypes<Double>.read(from: Store(properties: plistData["Double"] as! [String : AnyObject]))
         var store: Store = Store()
-        doubles_in!.write(to: &store)
+        doubles_in!.store(to: &store)
         let doubles =  BasicTypes<Double>(with: store)
         
         /// Doubles
@@ -326,7 +326,7 @@ class EncodingTests: Test {
     func testEncodingFloats() {
         let floats_in =  BasicTypes<Float>.read(from: Store(properties: plistData["Float"] as! [String : AnyObject]))
         var store: Store = Store()
-        floats_in!.write(to: &store)
+        floats_in!.store(to: &store)
         let floats = BasicTypes<Float>(with: store)
         
         /// Floats
@@ -353,7 +353,7 @@ class EncodingTests: Test {
     func testEncodingStringTypes() {
         let strings_in = StringTypes.read(from: Store(properties: plistData["String"] as! [String : AnyObject]))
         var store: Store = Store()
-        strings_in!.write(to: &store)
+        strings_in!.store(to: &store)
         let strings = StringTypes(with: store)
         
         /// Strings
@@ -380,7 +380,7 @@ class EncodingTests: Test {
     func testEncodingAnyObjectTypes() {
         let objects_in = AnyObjectTypes.read(from: Store(properties: plistData["Object"] as! [String : AnyObject]))
         var store: Store = Store()
-        objects_in?.write(to: &store)
+        objects_in?.store(to: &store)
         let objects = AnyObjectTypes(with: store)
         
         /// AnyObjects

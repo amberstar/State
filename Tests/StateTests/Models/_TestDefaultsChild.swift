@@ -25,7 +25,13 @@ extension TestDefaultsChild  {
         finishReading(from: store)
     }
 
-    public func write(to store: inout Store) {
+// MARK: - Storeable
+
+    public static func restore(from store: Store) -> TestDefaultsChild? {
+        return self.init(with: store)
+    }
+
+    public func store(to store: inout Store) {
         store.set(name, forKey: "name")
 
         TestDefaultsChild.writeVersion(to: &store)

@@ -64,6 +64,7 @@ public protocol Model: Storable {
     static func migrate(source: Store) -> Store
 }
 
+
 // note: these default implementations do nothing
 public extension Model {
 

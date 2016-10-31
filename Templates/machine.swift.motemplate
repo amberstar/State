@@ -73,8 +73,14 @@ extension <$typeName$>  {
         <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient && Relationship.userInfo.State.ProtocolRequirementType != get$>self.<$Relationship.name$> = <$Relationship.name$>
         <$endif$><$endforeach do$>finishReading(from: store)
     }
+    
+// MARK: - Storeable
+    
+    public static func restore(from store: Store) -> <$typeName$>? {
+        return self.init(with: store)
+    }
 
-    public func write(to store: inout Store) {
+    public func store(to store: inout Store) {
         <$foreach Attribute attributesByName do$><$if !Attribute.isTransient && Attribute.userInfo.State.ProtocolRequirementType != func && Attribute.userInfo.State.ProtocolRequirementType != get$>store.set(<$Attribute.name$>, forKey: "<$Attribute.name$>")
         <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isTransient && Relationship.userInfo.State.ProtocolRequirementType != get$>store.set(<$Relationship.name$>, forKey: "<$Relationship.name$>")
         <$endif$><$endforeach do$>
@@ -186,8 +192,14 @@ extension <$typeName$> {
         <$else$>        guard let value: <$userInfo.State.Type$> = store.value(forKey: "value") else { return nil }
         self.init(rawValue: value)<$endif$>
     }
-
-    public func write(to store: inout Store) {
+    
+// MARK: - Storeable
+    
+    public static func restore(from store: Store) -> <$typeName$>? {
+        return self.init(with: store)
+    }
+    
+    public func store(to store: inout Store) {
 <$if ! userInfo.State.Type$>
         switch self {
             <$foreach Attribute noninheritedAttributes do$><$call writeAttributeEncodeSwitchCaseForEnumCase Attribute$>
@@ -280,7 +292,7 @@ extension Store {
     private func _decode<$typeName$>(data: PropertyList) -> <$typeName$>? {
         guard let typeKey = data["<$rootTypeName$>"] as? String else { return nil }
         if let t = <$typeName$>Type(forKey: typeKey) {
-            return t.init(with: Store(properties: data))
+            return t.restore(from: Store(properties: data))
         }
         return nil
     }

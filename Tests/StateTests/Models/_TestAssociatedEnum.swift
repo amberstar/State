@@ -91,7 +91,13 @@ extension TestAssociatedEnum {
 
     }
 
-    public func write(to store: inout Store) {
+// MARK: - Storeable
+
+    public static func restore(from store: Store) -> TestAssociatedEnum? {
+        return self.init(with: store)
+    }
+
+    public func store(to store: inout Store) {
 
         switch self {
             case let .binaryType(value):

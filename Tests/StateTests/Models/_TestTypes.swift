@@ -46,7 +46,13 @@ extension TestTypes  {
         finishReading(from: store)
     }
 
-    public func write(to store: inout Store) {
+// MARK: - Storeable
+
+    public static func restore(from store: Store) -> TestTypes? {
+        return self.init(with: store)
+    }
+
+    public func store(to store: inout Store) {
         store.set(myDate, forKey: "myDate")
         store.set(myFloat, forKey: "myFloat")
         store.set(myBinary, forKey: "myBinary")

@@ -27,7 +27,13 @@ extension TestTransient  {
         finishReading(from: store)
     }
 
-    public func write(to store: inout Store) {
+// MARK: - Storeable
+
+    public static func restore(from store: Store) -> TestTransient? {
+        return self.init(with: store)
+    }
+
+    public func store(to store: inout Store) {
         store.set(myNonTransient, forKey: "myNonTransient")
 
         TestTransient.writeVersion(to: &store)

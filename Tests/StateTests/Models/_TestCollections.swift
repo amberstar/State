@@ -31,7 +31,13 @@ extension TestCollections  {
         finishReading(from: store)
     }
 
-    public func write(to store: inout Store) {
+// MARK: - Storeable
+
+    public static func restore(from store: Store) -> TestCollections? {
+        return self.init(with: store)
+    }
+
+    public func store(to store: inout Store) {
         store.set(arrayOfStrings, forKey: "arrayOfStrings")
         store.set(dicOfInts, forKey: "dicOfInts")
         store.set(setOfStrings, forKey: "setOfStrings")
