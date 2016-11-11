@@ -89,10 +89,12 @@ public extension Storable {
     }
 }
 
-//===----------------------------------------------------------------------===//
-// MARK: - ARRAY SUPPORT
+/*===----------------------------------------------------------------------===//
+ * MARK: - ARRAY SUPPORT
+ *
+ * TODO: Can this be on collection or sequence instead?
+ *===----------------------------------------------------------------------===*/
 
-// TODO: Can this be on collection or sequence instead?
 public extension Array where Element: Storable {
     
     /// Create an array of elements from a property list.
@@ -212,20 +214,17 @@ public extension Store {
     }
 }
 
-//===----------------------------------------------------------------------===//
-// MARK: - STORE
+/*===----------------------------------------------------------------------===//
+ * MARK: - STORE
+ * Currently Store is a concrete implementation
+ * because that is what meets the current needs.
+ * It would be very easy to make it abstract.
+ * For example UserDefaults could be a Store.
+ *===----------------------------------------------------------------------===*/
 
 /// A key-value container.
 ///
 /// Used for coding storables similar to an NSCoder.
-///
-/// A Store can be thought of as a more general plist.
-/// A store can be saved to a file or even stored to another store.
-///
-/// Currently Store is a concrete implementation
-/// because that is what meets the current needs.
-/// It would be very easy to make it abstract.
-/// For example UserDefaults could be a Store.
 public struct Store: Storable {
     
     
