@@ -7,7 +7,7 @@
 import Foundation
 import State
 
-public struct TestOverrideType : Model {
+public struct TestOverrideType : Model  {
     public var myURL: URL?
     public var myArrayOfString: [String]?
 

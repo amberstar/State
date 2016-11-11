@@ -7,7 +7,7 @@
 import Foundation
 import State
 
-public struct TestImmutableTypes : Model {
+public struct TestImmutableTypes : Model  {
     public let myDate: Date
     public let myFloat: Float
     public let myBinary: Data

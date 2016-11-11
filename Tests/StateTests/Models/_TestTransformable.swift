@@ -7,7 +7,7 @@
 import Foundation
 import State
 
-public struct TestTransformable : Model {
+public struct TestTransformable : Model  {
     public var myTransformable: URL
     public let myTransformableImmutable: URL
     public let myTransformableImmutableOptional: URL?

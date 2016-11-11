@@ -7,7 +7,7 @@
 import Foundation
 import State
 
-public struct TestTypes : Model {
+public struct TestTypes : Model  {
     public var myDate: Date
     public var myFloat: Float
     public var myBinary: Data

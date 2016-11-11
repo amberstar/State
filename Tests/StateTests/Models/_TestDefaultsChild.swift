@@ -7,7 +7,7 @@
 import Foundation
 import State
 
-public struct TestDefaultsChild : Model {
+public struct TestDefaultsChild : Model  {
     public var name = "New Child"
 
 }

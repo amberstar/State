@@ -7,7 +7,7 @@
 import Foundation
 import State
 
-public struct TestTransient3 : Model {
+public struct TestTransient3 : Model  {
     public var myNonTransient1: Double?
     public var myNonTransient2: String?
     public var myTransientRelationship: Gender?

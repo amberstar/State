@@ -7,7 +7,7 @@
 import Foundation
 import State
 
-public struct TestDefaults : Model {
+public struct TestDefaults : Model  {
     public var defaultManualString = "defaultManualString"
     public var defaultArray = ["zero", "one", "two"]
     public var defaultString = "defaultString"

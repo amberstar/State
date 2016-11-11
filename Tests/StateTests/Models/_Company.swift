@@ -7,7 +7,7 @@
 import Foundation
 import State
 
-public struct Company : Model {
+public struct Company : Model  {
     public var name: String
     public var yearFounded: Double
     public var phoneNumber: String?

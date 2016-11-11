@@ -7,7 +7,7 @@
 import Foundation
 import State
 
-public struct TestDictionaryComposition : Model {
+public struct TestDictionaryComposition : Model  {
     public var employees: [String : Employee]
 
 }

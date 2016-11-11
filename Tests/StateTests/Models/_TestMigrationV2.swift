@@ -7,7 +7,7 @@
 import Foundation
 import State
 
-public struct TestMigrationV2 : Model {
+public struct TestMigrationV2 : Model  {
     public var age: Int?
     public var name: String
 

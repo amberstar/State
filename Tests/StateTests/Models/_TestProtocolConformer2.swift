@@ -7,7 +7,7 @@
 import Foundation
 import State
 
-public struct TestProtocolConformer2 : TestParentProtocol {
+public struct TestProtocolConformer2 : TestParentProtocol  {
     public var name: String
     public var ss_number: String
 

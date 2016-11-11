@@ -7,7 +7,7 @@
 import Foundation
 import State
 
-public struct TestImmutableOptionalTypes : Model {
+public struct TestImmutableOptionalTypes : Model  {
     public let myDate: Date?
     public let myFloat: Float?
     public let myBinary: Data?

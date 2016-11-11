@@ -1,8 +1,6 @@
 # State 
 
-A Swift model framework for struct, enum, and protocol models stored as plist, json, or binary files.
-
-State provides a set of highly custom mogenerator code generation templates that allow models to be designed in the Xcode data modeler.
+State is a Swift model framework for that uses struct, enum, and protocol models which can be stored as plist, json, or binary files. It provides a set of highly custom mogenerator code generation templates that allow models to be designed in the Xcode data modeler.
 
 Code Generator Support for: 
 - Struct models
@@ -37,7 +35,7 @@ extension Employee  {
         // optionally migrate the store before reading model.
         let store = Employee.migrate(source: source)
 
-        // in this gaurd block we look for all required properties.
+        // in this guard block we look for all required properties.
         guard let 
             name: String = store.value(forKey: "name") 
         else { return  nil }
@@ -46,17 +44,16 @@ extension Employee  {
         self.name = name
         self.title = title
 
-        // optionally read more meta-data here.
+        // optionally read more metadata here.
         finishReading(from: store)
     }
 
     public func write(to store: inout Store) {
-
         store.set(name, forKey: "name")
         store.set(title, forKey: "title")
         Employee.writeVersion(to: &store)
 
-        // optionally write a version or other meta-data.
+        // optionally write a version or other metadata.
         finishWriting(to: &store)
     }
 }
@@ -80,7 +77,6 @@ var data: Data = employee.makeData()
 
 // create employee from file
 let employee = Employee(jsonFile: fileURL) // plistFile, binaryFile api also
-
 ```
 
 # Versioning and Migration

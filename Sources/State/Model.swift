@@ -22,13 +22,13 @@ import Foundation
 /// 
 ///    this method should be called in the `write(to:)` method
 ///    before writing to a store is finished to give the model an
-///    opertunity to write version information to the store.
+///    opportunity to write version information to the store.
 /// 
 ///  * implement `static func migrate(from: Store) -> Store`
 /// 
 ///    this method should be called in the `read(from:)` method
 ///    before reading any values from the store to give the model
-///    an opertunity to migrate the store. Here the model should:
+///    an opportunity to migrate the store. Here the model should:
 /// 
 ///    -  read the version information from the store
 ///    -  compare the version information with the "current version"
@@ -40,30 +40,29 @@ import Foundation
 public protocol Model: Storable {
     
     /// called after reading is finished
-    /// to give a model an opertunity
+    /// to give a model an opportunity
     /// to prepare or to read extra values
     /// from the store before instantiation
     func finishReading(from: Store)
     /// called before writing is finished
-    /// to give the model an opertunity
+    /// to give the model an opportunity
     /// to write extra values to the store
     func finishWriting(to: inout Store)
     /// writes the model version to the store.
     /// 
     /// This is called before writing a model to
     /// a store is complete to give the model
-    /// an opertunity to write version information
-    /// to the store for migration purporses.
+    /// an opportunity to write version information
+    /// to the store for migration purposes.
     static func writeVersion(to: inout Store)
     /// migrates a store to the current version if needed.
     /// 
-    /// the default implementation returns the origional store
+    /// the default implementation returns the original store
     /// models can update the store to the current version
     /// by adding, removing, and changing keys ans values in the
     /// store, and return the updated store.
     static func migrate(source: Store) -> Store
 }
-
 
 // note: these default implementations do nothing
 public extension Model {

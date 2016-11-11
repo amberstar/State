@@ -7,7 +7,7 @@
 import Foundation
 import State
 
-public struct TestRelationships : Model {
+public struct TestRelationships : Model  {
     public var myChildren: [TestChild]?
     public var myGrandChildren: [Grandchild]?
     public var myOneChild: TestChild?

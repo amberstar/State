@@ -7,7 +7,7 @@
 import Foundation
 import State
 
-public struct TestProtocolConformer : TestProtocol {
+public struct TestProtocolConformer : TestProtocol  {
     public var age: Int?
     public var ss_number: String
     public var isReady: Bool?

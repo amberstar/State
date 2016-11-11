@@ -7,7 +7,7 @@
 import Foundation
 import State
 
-public struct TestChild : Model {
+public struct TestChild : Model  {
     public var age: Int?
     public var name: String?
     public var myChildren: [Grandchild]?

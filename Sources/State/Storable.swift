@@ -11,13 +11,12 @@ import Foundation
 #endif
 
 public typealias PropertyList = [String : Any]
-// TODO: CustomDebugStringConvertible, Mirror?
+// TODO: customDebugStringConvertible, Mirror?
 // TODO: add overloads with throws, for required props
 // TODO: add overloads with default values
 
 /// A type that can read and write it's properties to a Store.
 public protocol Storable  {
-    
     /// Stores the receiver to the given store.
     func store(to: inout Store)
     /// Restores the receiver from the given store.
@@ -25,7 +24,6 @@ public protocol Storable  {
 }
 
 public extension Storable {
-    
     var properties : PropertyList {
         var s = Store()
         self.store(to: &s)
@@ -66,19 +64,19 @@ public extension Storable {
         self.init(properties: p)
     }
     
-    /// Write the reciever to a file in the specified format.
+    /// Write the receiver to a file in the specified format.
     ///
     /// - Returns: `true` if succeeded otherwise `false`
     func write(to location: URL, format: Format = .plist) -> Bool {
         return format.write(properties, to: location)
     }
     
-    /// Return the reciever formatted to a json string.
+    /// Return the receiver formatted to a json string.
     func makeJson() -> String? {
         return Format.json.makeString(from: properties)
     }
     
-    /// Return the reciever formatted to binary data.
+    /// Return the receiver formatted to binary data.
     func makeData() -> Data? {
         return Format.binary.makeData(from: properties, prettyPrint: true)
     }
@@ -86,7 +84,6 @@ public extension Storable {
 
 //===----------------------------------------------------------------------===//
 // MARK: - ARRAY SUPPORT
-
 
 // TODO: Can this be on collection or sequence instead?
 public extension Array where Element: Storable {
@@ -131,7 +128,7 @@ public extension Array where Element: Storable {
         self = instance
     }
     
-    /// Writes the reciever to a file in the specified format.
+    /// Writes the receiver to a file in the specified format.
     ///
     /// - Returns: `true` if succeeded otherwise `false`
     func write(to location: URL, format: Format = Format.plist) -> Bool {
@@ -148,7 +145,7 @@ public extension Array where Element: Storable {
         return Format.binary.makeData(from: makePropertyList() as AnyObject, prettyPrint: true)
     }
     
-    /// Returns the array elements formatted to a propert list.
+    /// Returns the array elements formatted to a property list.
     func makePropertyList() -> [PropertyList] {
         return self.reduce([PropertyList]()) { (accum, elem) -> [PropertyList] in
             var vaccum = accum
@@ -199,7 +196,7 @@ public extension Store {
     mutating func set<Value: Storable>(_ value: [String: Value]?, forKey key: String) {
         guard let value = value
             else { return }
-        let data = value.reduce([String: [String: Any]](), { (data, element) -> [String: PropertyList] in
+        let data = value.reduce([String: [String : Any]](),{ (data, element) -> [String: PropertyList] in
             var vdata = data
             vdata[element.key] = element.value.properties
             return vdata
@@ -213,7 +210,7 @@ public extension Store {
 
 /// A key-value container.
 ///
-/// Used for coding storables simillar to an NSCoder.
+/// Used for coding storables similar to an NSCoder.
 ///
 /// A Store can be thought of as a more general plist.
 /// A store can be saved to a file or even stored to another store.
@@ -378,7 +375,6 @@ public struct Store: Storable {
         return Store(properties: p)
     }
     
-    
     /// Sets the value of the specified key to the specified value.
     public mutating func set<V>(_ value: V?, forKey key: String) {
         guard let value = value else { return }
@@ -454,7 +450,7 @@ public struct Store: Storable {
     }
     #endif
 }
-
+//===----------------------------------------------------------------------===//
 // MARK: - Utility
 
 public func sequence<T>(_ array: [T?]) -> [T]? {
@@ -489,7 +485,7 @@ extension Dictionary {
 /// Formatting - Support for conversion types
 ///
 /// Convert types to property lists. (key value data)
-/// Convertion to different formats. (binary, plist, json)
+/// Converting to different formats. (binary, plist, json)
 /// Basic read/write to files, strings, data
 
 //===----------------------------------------------------------------------===//

@@ -7,7 +7,7 @@
 import Foundation
 import State
 
-public struct TestProtocolContainter : Model {
+public struct TestProtocolContainter : Model  {
     public var testProtocol: TestProtocol
     public var testProtocols: [TestParentProtocol]
     public var testProtocolsDict: [String : TestParentProtocol]

@@ -7,7 +7,7 @@
 import Foundation
 import State
 
-public struct TestCollections : Model {
+public struct TestCollections : Model  {
     public var arrayOfStrings: [String]
     public var dicOfInts: [String : Int]
     public var setOfStrings: Set<String>

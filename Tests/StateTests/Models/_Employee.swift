@@ -7,7 +7,7 @@
 import Foundation
 import State
 
-public struct Employee : Model {
+public struct Employee : Model  {
     public var name: String
     public var title: String?
 
