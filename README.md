@@ -1,6 +1,6 @@
 # State 
 
-State is a Swift model framework for that uses struct, enum, and protocol models which can be stored as plist, json, or binary files. It provides a set of highly custom mogenerator code generation templates that allow models to be designed in the Xcode data modeler.
+State is a Swift model framework that uses struct, enum, and protocol models which can be stored as plist, json, or binary files. It provides a set of highly custom mogenerator code generation templates that allow models to be designed in the Xcode data modeler.
 
 Code Generator Support for: 
 - Struct models
@@ -20,9 +20,7 @@ For more information see:  [Xcode Data Modeler / Code Generator Docs](https://gi
 
 ## Models
 Code models manually or use the Xcode Data Modeler to generate code.
-
-### Example 
-
+### Example Models
 ```swift
 public struct Employee : Model {
     public var name: String
@@ -57,7 +55,6 @@ extension Employee  {
         finishWriting(to: &store)
     }
 }
-
 ```
 
 ### Reading and Writing Models
