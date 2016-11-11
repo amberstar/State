@@ -11,9 +11,16 @@ import Foundation
 #endif
 
 public typealias PropertyList = [String : Any]
-// TODO: customDebugStringConvertible, Mirror?
-// TODO: add overloads with throws, for required props
-// TODO: add overloads with default values
+
+/*===----------------------------------------------------------------------===//
+ * TODO: customDebugStringConvertible, Mirror?
+ * TODO: add overloads with throws, for required props
+ * TODO: add overloads with default values
+//===----------------------------------------------------------------------===*/
+
+
+//===----------------------------------------------------------------------===//
+// MARK: - Storeable
 
 /// A type that can read and write it's properties to a Store.
 public protocol Storable  {
@@ -482,16 +489,17 @@ extension Dictionary {
     }
 }
 
-/// Formatting - Support for conversion types
-///
-/// Convert types to property lists. (key value data)
-/// Converting to different formats. (binary, plist, json)
-/// Basic read/write to files, strings, data
 
-//===----------------------------------------------------------------------===//
-// MARK: - FORMAT
-
-// TODO: make a protocol to support other types and uses
+/*===----------------------------------------------------------------------===//
+ * MARK: - FORMAT
+ * Formatting - Support for conversion types
+ *
+ * Convert types to property lists. (key value data)
+ * Converting to different formats. (binary, plist, json)
+ * Basic read/write to files, strings, data
+ *
+ * TODO: make a protocol to support other types and uses
+//===----------------------------------------------------------------------===*/
 
 /// A Format can convert property lists to
 /// some other form. Read and writes to files, strings, data. etc.
