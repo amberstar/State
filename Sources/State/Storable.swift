@@ -1,4 +1,3 @@
-
 //
 // Storable.swift
 // Copyright © 2016 Amber Star. All rights reserved.
@@ -10,14 +9,13 @@ import Foundation
     import UIKit
 #endif
 
-public typealias PropertyList = [String : Any]
-
 /*===----------------------------------------------------------------------===//
  * TODO: customDebugStringConvertible, Mirror?
  * TODO: add overloads with throws, for required props
  * TODO: add overloads with default values
 //===----------------------------------------------------------------------===*/
 
+public typealias PropertyList = [String : Any]
 
 //===----------------------------------------------------------------------===//
 // MARK: - Storeable
@@ -226,7 +224,6 @@ public extension Store {
 ///
 /// Used for coding storables similar to an NSCoder.
 public struct Store: Storable {
-    
     
     public static func restore(from store: Store) -> Store? {
         let i: Store = Store.init(properties: store.properties)
@@ -487,7 +484,6 @@ extension Dictionary {
         }
     }
 }
-
 
 /*===----------------------------------------------------------------------===//
  * MARK: - FORMAT
