@@ -248,7 +248,7 @@ public struct Store: Storable {
         }
     }
     
-    /// Removes and returns the property at the specified key
+    /// Removes and returns the property at the specified key.
     /// or nil if not found.
     public mutating func remove(key: String) -> Any? {
         return properties.removeValue(forKey: key)
@@ -511,7 +511,7 @@ public class Format {
         return PlistFormat()
     }
     
-    /// write data to a file
+    /// Writes data to a file.
     /// - returns: true if succeeded, false if failed
     func write(_ object: Any, to url: URL) -> Bool {
         if let data = makeData(from: object, prettyPrint: true) {
@@ -519,14 +519,14 @@ public class Format {
         } else { return false }
     }
     
-    /// write data to  NSData
+    /// Writes data to NSData.
     /// - returns: NSData or nil if failed
     func makeData(from object: Any,
                   prettyPrint: Bool) -> Data? {
         return NSKeyedArchiver.archivedData(withRootObject: object)
     }
     
-    /// write data to String
+    /// Writes data to String.
     /// - returns: a string or nil if failed
     func makeString(from object: Any) -> String? {
         if let data = makeData(from: object, prettyPrint: true) {
@@ -537,13 +537,13 @@ public class Format {
         }
     }
     
-    /// Read data from NSData
+    /// Reads data and retures Data.
     /// - returns: a data object or nil
     func read(_ data: Data) -> Any? {
         return NSKeyedUnarchiver.unarchiveObject(with: data)
     }
     
-    /// Read file from a URL
+    /// Reads file and create Data from a URL.
     /// - returns: a data object or nil
     func read(_ url: URL) -> Any? {
         if let data = try? Data(contentsOf: url) {
@@ -552,14 +552,14 @@ public class Format {
         return nil
     }
     
-    /// Read data from a string
+    /// Reads and creates Data from a string.
     /// - returns: a data object or nil
     func read(_ content: String) -> Any? {
         guard let data = makeData(from: content)
             else { return nil }
         return read(data)
     }
-    
+    /// Creates Data from a string.
     func makeData(from string: String) -> Data? {
         return string.data(using: .utf8, allowLossyConversion: true)
     }
