@@ -456,7 +456,9 @@ public struct Store: Storable {
 //===----------------------------------------------------------------------===//
 // MARK: - Utility
 
-/// Sequentially process an array of optional values returning nil if any values are nil.
+/// Converts an array of optional values to an array of values.
+///
+/// - returns: a new array of values or nil if any values in the array are nil.
 public func sequence<T>(_ array: [T?]) -> [T]? {
     return array.reduce(.some([])) { accum, elem in
         guard let accum = accum, let elem = elem
@@ -465,7 +467,9 @@ public func sequence<T>(_ array: [T?]) -> [T]? {
     }
 }
 
-/// Sequentially process a dictionary of key, optional values returning nil if any values are nil.
+/// Converts a dictionary of key, optional value pairs to key, value pairs.
+///
+/// - returns: a new dictionary of key, value pairs or nil if any values in the dictionary are nil.
 public func sequence<T>(_ dictionary: [String: T?]) -> [String: T]? {
     return dictionary.reduce(.some([:])) { accum, elem in
         guard let accum = accum, let value = elem.1
@@ -477,7 +481,7 @@ public func sequence<T>(_ dictionary: [String: T?]) -> [String: T]? {
 }
 
 extension Dictionary {
-
+   /// Maps a transform over values of a dictionary and returns a new dictionary.
     public func map<A>(_ transform: (Value) -> A) -> [Key: A] {
         return self.reduce([:]) { accum, elem in
             var result = accum
