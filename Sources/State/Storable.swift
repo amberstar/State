@@ -456,6 +456,7 @@ public struct Store: Storable {
 //===----------------------------------------------------------------------===//
 // MARK: - Utility
 
+/// Sequentially process an array of optional values returning nil if any values are nil.
 public func sequence<T>(_ array: [T?]) -> [T]? {
     return array.reduce(.some([])) { accum, elem in
         guard let accum = accum, let elem = elem
@@ -464,6 +465,7 @@ public func sequence<T>(_ array: [T?]) -> [T]? {
     }
 }
 
+/// Sequentially process a dictionary of key, optional values returning nil if any values are nil.
 public func sequence<T>(_ dictionary: [String: T?]) -> [String: T]? {
     return dictionary.reduce(.some([:])) { accum, elem in
         guard let accum = accum, let value = elem.1
