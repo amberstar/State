@@ -70,7 +70,7 @@ Models, and collections of models can be
   written to and read from files, `Strings`, or `Data`.
 
 ```swift
-// write employee to JSON
+// write employee to a JSON file
 employee.write(to: fileURL, format: .json) // .json, .plist, .binary support
 
 // make a json string
