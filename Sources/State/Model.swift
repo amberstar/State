@@ -1,6 +1,6 @@
 
 //
-// Model.swift
+// State: Model.swift
 // Copyright © 2016 Amber Star. All rights reserved.
 //
 
