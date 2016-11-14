@@ -6,37 +6,13 @@
 
 import Foundation
 
-///  A storable with version and migration
+///  A storable type with version and migration methods
 ///  useful for domain entities.
 ///
-///  Models are storable so collections of them can be
-///  written and read to json and plist files, converted
-///  formatted to `Strings`, or `Data`. 
+///  Models are storable. Instances and collections of them can be
+///  written and read to json and plist files, or 
+///  formatted to `Strings`, and `Data` types. 
 ///  They have methods to support migration and versioning.
-/// 
-///  Migration
-///  ==========
-///  To support migration:
-/// 
-///  * implement `static func writeVersion(with: Store)`
-/// 
-///    this method should be called in the `store(to:)` method
-///    before writing to a store is finished to give the model an
-///    opportunity to write version information to the store.
-/// 
-///  * implement `static func migrate(from: Store) -> Store`
-/// 
-///    this method should be called in the `restore(from:)` method
-///    before reading any values from the store to give the model
-///    an opportunity to migrate the store. Here the model should:
-/// 
-///    -  read the version information from the store
-///    -  compare the version information with the "current version"
-///    -  add, remove, and update keys, and values to the store
-///    -  return the updated store.
-/// 
-///    In the `restore(from:)` method use the migrated store to read
-///    and instantiate the model instance.
 public protocol Model: Storable {
     
     /// Finish reading from a store.
@@ -68,6 +44,28 @@ public protocol Model: Storable {
     /// In this method you can add, remove, or update properties
     /// in the store as needed to update the model prior to
     /// restoring.
+    ///  
+    /// To support migration:
+    /// 
+    /// * implement `static func writeVersion(with: Store)`
+    /// 
+    ///   this method should be called in the `store(to:)` method
+    ///   before writing to a store is finished to give the model an
+    ///   opportunity to write version information to the store.
+    /// 
+    /// * implement `static func migrate(from: Store) -> Store`
+    /// 
+    ///   this method should be called in the `restore(from:)` method
+    ///   before reading any values from the store to give the model
+    ///   an opportunity to migrate the store. Here the model should:
+    /// 
+    ///   -  read the version information from the store
+    ///   -  compare the version information with the "current version"
+    ///   -  add, remove, and update keys, and values to the store
+    ///   -  return the updated store.
+    /// 
+    ///  In the `restore(from:)` method use the migrated store to read
+    ///  and instantiate the model instance.
     static func migrate(source: Store) -> Store
 }
 
