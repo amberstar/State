@@ -4,11 +4,11 @@ State is a Swift model framework that supports struct, enum, and protocol models
 
 Key features: 
 - Struct models
-- Enums (case, raw value and associated values types including other models as associated values.)
+- Enum models (including case, raw value and associated values types including other models as associated values.)
 - Protocol models and protocol inheritance
-- one-to-one, or one-to-many relationships between models
-- version and migration
-- automatic code generation from Xcode data modeler
+- One-to-one, or one-to-many relationships between models
+- Version and migration
+- Automatic code generation from Xcode data modeler
 
 For more information see:  [Xcode Data Modeler / Code Generator Docs](https://github.com/amberstar/State/blob/master/Codegen.md) 
 
