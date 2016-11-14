@@ -20,13 +20,13 @@ import Foundation
 /// 
 ///  * implement `static func writeVersion(with: Store)`
 /// 
-///    this method should be called in the `write(to:)` method
+///    this method should be called in the `store(to:)` method
 ///    before writing to a store is finished to give the model an
 ///    opportunity to write version information to the store.
 /// 
 ///  * implement `static func migrate(from: Store) -> Store`
 /// 
-///    this method should be called in the `read(from:)` method
+///    this method should be called in the `restore(from:)` method
 ///    before reading any values from the store to give the model
 ///    an opportunity to migrate the store. Here the model should:
 /// 
@@ -35,7 +35,7 @@ import Foundation
 ///    -  add, remove, and update keys, and values to the store
 ///    -  return the updated store.
 /// 
-///    In the `read(from:)` method use the migrated store to read
+///    In the `restore(from:)` method use the migrated store to read
 ///    and instantiate the model instance.
 public protocol Model: Storable {
     
