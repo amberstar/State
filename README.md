@@ -42,16 +42,20 @@ extension Employee  {
         
         // read any optional properties.
         let title: String? = store.value(forKey: "title")
+        
+        // assign properties
         self.name = name
         self.title = title
 
-        // optionally read more metadata here.
+        // optionally read additional properties
         finishReading(from: store)
     }
 
     public func write(to store: inout Store) {
         store.set(name, forKey: "name")
         store.set(title, forKey: "title")
+        
+        // write version information
         Employee.writeVersion(to: &store)
 
         // optionally write other properties
