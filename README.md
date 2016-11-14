@@ -1,12 +1,14 @@
 # State 
 
-State is a Swift model framework that uses struct, enum, and protocol models which can be stored as plist, json, or binary files. It provides a set of highly custom mogenerator code generation templates that allow models to be designed in the Xcode data modeler.
+State is a Swift model framework that supports struct, enum, and protocol models which can be stored as plist, json, or binary files. State provides a set of custom mogenerator code templates allowing models to be designed in the Xcode data modeler, and automatic code generation.
 
-Code Generator Support for: 
+Key features: 
 - Struct models
 - Enums (case, raw value and associated values types including other models as associated values.)
 - Protocol models and protocol inheritance
 - one-to-one, or one-to-many relationships between models
+- version and migration
+- automatic code generation from Xcode data modeler
 
 For more information see:  [Xcode Data Modeler / Code Generator Docs](https://github.com/amberstar/State/blob/master/Codegen.md) 
 
