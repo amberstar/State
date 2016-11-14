@@ -33,11 +33,12 @@ extension Employee  {
         // optionally migrate the store before reading model.
         let store = Employee.migrate(source: source)
 
-        // in this guard block we look for all required properties.
+        // in this guard block we look for all required(non-optional) properties.
         guard let 
             name: String = store.value(forKey: "name") 
         else { return  nil }
-
+        
+        // read any optional properties.
         let title: String? = store.value(forKey: "title")
         self.name = name
         self.title = title
@@ -51,7 +52,7 @@ extension Employee  {
         store.set(title, forKey: "title")
         Employee.writeVersion(to: &store)
 
-        // optionally write a version or other metadata.
+        // optionally write other properties
         finishWriting(to: &store)
     }
 }
@@ -84,7 +85,7 @@ To support versioning and migration implement the following methods in your mode
   * `static func writeVersion(with: inout Store)`
 
      This method is called before writing a model is finished to give the model an
-     opportunity to write version information to the output.
+     opportunity to write version information to the store.
 
   * `static func migrate(from: Store) -> Store`
 
@@ -93,7 +94,7 @@ To support versioning and migration implement the following methods in your mode
 
     -  read the version information from the store
     -  compare the version information with the "current version"
-    -  add, remove, and update keys, and values to the store
+    -  add, remove, and update keys, and values in the store as necessary
     -  return the updated store
 
 # Adding State framework to your project.
