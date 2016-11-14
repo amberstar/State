@@ -4,7 +4,7 @@ State is a Swift model framework that supports struct, enum, and protocol models
 
 Key features: 
 - Struct models
-- Enum models (including case, raw value, and associated values types including other models as associated values.)
+- Enum models (including case, raw value, and associated value types including other models)
 - Protocol models (including protocol inheritance)
 - One-to-one, or one-to-many relationships between models
 - Version and migration
