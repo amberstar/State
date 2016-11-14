@@ -73,13 +73,13 @@ Models, and collections of models can be
 // write employee to a JSON file
 employee.write(to: fileURL, format: .json) // .json, .plist, .binary support
 
-// make a json string
+// convert to a JSON string
 var jsonString = employee.makeJson()
 
-// make data
+// convert to `Data`
 var data: Data = employee.makeData()
 
-// create employee from file
+// read employee from a JSON file
 let employee = Employee(jsonFile: fileURL) // plistFile, binaryFile api also
 ```
 
