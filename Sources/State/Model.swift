@@ -39,28 +39,36 @@ import Foundation
 ///    and instantiate the model instance.
 public protocol Model: Storable {
     
-    /// called after reading is finished
-    /// to give a model an opportunity
-    /// to prepare or to read extra values
-    /// from the store before instantiation
+    /// Finish reading from a store.
+    ///
+    /// Optionally call this method after restoring from the store
+    /// in the `restore(from:) method if the model
+    /// needs read extra key, value pairs from the store 
+    /// before instantiation.
     func finishReading(from: Store)
-    /// called before writing is finished
-    /// to give the model an opportunity
-    /// to write extra values to the store
+    /// Finish writing to a store.
+    ///
+    /// Optionally call this method after storing 
+    /// a model to a store in the `store(to:)` method 
+    /// if the model need to store addional key, value
+    /// pairs to the store.
     func finishWriting(to: inout Store)
-    /// writes the model version to the store.
+    /// Writes the model version to the store.
     /// 
-    /// This is called before writing a model to
-    /// a store is complete to give the model
-    /// an opportunity to write version information
-    /// to the store for migration purposes.
+    /// Optionally call this method after storing a model 
+    /// in the `store(to:)` method to write version 
+    /// information to the store for migration purposes.
     static func writeVersion(to: inout Store)
-    /// migrates a store to the current version if needed.
+    /// Migrates a store to the current version if needed.
     /// 
-    /// the default implementation returns the original store
-    /// models can update the store to the current version
-    /// by adding, removing, and changing keys ans values in the
-    /// store, and return the updated store.
+    /// Optionally call this method before restoring a model
+    /// in the `restore(from:)` method to migrate the model
+    /// before restoring. Use previously stored version information
+    /// to determine if migration is nessesarry.
+    ///
+    /// In this method you can add, remove, or update properties
+    /// in the store as needed to update the model prior to
+    /// restoring.
     static func migrate(source: Store) -> Store
 }
 
