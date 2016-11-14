@@ -543,7 +543,7 @@ public class Format {
         }
     }
     
-    /// Reads data and retures Data.
+    /// Reads data and returns Data.
     /// - returns: a data object or nil
     func read(_ data: Data) -> Any? {
         return NSKeyedUnarchiver.unarchiveObject(with: data)
