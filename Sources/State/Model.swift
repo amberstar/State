@@ -43,15 +43,14 @@ public protocol Model: Storable {
     ///
     /// Optionally call this method after restoring from the store
     /// in the `restore(from:) method if the model
-    /// needs read extra key, value pairs from the store 
-    /// before instantiation.
+    /// needs to read extra properties from the store 
+    /// before it is instantiated.
     func finishReading(from: Store)
     /// Finish writing to a store.
     ///
     /// Optionally call this method after storing 
-    /// a model to a store in the `store(to:)` method 
-    /// if the model need to store addional key, value
-    /// pairs to the store.
+    /// a model in the `store(to:)` method when
+    /// the model needs to store addional properties.
     func finishWriting(to: inout Store)
     /// Writes the model version to the store.
     /// 
@@ -62,9 +61,9 @@ public protocol Model: Storable {
     /// Migrates a store to the current version if needed.
     /// 
     /// Optionally call this method before restoring a model
-    /// in the `restore(from:)` method to migrate the model
-    /// before restoring. Use previously stored version information
-    /// to determine if migration is nessesarry.
+    /// in the `restore(from:)` method to migrate the model. 
+    /// Use previously stored version information to determine 
+    /// if migration is nessesarry.
     ///
     /// In this method you can add, remove, or update properties
     /// in the store as needed to update the model prior to
