@@ -1,5 +1,5 @@
 //
-// Storable.swift
+// State: Storable.swift
 // Copyright © 2016 Amber Star. All rights reserved.
 //
 
