@@ -35,12 +35,12 @@ extension Employee  {
         // optionally migrate the store before reading model.
         let store = Employee.migrate(source: source)
 
-        // in this guard block we look for all required(non-optional) properties.
+        // read required(non-optional) properties
         guard let 
             name: String = store.value(forKey: "name") 
         else { return  nil }
         
-        // read any optional properties.
+        // read optional properties
         let title: String? = store.value(forKey: "title")
         
         // assign properties
@@ -58,7 +58,7 @@ extension Employee  {
         // write version information
         Employee.writeVersion(to: &store)
 
-        // optionally write other properties
+        // optionally write additional properties
         finishWriting(to: &store)
     }
 }
