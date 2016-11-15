@@ -14,7 +14,7 @@ You can design your models in Xcode Data Modeler, and use mogenerator to generat
 
 **Requirements**
 
-- Mogenerator 1.28
+- Mogenerator 1.28 (strict version requirment)
 
 ---
 
