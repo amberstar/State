@@ -525,8 +525,7 @@ public class Format {
         } else { return false }
     }
     
-    /// Writes data to NSData.
-    /// - returns: NSData or nil if failed
+    /// Writes data to and returns a `Data` plist object.
     func makeData(from object: Any,
                   prettyPrint: Bool) -> Data? {
         return NSKeyedArchiver.archivedData(withRootObject: object)
@@ -543,8 +542,7 @@ public class Format {
         }
     }
     
-    /// Reads data and returns Data.
-    /// - returns: a data object or nil
+    /// Reads and returns a new `Data` plist object.
     func read(_ data: Data) -> Any? {
         return NSKeyedUnarchiver.unarchiveObject(with: data)
     }
@@ -558,14 +556,13 @@ public class Format {
         return nil
     }
     
-    /// Reads and creates Data from a string.
-    /// - returns: a data object or nil
+    /// Creates `Data` plist object from a string.
     func read(_ content: String) -> Any? {
         guard let data = makeData(from: content)
             else { return nil }
         return read(data)
     }
-    /// Creates Data from a string.
+    /// Creates `Data` from a string.
     func makeData(from string: String) -> Data? {
         return string.data(using: .utf8, allowLossyConversion: true)
     }
@@ -573,6 +570,7 @@ public class Format {
 
 final class JSONFormat: Format {
     
+    /// Reads and returns a new `Data` plist object.
     override func read(_ data: Data) -> Any? {
         do {
             let o: Any = try JSONSerialization.jsonObject(
@@ -584,6 +582,7 @@ final class JSONFormat: Format {
         }
     }
     
+    /// Writes data to and returns a `Data` JSON object.
     override func makeData(from object: Any, prettyPrint: Bool) -> Data? {
         guard JSONSerialization.isValidJSONObject(object)
             else { return nil }
@@ -603,6 +602,7 @@ final class JSONFormat: Format {
 
 final class PlistFormat: Format {
     
+    /// Reads and returns a new `Data` plist object.
     override func read(_ data: Data) -> Any? {
         do {
             let o: Any =
@@ -614,11 +614,13 @@ final class PlistFormat: Format {
         }
     }
     
+    /// Creates `Data` plist object from a string.
     override func read(_ content: String) -> Any? {
         let s = content as NSString
         return s.propertyList()
     }
     
+    /// Writes data to and returns a `Data` plist object.
     override func makeData(from object: Any,
                            prettyPrint: Bool) -> Data? {
         guard PropertyListSerialization.propertyList(
