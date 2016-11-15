@@ -10,7 +10,7 @@ Key features:
 - Version and migration
 - Automatic code generation from an Xcode data model
 
-For more information see:  [Xcode Data Modeler / Code Generator Docs](https://github.com/amberstar/State/blob/master/Codegen.md) 
+For more information about code generation see:  [Xcode Data Modeler / Code Generator Docs](https://github.com/amberstar/State/blob/master/Codegen.md) 
 
 ## 
 
