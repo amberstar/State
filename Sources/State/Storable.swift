@@ -10,7 +10,7 @@ import Foundation
 #endif
 
 /*===----------------------------------------------------------------------===//
- * TODO: customDebugStringConvertible, Mirror?
+ * TODO: implement customDebugStringConvertible, Mirror?
  * TODO: add overloads with throws, for required props
  * TODO: add overloads with default values
 //===----------------------------------------------------------------------===*/
