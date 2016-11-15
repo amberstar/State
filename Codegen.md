@@ -190,7 +190,7 @@ The file with the underscore prefix is the automatic file, and the other is the 
 The manual file serves the following purposes:
 
 - extend the model code via a swift extension in this file
-- hook in to the encoding and decoding process, so you can read and write additional data during decoding and encoding if needed.
+- hook in to the storing and restoring process, so you can read and write additional properties if needed.
 - manage the versioning and migration of the models if and when needed.
 
 To add the files to your project drag the model code files in to your project to add them.
