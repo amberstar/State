@@ -24,7 +24,7 @@ public typealias PropertyList = [String : Any]
 public protocol Storable  {
     /// Stores the receiver to the given store.
     func store(to: inout Store)
-    /// Restores the receiver from the given store.
+    /// Restores a Storable from the given store.
     static func restore(from: Store) -> Self?
 }
 
