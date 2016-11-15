@@ -1,6 +1,6 @@
 # State Code Generation
 
-You can design your models in Xcode Data Modeler, and use mogenerator to generate code.
+You can design models in Xcode Data Modeler, and use mogenerator to generate code.
 
 
 - [Designing Models in the Xcode Data Modeler] (#designing-models-in-the-xcode-data-modeler)
@@ -14,7 +14,7 @@ You can design your models in Xcode Data Modeler, and use mogenerator to generat
 
 **Requirements**
 
-- Mogenerator 1.28 (strict version requirment)
+- Mogenerator 1.28 (strict version requirement)
 
 ---
 
