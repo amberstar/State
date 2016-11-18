@@ -4,7 +4,6 @@
 //
 
 import Foundation
-
 #if os(iOS)
     import UIKit
 #endif
@@ -12,9 +11,8 @@ import Foundation
 /*===----------------------------------------------------------------------===//
  * TODO: implement customDebugStringConvertible, Mirror?
  * TODO: add overloads with throws, for required props
- * TODO: add overloads with default values
+ * TODO: add overloads with default values to Store
 //===----------------------------------------------------------------------===*/
-
 
 /// A type that can read and write it's properties to a Store.
 public protocol Storable  {
