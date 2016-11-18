@@ -20,7 +20,7 @@ For more information about code generation see:  [Xcode Data Modeler / Code Gene
 - iOS 8.0
 - Mogenerator 1.28
 
-## Models
+## Automatic Code Generation
 ### Example generated code:
 
 - Associated Enums: [_testAssociatedEnum.swift](https://github.com/amberstar/State/blob/master/Tests/StateTests/Models/_TestAssociatedEnum.swift)
