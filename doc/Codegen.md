@@ -1,4 +1,4 @@
-# State Code Generation
+# State Code Generation Guide / Reference
 
 You can design models in Xcode Data Modeler, and use mogenerator to generate code.
 

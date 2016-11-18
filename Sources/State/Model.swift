@@ -1,7 +1,7 @@
 
 //
 // State: Model.swift
-// Copyright © 2016 Amber Star. All rights reserved.
+// Copyright © 2016 SIMPLETOUCH LLC. All rights reserved.
 //
 
 import Foundation
@@ -39,7 +39,7 @@ public protocol Model: Storable {
     /// Optionally call this method before restoring a model
     /// in the `restore(from:)` method to migrate the model. 
     /// Use previously stored version information to determine 
-    /// if migration is nessesarry.
+    /// if migration is necessary.
     ///
     /// In this method you can add, remove, or update properties
     /// in the store as needed to update the model prior to

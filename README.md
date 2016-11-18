@@ -21,47 +21,80 @@ For more information about code generation see:  [Xcode Data Modeler / Code Gene
 - Mogenerator 1.28
 
 ## Models
-### Example Models
+### Example generated code:
+
+- Associated Enums: [_testAssociatedEnum.swift](https://github.com/amberstar/State/blob/master/Tests/StateTests/Models/_TestAssociatedEnum.swift)
+- Protocols: [_TestProtocolConformer.swift](https://github.com/amberstar/State/blob/master/Tests/StateTests/Models/_TestProtocolConformer.swift)
+- Collections: [_TestCollections.swift](https://github.com/amberstar/State/blob/master/Tests/StateTests/Models/_TestCollections.swift)
+- A model inside a dictionary of another model: [_TestDictionaryComposition.swift](https://github.com/amberstar/State/blob/master/Tests/StateTests/Models/_TestDictionaryComposition.swift)
+- [And many more (see files at the bottom with underscores):](https://github.com/amberstar/State/tree/master/Tests/StateTests/Models)
+### Sample Model:
+This model was designed in the Xcode data modeler like all the test models and code was generated automatically.
+
 ```swift
-public struct Employee : Model {
+//
+// AUTO GENERATED FILE
+// _ColorAsset.swift
+//
+
+import Foundation
+import State
+
+public struct ColorAsset : Asset  {
+    public var green: Float
+    public var key: String?
+    public var red: Float
     public var name: String
-    public var title: String?
+    public var alpha: Float
+    public var blue: Float
+
 }
 
-extension Employee  {
+extension ColorAsset  {
 
     public init?(with source: Store) {
-        // optionally migrate the store before reading model.
-        let store = Employee.migrate(source: source)
+        let store = ColorAsset.migrate(source: source)
 
-        // read required(non-optional) properties
-        guard let 
-            name: String = store.value(forKey: "name") 
-        else { return  nil }
-        
-        // read optional properties
-        let title: String? = store.value(forKey: "title")
-        
-        // assign properties
+         guard
+            let green: Float = store.value(forKey: "green"),
+            let red: Float = store.value(forKey: "red"),
+            let name: String = store.value(forKey: "name"),
+            let alpha: Float = store.value(forKey: "alpha"),
+            let blue: Float = store.value(forKey: "blue")
+         else { return  nil }
+
+        let key: String? = store.value(forKey: "key")
+
+        self.green = green
+        self.key = key
+        self.red = red
         self.name = name
-        self.title = title
-
-        // optionally read additional properties
+        self.alpha = alpha
+        self.blue = blue
         finishReading(from: store)
     }
 
-    public func write(to store: inout Store) {
-        store.set(name, forKey: "name")
-        store.set(title, forKey: "title")
-        
-        // write version information
-        Employee.writeVersion(to: &store)
+// MARK: - Storeable
 
-        // optionally write additional properties
+    public static func restore(from store: Store) -> ColorAsset? {
+        return self.init(with: store)
+    }
+
+    public func store(to store: inout Store) {
+        store.set(green, forKey: "green")
+        store.set(key, forKey: "key")
+        store.set(red, forKey: "red")
+        store.set(name, forKey: "name")
+        store.set(alpha, forKey: "alpha")
+        store.set(blue, forKey: "blue")
+
+        store.set("ColorAsset", forKey: "Asset")
+        ColorAsset.writeVersion(to: &store)
         finishWriting(to: &store)
     }
 }
 ```
+
 
 ### Reading and Writing Models
 
@@ -124,7 +157,7 @@ for up to date installation instructions.
 `git submodule add https://github.com/STLabs/State.git`
 2. Open the State folder and drag and drop the State.xcodeproj into the file navigator of your workspace.
 
-3. In Xcode, select the project icon to open the target window and select your host target that will use State.
+3. In Xcode, select the project icon to opefn the target window and select your host target that will use State.
 
 4. Select the "Build Phases" tab in the target configuration window.
 
