@@ -10,7 +10,7 @@ State is a Swift model framework that supports struct, enum, and protocol models
 - Version and migration
 - Automatic code generation from an Xcode data model
 
-For more information about code generation see:  [Xcode Data Modeler / Code Generator Docs](https://github.com/amberstar/State/blob/master/Codegen.md) 
+
 
 ## 
 
@@ -20,16 +20,16 @@ For more information about code generation see:  [Xcode Data Modeler / Code Gene
 - iOS 8.0
 - Mogenerator 1.28
 
-# Automatic Code Generation
-### Example generated code:
+## Automatic Code Generation Samples
 
 - Associated Enums: [_testAssociatedEnum.swift](https://github.com/amberstar/State/blob/master/Tests/StateTests/Models/_TestAssociatedEnum.swift)
 - Protocols: [_TestProtocolConformer.swift](https://github.com/amberstar/State/blob/master/Tests/StateTests/Models/_TestProtocolConformer.swift)
 - Collections: [_TestCollections.swift](https://github.com/amberstar/State/blob/master/Tests/StateTests/Models/_TestCollections.swift)
 - A model inside a dictionary of another model: [_TestDictionaryComposition.swift](https://github.com/amberstar/State/blob/master/Tests/StateTests/Models/_TestDictionaryComposition.swift)
 - [And many more (see files at the bottom with underscores):](https://github.com/amberstar/State/tree/master/Tests/StateTests/Models)
+- [See The Xcode Data Modeler / Code Generator Docs](https://github.com/amberstar/State/blob/master/Codegen.md)  For more information about code generation.
 
-### Sample Model:
+## Sample Model:
 This model was designed in the Xcode data modeler like all the test models and code was generated automatically.
 
 ```swift
@@ -97,7 +97,7 @@ extension ColorAsset  {
 ```
 
 
-### Reading and Writing Models
+## Reading and Writing Models
 
 Models, and collections of models can be
   written to and read from files, `Strings`, or `Data`.
@@ -116,7 +116,7 @@ var data: Data = employee.makeData()
 let employee = Employee(jsonFile: fileURL) // plistFile, binaryFile api also
 ```
 
-# Versioning and Migration
+## Versioning and Migration
 Versioning and migration is opt-in. Models do not version or migrate by default.
 
 To support versioning and migration implement the following methods in your model extension:
@@ -136,9 +136,9 @@ To support versioning and migration implement the following methods in your mode
     -  add, remove, and update keys, and values in the store as necessary
     -  return the updated store
 
-# Adding State framework to your project.
+## Adding State framework to your project.
 
-## Carthage
+### Carthage
 
 [Carthage]: https://github.com/Carthage/Carthage
 
@@ -153,7 +153,7 @@ Then run `carthage update`.
 Follow the current instructions in [Carthage's README][carthage-installation]
 for up to date installation instructions.
 
-## Submodule
+### Using Submodules
 1. Add State as a submodule by going to your project directory and enter the following:
 `git submodule add https://github.com/STLabs/State.git`
 2. Open the State folder and drag and drop the State.xcodeproj into the file navigator of your workspace.
