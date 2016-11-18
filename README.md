@@ -27,7 +27,8 @@ State is a Swift model framework that supports struct, enum, and protocol models
 - Collections: [_TestCollections.swift](https://github.com/amberstar/State/blob/master/Tests/StateTests/Models/_TestCollections.swift)
 - A model inside a dictionary of another model: [_TestDictionaryComposition.swift](https://github.com/amberstar/State/blob/master/Tests/StateTests/Models/_TestDictionaryComposition.swift)
 - [And many more (see files at the bottom with underscores):](https://github.com/amberstar/State/tree/master/Tests/StateTests/Models)
-- [See The Xcode Data Modeler / Code Generator Docs](https://github.com/amberstar/State/blob/master/Codegen.md) for more information about code generation.
+
+### See the [Xcode Data Modeler / Code Generator Docs](https://github.com/amberstar/State/blob/master/Codegen.md) 
 
 ## Sample Model:
 This model was designed in the Xcode data modeler like all the test models and code was generated automatically.
