@@ -19,12 +19,14 @@ public typealias PropertyList = [String : Any]
  * Stores are used as the encoding containter for Storeables automaticly.
  * You don't ever need to know them. However there are some interesting
  * advantages over the traditional `decoder`, `encoder` approach.
- *  - You can store arbitrary storables in different keys, like you would 
-      with UserDefaults, or a plist, then save the entire store.
+ *  - You can store arbitrary storables in different keys, like you wuld 
+ *    with UserDefaults, or a plist, then save the entire store.
  *  - Store is also Storeable, So you can Store Stores in a Store before 
  *    you Store more. :
- * Note: There are many overloads here mainly to make the API eaiser to use.
- *      
+ *
+ *  *Note*: There are many overloads here mainly to make the API eaiser to use.
+ *       For example there are overloads for storing arrays, and dictionaries
+ *        
  *===----------------------------------------------------------------------===*/
 
 /// A basic key-value property container used for coding storables.
