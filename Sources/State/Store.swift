@@ -22,11 +22,11 @@ public typealias PropertyList = [String : Any]
  *  - You can store arbitrary storables in different keys, like you wuld 
  *    with UserDefaults, or a plist, then save the entire store.
  *  - Store is also Storeable, So you can Store Stores in a Store before 
- *    you Store more. :
+ *    you Store more.
  *
- *  *Note*: There are many overloads here mainly to make the API eaiser to use.
- *       For example there are overloads for storing arrays, and dictionaries
- *        
+ *  Note: There are many overloads here mainly to make the API eaiser 
+ *        to use. For example there are overloads for storing arrays, 
+ *        and dictionaries of storables.
  *===----------------------------------------------------------------------===*/
 
 /// A basic key-value property container used for coding storables.
