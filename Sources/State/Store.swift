@@ -7,22 +7,27 @@
 import Foundation
 
 #if os(iOS)
-import UIKit
+  import UIKit
 #endif
 
 public typealias PropertyList = [String : Any]
 
 /*===----------------------------------------------------------------------===//
- * MARK: - STORE
- * Currently Store is a concrete implementation
- * because that is what meets the current needs.
- * It would be very easy to make it abstract.
- * For example UserDefaults could be a Store.
+ * STORE
+ * -----
+ * A general purpose key-value property store container. 
+ * Stores are used as the encoding containter for Storeables automaticly.
+ * You don't ever need to know them. However there are some interesting
+ * advantages over the traditional `decoder`, `encoder` approach.
+ *  - You can store arbitrary storables in a key, then save the entire store.
+ *  - Store is also Storeable, So you can Store Stores in a Store before 
+ *    you Store more. :
+ * Note: There are many overloads here mainly to make the API eaiser to use.
+ *      
  *===----------------------------------------------------------------------===*/
 
-/// A key-value container.
+/// A basic key-value property container used for coding storables.
 ///
-/// Used for coding storables similar to an NSCoder.
 public struct Store: Storable {
 
     public static func restore(from store: Store) -> Store? {
