@@ -31,7 +31,8 @@ State is a Swift model framework that supports struct, enum, and protocol models
 ### See the [Data Modeler-Code Generation Docs](https://github.com/amberstar/State/blob/master/CodegenGuide.md) for more information.
 
 ## Sample Model:
-This model was designed in the Xcode data modeler like all the test models and code was generated automatically.
+This model was designed in the Xcode data modeler and code was generated automatically.
+![<Protocol Example>](Docs/DataModel.png)
 
 ```swift
 //

@@ -120,7 +120,7 @@ you may have to manually add it to the manual file.
 ### Protocol inheritance  
 There are two ways you can specify a protocol inherits from other protocols.
 
-1. Set one protocol entity as the parent of another protocol entity in the inspector of the child entitiy.
+1. Set one protocol entity as the parent of another protocol entity in the inspector of the child entity.
 2. Use the `State.Type` key on a protocol entity to specify additional protocols. These are entered as a comma separated list. For example if you want your protocol
 to also inherit from `CustomStringConvertible` and `CustomDebugStringConvertible` you would enter `CustomStringConvertible, CustomStringConvertible` as the value for
 `State.Type` on the protocol entity.

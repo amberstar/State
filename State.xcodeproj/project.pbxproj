@@ -152,9 +152,10 @@
 		1F2482EC1D9235F7003979C9 /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
 		1F2482ED1D9235F7003979C9 /* StoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreTests.swift; sourceTree = "<group>"; };
 		1F2483381D923750003979C9 /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
-		1F84EA891DDEF95500D00BB6 /* Codegen.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Codegen.md; sourceTree = "<group>"; };
 		1FCF46291DDF080D00A178B8 /* Format.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Format.swift; path = State/Format.swift; sourceTree = "<group>"; };
 		1FCF462A1DDF080D00A178B8 /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Store.swift; path = State/Store.swift; sourceTree = "<group>"; };
+		58CEE5A0E50316348A2B53BC /* DataModel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DataModel.png; sourceTree = "<group>"; };
+		58CEEDEFA79CBE9B03E7577A /* CodegenGuide.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CodegenGuide.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,7 +179,6 @@
 		04012A6B1AE12FA6006DAC19 = {
 			isa = PBXGroup;
 			children = (
-				1F84EA881DDEF95500D00BB6 /* doc */,
 				1F24829D1D922D6E003979C9 /* Package.swift */,
 				04C1B93D1AE93D9800A85730 /* README.md */,
 				1F2483371D923750003979C9 /* Configs */,
@@ -186,6 +186,7 @@
 				1F24829F1D9235F7003979C9 /* Tests */,
 				04012AAF1AE130B7006DAC19 /* Templates */,
 				04012A761AE12FA6006DAC19 /* Products */,
+				58CEEA7C82FAE0919E953E07 /* Docs */,
 			);
 			sourceTree = "<group>";
 		};
@@ -318,12 +319,13 @@
 			path = State.xcodeproj/Configs;
 			sourceTree = "<group>";
 		};
-		1F84EA881DDEF95500D00BB6 /* doc */ = {
+		58CEEA7C82FAE0919E953E07 /* Docs */ = {
 			isa = PBXGroup;
 			children = (
-				1F84EA891DDEF95500D00BB6 /* Codegen.md */,
+				58CEE5A0E50316348A2B53BC /* DataModel.png */,
+				58CEEDEFA79CBE9B03E7577A /* CodegenGuide.md */,
 			);
-			path = doc;
+			path = Docs;
 			sourceTree = "<group>";
 		};
 		96960A431C90F00B00D4E6D0 /* Sources */ = {
