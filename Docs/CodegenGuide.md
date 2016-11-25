@@ -143,7 +143,7 @@ The following shows a valid model design for an AssetLibrary. AssetGroup has ass
 
 You can add any of the conforming types to the assets of `AssetGroup`. When AssetGroup is serialized and de-serialized, each type contained in the assets composition will be restored.
 
-![<Protocol Example>](Resources/protocol_1.png)
+![<Protocol Example>](DataModel.png)
 
 Notes
 * Protocol requirements can include other model items
