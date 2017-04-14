@@ -16,7 +16,7 @@ public typealias PropertyList = [String : Any]
  * STORE
  * -----
  * A general purpose key-value property store container. 
- * Stores are used as the encoding containter for Storeables automaticly.
+ * Stores are used as the encoding container for Storeables automatic.
  * You don't ever need to know them. However there are some interesting
  * advantages over the traditional `decoder`, `encoder` approach.
  *  - You can store arbitrary storables in different keys, like you wuld 
