@@ -773,7 +773,7 @@ class TemplateTests: Test {
     }
     
     func testTransformable() {
-        let test_out = TestTransformable( myTransformable: URL(string: "http://facebook.com")!, myTransformableImmutable: URL(string: "http://yahoo.com")!, myTransformableImmutableOptional: nil, myTransformableOptional:URL(string: "http://twitter.com")!)
+        let test_out = TestTransformable( myTransformableImmutableOptional: nil, myTransformableImmutable: URL(string: "http://yahoo.com")!, myTransformableOptional:URL(string: "http://twitter.com")!, myTransformable: URL(string: "http://facebook.com")! )
         _ = test_out.write(to: tempURLFor("test_transformable.plist"), format: .binary)
         let sut =  TestTransformable(binaryFile: tempURLFor("test_transformable.plist"))
         XCTAssert(sut != nil)
@@ -797,7 +797,7 @@ class ProtocolTests : Test {
         let testChild = TestChild(age: 10, name: "Test Child", myChildren: [testGrandChild, testGrandChild], gender: .male)
         let testConformer1 = TestProtocolConformer(age: 19, ss_number: "12345", isReady: true, employee: testEmployee, children: [testChild, testChild])
         let testConformer2 = TestProtocolConformer2(name: "Test Conformer", ss_number: "1111111")
-        let testProtocolContainer = TestProtocolContainter(testProtocol: testConformer1, testProtocols: [testConformer1, testConformer2], testProtocolsDict: ["Conformer 1" : testConformer1, "Conformer 2" : testConformer2])
+        let testProtocolContainer = TestProtocolContainter(testProtocol: testConformer1, testProtocolsDict: ["Conformer 1" : testConformer1, "Conformer 2" : testConformer2], testProtocols: [testConformer1, testConformer2])
         
         _ = testProtocolContainer.write(to: tempURLFor("testProtocol.plist"), format: .plist)
         print(tempPathFor("testProtocol.plist"))

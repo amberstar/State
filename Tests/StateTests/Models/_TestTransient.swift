@@ -8,8 +8,8 @@ import Foundation
 import State
 
 public struct TestTransient : Model  {
-    public var myNonTransient: String
     public var myTransientOptional: Double?
+    public var myNonTransient: String
     public var myTransientRelationship = Gender.female
 
 }

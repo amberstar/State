@@ -9,8 +9,8 @@ import State
 
 public struct TestProtocolContainter : Model  {
     public var testProtocol: TestProtocol
-    public var testProtocols: [TestParentProtocol]
     public var testProtocolsDict: [String : TestParentProtocol]
+    public var testProtocols: [TestParentProtocol]
 
 }
 
@@ -21,13 +21,13 @@ extension TestProtocolContainter  {
 
          guard
             let testProtocol: TestProtocol = store.value(forKey: "testProtocol"),
-            let testProtocols: [TestParentProtocol] = store.value(forKey: "testProtocols"),
-            let testProtocolsDict: [String : TestParentProtocol] = store.value(forKey: "testProtocolsDict")
+            let testProtocolsDict: [String : TestParentProtocol] = store.value(forKey: "testProtocolsDict"),
+            let testProtocols: [TestParentProtocol] = store.value(forKey: "testProtocols")
          else { return  nil }
 
         self.testProtocol = testProtocol
-        self.testProtocols = testProtocols
         self.testProtocolsDict = testProtocolsDict
+        self.testProtocols = testProtocols
         finishReading(from: store)
     }
 
@@ -39,8 +39,8 @@ extension TestProtocolContainter  {
 
     public func store(to store: inout Store) {
         store.set(testProtocol, forKey: "testProtocol")
-        store.set(testProtocols, forKey: "testProtocols")
         store.set(testProtocolsDict, forKey: "testProtocolsDict")
+        store.set(testProtocols, forKey: "testProtocols")
 
         TestProtocolContainter.writeVersion(to: &store)
         finishWriting(to: &store)

@@ -18,7 +18,7 @@ class FormatTests: Test {
     }
 
     func testPlistWasReadCorrectly() {
-        XCTAssert(testPlist?.count == 9, "Plist Count should be 9 , is \(testPlist?.count)")
+        XCTAssert(testPlist?.count == 9, "Plist Count should be 9 , is \(String(describing:testPlist?.count))")
         if let floatData = testPlist?["Float"] as? [String : AnyObject],
             let v = floatData["t"] as? Float {
             XCTAssert(v == -0.345)
@@ -120,7 +120,7 @@ class FormatTests: Test {
         let json = JSONFormat()
         let baseString : String? = bundleURLFor("Data", ofType: "json") >>- json.read  >>- { json.makeString(from: $0 as![String : Any]) }
         let testString: String? = json.makeString(from: testJSON!)
-        XCTAssert(testString! == baseString!, "testString:\(testString), baseString:\(baseString)")
+        XCTAssert(testString! == baseString!, "testString:\(String(describing: testString)), baseString:\(String(describing: baseString))")
     }
     
     func testReadingAndWritingPlistData() {

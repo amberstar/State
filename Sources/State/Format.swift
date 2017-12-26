@@ -145,7 +145,7 @@ final class PlistFormat: Format {
         }
         do {
             let data: Data? = try PropertyListSerialization.data(
-                    fromPropertyList: object, format: PropertyListSerialization.PropertyListFormat.xml, options: .allZeros)
+                    fromPropertyList: object, format: PropertyListSerialization.PropertyListFormat.xml, options: 0)
             return data
         } catch let error as NSError {
             Swift.print(error)

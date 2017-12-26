@@ -11,8 +11,8 @@ public struct TestDefaults : Model  {
     public var defaultManualString = "defaultManualString"
     public var defaultArray = ["zero", "one", "two"]
     public var defaultString = "defaultString"
-    public var noDefaultInt: Int?
     public var defaultInt = 10
+    public var noDefaultInt: Int?
     public var noDefaultString: String?
     public var defaultEmptyArray = [String]()
     public var defaultChildren = [TestDefaultsChild]()
@@ -38,7 +38,6 @@ extension TestDefaults  {
          else { return  nil }
 
         let noDefaultInt: Int? = store.value(forKey: "noDefaultInt")
-
         let noDefaultString: String? = store.value(forKey: "noDefaultString")
 
         let noDefaultChild: TestDefaultsChild? = store.value(forKey: "noDefaultChild")
@@ -47,8 +46,8 @@ extension TestDefaults  {
         self.defaultManualString = defaultManualString
         self.defaultArray = defaultArray
         self.defaultString = defaultString
-        self.noDefaultInt = noDefaultInt
         self.defaultInt = defaultInt
+        self.noDefaultInt = noDefaultInt
         self.noDefaultString = noDefaultString
         self.defaultEmptyArray = defaultEmptyArray
         self.defaultChildren = defaultChildren
@@ -68,8 +67,8 @@ extension TestDefaults  {
         store.set(defaultManualString, forKey: "defaultManualString")
         store.set(defaultArray, forKey: "defaultArray")
         store.set(defaultString, forKey: "defaultString")
-        store.set(noDefaultInt, forKey: "noDefaultInt")
         store.set(defaultInt, forKey: "defaultInt")
+        store.set(noDefaultInt, forKey: "noDefaultInt")
         store.set(noDefaultString, forKey: "noDefaultString")
         store.set(defaultEmptyArray, forKey: "defaultEmptyArray")
         store.set(defaultChildren, forKey: "defaultChildren")

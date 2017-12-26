@@ -155,13 +155,13 @@ public struct Store: Storable {
 
         guard
                 let d = properties(forKey: key),
-                let red: Float = d["red"] as? Float,
-                let green: Float = d["green"] as? Float,
-                let blue: Float = d["blue"] as? Float,
-                let alpha: Float = d["alpha"] as? Float
+                let red: CGFloat = d["red"] as? CGFloat,
+                let green: CGFloat = d["green"] as? CGFloat,
+                let blue: CGFloat = d["blue"] as? CGFloat,
+                let alpha: CGFloat = d["alpha"] as? CGFloat
                 else {
             return nil }
-        return UIColor(colorLiteralRed: red, green: green, blue: blue, alpha: alpha)
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
     }
 #endif
 
